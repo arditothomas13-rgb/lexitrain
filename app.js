@@ -21,10 +21,10 @@ const toFlag = document.getElementById("toFlag");
 ------------------------------------- */
 function detectLanguage(text) {
   const frenchChars = /[éèêàùûîïçœ]/i;
-  const english = /^[a-z]+$/i;
+  const englishChars = /^[a-z]+$/i;
 
   if (frenchChars.test(text)) return "fr";
-  if (english.test(text)) return "en";
+  if (englishChars.test(text)) return "en";
   return "unknown";
 }
 
@@ -47,7 +47,7 @@ function swapLanguages() {
 }
 
 /* -------------------------------------
-   APPEL API (Vercel) — HTML structuré
+   APPEL API (Vercel)
 ------------------------------------- */
 async function fetchDefinition(word, fromLang, toLang) {
   const res = await fetch("/api/translate", {
@@ -63,33 +63,35 @@ async function fetchDefinition(word, fromLang, toLang) {
 }
 
 /* -------------------------------------
-   ONGLET UI
+   CREATION ONGLET UI & AFFICHAGE
 ------------------------------------- */
-function buildTabs(translationsHTML) {
+function buildTabs(contentHTML) {
   return `
     <div class="tabs-container">
+
       <div class="tabs">
-        <button class="tab active" data-tab="t1">Traduction</button>
-        <button class="tab" data-tab="t2">Définition</button>
-        <button class="tab" data-tab="t3">Synonymes</button>
-        <button class="tab" data-tab="t4">Exemples</button>
+        <button class="tab active" data-tab="panel-1">Traduction</button>
+        <button class="tab" data-tab="panel-2">Définition</button>
+        <button class="tab" data-tab="panel-3">Synonymes</button>
+        <button class="tab" data-tab="panel-4">Exemples</button>
       </div>
 
-      <div class="tab-content active" id="t1">
-        ${translationsHTML}
+      <div id="panel-1" class="tab-content active">
+        ${contentHTML}
       </div>
 
-      <div class="tab-content" id="t2">
-        <i>Aucune définition fournie pour le moment.</i>
+      <div id="panel-2" class="tab-content">
+        <i>Aucune définition disponible.</i>
       </div>
 
-      <div class="tab-content" id="t3">
-        <i>Synonymes chargés via l’onglet principal.</i>
+      <div id="panel-3" class="tab-content">
+        <i>Synonymes chargés dans la section principale.</i>
       </div>
 
-      <div class="tab-content" id="t4">
+      <div id="panel-4" class="tab-content">
         <i>Exemples disponibles dans la section principale.</i>
       </div>
+
     </div>
   `;
 }
@@ -98,7 +100,7 @@ function activateTabs() {
   const tabs = document.querySelectorAll(".tab");
   const contents = document.querySelectorAll(".tab-content");
 
-  tabs.forEach(tab => {
+  tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       const id = tab.dataset.tab;
 
@@ -118,27 +120,21 @@ translateBtn.addEventListener("click", async () => {
   let text = input.value.trim();
   if (!text) return;
 
-  // Détection auto + swap si besoin
   const detected = detectLanguage(text);
 
   if (detected === "fr" && fromLang === "en") swapLanguages();
   if (detected === "en" && fromLang === "fr") swapLanguages();
 
-  // Loading
   resultBox.innerHTML = "⏳ Traduction en cours...";
   resultBox.style.opacity = 1;
 
-  // Appel backend sécurisé
   const htmlResult = await fetchDefinition(text, fromLang, toLang);
 
   if (!htmlResult) {
-    resultBox.innerHTML = `
-      <div style="color:#c62828;">⚠️ Erreur lors de la traduction.</div>
-    `;
+    resultBox.innerHTML = `<div style="color:#c62828;">⚠️ Erreur lors de la traduction.</div>`;
     return;
   }
 
-  // Insertion avec onglets
   resultBox.innerHTML = `
     <div class="bubble-title">${text}</div>
     ${buildTabs(htmlResult)}
