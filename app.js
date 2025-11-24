@@ -1,92 +1,86 @@
-// ----------------------------
+// ============================================
 // VARIABLES
-// ----------------------------
+// ============================================
 const input = document.getElementById("wordInput");
 const translateBtn = document.getElementById("translateButton");
 const resultBox = document.getElementById("resultBox");
 
+// Langues
 const langSwap = document.getElementById("langSwap");
 const fromLabel = document.getElementById("fromLabel");
 const toLabel = document.getElementById("toLabel");
 const fromFlag = document.getElementById("fromFlag");
 const toFlag = document.getElementById("toFlag");
 
-let currentTab = "translation";
-
-// ----------------------------
+// ============================================
 // SWAP DES LANGUES
-// ----------------------------
+// ============================================
 langSwap.addEventListener("click", () => {
-    const tmpLabel = fromLabel.textContent;
-    const tmpFlag = fromFlag.textContent;
+    const oldLabel = fromLabel.textContent;
+    const oldFlag = fromFlag.textContent;
 
     fromLabel.textContent = toLabel.textContent;
     fromFlag.textContent = toFlag.textContent;
-    toLabel.textContent = tmpLabel;
-    toFlag.textContent = tmpFlag;
+
+    toLabel.textContent = oldLabel;
+    toFlag.textContent = oldFlag;
 });
 
-// ----------------------------
-// ACTION DU BOUTON TRADUIRE
-// ----------------------------
-translateBtn.addEventListener("click", async () => {
+// ============================================
+// CLIQUE SUR "TRADUIRE"
+// ============================================
+translateBtn.addEventListener("click", doTranslate);
+
+async function doTranslate() {
     const word = input.value.trim();
     if (!word) return;
 
-    showLoadingState();
+    showLoading();
+
+    const from = fromLabel.textContent === "Anglais" ? "en" : "fr";
+    const to = toLabel.textContent === "Français" ? "fr" : "en";
 
     try {
-        const response = await fetch("/api/translate", {
+        const res = await fetch("/api/translate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                word,
-                from: fromLabel.textContent === "Anglais" ? "en" : "fr",
-                to: toLabel.textContent === "Français" ? "fr" : "en"
-            })
+            body: JSON.stringify({ word, from, to })
         });
 
-        const data = await response.json();
+        const data = await res.json();
 
-        if (!response.ok) throw new Error("Erreur API");
+        if (!res.ok) throw new Error("API error");
 
         renderResult(word, data);
 
-    } catch (error) {
+    } catch (err) {
         resultBox.innerHTML = `
             <h2>${word}</h2>
-            <div class="tabs">
-                <button class="active">Traduction</button>
-            </div>
-            <div class="tab-content">
-                <p style="color:#cc0000;">⚠️ Erreur serveur.</p>
-            </div>
+            <p style="color:#cc0000;">⚠️ Erreur serveur.</p>
         `;
-        resultBox.style.opacity = 1;
     }
-});
+}
 
-// ----------------------------
-// AFFICHAGE "TRADUCTION EN COURS"
-// ----------------------------
-function showLoadingState() {
+// ============================================
+// LOADING
+// ============================================
+function showLoading() {
     resultBox.style.opacity = 1;
     resultBox.innerHTML = `
         <h2>Analyse...</h2>
-        <p class="loading">⏳ Traduction en cours...</p>
+        <p>⏳ Traduction en cours...</p>
     `;
 }
 
-// ----------------------------
-// AFFICHAGE RÉSULTAT + ONGLET
-// ----------------------------
+// ============================================
+// AFFICHAGE DU RÉSULTAT + ONGLET
+// ============================================
 function renderResult(word, data) {
-
     resultBox.innerHTML = `
         <h2>${word}</h2>
 
         <div class="tabs">
-            <button data-tab="translation" class="active">Traduction</button>
+            <button class="active" data-tab="translation">Traduction</button>
             <button data-tab="definition">Définition</button>
             <button data-tab="synonyms">Synonymes</button>
             <button data-tab="examples">Exemples</button>
@@ -97,51 +91,46 @@ function renderResult(word, data) {
 
     const tabContent = document.getElementById("tabContent");
 
-    // Contenu
     const sections = {
-        translation: buildList("Traductions :", data.translations),
-        definition: buildList("Définitions :", data.definitions),
-        synonyms: buildList("Synonymes :", data.synonyms),
-        examples: buildExamples(data.examples)
+        translation: formatList("Traductions", data.translations),
+        definition: formatList("Définitions", data.definitions),
+        synonyms: formatList("Synonymes", data.synonyms),
+        examples: formatExamples(data.examples)
     };
 
-    // Affiche l’onglet par défaut
-    tabContent.innerHTML = sections["translation"];
+    // Onglet par défaut
+    tabContent.innerHTML = sections.translation;
 
-    // Gestion du clic onglets
+    // Écouteurs onglets
     document.querySelectorAll(".tabs button").forEach(btn => {
         btn.addEventListener("click", () => {
             document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
+
             tabContent.innerHTML = sections[btn.dataset.tab];
         });
     });
 }
 
-// ----------------------------
-// CONSTRUCTION LISTE BASIQUE
-// ----------------------------
-function buildList(title, arr) {
-    if (!arr || arr.length === 0) return `<p>Aucune donnée disponible.</p>`;
+// ============================================
+// BUILDERS DE CONTENU
+// ============================================
+function formatList(title, arr) {
+    if (!arr || arr.length === 0) {
+        return `<p>Aucune donnée disponible.</p>`;
+    }
 
     return `
         <h3>${title}</h3>
-        <ul>
-            ${arr.map(x => `<li>${x}</li>`).join("")}
-        </ul>
+        <ul>${arr.map(x => `<li>${x}</li>`).join("")}</ul>
     `;
 }
 
-// ----------------------------
-// CONSTRUCTION DES EXEMPLES
-// ----------------------------
-function buildExamples(arr) {
+function formatExamples(arr) {
     if (!arr || arr.length === 0) return `<p>Aucun exemple disponible.</p>`;
 
     return `
-        <h3>Exemples :</h3>
-        <ul>
-            ${arr.map(ex => `<li>${ex}</li>`).join("")}
-        </ul>
+        <h3>Exemples</h3>
+        <ul>${arr.map(ex => `<li>${ex}</li>`).join("")}</ul>
     `;
 }
