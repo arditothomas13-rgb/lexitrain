@@ -11,36 +11,25 @@ export default async function handler(req, res) {
     }
 
     const systemPrompt = `
-Tu es un moteur de dictionnaire très structuré.
-Tu dois produire STRICTEMENT du JSON.
-Jamais de texte autour. Jamais de Markdown.
-Format JSON OBLIGATOIRE :
+Tu es un moteur de dictionnaire. Retourne du JSON strict :
 
 {
-  "translations": "<html propre>",
-  "definitions": "<html propre>",
-  "synonyms": "<html propre>",
-  "examples": "<html propre>"
+  "translations": "<html>",
+  "definitions": "<html>",
+  "synonyms": "<html>",
+  "examples": "<html>"
 }
 
-Règles :
-- Pas de \`\`\`.
-- Pas de texte avant ou après le JSON.
-- Utilise du HTML simple : <ul><li><b><br>.
-- Toujours retourner toutes les clés, même vides.
+PAS de texte autour.
 `;
 
     const userPrompt = `
 Mot : "${word}"
-Langue source : ${fromLang}
-Langue cible : ${toLang}
+Source : ${fromLang}
+Cible : ${toLang}
 
-Retourne :
-- traductions
-- définitions
-- synonymes
-- exemples (bilingues)
-EN JSON STRICT.
+Retourne traductions, définitions, synonymes, exemples.
+Format JSON STRICT, une seule réponse, pas de markdown.
 `;
 
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -61,32 +50,23 @@ EN JSON STRICT.
 
     const data = await openaiRes.json();
 
-    // Vérification robuste
     if (!data.choices || !data.choices[0]) {
-      console.error("Réponse OpenAI invalide :", data);
-      return res.status(500).json({ ok: false, error: "Erreur API OpenAI." });
+      return res.status(500).json({ ok: false, error: "Réponse OpenAI invalide." });
     }
 
-    // Extraction du contenu
-    let raw = data.choices[0].message.content.trim();
+    const raw = data.choices[0].message.content.trim();
 
-    // Sécurisation du JSON (cas : texte parasite → extraction via regex)
     const match = raw.match(/\{[\s\S]*\}/);
     if (!match) {
-      console.error("JSON introuvable :", raw);
-      return res.status(500).json({ ok: false, error: "Format JSON invalide." });
+      return res.status(500).json({ ok: false, error: "JSON invalide." });
     }
 
     const json = JSON.parse(match[0]);
 
-    return res.status(200).json({
-      ok: true,
-      word,
-      ...json
-    });
+    return res.status(200).json({ ok: true, word, ...json });
 
   } catch (err) {
     console.error("Erreur serveur :", err);
-    return res.status(500).json({ ok: false, error: "Erreur serveur." });
+    return res.status(500).json({ ok: false, error: "Erreur fatale." });
   }
 }
