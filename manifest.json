@@ -1,9 +1,0 @@
-{
-  "name": "LexiTrain",
-  "short_name": "LexiTrain",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#eef4f1",
-  "theme_color": "#14d688",
-  "icons": []
-}
