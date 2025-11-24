@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
 <title>LexiTrain</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,80 +10,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-    /* 🛑 FIX FLOTTEMENT (NE CHANGE PAS LE STYLE) */
+    :root {
+        /* Empêche le body de passer sous le Dynamic Island */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
     html, body {
-        width: 100%;
-        height: 100%;
         margin: 0;
         padding: 0;
-        overflow-x: hidden;               /* plus de scroll horizontal */
-        background: white;
-        overscroll-behavior: none;        /* bloque le rebond iOS */
-    }
-
-    body {
+        overflow: hidden;        /* FIX SCROLL */
+        width: 100%;
+        height: 100%;
         font-family: "Inter", sans-serif;
-        -webkit-font-smoothing: antialiased;
-        overflow-y: auto;
-        position: relative;
+        background: white;
+        position: fixed;         /* FIX FLOATING */
+        top: 0; left: 0;
     }
 
-    /* CONTAINER GLOBAL STABLE */
-    .container {
-        position: relative;
-        z-index: 10;
-        padding: 40px 20px 120px;
-        text-align: center;
-        max-width: 480px;                 /* 🔒 limite la largeur */
-        margin: 0 auto;                   /* centre parfaitement */
-    }
-
-    /* HALOS EXACTEMENT COMME AVANT */
+    /* HALOS */
     .halo {
-        position: fixed;                  /* 🔒 ne bouge plus */
+        position: absolute;
         width: 420px;
         height: 420px;
         filter: blur(90px);
         opacity: 0.55;
         z-index: 0;
-        pointer-events: none;
     }
-    .halo.blue { background: #9fd7ff; top: -80px; left: -100px; }
-    .halo.green { background: #b5ffcf; top: 220px; right: -120px; }
-    .halo.purple { background: #d8c8ff; bottom: -60px; left: 20px; }
+    .halo.blue { background: #9fd7ff; top: 0px; left: -80px; }
+    .halo.green { background: #b5ffcf; top: 260px; right: -120px; }
+    .halo.purple { background: #d8c8ff; bottom: -40px; left: 20px; }
+
+    .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 60px 20px 120px;
+        text-align: center;
+        z-index: 5;
+    }
 
     h1 {
         font-size: 42px;
         font-weight: 700;
         color: #124232;
-        margin-bottom: 12px;
-        margin-top: 20px;
+        margin: 10px 0 14px;
     }
 
     .subtitle {
         font-size: 20px;
         color: #444;
         margin-bottom: 35px;
+        line-height: 1.4;
     }
 
-    .subtitle span { 
+    .subtitle span {
         background: linear-gradient(90deg, #4ba4ff, #b27cff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    /* Champ de texte */
+    /* Input centré */
     .input-box {
-        width: 100%;
-        max-width: 390px;
+        width: calc(100% - 40px);
+        max-width: 380px;
         margin: auto;
         background: rgba(255,255,255,0.55);
         backdrop-filter: blur(16px);
         border-radius: 22px;
         padding: 18px 20px;
-        font-size: 17px;
-        border: 1px solid rgba(255,255,255,0.6);
         box-shadow: 0 6px 26px rgba(0,0,0,0.08);
+        border: 1px solid rgba(255,255,255,0.6);
     }
 
     input {
@@ -123,6 +121,7 @@
         font-size: 20px;
         box-shadow: 0 6px 20px rgba(0,0,0,0.06);
         max-width: 380px;
+        width: calc(100% - 40px);
     }
 
     .flag { font-size: 24px; }
@@ -130,11 +129,10 @@
     /* Menu bas */
     .bottom-nav {
         position: fixed;
-        bottom: 20px;
+        bottom: env(safe-area-inset-bottom, 20px);
         left: 50%;
         transform: translateX(-50%);
         width: calc(100% - 40px);
-        max-width: 480px;
         background: rgba(255,255,255,0.7);
         backdrop-filter: blur(18px);
         border-radius: 30px;
@@ -142,6 +140,7 @@
         display: flex;
         justify-content: space-around;
         box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+        z-index: 20;
     }
 
     .bottom-nav div {
@@ -156,18 +155,17 @@
     .bottom-nav span {
         font-size: 26px;
     }
-
 </style>
 </head>
+
 <body>
 
-<!-- HALOS FIXÉS -->
+<!-- HALOS -->
 <div class="halo blue"></div>
 <div class="halo green"></div>
 <div class="halo purple"></div>
 
 <div class="container">
-
     <h1>LexiTrain</h1>
 
     <p class="subtitle">
@@ -179,19 +177,18 @@
         <input type="text" placeholder="Ex : stretched, although...">
     </div>
 
-    <!-- BOUTON TRADUIRE -->
+    <!-- Bouton -->
     <button class="translate-btn">Traduire</button>
 
-    <!-- Langues -->
+    <!-- Capsule langues -->
     <div class="lang-box">
         <span class="flag">🇬🇧</span> Anglais
         <span style="font-size:22px;">⇄</span>
         <span class="flag">🇫🇷</span> Français
     </div>
-
 </div>
 
-<!-- MENU BAS -->
+<!-- Menu bas -->
 <div class="bottom-nav">
     <div><span>💬</span>Traduire</div>
     <div><span>📚</span>Dico</div>
