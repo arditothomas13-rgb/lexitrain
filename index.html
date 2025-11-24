@@ -1,66 +1,73 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LexiTrain</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LexiTrain</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="styles.css">
-
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+<div id="app">
 
-<!-- HALOS BACKGROUND -->
-<div class="halo blue"></div>
-<div class="halo green"></div>
-<div class="halo purple"></div>
-
-<div class="container">
-
-    <h1>LexiTrain</h1>
-
-    <p class="subtitle">
-        Tape un <span>mot</span> ou une <span>expression</span> à traduire
-    </p>
+    <!-- HEADER -->
+    <div class="header">
+        <h1>LexiTrain</h1>
+        <p class="subtitle">
+            Tape un <span class="gradient">mot</span> ou une <span class="gradient">expression</span>
+        </p>
+    </div>
 
     <!-- INPUT -->
-    <div class="input-box">
+    <div class="input-wrapper">
         <input id="inputText" type="text" placeholder="Ex : stretched, although...">
     </div>
 
-    <!-- BOUTON -->
-    <button id="translateBtn" class="translate-btn">Traduire</button>
+    <!-- BTN TRADUIRE -->
+    <button id="translateBtn" class="btn-primary">Traduire</button>
 
     <!-- LANG SWITCH -->
-    <div class="lang-box" onclick="switchLanguages()">
-        <span id="flagA" class="flag">🇫🇷</span>
-        <span id="langA">Français</span>
+    <div class="lang-switch" id="langSwitcher">
+        <div class="lang">
+            <img id="flagA" src="https://flagcdn.com/w20/fr.png" class="flag">
+            <span id="langA">Français</span>
+        </div>
 
-        <span style="font-size:22px;">⇄</span>
+        <div class="swap">⇄</div>
 
-        <span id="flagB" class="flag">🇬🇧</span>
-        <span id="langB">Anglais</span>
+        <div class="lang">
+            <img id="flagB" src="https://flagcdn.com/w20/gb.png" class="flag">
+            <span id="langB">Anglais</span>
+        </div>
     </div>
 
     <!-- RESULT BOX -->
-    <div id="resultBox" class="result-box" style="display:none;">
+    <div id="resultBox" style="display:none; padding:25px; width:90%; margin:25px auto; 
+         background:white; border-radius:20px; box-shadow:0 4px 18px rgba(0,0,0,0.12);">
+
         <div id="meanings"></div>
+        <br>
         <div id="synonyms"></div>
+        <br>
         <div id="examples"></div>
     </div>
 
+    <div class="spacer"></div>
 </div>
 
-<!-- NAVIGATION -->
-<div class="bottom-nav">
-    <div><span>💬</span>Traduire</div>
-    <div><span>📚</span>Dico</div>
-    <div><span>😊</span>Quiz</div>
-    <div><span>⭐</span>Options</div>
+<!-- TAB BAR -->
+<div class="tabbar">
+    <div class="tab"><span class="emoji">💬</span><p>Traduire</p></div>
+    <div class="tab"><span class="emoji">📚</span><p>Dico</p></div>
+    <div class="tab"><span class="emoji">😊</span><p>Quiz</p></div>
+    <div class="tab"><span class="emoji">⭐</span><p>Options</p></div>
 </div>
 
 <!-- JS -->
