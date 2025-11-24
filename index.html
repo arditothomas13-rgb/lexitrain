@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>LexiTrain</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,22 +10,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-    :root {
-        /* Empêche le body de passer sous le Dynamic Island */
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-    }
-
-    html, body {
+    body {
         margin: 0;
         padding: 0;
-        overflow: hidden;        /* FIX SCROLL */
-        width: 100%;
-        height: 100%;
         font-family: "Inter", sans-serif;
         background: white;
-        position: fixed;         /* FIX FLOATING */
-        top: 0; left: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: none;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
     }
 
     /* HALOS */
@@ -37,25 +34,23 @@
         opacity: 0.55;
         z-index: 0;
     }
-    .halo.blue { background: #9fd7ff; top: 0px; left: -80px; }
-    .halo.green { background: #b5ffcf; top: 260px; right: -120px; }
-    .halo.purple { background: #d8c8ff; bottom: -40px; left: 20px; }
+    .halo.blue { background: #9fd7ff; top: -80px; left: -100px; }
+    .halo.green { background: #b5ffcf; top: 220px; right: -120px; }
+    .halo.purple { background: #d8c8ff; bottom: -60px; left: 20px; }
 
     .container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        padding: 60px 20px 120px;
+        position: relative;
+        z-index: 10;
+        padding: 40px 20px 140px;
         text-align: center;
-        z-index: 5;
     }
 
     h1 {
         font-size: 42px;
         font-weight: 700;
         color: #124232;
-        margin: 10px 0 14px;
+        margin-bottom: 12px;
+        margin-top: 20px;
     }
 
     .subtitle {
@@ -65,23 +60,24 @@
         line-height: 1.4;
     }
 
-    .subtitle span {
+    .subtitle span { 
         background: linear-gradient(90deg, #4ba4ff, #b27cff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    /* Input centré */
+    /* Input */
     .input-box {
-        width: calc(100% - 40px);
-        max-width: 380px;
+        width: 100%;
+        max-width: 390px;
         margin: auto;
         background: rgba(255,255,255,0.55);
         backdrop-filter: blur(16px);
         border-radius: 22px;
         padding: 18px 20px;
-        box-shadow: 0 6px 26px rgba(0,0,0,0.08);
+        font-size: 17px;
         border: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 6px 26px rgba(0,0,0,0.08);
     }
 
     input {
@@ -93,7 +89,7 @@
         color: #444;
     }
 
-    /* Bouton Traduire */
+    /* Traduire button */
     .translate-btn {
         margin-top: 18px;
         background: linear-gradient(135deg, #12d37a, #08a85e);
@@ -107,7 +103,7 @@
         cursor: pointer;
     }
 
-    /* Capsule langues */
+    /* Lang capsule */
     .lang-box {
         margin: 32px auto 20px;
         background: rgba(255,255,255,0.55);
@@ -121,15 +117,41 @@
         font-size: 20px;
         box-shadow: 0 6px 20px rgba(0,0,0,0.06);
         max-width: 380px;
-        width: calc(100% - 40px);
+        cursor: pointer;
     }
-
     .flag { font-size: 24px; }
 
-    /* Menu bas */
+    /* Results */
+    .result-box {
+        margin: 20px auto;
+        padding: 22px;
+        max-width: 380px;
+        background: rgba(255,255,255,0.55);
+        border-radius: 20px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        text-align: left;
+        display: none;
+    }
+
+    .result-box h3 {
+        margin: 12px 0 6px;
+        color: #124232;
+    }
+
+    .result-box p {
+        margin: 4px 0;
+        color: #333;
+    }
+
+    .result-box .fr {
+        color: #666;
+    }
+
+    /* Bottom nav */
     .bottom-nav {
         position: fixed;
-        bottom: env(safe-area-inset-bottom, 20px);
+        bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
         width: calc(100% - 40px);
@@ -140,7 +162,7 @@
         display: flex;
         justify-content: space-around;
         box-shadow: 0 6px 24px rgba(0,0,0,0.1);
-        z-index: 20;
+        z-index: 50;
     }
 
     .bottom-nav div {
@@ -166,107 +188,48 @@
 <div class="halo purple"></div>
 
 <div class="container">
+
     <h1>LexiTrain</h1>
 
     <p class="subtitle">
         Tape un <span>mot</span> ou une <span>expression</span> à traduire
     </p>
 
-    <!-- Champ texte -->
+    <!-- INPUT -->
     <div class="input-box">
-        <input type="text" placeholder="Ex : stretched, although...">
+        <input id="inputText" type="text" placeholder="Ex : stretched, although...">
     </div>
 
-    <!-- Bouton -->
-    <button class="translate-btn">Traduire</button>
+    <!-- BUTTON -->
+    <button class="translate-btn" onclick="handleTranslate()">Traduire</button>
 
-    <!-- Capsule langues -->
-    <div class="lang-box">
-        <span class="flag">🇬🇧</span> Anglais
+    <!-- LANG SWITCH -->
+    <div class="lang-box" onclick="switchLanguages()">
+        <span id="flagA" class="flag">🇬🇧</span>
+        <span id="langA">Anglais</span>
         <span style="font-size:22px;">⇄</span>
-        <span class="flag">🇫🇷</span> Français
+        <span id="flagB" class="flag">🇫🇷</span>
+        <span id="langB">Français</span>
     </div>
+
+    <!-- RESULT -->
+    <div id="resultBox" class="result-box">
+        <div id="meanings"></div>
+        <div id="synonyms"></div>
+        <div id="examples"></div>
+    </div>
+
 </div>
 
-<!-- Menu bas -->
+<!-- MENU BAS -->
 <div class="bottom-nav">
     <div><span>💬</span>Traduire</div>
     <div><span>📚</span>Dico</div>
     <div><span>😊</span>Quiz</div>
     <div><span>⭐</span>Options</div>
 </div>
-<script>
-// ---- VARIABLES ----
-const input = document.querySelector("input");
-const translateBtn = document.querySelector(".translate-btn");
-const langBox = document.querySelector(".lang-box");
 
-// Langues (ordre initial)
-let fromLang = "en";
-let toLang = "fr";
+<script src="app.js"></script>
 
-// ---- CREATION DU CONTENEUR RESULTAT ----
-const resultBox = document.createElement("div");
-resultBox.style.marginTop = "22px";
-resultBox.style.padding = "18px 20px";
-resultBox.style.borderRadius = "20px";
-resultBox.style.background = "rgba(255,255,255,0.55)";
-resultBox.style.backdropFilter = "blur(14px)";
-resultBox.style.fontSize = "18px";
-resultBox.style.color = "#124232";
-resultBox.style.fontWeight = "500";
-resultBox.style.maxWidth = "350px";
-resultBox.style.marginLeft = "auto";
-resultBox.style.marginRight = "auto";
-resultBox.style.boxShadow = "0 6px 20px rgba(0,0,0,0.06)";
-resultBox.style.display = "none";
-
-document.querySelector(".container").appendChild(resultBox);
-
-
-// ---- 1) ACTION : Traduire ----
-translateBtn.addEventListener("click", async () => {
-    const text = input.value.trim();
-    if (!text) return;
-
-    resultBox.innerHTML = "⏳ Traduction en cours…";
-    resultBox.style.display = "block";
-
-    try {
-        // 👉 API libre et gratuite : MyMemory
-        const response = await fetch(
-            `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${fromLang}|${toLang}`
-        );
-
-        const data = await response.json();
-        const translated = data.responseData.translatedText;
-
-        resultBox.innerHTML = translated;
-    } catch (error) {
-        resultBox.innerHTML = "⚠️ Erreur réseau.";
-    }
-});
-
-
-// ---- 2) ACTION : Inverser les langues ----
-langBox.addEventListener("click", () => {
-
-    // Switch des valeurs internes
-    [fromLang, toLang] = [toLang, fromLang];
-
-    // Switch du texte affiché
-    const flags = langBox.querySelectorAll(".flag");
-    const labels = langBox.querySelectorAll("span:not(.flag)");
-
-    const tmpFlag = flags[0].textContent;
-    flags[0].textContent = flags[1].textContent;
-    flags[1].textContent = tmpFlag;
-
-    // Switch des libellés Anglais/Français
-    const tmpLabel = labels[1].textContent.trim();
-    labels[1].textContent = labels[3].textContent.trim();
-    labels[3].textContent = tmpLabel;
-});
-</script>
 </body>
 </html>
