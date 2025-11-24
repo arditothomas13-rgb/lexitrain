@@ -1,128 +1,131 @@
 // -----------------------------------------
-// Lazy-loading du dictionnaire Premium 10k
+// LEXITRAIN — APP.JS (SAFE + PREMIUM READY)
 // -----------------------------------------
-let DICT = null;
 
+let dictionary = null;      // Loaded lazily
+let dictionaryLoaded = false;
+
+// WHERE IS THE PREMIUM JSON ?
+const DICT_URL = "./assets/data/lexitrain-premium.json";
+
+// DOM ELEMENTS
+const inputText = document.getElementById("inputText");
+const translateBtn = document.getElementById("translateBtn");
+const resultBox = document.getElementById("resultBox");
+const meaningsDOM = document.getElementById("meanings");
+const synonymsDOM = document.getElementById("synonyms");
+const examplesDOM = document.getElementById("examples");
+
+// LANG SWITCH
+const langA = document.getElementById("langA");
+const langB = document.getElementById("langB");
+const flagA = document.getElementById("flagA");
+const flagB = document.getElementById("flagB");
+
+// -----------------------------------------
+// 1 — LOAD DICTIONARY (lazy)
+// -----------------------------------------
 async function loadDictionary() {
-    if (DICT) return DICT;
+    if (dictionaryLoaded) return;
 
     try {
-        const response = await fetch(
-            "https://fidji-bucket.s3.eu-west-3.amazonaws.com/lexitrain-dictionary-10k.json"
-        );
-        DICT = await response.json();
-        console.log("📘 Dictionnaire chargé :", DICT);
+        const res = await fetch(DICT_URL);
+        dictionary = await res.json();
+        dictionaryLoaded = true;
     } catch (err) {
-        console.error("Erreur lors du chargement du dictionnaire :", err);
-        alert("Impossible de charger le dictionnaire. Réessaye plus tard.");
+        console.error("Erreur chargement dictionnaire :", err);
+        alert("Impossible de charger le dictionnaire premium.");
     }
-
-    return DICT;
 }
 
 // -----------------------------------------
-// Détection automatique de langue
+// 2 — DETECT LANGUAGE
 // -----------------------------------------
 function detectLanguage(text) {
-    const frenchAccents = /[éèêëàâîïùûç]/i;
-    const englishCommonWords = ["the", "and", "to", "with", "for", "from", "in"];
+    const accents = /[éèêëàâîïùûç]/i;
+    const englishHints = ["the ", "and ", "with ", "from ", "ing", "ed"];
 
-    if (frenchAccents.test(text)) return "fr";
-    if (englishCommonWords.some(w => text.toLowerCase().includes(w))) return "en";
+    if (accents.test(text)) return "fr";
+    if (englishHints.some(h => text.toLowerCase().includes(h))) return "en";
 
+    // fallback simple
     return /^[a-zA-Z]+$/.test(text) ? "en" : "fr";
 }
 
 // -----------------------------------------
-// Fonction de traduction intelligente
+// 3 — SMART TRANSLATE
 // -----------------------------------------
-function translateTerm(term, dictionary) {
-    const clean = term.toLowerCase().trim();
-
-    if (!dictionary[clean]) {
+function translateSmart(term, from, to) {
+    if (!dictionary || !dictionary[term]) {
         return {
-            meanings: ["(Aucune traduction trouvée)"],
+            meanings: ["(Aucune traduction exacte trouvée)"],
             synonyms: [],
             examples: []
         };
     }
 
-    return dictionary[clean];
+    if (!dictionary[term][to]) {
+        return {
+            meanings: ["(Aucune traduction dans cette langue)"],
+            synonyms: [],
+            examples: []
+        };
+    }
+
+    return dictionary[term][to];
 }
 
 // -----------------------------------------
-// Affichage des résultats
+// 4 — DISPLAY RESULT
 // -----------------------------------------
 function displayResult(data) {
-    const box = document.getElementById("resultBox");
-    box.style.display = "block";
+    resultBox.style.display = "block";
 
-    // Traductions
-    document.getElementById("meanings").innerHTML =
+    meaningsDOM.innerHTML =
         `<h3>Traductions :</h3><p>${data.meanings.join(", ")}</p>`;
 
-    // Synonymes
-    document.getElementById("synonyms").innerHTML =
-        data.synonyms && data.synonyms.length
+    synonymsDOM.innerHTML =
+        data.synonyms.length
             ? `<h3>Synonymes :</h3><p>${data.synonyms.join(", ")}</p>`
             : "";
 
-    // Exemples
-    document.getElementById("examples").innerHTML =
-        data.examples && data.examples.length
-            ? `<h3>Exemples :</h3>${data.examples
-                  .map(
-                      ex => `<p>• ${ex.en}<br><span class="fr">↳ ${ex.fr}</span></p>`
-                  )
-                  .join("")}`
+    examplesDOM.innerHTML =
+        data.examples.length
+            ? `<h3>Exemples :</h3>` +
+              data.examples
+                .map(ex => `<p>• ${ex.en}<br><span class="fr">↳ ${ex.fr}</span></p>`)
+                .join("")
             : "";
 }
 
 // -----------------------------------------
-// Interversion des langues UI
+// 5 — HANDLE TRANSLATE BUTTON
+// -----------------------------------------
+translateBtn.addEventListener("click", async () => {
+    const term = inputText.value.trim().toLowerCase();
+    if (!term) return;
+
+    await loadDictionary();
+
+    const detected = detectLanguage(term);
+    const from = detected;
+    const to = detected === "fr" ? "en" : "fr";
+
+    const result = translateSmart(term, from, to);
+    displayResult(result);
+});
+
+// -----------------------------------------
+// 6 — SWITCH LANGUAGES
 // -----------------------------------------
 function switchLanguages() {
-    const langA = document.getElementById("langA");
-    const langB = document.getElementById("langB");
-    const flagA = document.getElementById("flagA");
-    const flagB = document.getElementById("flagB");
-
-    // swap texte
     let tmp = langA.textContent;
     langA.textContent = langB.textContent;
     langB.textContent = tmp;
 
-    // swap drapeaux
     let tmpFlag = flagA.textContent;
     flagA.textContent = flagB.textContent;
     flagB.textContent = tmpFlag;
 }
 
-// -----------------------------------------
-// Action bouton Traduire
-// -----------------------------------------
-document.getElementById("btnTranslate").addEventListener("click", async () => {
-    const input = document.getElementById("inputText").value.trim();
-    if (!input) return;
-
-    // 1) charger le dictionnaire (lazy-load)
-    const dictionary = await loadDictionary();
-
-    // 2) détection automatique
-    const detected = detectLanguage(input);
-
-    console.log("Langue détectée :", detected);
-
-    // 3) traduction
-    const result = translateTerm(input, dictionary);
-
-    // 4) affichage
-    displayResult(result);
-});
-
-// -----------------------------------------
-// Action bouton d’inversion des langues
-// -----------------------------------------
-document.getElementById("switchBtn").addEventListener("click", () => {
-    switchLanguages();
-});
+document.getElementById("switchBtn").addEventListener("click", switchLanguages);
