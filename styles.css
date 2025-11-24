@@ -1,209 +1,141 @@
-/* Empêche tout scroll / flottement */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overscroll-behavior: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-/* Version iPhone : safe areas */
-body {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* Empêche le zoom automatique sur input */
-input, textarea, select {
-    font-size: 16px !important;
-}
-
-/* Fond HALO FIXE qui ne bouge jamais */
-.bg-halo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: -1;
-    background: radial-gradient( circle at 20% 20%, rgba(173, 255, 235, 0.55), transparent 60% ),
-                radial-gradient( circle at 80% 70%, rgba(200, 180, 255, 0.55), transparent 60% );
-    backdrop-filter: blur(60px);
-}
-
-/* Conteneur principal, centré, immobile */
-.app-container {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 30px 20px;
-    box-sizing: border-box;
-}
-
-
-/* --- RESET --- */
+/* --- RESET + FIX SCROLL HORIZONTAL --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-body {
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden !important;
+  font-family: "Inter", sans-serif;
   background: #ffffff;
-  overflow-x: hidden;
+}
+
+/* Empêche les flottements sur iPhone */
+body {
+  position: relative;
   padding-bottom: 120px;
+  overscroll-behavior: none;
 }
 
-/* --- HALOS APPLE --- */
-.halo {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  filter: blur(130px);
-  opacity: 0.32;
-  z-index: -2;
+/* --- HALO BACKGROUND FIXE --- */
+.bg-halo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(circle at 20% 20%, rgba(173, 255, 235, 0.55), transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(200, 180, 255, 0.55), transparent 60%);
+  filter: blur(50px);
 }
 
-.halo-blue {
-  background: #4da8ff;
-  top: -120px;
-  left: -80px;
-}
-
-.halo-purple {
-  background: #b07aff;
-  bottom: 140px;
-  right: -100px;
-}
-
-.halo-green {
-  background: #65ffcb;
-  top: 260px;
-  right: 40px;
+/* --- CONTAINER PRINCIPAL --- */
+.container {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;        /* centre horizontal */
+  text-align: center;    /* centre le texte */
+  padding: 40px 20px;
 }
 
 /* --- TITRES --- */
-main {
-  padding: 40px 20px 0;
-  text-align: center;
-}
-
 .logo {
   font-size: 42px;
   font-weight: 700;
-  color: #0f3b2f;
+  color: #124232;
+  margin-bottom: 8px;
 }
 
 .subtitle {
   font-size: 20px;
-  font-weight: 400;
-  margin-top: 10px;
-  color: #3b4a49;
+  margin-bottom: 30px;
+  color: #444;
 }
 
-.subtitle .blue {
-  color: #4d8bff;
-}
+.subtitle .blue { color: #4ba4ff; }
+.subtitle .purple { color: #b27cff; }
 
-.subtitle .purple {
-  color: #b07aff;
-}
-
-/* --- Glass Cards --- */
+/* --- GLASS EFFECT --- */
 .glass {
-  background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(20px);
   border-radius: 22px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
-/* --- Input Card --- */
+/* --- Champ texte --- */
 .input-card {
-  margin-top: 40px;
-  padding: 12px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .input-card input {
-  flex: 1;
-  padding: 14px 18px;
+  width: 100%;
+  padding: 16px;
   border-radius: 18px;
   border: none;
   outline: none;
+  background: rgba(255,255,255,0.7);
   font-size: 17px;
-  background: rgba(255, 255, 255, 0.65);
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.06);
 }
 
-/* --- GREEN BUTTON --- */
+/* --- Bouton vert --- */
 .btn-green {
-  padding: 14px 22px;
-  font-size: 17px;
+  width: 100%;
+  max-width: 290px;
+  margin: 0 auto;
+  display: block;
+  padding: 15px 0;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #12d37a, #08a85e);
+  box-shadow: 0 6px 20px rgba(0,125,60,0.25);
   color: white;
+  font-size: 18px;
   font-weight: 600;
-  border-radius: 18px;
   border: none;
   cursor: pointer;
-
-  background: linear-gradient(135deg, #00e08a, #01be6b);
-  box-shadow: 0 4px 14px rgba(0, 180, 120, 0.35);
 }
 
-/* --- Lang Card --- */
+/* --- Card langues --- */
 .lang-card {
-  margin: 28px auto;
+  width: 100%;
+  max-width: 360px;
+  margin: 25px auto;
   padding: 16px 22px;
-  font-size: 20px;
-  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.lang {
   font-size: 20px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.swap {
-  font-size: 26px;
-  color: #3d4d4d;
 }
 
 /* --- Bottom Navigation --- */
 .bottom-nav {
   position: fixed;
-  bottom: 15px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 92%;
-  padding: 14px 22px;
+  width: calc(100% - 40px);
+  max-width: 430px;
   display: flex;
   justify-content: space-around;
+  padding: 14px 0;
   border-radius: 26px;
 }
 
-.bottom-nav .nav-item {
+.nav-item {
   text-align: center;
-  font-size: 15px;
   color: #334944;
+  font-size: 15px;
 }
 
-.bottom-nav .nav-item span {
-  display: block;
-  margin-top: 3px;
+.nav-item span {
   font-size: 13px;
+  display: block;
+  margin-top: 4px;
 }
