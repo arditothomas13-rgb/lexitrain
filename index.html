@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LexiTrain</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+        background: white;
+        height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* HALOS */
+    .halo {
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        filter: blur(90px);
+        opacity: 0.55;
+        z-index: 0;
+    }
+    .halo.blue { background: #9fd7ff; top: -80px; left: -100px; }
+    .halo.green { background: #b5ffcf; top: 220px; right: -120px; }
+    .halo.purple { background: #d8c8ff; bottom: -60px; left: 20px; }
+
+    .container {
+        position: relative;
+        z-index: 10;
+        padding: 40px 20px 120px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #124232;
+        margin-bottom: 12px;
+        margin-top: 20px;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        color: #444;
+        margin-bottom: 35px;
+    }
+
+    .subtitle span { 
+        background: linear-gradient(90deg, #4ba4ff, #b27cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Champ de texte inspiré Reverso */
+    .input-box {
+        width: 100%;
+        max-width: 390px;
+        margin: auto;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(16px);
+        border-radius: 22px;
+        padding: 18px 20px;
+        font-size: 17px;
+        border: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 6px 26px rgba(0,0,0,0.08);
+    }
+
+    input {
+        width: 100%;
+        border: none;
+        background: transparent;
+        font-size: 17px;
+        outline: none;
+        color: #444;
+    }
+
+    /* Nouveau bouton Traduire */
+    .translate-btn {
+        margin-top: 18px;
+        background: linear-gradient(135deg, #12d37a, #08a85e);
+        padding: 16px 32px;
+        border-radius: 50px;
+        color: white;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        box-shadow: 0 6px 24px rgba(0,125,60,0.25);
+        cursor: pointer;
+    }
+
+    /* Capsule langues */
+    .lang-box {
+        margin: 32px auto 20px;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(14px);
+        padding: 15px 22px;
+        border-radius: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        font-size: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        max-width: 380px;
+    }
+
+    .flag { font-size: 24px; }
+
+    /* Menu bas */
+    .bottom-nav {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(18px);
+        border-radius: 30px;
+        padding: 14px 0;
+        display: flex;
+        justify-content: space-around;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+    }
+
+    .bottom-nav div {
+        font-size: 15px;
+        text-align: center;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .bottom-nav span {
+        font-size: 26px;
+    }
+
+</style>
+</head>
+<body>
+<div class="bg-halo"></div>
+<div class="app-container">
+
+<!-- HALOS -->
+<div class="halo blue"></div>
+<div class="halo green"></div>
+<div class="halo purple"></div>
+
+<div class="container">
+
+    <h1>LexiTrain</h1>
+
+    <p class="subtitle">
+        Tape un <span>mot</span> ou une <span>expression</span> à traduire
+    </p>
+
+    <!-- Champ texte -->
+    <div class="input-box">
+        <input type="text" placeholder="Ex : stretched, although...">
+    </div>
+
+    <!-- BOUTON TRADUIRE repositionné -->
+    <button class="translate-btn">Traduire</button>
+
+    <!-- Sélecteur langues -->
+    <div class="lang-box">
+        <span class="flag">🇬🇧</span> Anglais
+        <span style="font-size:22px;">⇄</span>
+        <span class="flag">🇫🇷</span> Français
+    </div>
+
+</div>
+
+<!-- MENU BAS -->
+<div class="bottom-nav">
+    <div><span>💬</span>Traduire</div>
+    <div><span>📚</span>Dico</div>
+    <div><span>😊</span>Quiz</div>
+    <div><span>⭐</span>Options</div>
+</div>
+
+</div> <!-- fin app-container -->
+</body>
+</html>

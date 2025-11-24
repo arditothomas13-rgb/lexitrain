@@ -1,0 +1,209 @@
+/* Empêche tout scroll / flottement */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* Version iPhone : safe areas */
+body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Empêche le zoom automatique sur input */
+input, textarea, select {
+    font-size: 16px !important;
+}
+
+/* Fond HALO FIXE qui ne bouge jamais */
+.bg-halo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient( circle at 20% 20%, rgba(173, 255, 235, 0.55), transparent 60% ),
+                radial-gradient( circle at 80% 70%, rgba(200, 180, 255, 0.55), transparent 60% );
+    backdrop-filter: blur(60px);
+}
+
+/* Conteneur principal, centré, immobile */
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+
+/* --- RESET --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  background: #ffffff;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+}
+
+/* --- HALOS APPLE --- */
+.halo {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.32;
+  z-index: -2;
+}
+
+.halo-blue {
+  background: #4da8ff;
+  top: -120px;
+  left: -80px;
+}
+
+.halo-purple {
+  background: #b07aff;
+  bottom: 140px;
+  right: -100px;
+}
+
+.halo-green {
+  background: #65ffcb;
+  top: 260px;
+  right: 40px;
+}
+
+/* --- TITRES --- */
+main {
+  padding: 40px 20px 0;
+  text-align: center;
+}
+
+.logo {
+  font-size: 42px;
+  font-weight: 700;
+  color: #0f3b2f;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 10px;
+  color: #3b4a49;
+}
+
+.subtitle .blue {
+  color: #4d8bff;
+}
+
+.subtitle .purple {
+  color: #b07aff;
+}
+
+/* --- Glass Cards --- */
+.glass {
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  border-radius: 22px;
+}
+
+/* --- Input Card --- */
+.input-card {
+  margin-top: 40px;
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.input-card input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 18px;
+  border: none;
+  outline: none;
+  font-size: 17px;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.06);
+}
+
+/* --- GREEN BUTTON --- */
+.btn-green {
+  padding: 14px 22px;
+  font-size: 17px;
+  color: white;
+  font-weight: 600;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #00e08a, #01be6b);
+  box-shadow: 0 4px 14px rgba(0, 180, 120, 0.35);
+}
+
+/* --- Lang Card --- */
+.lang-card {
+  margin: 28px auto;
+  padding: 16px 22px;
+  font-size: 20px;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lang {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swap {
+  font-size: 26px;
+  color: #3d4d4d;
+}
+
+/* --- Bottom Navigation --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  padding: 14px 22px;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 26px;
+}
+
+.bottom-nav .nav-item {
+  text-align: center;
+  font-size: 15px;
+  color: #334944;
+}
+
+.bottom-nav .nav-item span {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+}
