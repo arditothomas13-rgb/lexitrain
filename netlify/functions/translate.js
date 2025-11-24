@@ -18,7 +18,6 @@ export async function handler(event, context) {
         body: JSON.stringify({ error: "Missing OPENAI_API_KEY" })
       };
     }
-
     // Prompt premium façon Reverso/Oxford
     const prompt = `
 Tu es un super dictionnaire premium (Oxford + Reverso).
