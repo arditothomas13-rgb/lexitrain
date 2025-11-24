@@ -1,126 +1,147 @@
-/* -------------------------------------
-   LANGUES
-------------------------------------- */
-let fromLang = "en";
-let toLang = "fr";
-
-/* -------------------------------------
-   ELEMENTS
-------------------------------------- */
+// ----------------------------
+// VARIABLES
+// ----------------------------
 const input = document.getElementById("wordInput");
-const translateBtn = document.getElementById("translateBtn");
-const resultCard = document.getElementById("resultCard");
-const tabs = document.querySelectorAll(".tab");
-const tabContents = document.querySelectorAll(".tab-content");
+const translateBtn = document.getElementById("translateButton");
+const resultBox = document.getElementById("resultBox");
 
+const langSwap = document.getElementById("langSwap");
 const fromLabel = document.getElementById("fromLabel");
 const toLabel = document.getElementById("toLabel");
 const fromFlag = document.getElementById("fromFlag");
 const toFlag = document.getElementById("toFlag");
-const swapBtn = document.getElementById("langSwap");
 
-/* -------------------------------------
-   DETECTION LANGUE
-------------------------------------- */
-function detectLanguage(text) {
-  const hasAccents = /[éèêàùûîïçœ]/i.test(text);
-  const isEnglish = /^[a-zA-Z]+$/.test(text);
+let currentTab = "translation";
 
-  if (hasAccents) return "fr";
-  if (isEnglish) return "en";
-  return "unknown";
-}
+// ----------------------------
+// SWAP DES LANGUES
+// ----------------------------
+langSwap.addEventListener("click", () => {
+    const tmpLabel = fromLabel.textContent;
+    const tmpFlag = fromFlag.textContent;
 
-/* -------------------------------------
-   SWAP LANGUES
-------------------------------------- */
-function swapLanguages() {
-  [fromLang, toLang] = [toLang, fromLang];
+    fromLabel.textContent = toLabel.textContent;
+    fromFlag.textContent = toFlag.textContent;
+    toLabel.textContent = tmpLabel;
+    toFlag.textContent = tmpFlag;
+});
 
-  let tmp = fromLabel.textContent;
-  fromLabel.textContent = toLabel.textContent;
-  toLabel.textContent = tmp;
-
-  let tmp2 = fromFlag.textContent;
-  fromFlag.textContent = toFlag.textContent;
-  toFlag.textContent = tmp2;
-
-  swapBtn.classList.add("swap-anim");
-  setTimeout(() => swapBtn.classList.remove("swap-anim"), 250);
-}
-
-/* -------------------------------------
-   API — VERCEL FUNCTION
-------------------------------------- */
-async function callApi(word) {
-  try {
-    const res = await fetch("/api/translate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ word, fromLang, toLang })
-    });
-
-    const data = await res.json();
-    if (!data || !data.result) return null;
-    return data.result;
-
-  } catch (e) {
-    console.error("Erreur API :", e);
-    return null;
-  }
-}
-
-/* -------------------------------------
-   ACTION — Traduire
-------------------------------------- */
+// ----------------------------
+// ACTION DU BOUTON TRADUIRE
+// ----------------------------
 translateBtn.addEventListener("click", async () => {
-  let text = input.value.trim();
-  if (!text) return;
+    const word = input.value.trim();
+    if (!word) return;
 
-  /* Auto-detect + auto-swap */
-  const detected = detectLanguage(text);
-  if (detected !== fromLang && detected !== "unknown") {
-    swapLanguages();
-  }
+    showLoadingState();
 
-  // Loading
-  resultCard.style.display = "block";
-  document.getElementById("tab-traduction").innerHTML = "⏳ Traduction en cours...";
-  document.getElementById("tab-definition").innerHTML = "";
-  document.getElementById("tab-synonymes").innerHTML = "";
-  document.getElementById("tab-exemples").innerHTML = "";
-  document.getElementById("result-title").innerText = text;
+    try {
+        const response = await fetch("/api/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                word,
+                from: fromLabel.textContent === "Anglais" ? "en" : "fr",
+                to: toLabel.textContent === "Français" ? "fr" : "en"
+            })
+        });
 
-  const response = await callApi(text);
+        const data = await response.json();
 
-  if (!response) {
-    document.getElementById("tab-traduction").innerHTML = "⚠️ Erreur serveur.";
-    return;
-  }
+        if (!response.ok) throw new Error("Erreur API");
 
-  // Injection des 4 sections
-  document.getElementById("tab-traduction").innerHTML = response.traductions || "Aucune traduction.";
-  document.getElementById("tab-definition").innerHTML = response.definitions || "Aucune définition disponible.";
-  document.getElementById("tab-synonymes").innerHTML = response.synonymes || "Aucun synonyme disponible.";
-  document.getElementById("tab-exemples").innerHTML = response.exemples || "Aucun exemple disponible.";
+        renderResult(word, data);
+
+    } catch (error) {
+        resultBox.innerHTML = `
+            <h2>${word}</h2>
+            <div class="tabs">
+                <button class="active">Traduction</button>
+            </div>
+            <div class="tab-content">
+                <p style="color:#cc0000;">⚠️ Erreur serveur.</p>
+            </div>
+        `;
+        resultBox.style.opacity = 1;
+    }
 });
 
-/* -------------------------------------
-   ONGLET SYSTEM
-------------------------------------- */
-tabs.forEach(tab => {
-  tab.addEventListener("click", () => {
-    const target = tab.dataset.target;
+// ----------------------------
+// AFFICHAGE "TRADUCTION EN COURS"
+// ----------------------------
+function showLoadingState() {
+    resultBox.style.opacity = 1;
+    resultBox.innerHTML = `
+        <h2>Analyse...</h2>
+        <p class="loading">⏳ Traduction en cours...</p>
+    `;
+}
 
-    tabs.forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
+// ----------------------------
+// AFFICHAGE RÉSULTAT + ONGLET
+// ----------------------------
+function renderResult(word, data) {
 
-    tabContents.forEach(c => c.classList.remove("active"));
-    document.getElementById(target).classList.add("active");
-  });
-});
+    resultBox.innerHTML = `
+        <h2>${word}</h2>
 
-/* -------------------------------------
-   SWAP Manuel
-------------------------------------- */
-swapBtn.addEventListener("click", swapLanguages);
+        <div class="tabs">
+            <button data-tab="translation" class="active">Traduction</button>
+            <button data-tab="definition">Définition</button>
+            <button data-tab="synonyms">Synonymes</button>
+            <button data-tab="examples">Exemples</button>
+        </div>
+
+        <div id="tabContent" class="tab-content"></div>
+    `;
+
+    const tabContent = document.getElementById("tabContent");
+
+    // Contenu
+    const sections = {
+        translation: buildList("Traductions :", data.translations),
+        definition: buildList("Définitions :", data.definitions),
+        synonyms: buildList("Synonymes :", data.synonyms),
+        examples: buildExamples(data.examples)
+    };
+
+    // Affiche l’onglet par défaut
+    tabContent.innerHTML = sections["translation"];
+
+    // Gestion du clic onglets
+    document.querySelectorAll(".tabs button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            tabContent.innerHTML = sections[btn.dataset.tab];
+        });
+    });
+}
+
+// ----------------------------
+// CONSTRUCTION LISTE BASIQUE
+// ----------------------------
+function buildList(title, arr) {
+    if (!arr || arr.length === 0) return `<p>Aucune donnée disponible.</p>`;
+
+    return `
+        <h3>${title}</h3>
+        <ul>
+            ${arr.map(x => `<li>${x}</li>`).join("")}
+        </ul>
+    `;
+}
+
+// ----------------------------
+// CONSTRUCTION DES EXEMPLES
+// ----------------------------
+function buildExamples(arr) {
+    if (!arr || arr.length === 0) return `<p>Aucun exemple disponible.</p>`;
+
+    return `
+        <h3>Exemples :</h3>
+        <ul>
+            ${arr.map(ex => `<li>${ex}</li>`).join("")}
+        </ul>
+    `;
+}
