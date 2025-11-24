@@ -14,8 +14,10 @@
 </head>
 <body>
 
+<!-- HALO background -->
 <div class="bg-halo"></div>
 
+<!-- MAIN CONTENT -->
 <main class="container">
 
     <h1 class="logo">LexiTrain</h1>
@@ -30,15 +32,18 @@
     </div>
 
     <!-- Bouton -->
-    <button class="btn-green" id="translateButton">
-        Traduire
-    </button>
+    <button class="btn-green" id="translateButton">Traduire</button>
 
     <!-- Card langues -->
     <div class="glass lang-card">
-        <div class="lang">🇬🇧 Anglais</div>
-        <div class="swap">⇄</div>
-        <div class="lang">🇫🇷 Français</div>
+        <div class="lang"><span id="fromFlag">🇬🇧</span> <span id="fromLabel">Anglais</span></div>
+        <div class="swap" id="langSwap">⇄</div>
+        <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
+    </div>
+
+    <!-- Résultat traduction -->
+    <div id="resultBox" class="glass" 
+        style="margin:20px auto; padding:20px; max-width:360px; opacity:0;">
     </div>
 
 </main>
