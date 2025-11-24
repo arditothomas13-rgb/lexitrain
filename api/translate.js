@@ -1,70 +1,68 @@
-import OpenAI from "openai";
-
 export default async function handler(req, res) {
   try {
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Méthode non autorisée" });
+    }
+
     const { word, fromLang, toLang } = req.body;
 
     if (!word) {
       return res.status(400).json({ error: "Aucun mot fourni." });
     }
 
-    // Sécurité : clé dans Vercel
-    const client = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
+    // Sécurité : vérifier la clé OpenAI
+    if (!process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ error: "Clé OpenAI manquante." });
+    }
 
-    // Nouveau PROMPT SUPER PROPRE
+    // ----------- PROMPT PREMIUM -----------
     const prompt = `
-Tu es un dictionnaire professionnel (Reverso + Cambridge + Larousse).
-Réponds UNIQUEMENT en HTML, sans backticks, sans bloc de code.
+Tu es un dictionnaire premium (Oxford + Reverso + Larousse).
 
-Mot : "${word}" (${fromLang} → ${toLang})
+Génère une FICHE LEXICALE structurée en HTML pour le mot : "${word}"
 
-Structure OBLIGATOIRE :
+Format EXACT OBLIGATOIRE (ne rajoute pas \`\`\`html !) :
 
-<div class="entry">
-  <h2>Traductions</h2>
-  <ul>
-    <li>...</li>
-  </ul>
+<b>Traductions :</b><br>
+• liste de traductions principales<br><br>
 
-  <h2>Synonymes</h2>
-  <ul>
-    <li>...</li>
-  </ul>
+<b>Synonymes :</b><br>
+• liste courte<br><br>
 
-  <h2>Exemples</h2>
-  <ul>
-    <li>Phrase source.<br>↳ Traduction.</li>
-  </ul>
+<b>Exemples :</b><br>
+• phrase en ${fromLang} + traduction en ${toLang}<br>
+• 2 à 4 exemples<br><br>
 
-  <h2>Autres sens</h2>
-  <div class="sense">
-    <h3>Sens alternatif</h3>
-    <ul><li>…</li></ul>
-    <h4>Exemples</h4>
-    <ul><li>…</li></ul>
-  </div>
-</div>
-
-RÈGLES STRICTES :
-- Toujours donner au minimum : 3 traductions, 3 synonymes, 1 exemple
-- S’il existe plusieurs sens : les séparer nettement
-- Jamais de texte hors HTML
+Si le mot a plusieurs sens (nom + verbe), sépare-les clairement.
     `;
 
-    const completion = await client.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
-      max_tokens: 400,
-      temperature: 0.2
+    // ---------- APPEL OPENAI ----------
+    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 350,
+        temperature: 0.4
+      })
     });
 
-    const html = completion.choices?.[0]?.message?.content || "";
+    const data = await openaiRes.json();
 
-    res.status(200).json({ result: html });
-  } catch (error) {
-    console.error("Erreur API :", error);
-    res.status(500).json({ error: "Erreur serveur." });
+    if (!data.choices || !data.choices[0]) {
+      return res.status(500).json({ error: "Réponse OpenAI invalide." });
+    }
+
+    const result = data.choices[0].message.content;
+
+    return res.status(200).json({ result });
+
+  } catch (err) {
+    console.error("Erreur API :", err);
+    return res.status(500).json({ error: "Erreur interne du serveur." });
   }
 }
