@@ -5,7 +5,7 @@ let fromLang = "en";
 let toLang = "fr";
 
 /* -------------------------------------
-   ELEMENTS DU DOM
+   ELEMENTS DOM
 ------------------------------------- */
 const input = document.getElementById("wordInput");
 const translateBtn = document.getElementById("translateButton");
@@ -17,11 +17,11 @@ const fromFlag = document.getElementById("fromFlag");
 const toFlag = document.getElementById("toFlag");
 
 /* -------------------------------------
-   DETECTION AUTOMATIQUE DE LANGUE
+   DETECTION AUTOMATIQUE
 ------------------------------------- */
 function detectLanguage(text) {
   const hasAccents = /[éèêàùûîïçœ]/i.test(text);
-  const isEnglishWord = /^[a-zA-Z]+$/.test(text);
+  const isEnglishWord = /^[a-zA-Z\s]+$/.test(text);
 
   if (hasAccents) return "fr";
   if (isEnglishWord) return "en";
@@ -29,7 +29,7 @@ function detectLanguage(text) {
 }
 
 /* -------------------------------------
-   SWAP DES LANGUES
+   SWAP MANUEL
 ------------------------------------- */
 function swapLanguages() {
   [fromLang, toLang] = [toLang, fromLang];
@@ -46,64 +46,49 @@ function swapLanguages() {
   setTimeout(() => langSwap.classList.remove("swap-anim"), 300);
 }
 
+langSwap.addEventListener("click", swapLanguages);
+
 /* -------------------------------------
-   APPEL API — VERCEL
+   APPEL BACKEND VERCEL
 ------------------------------------- */
 async function fetchDefinition(word, fromLang, toLang) {
   try {
     const res = await fetch("/api/translate", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ word, fromLang, toLang })
     });
 
     const data = await res.json();
-
-    if (!data.result) {
-      return "⚠️ Erreur : aucun résultat reçu.";
-    }
-
-    return data.result;
-
-  } catch (err) {
-    console.error("Erreur API :", err);
-    return "❌ Erreur lors de la traduction.";
+    return data.result || "⚠️ Erreur : aucun résultat reçu.";
+  } catch (e) {
+    return "⚠️ Erreur serveur.";
   }
 }
 
 /* -------------------------------------
-   BOUTON : TRADUIRE
+   ACTION TRADUIRE
 ------------------------------------- */
 translateBtn.addEventListener("click", async () => {
   const text = input.value.trim();
   if (!text) return;
 
-  // Détection auto
   const detected = detectLanguage(text);
+
   if (detected === "fr" && fromLang === "en") swapLanguages();
   if (detected === "en" && fromLang === "fr") swapLanguages();
 
-  // Affichage du loader
-  resultBox.innerHTML = "<span style='opacity:0.7'>⏳ Analyse en cours...</span>";
+  resultBox.innerHTML = "⏳ Analyse en cours…";
   resultBox.style.opacity = 1;
 
-  // Appel API
   const html = await fetchDefinition(text, fromLang, toLang);
 
-  // Affichage du résultat final
   resultBox.innerHTML = `
-    <div style="font-size:20px; font-weight:700; margin-bottom:8px;">
+    <div style="font-size:22px; font-weight:700; margin-bottom:12px;">
       ${text}
     </div>
-    <div style="opacity:.85; text-align:left; line-height:1.55;">
+    <div style="opacity:.9; text-align:left; line-height:1.6;">
       ${html}
     </div>
   `;
 });
-
-/* -------------------------------------
-   SWAP MANUEL
-------------------------------------- */
-langSwap.addEventListener("click", swapLanguages);
