@@ -1,64 +1,55 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LexiTrain</title>
-
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexiTrain</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-    <!-- HALO BACKGROUND -->
-    <div class="halo halo-1"></div>
-    <div class="halo halo-2"></div>
-    <div class="halo halo-3"></div>
+  <!-- Halos Apple Intelligence -->
+  <div class="halo halo-blue"></div>
+  <div class="halo halo-purple"></div>
+  <div class="halo halo-green"></div>
 
-    <!-- HEADER -->
-    <header>
-        <h1>LexiTrain</h1>
-        <p class="subtitle">
-            Tape un <span class="accent">mot ou une</span><br>
-            <span class="accent">expression à traduire</span>
-        </p>
-    </header>
+  <main>
 
-    <!-- INPUT ZONE -->
-    <div class="input-wrapper glass">
-        <input type="text" id="wordInput" placeholder="Ex : stretched, although…">
-        <button id="addButton" class="btn-green">Ajouter</button>
+    <h1 class="logo">LexiTrain</h1>
+    <p class="subtitle">
+      Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
+    </p>
+
+    <!-- Input + Button -->
+    <div class="input-card glass">
+      <input type="text" id="wordInput" placeholder="Ex : stretched, although..." />
+      <button id="addBtn" class="btn-green">Ajouter</button>
     </div>
 
-    <!-- LANG SWITCHER -->
-    <div class="lang-switch glass">
-        <div id="langFrom" class="lang-btn active">🇬🇧 Anglais</div>
-        <div class="swap">⇄</div>
-        <div id="langTo" class="lang-btn">🇫🇷 Français</div>
+    <!-- Languages -->
+    <div class="lang-card glass">
+      <span class="lang">
+        🇬🇧 <strong>Anglais</strong>
+      </span>
+
+      <span class="swap">⇄</span>
+
+      <span class="lang">
+        🇫🇷 <strong>Français</strong>
+      </span>
     </div>
 
-    <!-- NAVBAR -->
-    <nav class="nav glass">
-        <div class="nav-item active">
-            <span class="icon">💬</span>
-            <p>Traduire</p>
-        </div>
-        <div class="nav-item">
-            <span class="icon">🗂️</span>
-            <p>Dico</p>
-        </div>
-        <div class="nav-item">
-            <span class="icon">🙂</span>
-            <p>Quiz</p>
-        </div>
-        <div class="nav-item">
-            <span class="icon">⭐</span>
-            <p>Options</p>
-        </div>
-    </nav>
+  </main>
 
-    <script src="app.js"></script>
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav glass">
+    <div class="nav-item">💬<span>Traduire</span></div>
+    <div class="nav-item">🗂️<span>Dico</span></div>
+    <div class="nav-item">🙂<span>Quiz</span></div>
+    <div class="nav-item">⭐<span>Options</span></div>
+  </nav>
+
+  <script src="app.js"></script>
 </body>
 </html>
