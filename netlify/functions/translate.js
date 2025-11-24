@@ -1,24 +1,16 @@
-import fetch from "node-fetch";
-
-export async function handler(event, context) {
+export default async function handler(req, res) {
   try {
-    const { word, fromLang, toLang } = JSON.parse(event.body);
+    const { word, fromLang, toLang } = req.body;
 
     if (!word) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "No word provided" })
-      };
+      return res.status(400).json({ error: "No word provided" });
     }
 
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     if (!OPENAI_API_KEY) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "Missing OPENAI_API_KEY" })
-      };
+      return res.status(500).json({ error: "Missing API key" });
     }
-    // Prompt premium façon Reverso/Oxford
+
     const prompt = `
 Tu es un super dictionnaire premium (Oxford + Reverso).
 Génère une fiche claire, concise et structurée pour le mot : "${word}"
@@ -40,14 +32,10 @@ Donne la réponse ICI EXACTEMENT dans ce format HTML :
 
 Si le mot possède plusieurs sens (ex : “book” nom + “to book” verbe),
 sépare les sections distinctement, toujours en HTML.
-
-⚠️ Ne fais pas de longues explications.
-⚠️ Ne donne jamais d’IPA ou de phonétique.
-⚠️ Ne mets pas de paragraphes hors structure demandée.
     `;
 
-    // Appel OpenAI
-    const apiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+    // APPEL OPENAI
+    const apiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${OPENAI_API_KEY}`,
@@ -60,20 +48,14 @@ sépare les sections distinctement, toujours en HTML.
       })
     });
 
-    const data = await apiResponse.json();
+    const data = await apiRes.json();
 
-    const result = data?.choices?.[0]?.message?.content || "Aucun résultat";
+    return res.status(200).json({
+      result: data.choices?.[0]?.message?.content || "Aucun résultat"
+    });
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ result })
-    };
-
-  } catch (error) {
-    console.error("Erreur translate.js :", error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message })
-    };
+  } catch (err) {
+    console.error("Erreur translate.js :", err);
+    return res.status(500).json({ error: err.message });
   }
 }
