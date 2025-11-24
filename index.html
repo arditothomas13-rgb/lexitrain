@@ -14,10 +14,8 @@
 </head>
 <body>
 
-<!-- HALO background -->
 <div class="bg-halo"></div>
 
-<!-- MAIN CONTENT -->
 <main class="container">
 
     <h1 class="logo">LexiTrain</h1>
@@ -26,29 +24,42 @@
         Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
     </p>
 
-    <!-- Champ texte -->
+    <!-- Input -->
     <div class="glass input-card">
         <input id="wordInput" type="text" placeholder="Ex : stretched, although..." />
     </div>
 
     <!-- Bouton -->
-    <button class="btn-green" id="translateButton">Traduire</button>
+    <button class="btn-green" id="translateBtn">Traduire</button>
 
-    <!-- Card langues -->
+    <!-- Langues -->
     <div class="glass lang-card">
         <div class="lang"><span id="fromFlag">🇬🇧</span> <span id="fromLabel">Anglais</span></div>
         <div class="swap" id="langSwap">⇄</div>
         <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
     </div>
 
-    <!-- Résultat traduction -->
-    <div id="resultBox" class="glass" 
-        style="margin:20px auto; padding:20px; max-width:360px; opacity:0;">
+    <!-- Résultats -->
+    <div id="resultCard" class="glass result-card" style="display:none;">
+
+        <div id="result-title" class="result-title">mot</div>
+
+        <div class="tabs">
+            <button class="tab active" data-target="tab-traduction">Traduction</button>
+            <button class="tab" data-target="tab-definition">Définition</button>
+            <button class="tab" data-target="tab-synonymes">Synonymes</button>
+            <button class="tab" data-target="tab-exemples">Exemples</button>
+        </div>
+
+        <div class="tab-content active" id="tab-traduction"></div>
+        <div class="tab-content" id="tab-definition"></div>
+        <div class="tab-content" id="tab-synonymes"></div>
+        <div class="tab-content" id="tab-exemples"></div>
+
     </div>
 
 </main>
 
-<!-- Navigation bas -->
 <nav class="glass bottom-nav">
     <div class="nav-item">💬<span>Traduire</span></div>
     <div class="nav-item">📚<span>Dico</span></div>
