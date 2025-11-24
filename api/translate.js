@@ -1,50 +1,70 @@
-const prompt = `
-Tu es un dictionnaire premium (type Reverso + Oxford + Linguee).
+import OpenAI from "openai";
 
-Génère une fiche structurée en pur HTML, SANS code markdown, SANS backticks.
+export default async function handler(req, res) {
+  try {
+    const { word, fromLang, toLang } = req.body;
 
-Le mot : "${word}"
-Langue source : ${fromLang}
-Langue cible : ${toLang}
+    if (!word) {
+      return res.status(400).json({ error: "Aucun mot fourni." });
+    }
 
-### Règles strictes :
-- Le rendu doit être UNIQUEMENT en HTML (pas de \`\`\`)
-- Chaque SENS séparé clairement (ex : Nom / Verbe / Expression)
-- Chaque sens doit contenir :
-    • <b>Traductions :</b> (3–6 max)
-    • <b>Synonymes :</b> (3–6 max)
-    • <b>Exemples :</b> 2–3 paires de phrases :
-          • phrase dans la langue source
-          • traduction dans la langue cible
+    // Sécurité : clé dans Vercel
+    const client = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY
+    });
 
-### Structure FIXE obligatoire :
+    // Nouveau PROMPT SUPER PROPRE
+    const prompt = `
+Tu es un dictionnaire professionnel (Reverso + Cambridge + Larousse).
+Réponds UNIQUEMENT en HTML, sans backticks, sans bloc de code.
+
+Mot : "${word}" (${fromLang} → ${toLang})
+
+Structure OBLIGATOIRE :
+
 <div class="entry">
-  <h3>[mot]</h3>
+  <h2>Traductions</h2>
+  <ul>
+    <li>...</li>
+  </ul>
 
+  <h2>Synonymes</h2>
+  <ul>
+    <li>...</li>
+  </ul>
+
+  <h2>Exemples</h2>
+  <ul>
+    <li>Phrase source.<br>↳ Traduction.</li>
+  </ul>
+
+  <h2>Autres sens</h2>
   <div class="sense">
-     <h4>[Catégorie : Nom / Verbe / Expression]</h4>
-
-     <b>Traductions :</b><br>
-     • trad1<br>
-     • trad2<br><br>
-
-     <b>Synonymes :</b><br>
-     • syn1<br>
-     • syn2<br><br>
-
-     <b>Exemples :</b><br>
-     • phrase source<br>
-       ↳ phrase cible<br><br>
+    <h3>Sens alternatif</h3>
+    <ul><li>…</li></ul>
+    <h4>Exemples</h4>
+    <ul><li>…</li></ul>
   </div>
-
-  (répéter pour chaque sens si nécessaire)
 </div>
 
-### Contraintes :
-- Ne JAMAIS inventer de phrases absurdes
-- Style naturel et professionnel
-- Si plusieurs sens existent (ex : Book = Livre / To book = Réserver), crée plusieurs blocs .sense
-- Si le mot est intraduisible ou ambigu, explique brièvement au début (1 phrase max)
+RÈGLES STRICTES :
+- Toujours donner au minimum : 3 traductions, 3 synonymes, 1 exemple
+- S’il existe plusieurs sens : les séparer nettement
+- Jamais de texte hors HTML
+    `;
 
-Renvoie UNIQUEMENT le HTML final, sans commentaire.
-`;
+    const completion = await client.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: prompt }],
+      max_tokens: 400,
+      temperature: 0.2
+    });
+
+    const html = completion.choices?.[0]?.message?.content || "";
+
+    res.status(200).json({ result: html });
+  } catch (error) {
+    console.error("Erreur API :", error);
+    res.status(500).json({ error: "Erreur serveur." });
+  }
+}
