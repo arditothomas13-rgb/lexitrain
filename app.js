@@ -1,5 +1,5 @@
 /* -------------------------------------
-   LANGUE COURANTE
+   LANGUES ACTUELLES
 ------------------------------------- */
 let fromLang = "en";
 let toLang = "fr";
@@ -17,7 +17,7 @@ const fromFlag = document.getElementById("fromFlag");
 const toFlag = document.getElementById("toFlag");
 
 /* -------------------------------------
-   DETECTION AUTOMATIQUE LANGUE
+   DETECTION AUTOMATIQUE DE LANGUE
 ------------------------------------- */
 function detectLanguage(text) {
   const hasAccents = /[éèêàùûîïçœ]/i.test(text);
@@ -25,12 +25,11 @@ function detectLanguage(text) {
 
   if (hasAccents) return "fr";
   if (isEnglishWord) return "en";
-
   return "unknown";
 }
 
 /* -------------------------------------
-   SWAP LANGUES
+   SWAP DES LANGUES
 ------------------------------------- */
 function swapLanguages() {
   [fromLang, toLang] = [toLang, fromLang];
@@ -48,50 +47,63 @@ function swapLanguages() {
 }
 
 /* -------------------------------------
-   APPEL API — via Netlify Function SÉCURISÉE
+   APPEL API — VERCEL
 ------------------------------------- */
 async function fetchDefinition(word, fromLang, toLang) {
-  const res = await fetch("/.netlify/functions/translate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ word, fromLang, toLang })
-  });
+  try {
+    const res = await fetch("/api/translate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ word, fromLang, toLang })
+    });
 
-  const data = await res.json();
-  return data.result || "Erreur : aucun résultat reçu.";
+    const data = await res.json();
+
+    if (!data.result) {
+      return "⚠️ Erreur : aucun résultat reçu.";
+    }
+
+    return data.result;
+
+  } catch (err) {
+    console.error("Erreur API :", err);
+    return "❌ Erreur lors de la traduction.";
+  }
 }
 
 /* -------------------------------------
-   ACTION : CLIQUE SUR TRADUIRE
+   BOUTON : TRADUIRE
 ------------------------------------- */
 translateBtn.addEventListener("click", async () => {
-  let text = input.value.trim();
+  const text = input.value.trim();
   if (!text) return;
 
-  // Détecter automatiquement la langue
+  // Détection auto
   const detected = detectLanguage(text);
-
   if (detected === "fr" && fromLang === "en") swapLanguages();
   if (detected === "en" && fromLang === "fr") swapLanguages();
 
-  // Loading
-  resultBox.innerHTML = "⏳ Analyse en cours...";
+  // Affichage du loader
+  resultBox.innerHTML = "<span style='opacity:0.7'>⏳ Analyse en cours...</span>";
   resultBox.style.opacity = 1;
 
-  // Appel backend sécurisé
-  const htmlResult = await fetchDefinition(text, fromLang, toLang);
+  // Appel API
+  const html = await fetchDefinition(text, fromLang, toLang);
 
+  // Affichage du résultat final
   resultBox.innerHTML = `
     <div style="font-size:20px; font-weight:700; margin-bottom:8px;">
       ${text}
     </div>
     <div style="opacity:.85; text-align:left; line-height:1.55;">
-      ${htmlResult}
+      ${html}
     </div>
   `;
 });
 
 /* -------------------------------------
-   SWAP MANUEL UTILISATEUR
+   SWAP MANUEL
 ------------------------------------- */
 langSwap.addEventListener("click", swapLanguages);
