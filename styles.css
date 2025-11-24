@@ -1,209 +1,151 @@
-/* Empêche tout scroll / flottement */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overscroll-behavior: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-/* Version iPhone : safe areas */
-body {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* Empêche le zoom automatique sur input */
-input, textarea, select {
-    font-size: 16px !important;
-}
-
-/* Fond HALO FIXE qui ne bouge jamais */
-.bg-halo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: -1;
-    background: radial-gradient( circle at 20% 20%, rgba(173, 255, 235, 0.55), transparent 60% ),
-                radial-gradient( circle at 80% 70%, rgba(200, 180, 255, 0.55), transparent 60% );
-    backdrop-filter: blur(60px);
-}
-
-/* Conteneur principal, centré, immobile */
-.app-container {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 30px 20px;
-    box-sizing: border-box;
-}
-
-
-/* --- RESET --- */
+/* GENERAL RESET + FIX PAGE FLOATING */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-body {
-  background: #ffffff;
-  overflow-x: hidden;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;        /* important */
+  position: fixed;          /* empêche le flottement */
+  top: 0;
+  left: 0;
+}
+
+/* CONTAINER GLOBAL FIXE */
+#app {
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow-y: auto;
   padding-bottom: 120px;
+  background: white;
 }
 
-/* --- HALOS APPLE --- */
-.halo {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  filter: blur(130px);
-  opacity: 0.32;
-  z-index: -2;
+/* SOFT GRADIENT HALOS */
+body {
+  background: radial-gradient(circle at 20% 30%, #d5f4ff 0%, transparent 60%),
+              radial-gradient(circle at 80% 80%, #e6d4ff 0%, transparent 60%),
+              white;
 }
 
-.halo-blue {
-  background: #4da8ff;
-  top: -120px;
-  left: -80px;
-}
-
-.halo-purple {
-  background: #b07aff;
-  bottom: 140px;
-  right: -100px;
-}
-
-.halo-green {
-  background: #65ffcb;
-  top: 260px;
-  right: 40px;
-}
-
-/* --- TITRES --- */
-main {
-  padding: 40px 20px 0;
+/* HEADER */
+.header {
   text-align: center;
+  padding: 40px 20px 10px;
 }
 
-.logo {
+.header h1 {
   font-size: 42px;
-  font-weight: 700;
-  color: #0f3b2f;
+  font-weight: 800;
+  color: #0e3b2e;
 }
 
 .subtitle {
   font-size: 20px;
-  font-weight: 400;
-  margin-top: 10px;
-  color: #3b4a49;
+  color: #565656;
+  margin-top: 12px;
 }
 
-.subtitle .blue {
-  color: #4d8bff;
+.gradient {
+  background: linear-gradient(90deg, #3b82f6, #a855f7, #22c55e);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.subtitle .purple {
-  color: #b07aff;
-}
-
-/* --- Glass Cards --- */
-.glass {
-  background: rgba(255, 255, 255, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
-  border-radius: 22px;
-}
-
-/* --- Input Card --- */
-.input-card {
-  margin-top: 40px;
-  padding: 12px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.input-card input {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 18px;
-  border: none;
-  outline: none;
-  font-size: 17px;
-  background: rgba(255, 255, 255, 0.65);
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.06);
-}
-
-/* --- GREEN BUTTON --- */
-.btn-green {
-  padding: 14px 22px;
-  font-size: 17px;
-  color: white;
-  font-weight: 600;
-  border-radius: 18px;
-  border: none;
-  cursor: pointer;
-
-  background: linear-gradient(135deg, #00e08a, #01be6b);
-  box-shadow: 0 4px 14px rgba(0, 180, 120, 0.35);
-}
-
-/* --- Lang Card --- */
-.lang-card {
-  margin: 28px auto;
-  padding: 16px 22px;
-  font-size: 20px;
+/* INPUT BOX */
+.input-wrapper {
+  margin: 25px auto 10px;
   width: 90%;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  padding: 18px 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.input-wrapper input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  outline: none;
+}
+
+/* BTN */
+.btn-primary {
+  display: block;
+  margin: 18px auto;
+  padding: 18px 50px;
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  border: none;
+  border-radius: 35px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* LANGUAGE SWITCH */
+.lang-switch {
+  width: 90%;
+  margin: 30px auto 0;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(12px);
+  padding: 18px 25px;
+  border-radius: 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.flag {
+  height: 22px;
+  margin-right: 8px;
+}
+
 .lang {
-  font-size: 20px;
+  font-size: 22px;
   display: flex;
   align-items: center;
-  gap: 6px;
 }
 
 .swap {
   font-size: 26px;
-  color: #3d4d4d;
+  opacity: 0.7;
 }
 
-/* --- Bottom Navigation --- */
-.bottom-nav {
+/* SPACER */
+.spacer {
+  height: 160px;
+}
+
+/* TAB BAR FIXE */
+.tabbar {
+  width: 100%;
   position: fixed;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92%;
-  padding: 14px 22px;
+  bottom: 0;
+  left: 0;
+  padding: 15px 0 25px;
   display: flex;
   justify-content: space-around;
-  border-radius: 26px;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 25px 25px 0 0;
 }
 
-.bottom-nav .nav-item {
+.tab {
   text-align: center;
-  font-size: 15px;
-  color: #334944;
 }
 
-.bottom-nav .nav-item span {
-  display: block;
-  margin-top: 3px;
-  font-size: 13px;
+.emoji {
+  font-size: 28px;
+}
+
+.tab p {
+  font-size: 15px;
+  margin-top: 4px;
 }
