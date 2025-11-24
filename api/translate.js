@@ -1,36 +1,30 @@
 export default async function handler(req, res) {
   try {
-    const { word, fromLang, toLang } = req.body;
+    // IMPORTANT : Vercel parse automatiquement le JSON
+    const { word, fromLang, toLang } = req.body || {};
 
     if (!word) {
-      return res.status(400).json({ error: "No word provided" });
+      return res.status(400).json({ error: "Missing 'word' in body" });
     }
 
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
     if (!OPENAI_API_KEY) {
-      return res.status(500).json({ error: "Missing API key" });
+      return res.status(500).json({ error: "Missing API Key" });
     }
 
     const prompt = `
-Tu es un super dictionnaire premium (Oxford + Reverso).
-Génère une fiche claire, concise et structurée pour le mot : "${word}"
-
-Langue source : ${fromLang}
-Langue cible : ${toLang}
-
-Donne la réponse EXACTEMENT dans ce format HTML :
+Tu es un dictionnaire premium. Pour le mot "${word}", produis :
 
 <b>Traductions :</b><br>
-• 2 à 5 traductions claires<br><br>
+• 2 à 5 traductions<br><br>
 
 <b>Synonymes :</b><br>
-• synonymes utiles dans la langue cible<br><br>
+• synonymes utiles<br><br>
 
 <b>Exemples :</b><br>
-• phrase en ${fromLang} + traduction en ${toLang}<br>
-• 2 à 4 exemples maximum<br><br>
+• phrase en ${fromLang} + traduction ${toLang}<br><br>
 
-Si le mot possède plusieurs sens → sépare les sections distinctement.
+Sépare les sens s'il y en a plusieurs.
     `;
 
     const apiRes = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -53,6 +47,7 @@ Si le mot possède plusieurs sens → sépare les sections distinctement.
     });
 
   } catch (err) {
+    console.error("Erreur API:", err);
     return res.status(500).json({ error: err.message });
   }
 }
