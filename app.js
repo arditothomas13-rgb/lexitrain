@@ -1,11 +1,11 @@
 /* -------------------------------------
-   LANGUES ACTUELLES
+   LANGUES COURANTES
 ------------------------------------- */
 let fromLang = "en";
 let toLang = "fr";
 
 /* -------------------------------------
-   ELEMENTS DOM
+   ELEMENTS DU DOM
 ------------------------------------- */
 const input = document.getElementById("wordInput");
 const translateBtn = document.getElementById("translateButton");
@@ -17,39 +17,39 @@ const fromFlag = document.getElementById("fromFlag");
 const toFlag = document.getElementById("toFlag");
 
 /* -------------------------------------
-   DETECTION AUTOMATIQUE
+   DETECTION AUTO
 ------------------------------------- */
 function detectLanguage(text) {
   const hasAccents = /[éèêàùûîïçœ]/i.test(text);
-  const isEnglishWord = /^[a-zA-Z\s]+$/.test(text);
+  const isEnglish = /^[a-zA-Z\s]+$/.test(text);
 
   if (hasAccents) return "fr";
-  if (isEnglishWord) return "en";
+  if (isEnglish) return "en";
   return "unknown";
 }
 
 /* -------------------------------------
-   SWAP MANUEL
+   SWAP LANGUES
 ------------------------------------- */
 function swapLanguages() {
   [fromLang, toLang] = [toLang, fromLang];
 
-  const tmpLabel = fromLabel.textContent;
+  // Textes
+  const temp = fromLabel.textContent;
   fromLabel.textContent = toLabel.textContent;
-  toLabel.textContent = tmpLabel;
+  toLabel.textContent = temp;
 
-  const tmpFlag = fromFlag.textContent;
+  // Drapeaux
+  const tempFlag = fromFlag.textContent;
   fromFlag.textContent = toFlag.textContent;
-  toFlag.textContent = tmpFlag;
+  toFlag.textContent = tempFlag;
 
   langSwap.classList.add("swap-anim");
   setTimeout(() => langSwap.classList.remove("swap-anim"), 300);
 }
 
-langSwap.addEventListener("click", swapLanguages);
-
 /* -------------------------------------
-   APPEL BACKEND VERCEL
+   FETCH TRADUCTION VIA API VERCEL
 ------------------------------------- */
 async function fetchDefinition(word, fromLang, toLang) {
   try {
@@ -60,35 +60,42 @@ async function fetchDefinition(word, fromLang, toLang) {
     });
 
     const data = await res.json();
-    return data.result || "⚠️ Erreur : aucun résultat reçu.";
+
+    if (data.error) return `<span style="color:#c00">⚠ ${data.error}</span>`;
+
+    return data.result;
+
   } catch (e) {
-    return "⚠️ Erreur serveur.";
+    return `<span style="color:#c00">⚠ Erreur de connexion.</span>`;
   }
 }
 
 /* -------------------------------------
-   ACTION TRADUIRE
+   ACTION : TRADUIRE
 ------------------------------------- */
 translateBtn.addEventListener("click", async () => {
-  const text = input.value.trim();
+  let text = input.value.trim();
   if (!text) return;
 
+  // Détection auto
   const detected = detectLanguage(text);
-
   if (detected === "fr" && fromLang === "en") swapLanguages();
   if (detected === "en" && fromLang === "fr") swapLanguages();
 
-  resultBox.innerHTML = "⏳ Analyse en cours…";
+  // Affichage loading
+  resultBox.innerHTML = "⏳ Analyse en cours...";
   resultBox.style.opacity = 1;
 
+  // Appel backend
   const html = await fetchDefinition(text, fromLang, toLang);
 
   resultBox.innerHTML = `
-    <div style="font-size:22px; font-weight:700; margin-bottom:12px;">
-      ${text}
-    </div>
-    <div style="opacity:.9; text-align:left; line-height:1.6;">
-      ${html}
-    </div>
+    <div style="font-size:20px; font-weight:700; margin-bottom:8px;">${text}</div>
+    <div style="text-align:left; line-height:1.55;">${html}</div>
   `;
 });
+
+/* -------------------------------------
+   SWAP MANUEL
+------------------------------------- */
+langSwap.addEventListener("click", swapLanguages);
