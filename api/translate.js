@@ -1,64 +1,50 @@
-export default async function handler(req, res) {
-  try {
-    const { word, fromLang, toLang } = req.body || {};
+const prompt = `
+Tu es un dictionnaire premium (type Reverso + Oxford + Linguee).
 
-    if (!word) {
-      return res.status(400).json({ error: "Missing word" });
-    }
+Génère une fiche structurée en pur HTML, SANS code markdown, SANS backticks.
 
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-    if (!OPENAI_API_KEY) {
-      return res.status(500).json({ error: "Missing API key" });
-    }
+Le mot : "${word}"
+Langue source : ${fromLang}
+Langue cible : ${toLang}
 
-    const prompt = `
-Dictionnaire professionnel type Oxford/Reverso.
+### Règles strictes :
+- Le rendu doit être UNIQUEMENT en HTML (pas de \`\`\`)
+- Chaque SENS séparé clairement (ex : Nom / Verbe / Expression)
+- Chaque sens doit contenir :
+    • <b>Traductions :</b> (3–6 max)
+    • <b>Synonymes :</b> (3–6 max)
+    • <b>Exemples :</b> 2–3 paires de phrases :
+          • phrase dans la langue source
+          • traduction dans la langue cible
 
-Mot : "${word}"
-Source : ${fromLang}
-Cible : ${toLang}
+### Structure FIXE obligatoire :
+<div class="entry">
+  <h3>[mot]</h3>
 
-Donne UNIQUEMENT du HTML :
+  <div class="sense">
+     <h4>[Catégorie : Nom / Verbe / Expression]</h4>
 
-<b>Traductions :</b><br>
-• ...<br><br>
+     <b>Traductions :</b><br>
+     • trad1<br>
+     • trad2<br><br>
 
-<b>Synonymes :</b><br>
-• ...<br><br>
+     <b>Synonymes :</b><br>
+     • syn1<br>
+     • syn2<br><br>
 
-<b>Exemples :</b><br>
-• phrase ${fromLang} + traduction ${toLang}<br><br>
+     <b>Exemples :</b><br>
+     • phrase source<br>
+       ↳ phrase cible<br><br>
+  </div>
 
-Plusieurs sens → sépare les sections.
-Réponses courtes et propres.
-    `;
+  (répéter pour chaque sens si nécessaire)
+</div>
 
-    const apiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: 400,
-        temperature: 0.2
-      })
-    });
+### Contraintes :
+- Ne JAMAIS inventer de phrases absurdes
+- Style naturel et professionnel
+- Si plusieurs sens existent (ex : Book = Livre / To book = Réserver), crée plusieurs blocs .sense
+- Si le mot est intraduisible ou ambigu, explique brièvement au début (1 phrase max)
 
-    const data = await apiRes.json();
-
-    const result = data?.choices?.[0]?.message?.content;
-
-    if (!result) {
-      return res.status(500).json({ error: "OpenAI returned no result" });
-    }
-
-    return res.status(200).json({ result });
-
-  } catch (err) {
-    console.error("Erreur translate.js :", err);
-    return res.status(500).json({ error: err.message });
-  }
-}
+Renvoie UNIQUEMENT le HTML final, sans commentaire.
+`;
