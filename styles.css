@@ -204,3 +204,54 @@ body {
 .tab-content.active {
   display: block;
 }
+
+/* ----------- ONGLETS ----------- */
+
+.tabs-container {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+}
+
+.tab {
+  background: #ffffffd8;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tab.active {
+  background: #4CAF50;
+  color: white;
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+  padding: 10px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  line-height: 1.55;
+  text-align: left;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.bubble-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
