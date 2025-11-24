@@ -1,68 +1,203 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>LexiTrain</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>LexiTrain</title>
 
-  <link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* 🛑 FIX FLOTTEMENT (NE CHANGE PAS LE STYLE) */
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;               /* plus de scroll horizontal */
+        background: white;
+        overscroll-behavior: none;        /* bloque le rebond iOS */
+    }
+
+    body {
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    /* CONTAINER GLOBAL STABLE */
+    .container {
+        position: relative;
+        z-index: 10;
+        padding: 40px 20px 120px;
+        text-align: center;
+        max-width: 480px;                 /* 🔒 limite la largeur */
+        margin: 0 auto;                   /* centre parfaitement */
+    }
+
+    /* HALOS EXACTEMENT COMME AVANT */
+    .halo {
+        position: fixed;                  /* 🔒 ne bouge plus */
+        width: 420px;
+        height: 420px;
+        filter: blur(90px);
+        opacity: 0.55;
+        z-index: 0;
+        pointer-events: none;
+    }
+    .halo.blue { background: #9fd7ff; top: -80px; left: -100px; }
+    .halo.green { background: #b5ffcf; top: 220px; right: -120px; }
+    .halo.purple { background: #d8c8ff; bottom: -60px; left: 20px; }
+
+    h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #124232;
+        margin-bottom: 12px;
+        margin-top: 20px;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        color: #444;
+        margin-bottom: 35px;
+    }
+
+    .subtitle span { 
+        background: linear-gradient(90deg, #4ba4ff, #b27cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Champ de texte */
+    .input-box {
+        width: 100%;
+        max-width: 390px;
+        margin: auto;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(16px);
+        border-radius: 22px;
+        padding: 18px 20px;
+        font-size: 17px;
+        border: 1px solid rgba(255,255,255,0.6);
+        box-shadow: 0 6px 26px rgba(0,0,0,0.08);
+    }
+
+    input {
+        width: 100%;
+        border: none;
+        background: transparent;
+        font-size: 17px;
+        outline: none;
+        color: #444;
+    }
+
+    /* Bouton Traduire */
+    .translate-btn {
+        margin-top: 18px;
+        background: linear-gradient(135deg, #12d37a, #08a85e);
+        padding: 16px 32px;
+        border-radius: 50px;
+        color: white;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        box-shadow: 0 6px 24px rgba(0,125,60,0.25);
+        cursor: pointer;
+    }
+
+    /* Capsule langues */
+    .lang-box {
+        margin: 32px auto 20px;
+        background: rgba(255,255,255,0.55);
+        backdrop-filter: blur(14px);
+        padding: 15px 22px;
+        border-radius: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        font-size: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        max-width: 380px;
+    }
+
+    .flag { font-size: 24px; }
+
+    /* Menu bas */
+    .bottom-nav {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        max-width: 480px;
+        background: rgba(255,255,255,0.7);
+        backdrop-filter: blur(18px);
+        border-radius: 30px;
+        padding: 14px 0;
+        display: flex;
+        justify-content: space-around;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+    }
+
+    .bottom-nav div {
+        font-size: 15px;
+        text-align: center;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .bottom-nav span {
+        font-size: 26px;
+    }
+
+</style>
 </head>
-
 <body>
 
-  <div id="app">
+<!-- HALOS FIXÉS -->
+<div class="halo blue"></div>
+<div class="halo green"></div>
+<div class="halo purple"></div>
 
-    <!-- HEADER -->
-    <header class="header">
-      <h1>LexiTrain</h1>
-      <p class="subtitle">Tape un <span class="gradient">mot</span> ou une <span class="gradient">expression</span> à traduire</p>
-    </header>
+<div class="container">
 
-    <!-- INPUT BOX -->
-    <div class="input-wrapper">
-      <input 
-        type="text" 
-        id="wordInput"
-        placeholder="Ex : stretched, although..."
-      />
+    <h1>LexiTrain</h1>
+
+    <p class="subtitle">
+        Tape un <span>mot</span> ou une <span>expression</span> à traduire
+    </p>
+
+    <!-- Champ texte -->
+    <div class="input-box">
+        <input type="text" placeholder="Ex : stretched, although...">
     </div>
 
-    <button id="translateBtn" class="btn-primary">
-      Traduire
-    </button>
+    <!-- BOUTON TRADUIRE -->
+    <button class="translate-btn">Traduire</button>
 
-    <!-- LANGUAGE SWITCH -->
-    <div class="lang-switch">
-      <span class="lang"><img src="https://flagcdn.com/gb.svg" class="flag" /> Anglais</span>
-      <span class="swap">⇄</span>
-      <span class="lang"><img src="https://flagcdn.com/fr.svg" class="flag" /> Français</span>
+    <!-- Langues -->
+    <div class="lang-box">
+        <span class="flag">🇬🇧</span> Anglais
+        <span style="font-size:22px;">⇄</span>
+        <span class="flag">🇫🇷</span> Français
     </div>
 
-    <!-- SPACER -->
-    <div class="spacer"></div>
+</div>
 
-    <!-- TAB BAR -->
-    <nav class="tabbar">
-      <div class="tab">
-        <span class="emoji">💬</span>
-        <p>Traduire</p>
-      </div>
-      <div class="tab">
-        <span class="emoji">📚</span>
-        <p>Dico</p>
-      </div>
-      <div class="tab">
-        <span class="emoji">😊</span>
-        <p>Quiz</p>
-      </div>
-      <div class="tab">
-        <span class="emoji">⭐</span>
-        <p>Options</p>
-      </div>
-    </nav>
+<!-- MENU BAS -->
+<div class="bottom-nav">
+    <div><span>💬</span>Traduire</div>
+    <div><span>📚</span>Dico</div>
+    <div><span>😊</span>Quiz</div>
+    <div><span>⭐</span>Options</div>
+</div>
 
-  </div>
-
-  <script src="app.js"></script>
 </body>
 </html>
