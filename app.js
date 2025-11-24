@@ -1,94 +1,126 @@
+/* -------------------------------------
+   LANGUES
+------------------------------------- */
 let fromLang = "en";
 let toLang = "fr";
 
+/* -------------------------------------
+   ELEMENTS
+------------------------------------- */
 const input = document.getElementById("wordInput");
-const translateBtn = document.getElementById("translateButton");
-const resultBox = document.getElementById("resultBox");
+const translateBtn = document.getElementById("translateBtn");
+const resultCard = document.getElementById("resultCard");
+const tabs = document.querySelectorAll(".tab");
+const tabContents = document.querySelectorAll(".tab-content");
 
-const langSwap = document.getElementById("langSwap");
 const fromLabel = document.getElementById("fromLabel");
 const toLabel = document.getElementById("toLabel");
 const fromFlag = document.getElementById("fromFlag");
 const toFlag = document.getElementById("toFlag");
+const swapBtn = document.getElementById("langSwap");
 
-const tabs = document.querySelectorAll(".tab");
-const tabContents = document.querySelectorAll(".tab-content");
-
+/* -------------------------------------
+   DETECTION LANGUE
+------------------------------------- */
 function detectLanguage(text) {
-  const accents = /[éèêàùûîïçœ]/i.test(text);
-  const english = /^[a-zA-Z]+$/i.test(text);
+  const hasAccents = /[éèêàùûîïçœ]/i.test(text);
+  const isEnglish = /^[a-zA-Z]+$/.test(text);
 
-  if (accents) return "fr";
-  if (english) return "en";
+  if (hasAccents) return "fr";
+  if (isEnglish) return "en";
   return "unknown";
 }
 
+/* -------------------------------------
+   SWAP LANGUES
+------------------------------------- */
 function swapLanguages() {
   [fromLang, toLang] = [toLang, fromLang];
 
-  [fromLabel.textContent, toLabel.textContent] =
-    [toLabel.textContent, fromLabel.textContent];
+  let tmp = fromLabel.textContent;
+  fromLabel.textContent = toLabel.textContent;
+  toLabel.textContent = tmp;
 
-  [fromFlag.textContent, toFlag.textContent] =
-    [toFlag.textContent, fromFlag.textContent];
+  let tmp2 = fromFlag.textContent;
+  fromFlag.textContent = toFlag.textContent;
+  toFlag.textContent = tmp2;
+
+  swapBtn.classList.add("swap-anim");
+  setTimeout(() => swapBtn.classList.remove("swap-anim"), 250);
 }
 
-async function fetchDefinition(word) {
-  const res = await fetch("/api/translate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ word, fromLang, toLang })
-  });
+/* -------------------------------------
+   API — VERCEL FUNCTION
+------------------------------------- */
+async function callApi(word) {
+  try {
+    const res = await fetch("/api/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ word, fromLang, toLang })
+    });
 
-  return await res.json();
+    const data = await res.json();
+    if (!data || !data.result) return null;
+    return data.result;
+
+  } catch (e) {
+    console.error("Erreur API :", e);
+    return null;
+  }
 }
 
-function activateTab(tabName) {
-  tabs.forEach(t => t.classList.remove("active"));
-  tabContents.forEach(c => c.classList.remove("active"));
-
-  document.querySelector(`[data-tab="${tabName}"]`).classList.add("active");
-  document.getElementById(tabName).classList.add("active");
-}
-
+/* -------------------------------------
+   ACTION — Traduire
+------------------------------------- */
 translateBtn.addEventListener("click", async () => {
-  const text = input.value.trim();
+  let text = input.value.trim();
   if (!text) return;
 
+  /* Auto-detect + auto-swap */
   const detected = detectLanguage(text);
-
-  if (detected !== "unknown" && detected !== fromLang) {
+  if (detected !== fromLang && detected !== "unknown") {
     swapLanguages();
   }
 
-  resultBox.innerHTML = `
-    <div class="loading">⏳ Traduction en cours...</div>
-  `;
+  // Loading
+  resultCard.style.display = "block";
+  document.getElementById("tab-traduction").innerHTML = "⏳ Traduction en cours...";
+  document.getElementById("tab-definition").innerHTML = "";
+  document.getElementById("tab-synonymes").innerHTML = "";
+  document.getElementById("tab-exemples").innerHTML = "";
+  document.getElementById("result-title").innerText = text;
 
-  const data = await fetchDefinition(text);
+  const response = await callApi(text);
 
-  if (!data.ok) {
-    resultBox.innerHTML = `<div class="error">⚠️ Erreur serveur.</div>`;
+  if (!response) {
+    document.getElementById("tab-traduction").innerHTML = "⚠️ Erreur serveur.";
     return;
   }
 
-  resultBox.innerHTML = `
-    <div class="tabs">
-      <button class="tab active" data-tab="translations">Traduction</button>
-      <button class="tab" data-tab="definitions">Définition</button>
-      <button class="tab" data-tab="synonyms">Synonymes</button>
-      <button class="tab" data-tab="examples">Exemples</button>
-    </div>
+  // Injection des 4 sections
+  document.getElementById("tab-traduction").innerHTML = response.traductions || "Aucune traduction.";
+  document.getElementById("tab-definition").innerHTML = response.definitions || "Aucune définition disponible.";
+  document.getElementById("tab-synonymes").innerHTML = response.synonymes || "Aucun synonyme disponible.";
+  document.getElementById("tab-exemples").innerHTML = response.exemples || "Aucun exemple disponible.";
+});
 
-    <div id="translations" class="tab-content active">${data.translations}</div>
-    <div id="definitions" class="tab-content">${data.definitions || "Aucune définition disponible."}</div>
-    <div id="synonyms" class="tab-content">${data.synonyms || "Aucun synonyme disponible."}</div>
-    <div id="examples" class="tab-content">${data.examples || "Aucun exemple disponible."}</div>
-  `;
+/* -------------------------------------
+   ONGLET SYSTEM
+------------------------------------- */
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    const target = tab.dataset.target;
 
-  document.querySelectorAll(".tab").forEach(btn => {
-    btn.addEventListener("click", () => activateTab(btn.dataset.tab));
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+
+    tabContents.forEach(c => c.classList.remove("active"));
+    document.getElementById(target).classList.add("active");
   });
 });
 
-langSwap.addEventListener("click", swapLanguages);
+/* -------------------------------------
+   SWAP Manuel
+------------------------------------- */
+swapBtn.addEventListener("click", swapLanguages);
