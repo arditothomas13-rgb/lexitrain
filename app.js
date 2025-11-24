@@ -2,8 +2,9 @@
 // VARIABLES
 // ============================================
 const input = document.getElementById("wordInput");
-const translateBtn = document.getElementById("translateButton");
-const resultBox = document.getElementById("resultBox");
+const translateBtn = document.getElementById("translateButton"); // <-- FIX
+const resultCard = document.getElementById("resultCard");
+const resultTitle = document.getElementById("result-title");
 
 // Langues
 const langSwap = document.getElementById("langSwap");
@@ -17,13 +18,13 @@ const toFlag = document.getElementById("toFlag");
 // ============================================
 langSwap.addEventListener("click", () => {
     const oldLabel = fromLabel.textContent;
-    const oldFlag = fromFlag.textContent;
+    const oldFlag  = fromFlag.textContent;
 
     fromLabel.textContent = toLabel.textContent;
-    fromFlag.textContent = toFlag.textContent;
+    fromFlag.textContent  = toFlag.textContent;
 
     toLabel.textContent = oldLabel;
-    toFlag.textContent = oldFlag;
+    toFlag.textContent  = oldFlag;
 });
 
 // ============================================
@@ -35,10 +36,10 @@ async function doTranslate() {
     const word = input.value.trim();
     if (!word) return;
 
-    showLoading();
+    showLoading(word);
 
     const from = fromLabel.textContent === "Anglais" ? "en" : "fr";
-    const to = toLabel.textContent === "Français" ? "fr" : "en";
+    const to   = toLabel.textContent === "Français" ? "fr" : "en";
 
     try {
         const res = await fetch("/api/translate", {
@@ -48,89 +49,89 @@ async function doTranslate() {
         });
 
         const data = await res.json();
-
-        if (!res.ok) throw new Error("API error");
+        if (!res.ok) throw new Error("Erreur API");
 
         renderResult(word, data);
 
     } catch (err) {
-        resultBox.innerHTML = `
-            <h2>${word}</h2>
-            <p style="color:#cc0000;">⚠️ Erreur serveur.</p>
-        `;
+        renderError(word);
     }
 }
 
 // ============================================
-// LOADING
+// AFFICHAGE LOADING
 // ============================================
-function showLoading() {
-    resultBox.style.opacity = 1;
-    resultBox.innerHTML = `
-        <h2>Analyse...</h2>
-        <p>⏳ Traduction en cours...</p>
-    `;
+function showLoading(word) {
+    resultCard.style.display = "block";
+    resultTitle.textContent = word;
+
+    document.getElementById("tab-traduction").innerHTML =
+        `<p>⏳ Traduction en cours...</p>`;
+    document.getElementById("tab-definition").innerHTML = "";
+    document.getElementById("tab-synonymes").innerHTML = "";
+    document.getElementById("tab-exemples").innerHTML = "";
 }
 
 // ============================================
-// AFFICHAGE DU RÉSULTAT + ONGLET
+// AFFICHAGE ERREUR
+// ============================================
+function renderError(word) {
+    resultCard.style.display = "block";
+    resultTitle.textContent = word;
+
+    document.getElementById("tab-traduction").innerHTML =
+        `<p style="color:#c00;">⚠️ Erreur serveur.</p>`;
+    document.getElementById("tab-definition").innerHTML = "";
+    document.getElementById("tab-synonymes").innerHTML = "";
+    document.getElementById("tab-exemples").innerHTML = "";
+}
+
+// ============================================
+// AFFICHAGE RÉSULTAT + ONGLET
 // ============================================
 function renderResult(word, data) {
-    resultBox.innerHTML = `
-        <h2>${word}</h2>
+    resultCard.style.display = "block";
+    resultTitle.textContent = word;
 
-        <div class="tabs">
-            <button class="active" data-tab="translation">Traduction</button>
-            <button data-tab="definition">Définition</button>
-            <button data-tab="synonyms">Synonymes</button>
-            <button data-tab="examples">Exemples</button>
-        </div>
+    document.getElementById("tab-traduction").innerHTML =
+        formatList("Traductions", data.translations);
 
-        <div id="tabContent" class="tab-content"></div>
-    `;
+    document.getElementById("tab-definition").innerHTML =
+        formatList("Définitions", data.definitions);
 
-    const tabContent = document.getElementById("tabContent");
+    document.getElementById("tab-synonymes").innerHTML =
+        formatList("Synonymes", data.synonyms);
 
-    const sections = {
-        translation: formatList("Traductions", data.translations),
-        definition: formatList("Définitions", data.definitions),
-        synonyms: formatList("Synonymes", data.synonyms),
-        examples: formatExamples(data.examples)
-    };
+    document.getElementById("tab-exemples").innerHTML =
+        formatExamples(data.examples);
 
-    // Onglet par défaut
-    tabContent.innerHTML = sections.translation;
-
-    // Écouteurs onglets
-    document.querySelectorAll(".tabs button").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            tabContent.innerHTML = sections[btn.dataset.tab];
-        });
-    });
+    setupTabs();
 }
 
 // ============================================
-// BUILDERS DE CONTENU
+// FORMATTERS
 // ============================================
 function formatList(title, arr) {
-    if (!arr || arr.length === 0) {
-        return `<p>Aucune donnée disponible.</p>`;
-    }
-
-    return `
-        <h3>${title}</h3>
-        <ul>${arr.map(x => `<li>${x}</li>`).join("")}</ul>
-    `;
+    if (!arr || arr.length === 0) return `<p>Aucune donnée disponible.</p>`;
+    return `<h3>${title}</h3><ul>${arr.map(x => `<li>${x}</li>`).join("")}</ul>`;
 }
 
 function formatExamples(arr) {
     if (!arr || arr.length === 0) return `<p>Aucun exemple disponible.</p>`;
+    return `<h3>Exemples</h3><ul>${arr.map(x => `<li>${x}</li>`).join("")}</ul>`;
+}
 
-    return `
-        <h3>Exemples</h3>
-        <ul>${arr.map(ex => `<li>${ex}</li>`).join("")}</ul>
-    `;
+// ============================================
+// GESTION DES ONGLET
+// ============================================
+function setupTabs() {
+    document.querySelectorAll(".tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+
+            btn.classList.add("active");
+            document.getElementById(btn.dataset.target).classList.add("active");
+        });
+    });
 }
