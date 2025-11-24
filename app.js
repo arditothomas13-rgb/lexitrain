@@ -38,15 +38,18 @@ async function doTranslate() {
 
     showLoading(word);
 
-    const from = fromLabel.textContent === "Anglais" ? "en" : "fr";
-    const to   = toLabel.textContent === "Français" ? "fr" : "en";
+   const from = fromLabel.textContent === "Anglais" ? "en" : "fr";
+const to   = toLabel.textContent === "Français" ? "fr" : "en";
 
-    try {
-        const res = await fetch("/api/translate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ word, from, to })
-        });
+const response = await fetch("/api/translate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+        word,
+        fromLang: from,
+        toLang: to
+    })
+});
 
         const data = await res.json();
         if (!res.ok) throw new Error("Erreur API");
