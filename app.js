@@ -1,5 +1,5 @@
 /* -------------------------------------
-   LANGUES COURANTES
+   LANGUE COURANTE
 ------------------------------------- */
 let fromLang = "en";
 let toLang = "fr";
@@ -17,14 +17,14 @@ const fromFlag = document.getElementById("fromFlag");
 const toFlag = document.getElementById("toFlag");
 
 /* -------------------------------------
-   DETECTION AUTO
+   DETECTION AUTOMATIQUE LANGUE
 ------------------------------------- */
 function detectLanguage(text) {
-  const hasAccents = /[éèêàùûîïçœ]/i.test(text);
-  const isEnglish = /^[a-zA-Z\s]+$/.test(text);
+  const frenchChars = /[éèêàùûîïçœ]/i;
+  const english = /^[a-z]+$/i;
 
-  if (hasAccents) return "fr";
-  if (isEnglish) return "en";
+  if (frenchChars.test(text)) return "fr";
+  if (english.test(text)) return "en";
   return "unknown";
 }
 
@@ -34,68 +34,120 @@ function detectLanguage(text) {
 function swapLanguages() {
   [fromLang, toLang] = [toLang, fromLang];
 
-  // Textes
-  const temp = fromLabel.textContent;
+  const tmpLabel = fromLabel.textContent;
   fromLabel.textContent = toLabel.textContent;
-  toLabel.textContent = temp;
+  toLabel.textContent = tmpLabel;
 
-  // Drapeaux
-  const tempFlag = fromFlag.textContent;
+  const tmpFlag = fromFlag.textContent;
   fromFlag.textContent = toFlag.textContent;
-  toFlag.textContent = tempFlag;
+  toFlag.textContent = tmpFlag;
 
   langSwap.classList.add("swap-anim");
   setTimeout(() => langSwap.classList.remove("swap-anim"), 300);
 }
 
 /* -------------------------------------
-   FETCH TRADUCTION VIA API VERCEL
+   APPEL API (Vercel) — HTML structuré
 ------------------------------------- */
 async function fetchDefinition(word, fromLang, toLang) {
-  try {
-    const res = await fetch("/api/translate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ word, fromLang, toLang })
-    });
+  const res = await fetch("/api/translate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ word, fromLang, toLang })
+  });
 
-    const data = await res.json();
+  const data = await res.json();
+  if (data.error) return null;
 
-    if (data.error) return `<span style="color:#c00">⚠ ${data.error}</span>`;
-
-    return data.result;
-
-  } catch (e) {
-    return `<span style="color:#c00">⚠ Erreur de connexion.</span>`;
-  }
+  return data.result;
 }
 
 /* -------------------------------------
-   ACTION : TRADUIRE
+   ONGLET UI
+------------------------------------- */
+function buildTabs(translationsHTML) {
+  return `
+    <div class="tabs-container">
+      <div class="tabs">
+        <button class="tab active" data-tab="t1">Traduction</button>
+        <button class="tab" data-tab="t2">Définition</button>
+        <button class="tab" data-tab="t3">Synonymes</button>
+        <button class="tab" data-tab="t4">Exemples</button>
+      </div>
+
+      <div class="tab-content active" id="t1">
+        ${translationsHTML}
+      </div>
+
+      <div class="tab-content" id="t2">
+        <i>Aucune définition fournie pour le moment.</i>
+      </div>
+
+      <div class="tab-content" id="t3">
+        <i>Synonymes chargés via l’onglet principal.</i>
+      </div>
+
+      <div class="tab-content" id="t4">
+        <i>Exemples disponibles dans la section principale.</i>
+      </div>
+    </div>
+  `;
+}
+
+function activateTabs() {
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const id = tab.dataset.tab;
+
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.remove("active"));
+
+      tab.classList.add("active");
+      document.getElementById(id).classList.add("active");
+    });
+  });
+}
+
+/* -------------------------------------
+   ACTION : CLIQUE SUR TRADUIRE
 ------------------------------------- */
 translateBtn.addEventListener("click", async () => {
   let text = input.value.trim();
   if (!text) return;
 
-  // Détection auto
+  // Détection auto + swap si besoin
   const detected = detectLanguage(text);
+
   if (detected === "fr" && fromLang === "en") swapLanguages();
   if (detected === "en" && fromLang === "fr") swapLanguages();
 
-  // Affichage loading
-  resultBox.innerHTML = "⏳ Analyse en cours...";
+  // Loading
+  resultBox.innerHTML = "⏳ Traduction en cours...";
   resultBox.style.opacity = 1;
 
-  // Appel backend
-  const html = await fetchDefinition(text, fromLang, toLang);
+  // Appel backend sécurisé
+  const htmlResult = await fetchDefinition(text, fromLang, toLang);
 
+  if (!htmlResult) {
+    resultBox.innerHTML = `
+      <div style="color:#c62828;">⚠️ Erreur lors de la traduction.</div>
+    `;
+    return;
+  }
+
+  // Insertion avec onglets
   resultBox.innerHTML = `
-    <div style="font-size:20px; font-weight:700; margin-bottom:8px;">${text}</div>
-    <div style="text-align:left; line-height:1.55;">${html}</div>
+    <div class="bubble-title">${text}</div>
+    ${buildTabs(htmlResult)}
   `;
+
+  activateTabs();
 });
 
 /* -------------------------------------
-   SWAP MANUEL
+   SWAP MANUEL UTILISATEUR
 ------------------------------------- */
 langSwap.addEventListener("click", swapLanguages);
