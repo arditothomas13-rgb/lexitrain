@@ -1,42 +1,25 @@
 export default async function handler(req, res) {
   try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Méthode non autorisée" });
-    }
-
     const { word, fromLang, toLang } = req.body;
 
-    if (!word) {
-      return res.status(400).json({ error: "Aucun mot fourni." });
-    }
-
-    // Sécurité : vérifier la clé OpenAI
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(500).json({ error: "Clé OpenAI manquante." });
-    }
-
-    // ----------- PROMPT PREMIUM -----------
     const prompt = `
-Tu es un dictionnaire premium (Oxford + Reverso + Larousse).
+Analyse le mot : "${word}"
 
-Génère une FICHE LEXICALE structurée en HTML pour le mot : "${word}"
+Retourne STRICTEMENT ce JSON (pas d'autre texte hors JSON) :
 
-Format EXACT OBLIGATOIRE (ne rajoute pas \`\`\`html !) :
+{
+  "translations": "HTML propre et concis",
+  "definitions": "HTML propre, simple, ou vide si aucune",
+  "synonyms": "HTML propre, simple, ou vide si aucun",
+  "examples": "HTML propre avec phrases bilingues"
+}
 
-<b>Traductions :</b><br>
-• liste de traductions principales<br><br>
-
-<b>Synonymes :</b><br>
-• liste courte<br><br>
-
-<b>Exemples :</b><br>
-• phrase en ${fromLang} + traduction en ${toLang}<br>
-• 2 à 4 exemples<br><br>
-
-Si le mot a plusieurs sens (nom + verbe), sépare-les clairement.
+Rappels :
+- Pas de markdown.
+- Pas de \`\`\`.
+- Juste du HTML simple (<ul><li>, <b>, <br>...).
     `;
 
-    // ---------- APPEL OPENAI ----------
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -46,23 +29,22 @@ Si le mot a plusieurs sens (nom + verbe), sépare-les clairement.
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [{ role: "user", content: prompt }],
-        max_tokens: 350,
-        temperature: 0.4
+        temperature: 0.3
       })
     });
 
     const data = await openaiRes.json();
 
-    if (!data.choices || !data.choices[0]) {
-      return res.status(500).json({ error: "Réponse OpenAI invalide." });
-    }
+    const json = JSON.parse(data.choices[0].message.content.trim());
 
-    const result = data.choices[0].message.content;
-
-    return res.status(200).json({ result });
+    res.status(200).json({
+      ok: true,
+      word,
+      ...json
+    });
 
   } catch (err) {
-    console.error("Erreur API :", err);
-    return res.status(500).json({ error: "Erreur interne du serveur." });
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Erreur serveur." });
   }
 }
