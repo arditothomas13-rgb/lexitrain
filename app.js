@@ -299,16 +299,43 @@ function loadHistory() {
         item.className = "history-item";
         item.textContent = word;
 
-   item.addEventListener("click", async () => {
+item.addEventListener("click", async () => {
+    const word = item.textContent;
+
     pageTranslate.style.display = "block";
     pageDictionary.style.display = "none";
 
     resultCard.style.display = "block";
-    resultTitle.textContent = w;
+    resultTitle.textContent = word;
     senseTabs.innerHTML = "";
     senseContent.innerHTML = "Chargement...";
 
-    const res = await fetch(`/api/get-dict-word?word=${w}`);
+    const res = await fetch(`/api/get-dict-word?word=${word}`);
+    const dic = await res.json();
+
+    if (!dic || dic.error) {
+        senseContent.innerHTML = "<div>❌ Mot introuvable dans le dictionnaire</div>";
+        return;
+    }
+
+    senseContent.innerHTML = `
+        <div class="glass translation-list">
+            <div class="sense-block-title">Traduction principale</div>
+            <div>${dic.main_translation}</div>
+        </div>
+
+        <div class="glass translation-list">
+            <div class="sense-block-title">Autres traductions</div>
+            ${dic.translations.map(t => `<div>${t}</div>`).join("")}
+        </div>
+
+        <div class="glass examples-list">
+            <div class="sense-block-title">Exemples</div>
+            ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
+        </div>
+    `;
+});
+
     const dic = await res.json();
 
     if (!dic || dic.error) {
