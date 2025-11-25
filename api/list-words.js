@@ -4,24 +4,22 @@
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
-  const KV_URL = process.env.KV_REST_API_URL;
-  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
-
-  if (!KV_URL || !KV_TOKEN) {
-    return res.status(500).json({ error: "Missing KV config" });
-  }
-
   try {
-    // Get list of all keys
+    const KV_URL = process.env.KV_REST_API_URL;
+    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+
+    if (!KV_URL || !KV_TOKEN) {
+      return res.status(500).json({ error: "Missing KV config" });
+    }
+
     const result = await fetch(`${KV_URL}/keys`, {
       headers: { Authorization: `Bearer ${KV_TOKEN}` }
     });
 
     const data = await result.json();
 
-    let keys = data?.result || [];
+    let keys = Array.isArray(data?.result) ? data.result : [];
 
-    // Sort alphabetically
     keys = keys.sort((a, b) => a.localeCompare(b));
 
     return res.status(200).json({ words: keys });
