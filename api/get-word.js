@@ -1,5 +1,5 @@
 // ------------------------------------------------------
-//  API — get-word.js
+//  API — get-word.js (FIXED)
 //  Returns full dictionary entry for a given word
 // ------------------------------------------------------
 export default async function handler(req, res) {
@@ -27,7 +27,10 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: "Word not found in dictionary" });
     }
 
-    return res.status(200).json(data.result);
+    // data.result is a STRING → must parse!
+    const parsed = JSON.parse(data.result);
+
+    return res.status(200).json(parsed);
 
   } catch (err) {
     console.error("GET WORD ERROR:", err);
