@@ -15,11 +15,7 @@
 </head>
 <body>
 
-<!-- ---------------------------------------------------- -->
-<!-- BACKGROUND -->
-<!-- ---------------------------------------------------- -->
 <div class="bg-halo"></div>
-
 
 <main>
 
@@ -50,9 +46,19 @@
 
         <!-- RESULTAT -->
         <div id="resultCard" class="glass result-card" style="display:none;">
+
+            <!-- Mot cherché -->
             <div id="result-title" class="result-title">mot</div>
+
+            <!-- Labels grammaticaux (noun / verb / adj) -->
+            <div id="senseLabels" class="sense-labels"></div>
+
+            <!-- Pills de sens -->
             <div id="senseTabs" class="sense-tabs"></div>
+
+            <!-- Contenu du sens -->
             <div id="senseContent" class="sense-content"></div>
+
         </div>
 
         <!-- HISTORIQUE -->
@@ -66,8 +72,6 @@
 </section>
 
 
-
-
 <!-- ===================================================== -->
 <!-- PAGE DICTIONNAIRE -->
 <!-- ===================================================== -->
@@ -77,17 +81,17 @@
 
         <h2 class="dictionary-title">Dictionnaire</h2>
 
-        <!-- Champ recherche avec loupe -->
         <div class="search-wrapper">
-            <div class="search-icon">🔍</div>
-            <input id="dictionarySearch" type="text" placeholder="Rechercher un mot...">
+            <input id="dictionarySearch" type="text" placeholder="🔎 Rechercher un mot...">
         </div>
 
-        <!-- Liste des mots -->
         <div id="dictionaryList" class="dictionary-list"></div>
 
-        <!-- Barre alphabétique iOS -->
+        <!-- Alphabet (A-Z) défilement iPhone) -->
         <div id="alphabetScroller" class="alphabet-scroller"></div>
+
+        <!-- Lettre popup style iOS -->
+        <div id="letterPopup" class="letter-popup" style="display:none;">A</div>
 
     </div>
 
@@ -97,8 +101,9 @@
 
 
 <!-- ===================================================== -->
-<!-- NAVIGATION BAS (APPLE LIQUID STYLE) -->
+<!-- NAVIGATION BAS STYLE APPLE LIQUID GLASS -->
 <!-- ===================================================== -->
+
 <nav class="apple-nav">
     <div class="nav-item" id="navTranslate">
         <div class="icon">💬</div>
@@ -121,16 +126,6 @@
     </div>
 </nav>
 
-
-<!-- ===================================================== -->
-<!-- BULLE IOS POUR LETTRE (Aperçu au centre) -->
-<!-- ===================================================== -->
-<div id="letterPreview" class="letter-preview">A</div>
-
-
-<!-- ===================================================== -->
-<!-- JS -->
-<!-- ===================================================== -->
 <script src="app.js"></script>
 
 </body>
