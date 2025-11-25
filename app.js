@@ -290,39 +290,47 @@ async function loadDictionary(q = "") {
         item.textContent = w;
 
         item.addEventListener("click", async () => {
-            pageTranslate.style.display = "block";
-            pageDictionary.style.display = "none";
+    pageTranslate.style.display = "block";
+    pageDictionary.style.display = "none";
 
-            resultCard.style.display = "block";
-            resultTitle.textContent = w;
-            senseTabs.innerHTML = "";
-            senseContent.innerHTML = "Chargement...";
+    resultCard.style.display = "block";
+    resultTitle.textContent = w;
+    senseTabs.innerHTML = "";
+    senseContent.innerHTML = "Chargement...";
 
-            const res = await fetch(`/api/get-dict-word?word=${w}`);
-            const dic = await res.json();
+    const res = await fetch(`/api/get-dict-word?word=${w}`);
+    const dic = await res.json();
 
-            if (!dic || dic.error) {
-                senseContent.innerHTML = "<div>❌ Mot introuvable</div>";
-                return;
+    if (!dic || dic.error) {
+        senseContent.innerHTML = "<div>❌ Mot introuvable</div>";
+        return;
+    }
+
+    // RENDU PREMIUM (structure réelle)
+    senseContent.innerHTML = `
+        <div class="glass translation-list">
+            <div class="sense-block-title">Traduction principale</div>
+            <div>${dic.main_translation || "—"}</div>
+        </div>
+
+        <div class="glass translation-list">
+            <div class="sense-block-title">Autres traductions</div>
+            ${(dic.translations || []).length
+                ? dic.translations.map(t => `<div>${t}</div>`).join("")
+                : "<div>Aucune autre traduction</div>"
             }
+        </div>
 
-            senseContent.innerHTML = `
-                <div class="glass translation-list">
-                    <div class="sense-block-title">Traduction principale</div>
-                    <div>${dic.main_translation}</div>
-                </div>
+        <div class="glass examples-list">
+            <div class="sense-block-title">Exemples</div>
+            ${(dic.examples || []).length
+                ? dic.examples.map(ex => `<div>• ${ex}</div>`).join("")
+                : "<div>Aucun exemple disponible</div>"
+            }
+        </div>
+    `;
+});
 
-                <div class="glass translation-list">
-                    <div class="sense-block-title">Autres traductions</div>
-                    ${dic.translations.map(t => `<div>${t}</div>`).join("")}
-                </div>
-
-                <div class="glass examples-list">
-                    <div class="sense-block-title">Exemples</div>
-                    ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
-                </div>
-            `;
-        });
 
         dictionaryList.appendChild(item);
     });
