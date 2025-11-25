@@ -1,28 +1,15 @@
-// ------------------------------------------------------
-//  API — history-get.js
-//  Returns recent translation history
-// ------------------------------------------------------
+import { kv } from "@vercel/kv";
 
 export default async function handler(req, res) {
-  const KV_URL = process.env.KV_REST_API_URL;
-  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+    try {
+        const hist = await kv.lrange("history", 0, -1);
 
-  if (!KV_URL || !KV_TOKEN) {
-    return res.status(500).json({ error: "Missing KV config" });
-  }
+        return res.status(200).json({
+            entries: hist || []
+        });
 
-  try {
-    const result = await fetch(`${KV_URL}/get/history:list`, {
-      headers: { Authorization: `Bearer ${KV_TOKEN}` }
-    });
-
-    const data = await result.json();
-
-    return res.status(200).json({
-      history: data?.result || []
-    });
-
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
+    } catch (err) {
+        console.error("history-get.js error", err);
+        res.status(500).json({ error: "Cannot read history" });
+    }
 }
