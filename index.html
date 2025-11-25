@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
 <title>LexiTrain</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +17,11 @@
 
 <div class="bg-halo"></div>
 
-<!-- ------------------------------------------------------ -->
-<!--                    PAGE TRADUCTION                     -->
-<!-- ------------------------------------------------------ -->
 <main>
 
+<!-- #################################################### -->
+<!--                     PAGE TRADUCTION                  -->
+<!-- #################################################### -->
 <section id="page-translate" class="page">
 
     <div class="container">
@@ -43,6 +44,7 @@
             <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
         </div>
 
+        <!-- Résultat -->
         <div id="resultCard" class="glass result-card" style="display:none;">
             <div id="result-title" class="result-title">mot</div>
 
@@ -51,14 +53,22 @@
             <div id="senseContent" class="sense-content"></div>
         </div>
 
+        <!-- ------------------------------------------------------ -->
+        <!--                HISTORIQUE (10 derniers mots)          -->
+        <!-- ------------------------------------------------------ -->
+        <div class="glass history-card">
+            <h3 class="history-title">Historique récent</h3>
+            <div id="historyList" class="history-list"></div>
+        </div>
+
     </div>
 
 </section>
 
-<!-- ------------------------------------------------------ -->
-<!--                       PAGE DICO                         -->
-<!-- ------------------------------------------------------ -->
 
+<!-- #################################################### -->
+<!--                         PAGE DICO                    -->
+<!-- #################################################### -->
 <section id="page-dictionary" class="page" style="display:none;">
 
     <div class="container">
@@ -77,9 +87,10 @@
 
 </main>
 
-<!-- ------------------------------------------------------ -->
-<!--                    BOTTOM NAVIGATION                    -->
-<!-- ------------------------------------------------------ -->
+
+<!-- #################################################### -->
+<!--                     NAVIGATION BAS                   -->
+<!-- #################################################### -->
 
 <nav class="glass bottom-nav">
     <div class="nav-item" id="navTranslate">💬<span>Traduire</span></div>
@@ -89,5 +100,6 @@
 </nav>
 
 <script src="app.js"></script>
+
 </body>
 </html>
