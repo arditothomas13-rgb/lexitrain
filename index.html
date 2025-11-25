@@ -40,16 +40,15 @@
     </div>
 
     <!-- Résultats -->
-    <div id="resultCard" class="glass result-card" style="display:none;">
+   <div id="resultCard" class="glass result-card" style="display:none;">
+    <div id="result-title" class="result-title">mot</div>
 
-        <div id="result-title" class="result-title">mot</div>
+    <!-- Pills des sens -->
+    <div id="senseTabs" class="sense-tabs"></div>
 
-        <div class="tabs">
-            <button class="tab active" data-target="tab-traduction">Traduction</button>
-            <button class="tab" data-target="tab-definition">Définition</button>
-            <button class="tab" data-target="tab-synonymes">Synonymes</button>
-            <button class="tab" data-target="tab-exemples">Exemples</button>
-        </div>
+    <!-- Contenu du sens actif -->
+    <div id="senseContent" class="sense-content"></div>
+</div>
 
         <div class="tab-content active" id="tab-traduction"></div>
         <div class="tab-content" id="tab-definition"></div>
