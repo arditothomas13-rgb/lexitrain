@@ -26,19 +26,45 @@ export default async function handler(req, res) {
 
         const json = await cloud.json();
 
+        // Rien trouvé → format propre
         if (!json || !json.result) {
-            return res.status(200).json({ error: "Not found" });
+            return res.status(200).json({
+                word,
+                main_translation: "",
+                translations: [],
+                examples: [],
+                distractors: [],
+                error: "Not found"
+            });
         }
 
-        const parsed = JSON.parse(json.result);
+        let parsed = {};
+        try {
+            parsed = JSON.parse(json.result);
+        } catch {
+            return res.status(200).json({
+                word,
+                main_translation: "",
+                translations: [],
+                examples: [],
+                distractors: [],
+                error: "Invalid JSON"
+            });
+        }
 
-        // Normalisation (au cas où)
+        // Normalisation stricte — TOUT est garanti
         return res.status(200).json({
-            word: parsed.word,
-            main_translation: parsed.main_translation,
-            translations: parsed.translations || [],
-            distractors: parsed.distractors || [],
-            examples: parsed.examples || []
+            word: parsed.word || word,
+            main_translation: parsed.main_translation || "",
+            translations: Array.isArray(parsed.translations)
+                ? parsed.translations
+                : [],
+            examples: Array.isArray(parsed.examples)
+                ? parsed.examples
+                : [],
+            distractors: Array.isArray(parsed.distractors)
+                ? parsed.distractors
+                : []
         });
 
     } catch (err) {
