@@ -1,14 +1,16 @@
 /* ============================================================
-   LexiTrain — APP.JS PRO (EN ⇄ FR + AutoSwitch + Clean UX)
-   + DICO FR/EN dynamique (wordlist:fr / wordlist:en)
+   LexiTrain — APP.JS PRO (EN ⇄ FR + AutoSwitch + DICO + Offline)
+   Avec :
+   ✔ Patch 1 : LocalStorage cache
+   ✔ Patch 2 : fetchWord() intelligent (local -> cloud -> GPT)
 ============================================================ */
 
 /* -----------------------------
    GLOBAL LANGUAGE STATE
 ----------------------------- */
-let fromLang = "en";   // source
-let toLang = "fr";     // target
-let dictionaryLang = "en"; // dico par défaut
+let fromLang = "en";   // source language
+let toLang = "fr";     // target language
+let dictionaryLang = "en"; // default dictionary language
 
 /* -----------------------------
    DOM ELEMENTS
@@ -41,13 +43,33 @@ const letterPopup = document.getElementById("letterPopup");
 const historyList = document.getElementById("historyList");
 const langSwap = document.getElementById("langSwap");
 
-/* === NEW : boutons FR/EN du Dico === */
+/* === RADIO BUTTONS DICO === */
 const btnDicEn = document.getElementById("dicLangEn");
 const btnDicFr = document.getElementById("dicLangFr");
 
-/* -----------------------------
+/* ============================================================
+   PATCH 1 — LOCAL OFFLINE CACHE
+============================================================ */
+
+function getLocalCache(key) {
+    try {
+        const raw = localStorage.getItem("lexitrain_cache:" + key);
+        if (!raw) return null;
+        return JSON.parse(raw);
+    } catch {
+        return null;
+    }
+}
+
+function setLocalCache(key, value) {
+    try {
+        localStorage.setItem("lexitrain_cache:" + key, JSON.stringify(value));
+    } catch {}
+}
+
+/* ============================================================
    AUTO SWITCH MESSAGE
------------------------------ */
+============================================================ */
 function showAutoSwitchMessage(msg) {
     const div = document.createElement("div");
     div.className = "autoswitch-msg";
@@ -78,7 +100,7 @@ function updateLanguageUI() {
 }
 
 /* ============================================================
-   MANUAL SWAP BUTTON
+   SWAP BUTTON
 ============================================================ */
 langSwap.addEventListener("click", () => {
     const oldFrom = fromLang;
@@ -86,11 +108,12 @@ langSwap.addEventListener("click", () => {
     toLang = oldFrom;
 
     updateLanguageUI();
+
     if (inputField.value.trim()) translateWord(true);
 });
 
 /* ============================================================
-   PAGE NAVIGATION
+   PAGES
 ============================================================ */
 navTranslate.addEventListener("click", () => {
     pageTranslate.style.display = "block";
@@ -104,17 +127,52 @@ openDictionary.addEventListener("click", () => {
 });
 
 /* ============================================================
-   API CALL WITH LANGS
+   PATCH 2 — fetchWord() intelligent (local → cloud → GPT)
 ============================================================ */
 async function fetchWord(word) {
+
+    const cacheKey = `${word.toLowerCase()}_${fromLang}_${toLang}`;
+
+    /* 1 — LOCAL CACHE */
+    const local = getLocalCache(cacheKey);
+    if (local) {
+        return { ...local, fromCache: "local" };
+    }
+
+    /* 2 — KV (cloud) */
+    try {
+        const cloud = await fetch(`/api/kv-get.js?key=${cacheKey}`);
+        const cloudData = await cloud.json();
+
+        if (cloudData.result) {
+            const parsed = JSON.parse(cloudData.result);
+
+            // Save locally
+            setLocalCache(cacheKey, parsed);
+
+            return { ...parsed, fromCache: "cloud" };
+        }
+
+    } catch (e) {}
+
+    /* 3 — GPT (fallback uniquement si nécessaire) */
     try {
         const res = await fetch(
             `/api/translate.js?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
         );
-        return await res.json();
+
+        const data = await res.json();
+
+        // Solution déjà enregistrée côté API → mais on la garde localement aussi :
+        setLocalCache(cacheKey, data);
+
+        return data;
+
     } catch (err) {
-        console.error(err);
-        return { error: "Impossible d'obtenir la traduction." };
+        return {
+            error:
+                "Impossible d'obtenir la traduction et le mot n'existe pas en mode hors-ligne."
+        };
     }
 }
 
@@ -126,9 +184,7 @@ function showLoader() {
     resultTitle.textContent = "⏳ Traduction en cours...";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `
-        <div style="text-align:center; padding:34px; font-size:30px; opacity:0.6;">
-            ⏳
-        </div>
+        <div style="text-align:center; padding:34px; font-size:30px; opacity:0.6;">⏳</div>
     `;
 }
 
@@ -156,7 +212,9 @@ function renderSenseTabs(entries) {
         pill.addEventListener("click", () => {
             document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
             pill.classList.add("active");
+
             pill.scrollIntoView({ behavior: "smooth", inline: "center" });
+
             renderSenseContent(entry);
         });
 
@@ -225,7 +283,6 @@ function renderSenseContent(entry) {
             tag.className = "synonym-tag";
             tag.textContent = s;
 
-            // NEW : clic => nouvelle recherche
             tag.addEventListener("click", () => {
                 inputField.value = s;
                 translateWord();
@@ -237,6 +294,7 @@ function renderSenseContent(entry) {
         const sTitle = document.createElement("div");
         sTitle.className = "sense-block-title";
         sTitle.textContent = "Synonyms";
+
         senseContent.appendChild(sTitle);
         senseContent.appendChild(sWrap);
     }
@@ -284,7 +342,7 @@ async function translateWord(isSwap = false) {
 }
 
 /* ============================================================
-   USER ACTIONS
+   ACTIONS
 ============================================================ */
 translateBtn.addEventListener("click", translateWord);
 inputField.addEventListener("keypress", e => {
@@ -321,7 +379,7 @@ function addToHistory(word) {
 }
 
 /* ============================================================
-   DICO — LOAD FROM wordlist:en / wordlist:fr
+   DICO — Load list
 ============================================================ */
 async function loadDictionary(search = "") {
     dictionaryList.innerHTML = "Chargement...";
@@ -332,8 +390,7 @@ async function loadDictionary(search = "") {
 
         dictionaryList.innerHTML = "";
 
-        const words = data.words || [];
-        words.forEach(w => {
+        (data.words || []).forEach(w => {
             const item = document.createElement("div");
             item.className = "dic-item";
             item.textContent = w;
@@ -352,7 +409,7 @@ async function loadDictionary(search = "") {
     }
 }
 
-/* === RADIO BUTTONS DU DICO === */
+/* RADIO BUTTONS */
 btnDicEn.addEventListener("click", () => {
     dictionaryLang = "en";
     loadDictionary();
@@ -364,7 +421,7 @@ btnDicFr.addEventListener("click", () => {
 });
 
 /* ============================================================
-   SCROLLER A-Z (iOS)
+   SCROLLER A-Z
 ============================================================ */
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
