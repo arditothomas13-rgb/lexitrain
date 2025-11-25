@@ -17,7 +17,7 @@ html, body {
 
 body {
   position: relative;
-  padding-bottom: 120px; /* espace pour la bottom-nav */
+  padding-bottom: 120px; /* espace sous la nav */
   overscroll-behavior: none;
 }
 
@@ -36,13 +36,13 @@ body {
 }
 
 /* =======================================================
-   PAGE SYSTEM (Translation / Dictionary)
+   PAGE SYSTEM
 ======================================================= */
 .page {
   width: 100%;
   max-width: 430px;
   margin: 0 auto;
-  padding: 40px 20px 60px;
+  padding: 40px 20px 70px;
 }
 
 /* =======================================================
@@ -63,24 +63,28 @@ body {
   margin-bottom: 30px;
 }
 
-.subtitle .blue { color: #4ba4ff; }
-.subtitle .purple { color: #b27cff; }
+.subtitle .blue {
+  color: #4ba4ff;
+}
+.subtitle .purple {
+  color: #b27cff;
+}
 
 /* =======================================================
-   GLASS (Liquid UI Apple)
+   GLASS
 ======================================================= */
 .glass {
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
-  background: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.35);
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.30);
   box-shadow: 0 4px 25px rgba(0,0,0,0.08);
   transition: all 0.25s ease;
 }
 
 .glass:hover {
-  background: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.40);
   box-shadow: 0 6px 30px rgba(0,0,0,0.12);
 }
 
@@ -88,32 +92,27 @@ body {
    INPUT FIELD
 ======================================================= */
 .input-card {
-  padding: 8px 18px;
+  padding: 10px 18px;
   margin-bottom: 20px;
 }
 
 .input-card input {
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   font-size: 17px;
   border-radius: 18px;
   border: none;
   background: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: all 0.25s ease;
-}
-
-.input-card input:focus {
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
 /* =======================================================
-   BUTTON GREEN (Apple)
+   BUTTON GREEN
 ======================================================= */
 .btn-green {
   margin: 18px auto 0;
   background: linear-gradient(135deg, #34d26a, #23b65a);
-  padding: 14px 0;
+  padding: 16px 0;
   width: 100%;
   max-width: 380px;
   border-radius: 18px;
@@ -146,7 +145,7 @@ body {
 }
 
 .swap {
-  font-size: 26px;
+  font-size: 28px;
   cursor: pointer;
 }
 
@@ -154,41 +153,64 @@ body {
    RESULT CARD
 ======================================================= */
 .result-card {
-  margin-top: 18px;
+  margin-top: 22px;
   padding: 24px;
 }
 
 /* =======================================================
-   SENSE TABS
+   SENSE LABELS (noun / verb / adj)
 ======================================================= */
-.sense-tabs {
-  margin-top: 18px;
+.sense-labels {
+  margin-top: 12px;
   display: flex;
   gap: 10px;
   overflow-x: auto;
   padding-bottom: 6px;
 }
 
+.sense-labels::-webkit-scrollbar { display: none; }
+
+.sense-label-pill {
+  padding: 8px 18px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(18px);
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.sense-label-pill.active {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: white;
+  border: none;
+}
+
+/* =======================================================
+   SENSE PILLS (meaning)
+======================================================= */
+.sense-tabs {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
 .sense-tabs::-webkit-scrollbar { display: none; }
 
 .sense-pill {
   padding: 8px 20px;
   background: rgba(255,255,255,0.55);
   border-radius: 20px;
-  backdrop-filter: blur(18px);
-  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.3);
   font-size: 15px;
-  border: 1px solid rgba(255,255,255,0.35);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
   white-space: nowrap;
-  transition: 0.25s;
+  cursor: pointer;
 }
-
 .sense-pill.active {
   background: linear-gradient(135deg, #4ade80, #22c55e);
   color: white;
   border: none;
-  box-shadow: 0 4px 14px rgba(34,197,94,0.25);
 }
 
 /* =======================================================
@@ -213,7 +235,7 @@ body {
 .translation-list {
   background: white;
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 16px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.07);
 }
 
@@ -228,7 +250,7 @@ body {
 .examples-list {
   background: white;
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 16px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.07);
 }
 
@@ -246,7 +268,7 @@ body {
 }
 
 /* =======================================================
-   SYNONYMS TAGS
+   SYNONYMS
 ======================================================= */
 .synonyms-wrapper {
   background: white;
@@ -260,26 +282,24 @@ body {
 
 .synonym-tag {
   padding: 8px 14px;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.7);
   border-radius: 14px;
-  backdrop-filter: blur(14px);
-  font-size: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
 }
 
 /* =======================================================
-   HISTORY CARD (New)
+   HISTORY
 ======================================================= */
 .history-card {
   margin-top: 26px;
-  padding: 20px;
+  padding: 22px;
 }
 
 .history-title {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 14px;
-  text-align: left;
 }
 
 .history-list {
@@ -289,7 +309,7 @@ body {
 }
 
 .history-item {
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.75);
   padding: 8px 14px;
   border-radius: 14px;
   cursor: pointer;
@@ -297,15 +317,11 @@ body {
   font-size: 14px;
 }
 
-.history-item:hover {
-  background: rgba(255,255,255,0.75);
-}
-
 /* =======================================================
-   PAGE DICTIONNAIRE
+   DICTIONARY PAGE
 ======================================================= */
 .dictionary-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
@@ -314,21 +330,23 @@ body {
 #dictionarySearch {
   width: 100%;
   padding: 14px;
-  border-radius: 14px;
+  border-radius: 16px;
   background: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   border: none;
+  margin-bottom: 20px;
 }
 
 .dictionary-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-bottom: 60px;
 }
 
 .dic-item {
   padding: 14px 18px;
-  background: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.70);
   backdrop-filter: blur(16px);
   border-radius: 16px;
   font-size: 17px;
@@ -336,23 +354,78 @@ body {
   cursor: pointer;
 }
 
-.dic-item:hover {
+/* =======================================================
+   A-Z ALPHABET SCROLLER
+======================================================= */
+.alphabet-scroller {
+  position: fixed;
+  right: 6px;
+  top: 25%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 30;
+  padding: 10px 6px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(16px);
+}
+
+.alpha-letter {
+  font-size: 13px;
+  opacity: 0.7;
+  padding: 2px 0;
+  text-align: center;
+  user-select: none;
+}
+
+/* Popup lettre iOS */
+.letter-popup {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+  padding: 30px 38px;
+  font-size: 42px;
+  font-weight: 700;
+  color: #333;
+  display: none;
+  transition: opacity 0.2s;
+  z-index: 1000;
 }
 
 /* =======================================================
-   BOTTOM NAV
+   BOTTOM NAV (Apple)
 ======================================================= */
+.apple-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 22px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255,255,255,0.45);
+  z-index: 50;
+}
+
 .nav-item {
   text-align: center;
   cursor: pointer;
-  font-size: 15px;
+  flex: 1;
 }
 
-.nav-item span {
-  display: block;
+.nav-item .icon {
+  font-size: 20px;
+}
+.nav-item .label {
   font-size: 13px;
-  margin-top: 4px;
+  opacity: 0.85;
 }
 
 /* =======================================================
@@ -360,91 +433,6 @@ body {
 ======================================================= */
 @media (max-width: 480px) {
   .page {
-    padding: 30px 15px 80px;
+    padding: 32px 16px 90px;
   }
-
-  .sense-pill {
-    padding: 6px 16px;
-    font-size: 14px;
-  }
-
-  .btn-green {
-    font-size: 17px;
-  }
-   }
-/* =======================================================
-   APPLE BOTTOM NAV — VERSION EXACTE DU SCREEN
-======================================================= */
-
-.apple-nav {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 92%;
-    max-width: 480px;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 16px 22px;
-
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(22px) saturate(180%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
-
-    border-radius: 28px 28px 0 0;
-    border-top: 1px solid rgba(255,255,255,0.4);
-    box-shadow: 0 -4px 18px rgba(0,0,0,0.08);
-
-    z-index: 9999;
-}
-
-.apple-nav .nav-item {
-    flex: 1;
-    text-align: center;
-    color: #2f3e38;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.apple-nav .icon {
-    font-size: 20px;
-    margin-bottom: 4px;
-}
-
-.apple-nav .label {
-    font-size: 13px;
-    opacity: 0.85;
-}
-
-/* =======================================================
-   LETTER PREVIEW (iOS style bubble)
-======================================================= */
-.letter-preview {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120px;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 64px;
-  font-weight: 700;
-  color: #222;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease-out;
-  z-index: 999;
-}
-
-.letter-preview.show {
-  opacity: 1;
 }
