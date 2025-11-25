@@ -1,17 +1,13 @@
 /* ============================================================
    LexiTrain — APP.JS PRO (EN ⇄ FR + AutoSwitch + DICO + Offline)
-   + Fix slider iOS
-   + Fix dico EN/FR
-   + Fix clics dico
-   + Fix historique (sans GPT)
 ============================================================ */
 
 /* -----------------------------
    GLOBAL LANGUAGE STATE
 ----------------------------- */
-let fromLang = "en";   // source language
-let toLang = "fr";     // target language
-let dictionaryLang = "en"; // language displayed in dictionary
+let fromLang = "en";
+let toLang = "fr";
+let dictionaryLang = "en";
 
 /* -----------------------------
    DOM ELEMENTS
@@ -53,8 +49,7 @@ const btnDicFr = document.getElementById("dicLangFr");
 function getLocalCache(key) {
     try {
         const raw = localStorage.getItem("lexitrain_cache:" + key);
-        if (!raw) return null;
-        return JSON.parse(raw);
+        return raw ? JSON.parse(raw) : null;
     } catch {
         return null;
     }
@@ -115,15 +110,11 @@ openDictionary.addEventListener("click", () => {
 });
 
 /* ============================================================
-   SWAP EN/FR
+   SWAP LANGUAGES
 ============================================================ */
 langSwap.addEventListener("click", () => {
-    const old = fromLang;
-    fromLang = toLang;
-    toLang = old;
-
+    [fromLang, toLang] = [toLang, fromLang];
     updateLanguageUI();
-
     if (inputField.value.trim()) translateWord(true);
 });
 
@@ -131,16 +122,15 @@ langSwap.addEventListener("click", () => {
    SMART FETCH WORD
 ============================================================ */
 async function fetchWord(word, cacheOnly = false) {
-
     const cacheKey = `${word.toLowerCase()}_${fromLang}_${toLang}`;
 
-    // 1 — LOCAL CACHE
+    // 1 — Local cache
     const local = getLocalCache(cacheKey);
     if (local) return { ...local, fromCache: "local" };
 
-    // 2 — CLOUD CACHE
+    // 2 — Cloud KV cache
     try {
-        const cloud = await fetch(`/api/kv-get.js?key=${cacheKey}`);
+        const cloud = await fetch(`/api/kv-get?key=${cacheKey}`);
         const data = await cloud.json();
 
         if (data.result) {
@@ -150,15 +140,13 @@ async function fetchWord(word, cacheOnly = false) {
         }
     } catch {}
 
-    // 3 — GPT (only if NOT cacheOnly)
+    // 3 — GPT API (only if not cacheOnly)
     if (!cacheOnly) {
         const res = await fetch(
-            `/api/translate.js?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
+            `/api/translate?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
         );
         const apiData = await res.json();
-
         setLocalCache(cacheKey, apiData);
-
         return apiData;
     }
 
@@ -166,7 +154,7 @@ async function fetchWord(word, cacheOnly = false) {
 }
 
 /* ============================================================
-   LOADING UI
+   LOADER UI
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
@@ -186,10 +174,10 @@ function clearResult() {
 ============================================================ */
 function renderSenseTabs(entries) {
     senseTabs.innerHTML = "";
-    entries.forEach((entry, index) => {
+    entries.forEach((entry, idx) => {
         const pill = document.createElement("div");
         pill.className = "sense-pill";
-        if (index === 0) pill.classList.add("active");
+        if (idx === 0) pill.classList.add("active");
         pill.textContent = entry.label;
 
         pill.addEventListener("click", () => {
@@ -210,14 +198,13 @@ function renderSenseContent(entry) {
             <div class="glass translation-list">
                 <div class="sense-block-title">Definition</div>
                 <div>${entry.definition}</div>
-            </div>`;
+            </div>
+        `;
     }
-
-    const tLabel = toLang === "fr" ? "Traduction" : "Translation";
 
     senseContent.innerHTML += `
         <div class="glass translation-list">
-            <div class="sense-block-title">${tLabel}</div>
+            <div class="sense-block-title">Traduction</div>
             ${entry.translations.map(t => `<div class="translation-item">${t}</div>`).join("")}
         </div>
     `;
@@ -225,11 +212,16 @@ function renderSenseContent(entry) {
     senseContent.innerHTML += `
         <div class="glass examples-list">
             <div class="sense-block-title">Examples</div>
-            ${entry.examples.map(ex => `
+            ${entry.examples
+                .map(
+                    ex => `
                 <div class="example-block">
                     <div class="example-text">• ${ex.src}</div>
                     <div class="example-translation">→ ${ex.dest}</div>
-                </div>`).join("")}
+                </div>
+            `
+                )
+                .join("")}
         </div>
     `;
 
@@ -238,9 +230,7 @@ function renderSenseContent(entry) {
             <div class="sense-block-title">Synonyms</div>
             <div class="glass synonyms-wrapper">
                 ${entry.synonyms
-                    .map(
-                        s => `<div class="synonym-tag" data-word="${s}">${s}</div>`
-                    )
+                    .map(s => `<div class="synonym-tag" data-word="${s}">${s}</div>`)
                     .join("")}
             </div>
         `;
@@ -273,16 +263,9 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     }
 
     if (data.auto_switch && !isSwap) {
-        const old = fromLang;
-        fromLang = toLang;
-        toLang = old;
-
+        [fromLang, toLang] = [toLang, fromLang];
         updateLanguageUI();
-
-        showAutoSwitchMessage(
-            `🔄 Détection automatique : ${fromLang.toUpperCase()} → ${toLang.toUpperCase()}`
-        );
-
+        showAutoSwitchMessage(`🔄 Auto-switch : ${fromLang} → ${toLang}`);
         return translateWord(true);
     }
 
@@ -307,12 +290,13 @@ function loadHistory() {
 
         item.addEventListener("click", () => {
             inputField.value = word;
-            translateWord(false, true); // CACHE ONLY
+            translateWord(false, true);
         });
 
         historyList.appendChild(item);
     });
 }
+
 loadHistory();
 
 function addToHistory(word) {
@@ -323,12 +307,12 @@ function addToHistory(word) {
 }
 
 /* ============================================================
-   DICTIONNAIRE
+   DICTIONARY
 ============================================================ */
 async function loadDictionary(q = "") {
     dictionaryList.innerHTML = "Chargement...";
 
-    const res = await fetch(`/api/list-words.js?lang=${dictionaryLang}&q=${q}`);
+    const res = await fetch(`/api/list-words?lang=${dictionaryLang}&q=${q}`);
     const data = await res.json();
 
     dictionaryList.innerHTML = "";
@@ -352,7 +336,6 @@ dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
 });
 
-/* Switch FR/EN in dictionary */
 btnDicEn.addEventListener("click", () => {
     dictionaryLang = "en";
     btnDicEn.classList.add("active");
@@ -377,6 +360,7 @@ function renderAlphabetScroller() {
         .map(l => `<div class="alpha-letter">${l}</div>`)
         .join("");
 }
+
 renderAlphabetScroller();
 
 alphabetScroller.addEventListener("touchmove", e => {
@@ -384,7 +368,6 @@ alphabetScroller.addEventListener("touchmove", e => {
     const rect = alphabetScroller.getBoundingClientRect();
     const pos = touch.clientY - rect.top;
     const index = Math.floor((pos / rect.height) * alphabet.length);
-
     const letter = alphabet[index];
     if (!letter) return;
 
@@ -396,6 +379,5 @@ alphabetScroller.addEventListener("touchmove", e => {
 
     const words = [...dictionaryList.children];
     const target = words.find(item => item.textContent[0].toUpperCase() === letter);
-
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
 });
