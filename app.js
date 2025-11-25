@@ -149,13 +149,14 @@ async function fetchWord(word, cacheOnly = false) {
             return parsed;
         }
     } catch {}
-
-    if (!cacheOnly) {
-        const res = await fetch(`/api/translate?word=${word}&from=${fromLang}&to=${toLang}`);
-        const apiData = await res.json();
-        setLocalCache(cacheKey, apiData);
-        return apiData;
-    }
+if (!cacheOnly) {
+    const res = await fetch(
+        `/api/get-word?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
+    );
+    const apiData = await res.json();
+    setLocalCache(cacheKey, apiData);
+    return apiData;
+}
 
     return { error: "Donnée indisponible hors-ligne" };
 }
