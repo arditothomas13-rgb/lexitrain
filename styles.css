@@ -297,3 +297,137 @@ body {
   padding: 15px;
   font-size: 16px;
 }
+/* ------------------------------- */
+/*   PILLS DES SENS (ONGLETS)      */
+/* ------------------------------- */
+
+.sense-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 12px 0;
+    margin-bottom: 15px;
+    scroll-snap-type: x mandatory;
+}
+
+.sense-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.sense-pill {
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    color: #333;
+    cursor: pointer;
+    transition: all 0.20s ease;
+    scroll-snap-align: start;
+    white-space: nowrap;
+}
+
+.sense-pill:hover {
+    transform: translateY(-1px);
+}
+
+.sense-pill.active {
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    color: white;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.15);
+}
+
+
+/* ------------------------------- */
+/*   CONTENU DU SENS ACTIF         */
+/* ------------------------------- */
+
+.sense-content {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-bottom: 8px;
+}
+
+/* Section title */
+.sense-block-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+/* ------------------------------- */
+/*   Traductions                   */
+/* ------------------------------- */
+.translation-list {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.07);
+}
+
+.translation-item {
+    font-size: 16px;
+    padding: 4px 0;
+    color: #333;
+}
+
+/* ------------------------------- */
+/*   Exemples                      */
+/* ------------------------------- */
+.examples-list {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.07);
+}
+
+.example-block {
+    margin-bottom: 12px;
+}
+
+.example-text {
+    font-size: 15px;
+    color: #333;
+}
+
+.example-translation {
+    font-size: 14px;
+    color: #666;
+    margin-top: 2px;
+}
+
+.example-block:last-child {
+    margin-bottom: 0;
+}
+
+/* ------------------------------- */
+/*   Synonymes (tags Apple)        */
+/* ------------------------------- */
+
+.synonyms-wrapper {
+    background: #fff;
+    padding: 14px 16px;
+    border-radius: 14px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.07);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.synonym-tag {
+    background: #f5f5f5;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.15s ease;
+}
+
+.synonym-tag:hover {
+    background: #e9e9e9;
+}
