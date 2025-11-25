@@ -2,7 +2,6 @@
 //  API — get-word.js
 //  Returns full dictionary entry for a given word
 // ------------------------------------------------------
-
 export default async function handler(req, res) {
   try {
     const word = req.query.word?.toLowerCase();
