@@ -1,22 +1,53 @@
-import { kv } from "@vercel/kv";
+// ------------------------------------------------------
+//  API — history-add.js
+//  Add a word to recent history (max 10)
+// ------------------------------------------------------
 
 export default async function handler(req, res) {
-    try {
-        const word = req.query.word?.trim();
-        if (!word) {
-            return res.status(400).json({ error: "Missing word" });
-        }
+  const { word } = req.query;
 
-        // Ajout en haut de liste
-        await kv.lpush("history", word);
+  if (!word) {
+    return res.status(400).json({ error: "Missing word" });
+  }
 
-        // Limite à 10
-        await kv.ltrim("history", 0, 9);
+  const KV_URL = process.env.KV_REST_API_URL;
+  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 
-        return res.status(200).json({ ok: true });
+  if (!KV_URL || !KV_TOKEN) {
+    return res.status(500).json({ error: "Missing KV config" });
+  }
 
-    } catch (err) {
-        console.error("history-add.js error", err);
-        res.status(500).json({ error: "Error adding to history" });
-    }
+  try {
+    // Récupère l'historique
+    const getRes = await fetch(`${KV_URL}/get/history:list`, {
+      headers: { Authorization: `Bearer ${KV_TOKEN}` }
+    });
+
+    const data = await getRes.json();
+    let list = data?.result || [];
+
+    // Supprimer si existe déjà
+    list = list.filter(w => w !== word);
+
+    // Ajouter en tête
+    list.unshift(word);
+
+    // Limite : 10 mots max
+    if (list.length > 10) list = list.slice(0, 10);
+
+    // Sauvegarde dans KV
+    await fetch(`${KV_URL}/set/history:list`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${KV_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(list)
+    });
+
+    return res.status(200).json({ ok: true, history: list });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 }
