@@ -616,5 +616,42 @@ function initAlphabetScroller() {
     enableLetterClicks();
     enableLetterDrag();
 }
+       /* FIX GLOBAL — CENTRAGE PARFAIT DE LA LOUPE */
+#page-dictionary .search-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 18px;
+}
+
+#page-dictionary .search-wrapper input {
+  width: 100%;
+  height: 52px; /* hauteur fixe => alignement parfait */
+  padding: 0 55px 0 18px; /* padding horizontal uniquement */
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 18px;
+  border: none;
+  background: white;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+#page-dictionary .search-wrapper .search-icon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%); /* centrage VRAI */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  opacity: 0.68;
+}
+
+#page-dictionary .search-wrapper .search-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
 
 // 🔥 Appeler initAlphabetScroller() après avoir généré dictionaryList
