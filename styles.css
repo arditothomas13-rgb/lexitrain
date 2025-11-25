@@ -540,3 +540,17 @@ body {
   font-size: 12px;
   opacity: 0.85;
 }
+
+/* =======================================================
+   FIX — CENTRAGE OPTIQUE DE LA LOUPE (PAGE DICTIONNAIRE)
+======================================================= */
+#page-dictionary .search-wrapper .search-icon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-48%);
+  font-size: 19px;
+  opacity: 0.68;
+  pointer-events: none;
+}
+
