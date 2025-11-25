@@ -5,29 +5,27 @@
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
-  const word = req.query.word?.toLowerCase();
+  try {
+    const word = req.query.word?.toLowerCase();
 
-  if (!word) {
-    return res.status(400).json({ error: "Missing 'word' parameter" });
-  }
+    if (!word) {
+      return res.status(400).json({ error: "Missing 'word' parameter" });
+    }
 
-  // -----------------------------
-  // ENV VARS
-  // -----------------------------
-  const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-  const KV_URL = process.env.KV_REST_API_URL;
-  const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+    const KV_URL = process.env.KV_REST_API_URL;
+    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 
-  if (!OPENAI_API_KEY || !KV_URL || !KV_TOKEN) {
-    return res.status(500).json({
-      error: "Missing KV or OPENAI API environment variables."
-    });
-  }
+    if (!OPENAI_API_KEY || !KV_URL || !KV_TOKEN) {
+      return res.status(500).json({
+        error: "Missing KV or OPENAI API environment variables."
+      });
+    }
 
-  // -----------------------------
-  // PROMPT STRICT
-  // -----------------------------
-  const prompt = `
+    // -----------------------------
+    // PROMPT STRICT
+    // -----------------------------
+    const prompt = `
 You are an advanced dictionary engine (Oxford + Cambridge + Reverso).
 
 For the word: "${word}"
@@ -57,12 +55,10 @@ Rules:
 - No text outside JSON.
 `;
 
-  // -----------------------------
-  // CALL OPENAI
-  // -----------------------------
-  let parsed;
+    // -----------------------------
+    // CALL OPENAI
+    // -----------------------------
 
-  try {
     const completion = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -83,34 +79,37 @@ Rules:
     const data = await completion.json();
     const raw = data.choices?.[0]?.message?.content || "{}";
 
-    parsed = JSON.parse(raw);
+    let parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (err) {
+      return res.status(500).json({
+        error: "Invalid JSON returned by GPT",
+        raw: raw
+      });
+    }
 
-  } catch (err) {
-    return res.status(500).json({
-      error: "Invalid JSON returned by GPT",
-      details: err.message
-    });
+    // -----------------------------
+    // SAVE TO KV
+    // -----------------------------
+    try {
+      await fetch(`${KV_URL}/set/${word}`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${KV_TOKEN}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(parsed)
+      });
+    } catch (err) {
+      console.error("KV SAVE ERROR:", err);
+      // On ne bloque pas l'utilisateur
+    }
+
+    return res.status(200).json(parsed);
+
+  } catch (e) {
+    console.error("SERVER ERROR (translate.js):", e);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-
-  // -----------------------------
-  // SAVE TO VERCEL KV
-  // -----------------------------
-  try {
-    await fetch(`${KV_URL}/set/${word}`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${KV_TOKEN}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(parsed)
-    });
-  } catch (err) {
-    console.error("KV SAVE ERROR:", err);
-    // On continue quand même, la traduction doit s’afficher
-  }
-
-  // -----------------------------
-  // RETURN RESULT TO FRONTEND
-  // -----------------------------
-  return res.status(200).json(parsed);
 }
