@@ -1,31 +1,16 @@
-// ------------------------------------------------------
-//  API — list-words.js
-//  Returns alphabetically sorted list of saved words
-// ------------------------------------------------------
+import { kv } from "@vercel/kv";
 
 export default async function handler(req, res) {
-  try {
-    const KV_URL = process.env.KV_REST_API_URL;
-    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+    try {
+        // Liste toutes les clés KV
+        const keys = await kv.keys("word:*");
 
-    if (!KV_URL || !KV_TOKEN) {
-      return res.status(500).json({ error: "Missing KV config" });
+        const words = keys.map(k => k.replace("word:", ""));
+
+        return res.status(200).json({ words });
+
+    } catch (err) {
+        console.error("list-words.js error", err);
+        res.status(500).json({ error: "Unable to fetch dictionary" });
     }
-
-    const result = await fetch(`${KV_URL}/keys`, {
-      headers: { Authorization: `Bearer ${KV_TOKEN}` }
-    });
-
-    const data = await result.json();
-
-    let keys = Array.isArray(data?.result) ? data.result : [];
-
-    keys = keys.sort((a, b) => a.localeCompare(b));
-
-    return res.status(200).json({ words: keys });
-
-  } catch (err) {
-    console.error("LIST WORDS ERROR:", err);
-    return res.status(500).json({ error: err.message });
-  }
 }
