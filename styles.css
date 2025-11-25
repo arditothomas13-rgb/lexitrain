@@ -17,7 +17,7 @@ html, body {
 
 body {
   position: relative;
-  padding-bottom: 120px;
+  padding-bottom: 160px;
   overscroll-behavior: none;
 }
 
@@ -79,27 +79,33 @@ body {
   transition: all 0.25s ease;
 }
 
-.glass:hover {
-  background: rgba(255, 255, 255, 0.40);
-  box-shadow: 0 6px 30px rgba(0,0,0,0.12);
-}
-
 /* =======================================================
-   INPUT — CORRIGÉ (PLUS DE DOUBLE BULLE)
+   🔍 BARRE DE RECHERCHE iOS STYLE
 ======================================================= */
-.input-card {
-  padding: 10px 0;
-  margin-bottom: 20px;
+.search-wrapper {
+  position: relative;
+  margin: 0 auto 18px;
+  width: 100%;
 }
 
-.input-card input {
+.search-wrapper input {
   width: 100%;
-  padding: 18px 18px;
-  font-size: 17px;
+  padding: 16px 18px;
+  padding-right: 56px;
+  font-size: 18px;
   border-radius: 18px;
   border: none;
   background: white;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+.search-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  opacity: 0.65;
 }
 
 /* =======================================================
@@ -119,10 +125,6 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(52,210,106,0.35);
   transition: 0.25s ease;
-}
-.btn-green:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(52,210,106,0.45);
 }
 
 /* =======================================================
@@ -153,14 +155,7 @@ body {
 }
 
 /* =======================================================
-   OLD SENSE LABELS — DÉSACTIVÉS (ÉVITE DOUBLONS)
-======================================================= */
-.sense-labels {
-  display: none !important;
-}
-
-/* =======================================================
-   SENSE TABS (UNIC LINE)
+   SENSE TABS
 ======================================================= */
 .sense-tabs {
   margin-top: 12px;
@@ -169,65 +164,30 @@ body {
   overflow-x: auto;
   padding-bottom: 6px;
 }
-.sense-tabs::-webkit-scrollbar { display: none; }
-
 .sense-pill {
   padding: 8px 20px;
   background: rgba(255,255,255,0.55);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.3);
   font-size: 15px;
-  white-space: nowrap;
   cursor: pointer;
 }
 .sense-pill.active {
   background: linear-gradient(135deg, #4ade80, #22c55e);
   color: white;
-  border: none;
 }
 
 /* =======================================================
-   SENSE CONTENT
+   EXAMPLES / SYNONYMS
 ======================================================= */
-.sense-content {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  margin-top: 20px;
-}
-
-.sense-block-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-/* =======================================================
-   TRANSLATION BLOCKS
-======================================================= */
-.translation-list,
-.examples-list {
+.examples-list,
+.translation-list {
   background: white;
-  border-radius: 14px;
   padding: 16px;
+  border-radius: 14px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.07);
 }
 
-.translation-item {
-  font-size: 16px;
-  padding: 4px 0;
-}
-
-/* =======================================================
-   EXAMPLES
-======================================================= */
-.example-block { margin-bottom: 12px; }
-.example-text { font-size: 15px; }
-.example-translation { font-size: 14px; color: #666; }
-
-/* =======================================================
-   SYNONYMS
-======================================================= */
 .synonyms-wrapper {
   background: white;
   padding: 14px 16px;
@@ -238,68 +198,14 @@ body {
   gap: 8px;
 }
 
-.synonym-tag {
-  padding: 8px 14px;
-  background: rgba(255,255,255,0.7);
-  border-radius: 14px;
-  backdrop-filter: blur(10px);
-  font-size: 14px;
-}
-
 /* =======================================================
-   HISTORY
-======================================================= */
-.history-card {
-  margin-top: 26px;
-  padding: 22px;
-}
-
-.history-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 14px;
-}
-
-.history-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.history-item {
-  background: rgba(255,255,255,0.75);
-  padding: 8px 14px;
-  border-radius: 14px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  font-size: 14px;
-}
-
-/* =======================================================
-   DICTIONARY PAGE
+   DICTIONARY
 ======================================================= */
 .dictionary-title {
   font-size: 28px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
-}
-
-#dictionarySearch {
-  width: 100%;
-  padding: 14px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  border: none;
-  margin-bottom: 20px;
-}
-
-.dictionary-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-bottom: 60px;
 }
 
 .dic-item {
@@ -330,133 +236,51 @@ body {
   backdrop-filter: blur(16px);
 }
 
-.alpha-letter {
-  font-size: 13px;
-  opacity: 0.7;
-  padding: 2px 0;
-  text-align: center;
-  user-select: none;
-}
-
-/* Popup lettre iOS */
-.letter-popup {
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(18px);
-  border-radius: 24px;
-  padding: 30px 38px;
-  font-size: 42px;
-  font-weight: 700;
-  color: #333;
-  display: none;
-  transition: opacity 0.2s;
-  z-index: 1000;
-}
-
 /* =======================================================
-   NAV BAR
+   ⭐ BARRE DE NAVIGATION FLOTTANTE iOS PREMIUM
 ======================================================= */
-.apple-nav {
+.apple-nav-floating {
   position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 22px;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 42px);
+
   background: rgba(255,255,255,0.55);
   backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255,255,255,0.45);
-  z-index: 50;
+  border-radius: 26px;
+  padding: 14px 22px;
+
+  display: flex;
+  justify-content: space-between;
+
+  box-shadow: 0 18px 45px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.45);
+
+  z-index: 200;
 }
 
-.nav-item {
+.apple-nav-floating .nav-item {
   text-align: center;
-  cursor: pointer;
   flex: 1;
+  cursor: pointer;
 }
 
-.nav-item .icon { font-size: 20px; }
-.nav-item .label { font-size: 13px; opacity: 0.85; }
+.apple-nav-floating .icon {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.apple-nav-floating .label {
+  font-size: 12px;
+  opacity: 0.85;
+}
 
 /* =======================================================
    RESPONSIVE
 ======================================================= */
 @media (max-width: 480px) {
   .page {
-    padding: 32px 16px 90px;
+    padding: 32px 16px 130px;
   }
-}
-/* =======================================================
-   DICTIONARY LANGUAGE SWITCH (EN / FR)
-======================================================= */
-
-.dic-lang-switch {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 0 auto 20px;
-  padding: 8px;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(18px);
-  border-radius: 16px;
-  max-width: 260px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-}
-
-.dic-lang-btn {
-  flex: 1;
-  padding: 10px 0;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(12px);
-  transition: all 0.22s ease;
-  color: #444;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.dic-lang-btn:hover {
-  background: rgba(255,255,255,0.75);
-  transform: translateY(-1px);
-}
-
-.dic-lang-btn.active {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
-  color: white;
-  box-shadow: 0 4px 10px rgba(34,197,94,0.35);
-}
-
-.dic-lang-btn:active {
-  transform: scale(0.97);
-}
-
-/* SWITCH FR/EN DU DICTIONNAIRE */
-.dic-switch {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.dic-btn {
-  flex: 1;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: 0.25s ease;
-}
-
-.dic-btn.active {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
-  color: white;
-  box-shadow: 0 4px 12px rgba(34,197,94,0.3);
 }
