@@ -223,25 +223,20 @@ function renderSenseContent(entry) {
 
     senseContent.appendChild(eList);
 
-    /* Synonymes */
-    if (entry.synonyms.length > 0) {
-        const sTitle = document.createElement("div");
-        sTitle.className = "sense-block-title";
-        sTitle.textContent = fromLang === "en" ? "Synonyms (EN)" : "Synonymes (FR)";
-        senseContent.appendChild(sTitle);
+    entry.synonyms.forEach(s => {
+    const tag = document.createElement("div");
+    tag.className = "synonym-tag";
+    tag.textContent = s;
 
-        const sWrap = document.createElement("div");
-        sWrap.className = "glass synonyms-wrapper";
+    // 🔥 NEW: clique = nouvelle traduction
+    tag.addEventListener("click", () => {
+        inputField.value = s;
+        translateWord();
+        try { navigator.vibrate(10); } catch(e){}
+    });
 
-        entry.synonyms.forEach(s => {
-            const tag = document.createElement("div");
-            tag.className = "synonym-tag";
-            tag.textContent = s;
-            sWrap.appendChild(tag);
-        });
-        senseContent.appendChild(sWrap);
-    }
-}
+    sWrap.appendChild(tag);
+});
 
 /* ============================================================
    TRANSLATE ACTION (with auto-switch)
