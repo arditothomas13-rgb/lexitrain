@@ -1,17 +1,15 @@
 /* ============================================================
-   LexiTrain — JS Complet
-   (Traduction + Dico + Historique + Alphabet iOS)
+   LexiTrain — JS Final Optimisé
 ============================================================ */
 
 /* -----------------------------
-   ELEMENTS DOM
+   DOM ELEMENTS
 ----------------------------- */
 const inputField = document.getElementById("input");
 const translateBtn = document.getElementById("translateBtn");
 
 const resultCard = document.getElementById("resultCard");
 const resultTitle = document.getElementById("result-title");
-const senseLabels = document.getElementById("senseLabels");
 const senseTabs = document.getElementById("senseTabs");
 const senseContent = document.getElementById("senseContent");
 
@@ -66,16 +64,16 @@ async function fetchWord(word) {
 
 
 /* ============================================================
-   LOADER
+   LOADER OPTIMISÉ (clean)
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
     resultTitle.textContent = "⏳ Traduction en cours...";
-    senseLabels.innerHTML = "";
+
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `
-        <div style="text-align:center; padding:20px; opacity:0.6;">
-            ⏳ Veuillez patienter...
+        <div style="text-align:center; padding:30px; font-size:30px; opacity:0.6;">
+            ⏳
         </div>
     `;
 }
@@ -87,7 +85,6 @@ function showLoader() {
 ============================================================ */
 function clearResult() {
     resultTitle.textContent = "";
-    senseLabels.innerHTML = "";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = "";
 }
@@ -95,37 +92,7 @@ function clearResult() {
 
 
 /* ============================================================
-   RENDER — LABELS (noun / verb / adj…)
-============================================================ */
-function renderSenseLabels(entries) {
-    senseLabels.innerHTML = "";
-
-    entries.forEach((entry, index) => {
-        const lbl = document.createElement("div");
-        lbl.className = "sense-label-pill";
-        if (index === 0) lbl.classList.add("active");
-
-        lbl.textContent = entry.label;
-
-        lbl.addEventListener("click", () => {
-            document.querySelectorAll(".sense-label-pill")
-                .forEach(p => p.classList.remove("active"));
-            lbl.classList.add("active");
-
-            renderSenseContent(entry);
-
-            // haptique
-            try { navigator.vibrate(10); } catch(e){}
-        });
-
-        senseLabels.appendChild(lbl);
-    });
-}
-
-
-
-/* ============================================================
-   RENDER — PILLS DES SENS
+   RENDER TABS (ONLY TABS — NO DUPLICATES)
 ============================================================ */
 function renderSenseTabs(entries) {
     senseTabs.innerHTML = "";
@@ -142,23 +109,30 @@ function renderSenseTabs(entries) {
                 .forEach(p => p.classList.remove("active"));
             pill.classList.add("active");
 
+            // Center the pill horizontally (iOS effect)
+            pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+
             renderSenseContent(entry);
 
-            // haptique
-            try { navigator.vibrate(10); } catch(e){}
+            try { navigator.vibrate(12); } catch(e){}
         });
 
         senseTabs.appendChild(pill);
     });
+
+    // Auto-center pill 0
+    const firstPill = senseTabs.querySelector(".sense-pill.active");
+    if (firstPill) {
+        firstPill.scrollIntoView({ behavior: "smooth", inline: "center" });
+    }
 }
 
 
 
 /* ============================================================
-   RENDER — CONTENU DU SENS
+   RENDER CONTENT
 ============================================================ */
 function renderSenseContent(entry) {
-
     senseContent.innerHTML = "";
 
     /* Définition */
@@ -200,20 +174,22 @@ function renderSenseContent(entry) {
     senseContent.appendChild(eList);
 
     /* Synonymes */
-    const sTitle = document.createElement("div");
-    sTitle.className = "sense-block-title";
-    sTitle.textContent = "Synonyms (EN)";
-    senseContent.appendChild(sTitle);
+    if (entry.synonyms.length > 0) {
+        const sTitle = document.createElement("div");
+        sTitle.className = "sense-block-title";
+        sTitle.textContent = "Synonyms (EN)";
+        senseContent.appendChild(sTitle);
 
-    const sWrap = document.createElement("div");
-    sWrap.className = "glass synonyms-wrapper";
-    entry.synonyms.forEach(s => {
-        const tag = document.createElement("div");
-        tag.className = "synonym-tag";
-        tag.textContent = s;
-        sWrap.appendChild(tag);
-    });
-    senseContent.appendChild(sWrap);
+        const sWrap = document.createElement("div");
+        sWrap.className = "glass synonyms-wrapper";
+        entry.synonyms.forEach(s => {
+            const tag = document.createElement("div");
+            tag.className = "synonym-tag";
+            tag.textContent = s;
+            sWrap.appendChild(tag);
+        });
+        senseContent.appendChild(sWrap);
+    }
 }
 
 
@@ -238,7 +214,6 @@ async function translateWord() {
 
     resultTitle.textContent = word;
 
-    renderSenseLabels(data.entries);
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
 
@@ -276,8 +251,7 @@ function loadHistory() {
 
 function addToHistory(word) {
     let hist = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
-    hist = [word, ...hist.filter(w => w !== word)];
-    hist = hist.slice(0, 10);
+    hist = [word, ...hist.filter(w => w !== word)].slice(0, 10);
     localStorage.setItem("lexitrain_history", JSON.stringify(hist));
     loadHistory();
 }
@@ -297,11 +271,8 @@ async function loadDictionary(search = "") {
         dictionaryList.innerHTML = "";
 
         const words = data.words || [];
-
-        // tri alphabétique
         words.sort((a, b) => a.localeCompare(b));
 
-        // injection
         words.forEach(w => {
             const item = document.createElement("div");
             item.className = "dic-item";
@@ -328,7 +299,7 @@ dictionarySearch.addEventListener("input", e => {
 
 
 /* ============================================================
-   SCROLLER ALPHABETIQUE (A-Z)
+   SCROLLER ALPHABÉTIQUE (iOS style)
 ============================================================ */
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -374,7 +345,5 @@ alphabetScroller.addEventListener("touchmove", e => {
 function scrollToLetter(letter) {
     const items = [...dictionaryList.children];
     const target = items.find(i => i.textContent[0]?.toUpperCase() === letter);
-    if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
 }
