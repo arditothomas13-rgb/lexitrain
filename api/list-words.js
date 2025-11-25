@@ -33,28 +33,30 @@ export default async function handler(req, res) {
 
     if (existing?.result) {
       try {
-        words = JSON.parse(existing.result);
-      } catch {
+        const parsed = JSON.parse(existing.result);
+        if (Array.isArray(parsed)) {
+          words = parsed;
+        }
+      } catch (err) {
+        console.error("WORDLIST JSON PARSE ERROR:", err);
         words = [];
       }
     }
 
     // ------------------------------------------------------
-    // FILTER BY SEARCH (optional)
+    // FILTER BY SEARCH
     // ------------------------------------------------------
     if (search.length > 0) {
-      words = words.filter(w => w.includes(search));
+      words = words.filter(w => w.toLowerCase().includes(search));
     }
 
-    // Alphabetical sort
+    // Sort alphabetically
     words.sort((a, b) => a.localeCompare(b));
 
     // ------------------------------------------------------
-    // RETURN JSON RESPONSE
+    // RETURN JSON
     // ------------------------------------------------------
-    return res.status(200).json({
-      words
-    });
+    return res.status(200).json({ words });
 
   } catch (err) {
     console.error("KV LIST ERROR:", err);
