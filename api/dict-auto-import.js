@@ -1,10 +1,7 @@
 // /api/dict-auto-import.js
-// ------------------------------------------------------
-// Importe automatiquement la base PREMIUM depuis /data/dict-premium.json
-// et pousse chaque entrée dans Upstash KV.
-// ------------------------------------------------------
 
-import dictPremium from "../data/dict-premium.json";
+import fs from "fs";
+import path from "path";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
@@ -12,40 +9,44 @@ export default async function handler(req, res) {
     }
 
     try {
-        const KV_URL = process.env.KV_REST_API_URL;
-        const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+        // 1) Charger dict-premium.json correctement (méthode compatible Vercel)
+        const filePath = path.join(process.cwd(), "data", "dict-premium.json");
+        const raw = fs.readFileSync(filePath, "utf8");
+        const words = JSON.parse(raw);
 
-        if (!KV_URL || !KV_TOKEN) {
-            return res.status(500).json({ error: "Missing KV config" });
+        if (!Array.isArray(words)) {
+            return res.status(400).json({ error: "JSON must be an array" });
         }
 
-        if (!Array.isArray(dictPremium)) {
-            return res.status(500).json({ error: "dict-premium.json is not a valid array" });
-        }
+        let imported = 0;
 
-        // Import all words
-        for (const entry of dictPremium) {
+        // 2) Pour chaque mot → injecter dans Upstash KV
+        for (const entry of words) {
             const key = `dict:${entry.word.toLowerCase()}`;
 
-            await fetch(`${KV_URL}/set/${key}`, {
+            await fetch(process.env.KV_REST_API_URL, {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${KV_TOKEN}`,
+                    Authorization: `Bearer ${process.env.KV_REST_API_TOKEN}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
+                    key,
                     value: JSON.stringify(entry)
                 })
             });
+
+            imported++;
         }
 
+        // 3) Succès 🎉
         return res.status(200).json({
             ok: true,
-            imported: dictPremium.length
+            imported
         });
 
     } catch (err) {
-        console.error("AUTO IMPORT ERROR:", err);
+        console.error("IMPORT ERROR:", err);
         return res.status(500).json({ error: err.message });
     }
 }
