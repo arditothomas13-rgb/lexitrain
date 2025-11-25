@@ -1,73 +1,106 @@
+// --------------------------------------------------
+// VARIABLES
+// --------------------------------------------------
 const input = document.getElementById("wordInput");
-const button = document.getElementById("translateButton");
-const result = document.getElementById("resultBox");
+const translateBtn = document.getElementById("translateButton");
+const resultCard = document.getElementById("resultCard"); // FIX
+const resultTitle = document.getElementById("result-title"); // FIX
 
-// ---------------------------
+// Langues
+const langSwap = document.getElementById("langSwap");
+const fromLabel = document.getElementById("fromLabel");
+const toLabel   = document.getElementById("toLabel");
+const fromFlag  = document.getElementById("fromFlag");
+const toFlag    = document.getElementById("toFlag");
+
+// --------------------------------------------------
 // SWAP LANGUES
-// ---------------------------
+// --------------------------------------------------
 langSwap.addEventListener("click", () => {
-  const fromText = fromLabel.textContent;
-  fromLabel.textContent = toLabel.textContent;
-  toLabel.textContent = fromText;
+    const tmpLabel = fromLabel.textContent;
+    const tmpFlag  = fromFlag.textContent;
 
-  const fromF = fromFlag.textContent;
-  fromFlag.textContent = toFlag.textContent;
-  toFlag.textContent = fromF;
+    fromLabel.textContent = toLabel.textContent;
+    fromFlag.textContent  = toFlag.textContent;
+
+    toLabel.textContent = tmpLabel;
+    toFlag.textContent  = tmpFlag;
 });
 
-// ---------------------------
-// TRADUCTION
-// ---------------------------
-button.addEventListener("click", async () => {
-  const word = input.value.trim();
-  if (!word) return;
+// --------------------------------------------------
+// CLICK TRADUIRE
+// --------------------------------------------------
+translateBtn.addEventListener("click", async () => {
+    const word = input.value.trim();
+    if (!word) return;
 
-  const from = fromLabel.textContent === "Anglais" ? "en" : "fr";
-  const to = toLabel.textContent === "Français" ? "fr" : "en";
+    // ------- FIX : on utilise resultCard -------
+    resultCard.style.display = "block";
+    resultCard.innerHTML = `
+        <h2>${word}</h2>
+        <p>⏳ Traduction en cours...</p>
+    `;
 
-  result.style.opacity = 1;
-  result.innerHTML = `
-    <div class="loading-title">${word}</div>
-    <p class="loading">Traduction en cours…</p>
-  `;
+    const from = (fromLabel.textContent === "Anglais") ? "en" : "fr";
+    const to   = (toLabel.textContent === "Français") ? "fr" : "en";
 
-  try {
-    const res = await fetch("/api/translate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ word, fromLang: from, toLang: to })
-    });
+    try {
+        const res = await fetch("/api/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                word,
+                fromLang: from,
+                toLang: to
+            })
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    if (!data.ok) throw new Error();
+        if (!res.ok || !data.ok) throw new Error("Erreur API");
 
-    result.innerHTML = `<h2 class="word-title">${word}</h2>`;
+        resultCard.innerHTML = `
+            <h2>${word}</h2>
 
-    data.senses.forEach(sense => {
-      result.innerHTML += `
-        <div class="sense-block">
-          <div class="sense-label">${sense.label}</div>
+            <div class="tabs">
+                <button class="tab active" data-tab="tab-traduction">Traduction</button>
+                <button class="tab" data-tab="tab-definition">Définition</button>
+                <button class="tab" data-tab="tab-synonymes">Synonymes</button>
+                <button class="tab" data-tab="tab-exemples">Exemples</button>
+            </div>
 
-          <div class="section">
-            <div class="section-title">Traductions</div>
-            ${sense.translations}
-          </div>
+            <div id="tab-traduction" class="tab-content active">
+                ${data.translations}
+            </div>
 
-          <div class="section">
-            <div class="section-title">Synonymes</div>
-            ${sense.synonyms}
-          </div>
+            <div id="tab-definition" class="tab-content">
+                ${data.definitions || "Aucune définition disponible."}
+            </div>
 
-          <div class="section">
-            <div class="section-title">Exemples</div>
-            <div class="examples">${sense.examples}</div>
-          </div>
-        </div>
-      `;
-    });
+            <div id="tab-synonymes" class="tab-content">
+                ${data.synonyms || "Aucun synonyme disponible."}
+            </div>
 
-  } catch (e) {
-    result.innerHTML = `<p class="error">⚠️ Erreur serveur.</p>`;
-  }
+            <div id="tab-exemples" class="tab-content">
+                ${data.examples || "Aucun exemple disponible."}
+            </div>
+        `;
+
+        // Onglets
+        document.querySelectorAll(".tab").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+
+                btn.classList.add("active");
+                document.getElementById(btn.dataset.tab).classList.add("active");
+            });
+        });
+
+    } catch (err) {
+        resultCard.innerHTML = `
+            <h2>${word}</h2>
+            <p style="color:#c00;">⚠️ Erreur serveur.</p>
+        `;
+    }
 });
