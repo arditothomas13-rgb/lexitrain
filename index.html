@@ -30,7 +30,7 @@
         Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
     </p>
 
-    <!-- Input principale (version originale, pas iOS) -->
+    <!-- Input principale -->
     <div class="input-card">
         <input id="input" type="text" placeholder="Ex : stretched, although..." />
     </div>
@@ -40,27 +40,27 @@
     <!-- Sélecteur de langues -->
     <div class="lang-card glass">
         <div class="lang">
-            <span id="fromFlag">🇬🇧</span> 
+            <span id="fromFlag">🇬🇧</span>
             <span id="fromLabel">Anglais</span>
         </div>
 
         <div class="swap" id="langSwap">⇄</div>
 
         <div class="lang">
-            <span id="toFlag">🇫🇷</span> 
+            <span id="toFlag">🇫🇷</span>
             <span id="toLabel">Français</span>
         </div>
     </div>
 
-    <!-- RESULTAT -->
+    <!-- Résultat -->
     <div id="resultCard" class="glass result-card" style="display:none;">
         <div id="autoSwitchMessageContainer"></div>
-        <div id="result-title" class="result-title"></div>
+        <div id="result-title"></div>
         <div id="senseTabs" class="sense-tabs"></div>
         <div id="senseContent" class="sense-content"></div>
     </div>
 
-    <!-- HISTORIQUE -->
+    <!-- Historique -->
     <div class="glass history-card">
         <h3 class="history-title">Historique récent</h3>
         <div id="historyList" class="history-list"></div>
@@ -75,13 +75,12 @@
 
     <h2 class="dictionary-title">Dictionnaire</h2>
 
-    <!-- Switch FR / EN -->
     <div class="dic-switch">
         <button id="dicLangEn" class="dic-btn active">🇬🇧 Anglais</button>
         <button id="dicLangFr" class="dic-btn">🇫🇷 Français</button>
     </div>
 
-    <!-- Barre de recherche iOS uniquement pour la page Dico -->
+    <!-- Barre de recherche -->
     <div class="search-wrapper">
         <input id="dictionarySearch" type="text" placeholder="Rechercher un mot..." />
         <span class="search-icon">🔍</span>
@@ -89,10 +88,8 @@
 
     <div id="dictionaryList" class="dictionary-list"></div>
 
-    <!-- Alphabet iOS -->
     <div id="alphabetScroller" class="alphabet-scroller"></div>
 
-    <!-- Popup lettre -->
     <div id="letterPopup" class="letter-popup">A</div>
 
 </section>
@@ -100,7 +97,7 @@
 </main>
 
 <!-- ===================================================== -->
-<!-- NAVIGATION FLOTTANTE iOS -->
+<!-- NAVIGATION FLOTTANTE -->
 <!-- ===================================================== -->
 <nav class="apple-nav-floating">
 
