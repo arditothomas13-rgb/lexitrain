@@ -14,41 +14,48 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: "Missing KV config" });
     }
 
-    // 1️⃣ — ESSAYER KV
+    // 1️⃣ — ESSAYER DE LIRE DANS KV
     try {
         const cloud = await fetch(`${KV_URL}/get/${key}`, {
             headers: { Authorization: `Bearer ${KV_TOKEN}` }
         });
+
         const data = await cloud.json();
 
-        if (data.result) {
+        if (data && data.result) {
             return res.status(200).json(JSON.parse(data.result));
         }
     } catch (err) {
-        console.error("KV GET error", err);
+        console.error("KV GET error:", err);
     }
 
-    // 2️⃣ — PAS DANS KV → ON APPELLE /api/translate
+    // 2️⃣ — PAS DANS KV → FALLBACK GPT
     try {
+        // URL fiable sans req.headers.origin
+        const baseUrl = process.env.VERCEL_URL
+            ? `https://${process.env.VERCEL_URL}`
+            : "http://localhost:3000";
+
         const gpt = await fetch(
-            `${req.headers.origin}/api/translate?word=${word}&from=en&to=fr`
+            `${baseUrl}/api/translate?word=${encodeURIComponent(word)}&from=en&to=fr`
         );
+
         const fresh = await gpt.json();
 
-        // 3️⃣ — STOCKAGE EN KV
+        // 3️⃣ — STOCKER EN KV correctement (pas de {value: ...})
         await fetch(`${KV_URL}/set/${key}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${KV_TOKEN}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ value: JSON.stringify(fresh) })
+            body: JSON.stringify(fresh)
         });
 
         return res.status(200).json(fresh);
 
     } catch (err) {
-        console.error("Translate fallback error", err);
-        return res.status(500).json({ error: "Unable to generate fallback translation" });
+        console.error("Translate fallback error:", err);
+        return res.status(500).json({ error: "Unable to translate word" });
     }
 }
