@@ -181,7 +181,7 @@ async function fetchWord(word) {
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
-    resultTitle.textContent = "⏳ Traduction en cours...";
+    resultTitle.textContent = "Traduction en cours...";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `
         <div style="text-align:center; padding:34px; font-size:30px; opacity:0.6;">⏳</div>
