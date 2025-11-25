@@ -1,113 +1,299 @@
-* { margin:0; padding:0; box-sizing:border-box; font-family:Inter, sans-serif; }
-
-body {
-  background: linear-gradient(135deg, #e8f5ff, #f3e9ff);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
+/* --- RESET + FIX SCROLL HORIZONTAL --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden !important;  /* empêche le scroll horizontal */
+  font-family: "Inter", sans-serif;
+  background: transparent;
+}
+
+/* Empêche les flottements sur iPhone */
+body {
+  position: relative;
+  padding-bottom: 120px;
+  overscroll-behavior: none;
+}
+
+/* --- HALO BACKGROUND FIXE (comme sur ton screenshot) --- */
+.bg-halo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+
+  background: radial-gradient(circle at 20% 20%, rgba(173, 255, 235, 0.55), transparent 60%),
+              radial-gradient(circle at 80% 70%, rgba(200, 180, 255, 0.55), transparent 60%),
+              radial-gradient(circle at 40% 90%, rgba(255, 220, 250, 0.5), transparent 60%);
+  
+  filter: blur(60px);
+}
+
+/* --- CONTAINER PRINCIPAL --- */
 .container {
   width: 100%;
-  max-width: 420px;
+  max-width: 430px;
+  margin: 0 auto;
   text-align: center;
-  margin-top: 40px;
+  padding: 40px 20px;
 }
 
+/* --- TITRES --- */
 .logo {
-  font-size: 36px;
+  font-size: 42px;
   font-weight: 700;
-  margin-bottom: 10px;
+  color: #124232;
+  margin-bottom: 8px;
 }
 
 .subtitle {
+  font-size: 20px;
+  margin-bottom: 30px;
   color: #444;
-  font-size: 15px;
-  margin-bottom: 25px;
 }
 
-.blue { color:#1B74FF; }
-.purple { color:#A259FF; }
+.subtitle .blue { color: #4ba4ff; }
+.subtitle .purple { color: #b27cff; }
 
-/* Cards Apple */
+/* --- GLASS EFFECT --- */
 .glass {
   background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(18px);
-  border-radius: 18px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+  border: 1px solid rgba(255,255,255,0.4);
+  backdrop-filter: blur(22px);
+  border-radius: 22px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
+/* --- Champ texte --- */
 .input-card {
-  padding: 10px 15px;
-  margin-bottom: 15px;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
 }
 
-input {
-  width:100%;
-  border:none;
-  outline:none;
-  font-size:16px;
-  background:transparent;
+.input-card input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 18px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.8);
+  font-size: 17px;
 }
 
-/* Button */
+/* --- Bouton vert --- */
 .btn-green {
-  background:#20c063;
-  color:white;
-  border:none;
-  padding:14px 22px;
-  font-size:16px;
-  border-radius:14px;
-  width:100%;
-  margin-bottom:20px;
-  cursor:pointer;
-  transition:0.2s;
+  width: 100%;
+  max-width: 290px;
+  margin: 0 auto;
+  display: block;
+
+  padding: 15px 0;
+  border-radius: 50px;
+
+  background: linear-gradient(135deg, #12d37a, #08a85e);
+  box-shadow: 0 6px 20px rgba(0,125,60,0.25);
+
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
 }
 
-/* Lang card */
+/* --- Card langues --- */
 .lang-card {
-  display:flex; justify-content:space-around; align-items:center;
-  padding:12px 0; margin-bottom:25px;
+  width: 100%;
+  max-width: 360px;
+  margin: 25px auto;
+  padding: 16px 22px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 20px;
 }
 
-/* Result */
-.result {
-  padding:20px;
-  text-align:left;
-  opacity:0;
-  transition:0.3s;
+.swap {
+  font-size: 26px;
+  color: #333;
 }
 
-.word-title {
-  font-size:26px;
-  font-weight:700;
-  margin-bottom:12px;
+/* --- Bottom Navigation --- */
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: calc(100% - 40px);
+  max-width: 430px;
+
+  display: flex;
+  justify-content: space-around;
+
+  padding: 14px 0;
+  border-radius: 26px;
 }
 
-.sense-label {
-  margin:15px 0 8px;
-  font-size:18px;
-  font-weight:600;
-  color:#666;
+.nav-item {
+  text-align: center;
+  color: #334944;
+  font-size: 15px;
 }
 
-.section-title {
-  font-weight:600;
-  margin:10px 0 6px;
-  color:#222;
+.nav-item span {
+  font-size: 13px;
+  display: block;
+  margin-top: 4px;
 }
 
-.examples p {
-  margin-bottom:12px;
-  line-height:1.4;
+/* Bulle résultat */
+.bubble-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
 }
 
-.examples strong {
-  color:#000;
+/* Tabs container */
+.tabs-container {
+  width: 100%;
 }
 
-.examples em {
-  color:#555;
-  font-style:normal;
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+  background: #ffffffaa;
+  padding: 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
 }
-.error { color:#c00; margin-top:10px; }
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: .6;
+}
+
+.tab.active {
+  background: #fff;
+  opacity: 1;
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+  padding: 12px;
+  text-align: left;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ----------- ONGLETS ----------- */
+
+.tabs-container {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 12px;
+}
+
+.tab {
+  background: #ffffffd8;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tab.active {
+  background: #4CAF50;
+  color: white;
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+  padding: 10px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  line-height: 1.55;
+  text-align: left;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.bubble-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.tab {
+  padding: 6px 14px;
+  border: none;
+  background: #eee;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tab.active {
+  background: #4CAF50;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+  text-align: left;
+  padding: 10px 5px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.loading {
+  text-align: center;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.error {
+  color: red;
+  padding: 15px;
+  font-size: 16px;
+}
