@@ -462,15 +462,15 @@ body {
 }
 
 /* =======================================================
-   SEARCH BAR — iOS STYLE
+   SEARCH BAR iOS — PAGE DICTIONNAIRE UNIQUEMENT
 ======================================================= */
-.search-wrapper {
+#page-dictionary .search-wrapper {
   position: relative;
   width: 100%;
   margin: 0 auto 20px;
 }
 
-.search-wrapper input {
+#page-dictionary .search-wrapper input {
   width: 100%;
   padding: 16px 20px;
   padding-right: 55px; /* espace pour la loupe */
@@ -482,12 +482,12 @@ body {
   box-shadow: 0 3px 12px rgba(0,0,0,0.06);
 }
 
-.search-wrapper input::placeholder {
+#page-dictionary .search-wrapper input::placeholder {
   color: #999;
   font-size: 17px;
 }
 
-.search-icon {
+#page-dictionary .search-wrapper .search-icon {
   position: absolute;
   right: 18px;
   top: 50%;
@@ -496,6 +496,7 @@ body {
   opacity: 0.65;
   pointer-events: none;
 }
+
 
 /* =======================================================
    NAVIGATION FLOTTANTE — iOS GLASS
