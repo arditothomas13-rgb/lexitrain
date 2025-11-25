@@ -1,0 +1,670 @@
+[
+  {
+    "word": "achieve",
+    "definition": "To reach a goal after effort.",
+    "translations": ["réaliser", "accomplir", "atteindre", "mener à bien"],
+    "main_translation": "réaliser",
+    "distractors": ["empêcher", "négliger", "oublier"],
+    "examples": [
+      "You can achieve great things with consistency.",
+      "She achieved her career goals early."
+    ]
+  },
+  {
+    "word": "allow",
+    "definition": "To let something happen.",
+    "translations": ["permettre", "autoriser", "laisser"],
+    "main_translation": "permettre",
+    "distractors": ["interdire", "bloquer", "empêcher"],
+    "examples": [
+      "They allowed us to enter.",
+      "My job allows me to work remotely."
+    ]
+  },
+  {
+    "word": "avoid",
+    "definition": "To stay away from something.",
+    "translations": ["éviter", "fuir", "contourner"],
+    "main_translation": "éviter",
+    "distractors": ["affronter", "chercher", "accepter"],
+    "examples": [
+      "You should avoid that neighborhood at night.",
+      "I avoid sugary drinks."
+    ]
+  },
+  {
+    "word": "believe",
+    "definition": "To accept something as true.",
+    "translations": ["croire", "penser", "estimer"],
+    "main_translation": "croire",
+    "distractors": ["douter", "nier", "ignorer"],
+    "examples": [
+      "I believe in you.",
+      "They believe the story is true."
+    ]
+  },
+  {
+    "word": "bring",
+    "definition": "To take something to a place.",
+    "translations": ["apporter", "amener"],
+    "main_translation": "apporter",
+    "distractors": ["laisser", "retirer", "oublier"],
+    "examples": [
+      "Bring your laptop tomorrow.",
+      "She brought snacks for everyone."
+    ]
+  },
+  {
+    "word": "build",
+    "definition": "To create something by putting parts together.",
+    "translations": ["construire", "bâtir", "élaborer"],
+    "main_translation": "construire",
+    "distractors": ["détruire", "casser", "effondrer"],
+    "examples": [
+      "They are building a new bridge.",
+      "You need time to build trust."
+    ]
+  },
+  {
+    "word": "choose",
+    "definition": "To pick between options.",
+    "translations": ["choisir", "sélectionner", "opter pour"],
+    "main_translation": "choisir",
+    "distractors": ["ignorer", "refuser", "abandonner"],
+    "examples": [
+      "I choose to stay positive.",
+      "She chose the red dress."
+    ]
+  },
+  {
+    "word": "compare",
+    "definition": "To examine similarities or differences.",
+    "translations": ["comparer", "mettre en parallèle"],
+    "main_translation": "comparer",
+    "distractors": ["confondre", "séparer", "isoler"],
+    "examples": [
+      "You shouldn't compare yourself to others.",
+      "Let's compare the two models."
+    ]
+  },
+  {
+    "word": "consider",
+    "definition": "To think carefully about something.",
+    "translations": ["envisager", "considérer", "réfléchir à"],
+    "main_translation": "considérer",
+    "distractors": ["ignorer", "écarter", "rejeter"],
+    "examples": [
+      "We are considering your offer.",
+      "Consider the risks before acting."
+    ]
+  },
+  {
+    "word": "continue",
+    "definition": "To keep doing something.",
+    "translations": ["continuer", "poursuivre"],
+    "main_translation": "continuer",
+    "distractors": ["stopper", "interrompre", "cesser"],
+    "examples": [
+      "Please continue.",
+      "She continued working despite the noise."
+    ]
+  },
+
+  {
+    "word": "decide",
+    "definition": "To make a choice.",
+    "translations": ["décider", "trancher", "choisir"],
+    "main_translation": "décider",
+    "distractors": ["hésiter", "douter", "ignorer"],
+    "examples": [
+      "I decided to change jobs.",
+      "They need to decide soon."
+    ]
+  },
+  {
+    "word": "deliver",
+    "definition": "To bring something to someone.",
+    "translations": ["livrer", "remettre", "fournir"],
+    "main_translation": "livrer",
+    "distractors": ["retarder", "cacher", "perdre"],
+    "examples": [
+      "They deliver packages daily.",
+      "The speech delivered a strong message."
+    ]
+  },
+  {
+    "word": "develop",
+    "definition": "To grow or improve something.",
+    "translations": ["développer", "améliorer", "faire évoluer"],
+    "main_translation": "développer",
+    "distractors": ["réduire", "dégrader", "simplifier"],
+    "examples": [
+      "The city is developing fast.",
+      "We developed a new method."
+    ]
+  },
+  {
+    "word": "discover",
+    "definition": "To find something for the first time.",
+    "translations": ["découvrir", "déceler", "repérer"],
+    "main_translation": "découvrir",
+    "distractors": ["cacher", "oublier", "manquer"],
+    "examples": [
+      "They discovered a new species.",
+      "I discovered a great restaurant."
+    ]
+  },
+  {
+    "word": "explain",
+    "definition": "To make something clear.",
+    "translations": ["expliquer", "clarifier", "décrire"],
+    "main_translation": "expliquer",
+    "distractors": ["embrouiller", "cacher", "brouiller"],
+    "examples": [
+      "Can you explain this?",
+      "She explained the rules."
+    ]
+  },
+  {
+    "word": "follow",
+    "definition": "To go after or obey something.",
+    "translations": ["suivre", "respecter"],
+    "main_translation": "suivre",
+    "distractors": ["ignorer", "diriger", "dévier"],
+    "examples": [
+      "Follow the instructions.",
+      "He followed her into the room."
+    ]
+  },
+  {
+    "word": "improve",
+    "definition": "To make something better.",
+    "translations": ["améliorer", "perfectionner"],
+    "main_translation": "améliorer",
+    "distractors": ["empirer", "dégrader", "abîmer"],
+    "examples": [
+      "You improved a lot!",
+      "We need to improve our service."
+    ]
+  },
+  {
+    "word": "include",
+    "definition": "To make something part of a group.",
+    "translations": ["inclure", "contenir", "comprendre"],
+    "main_translation": "inclure",
+    "distractors": ["exclure", "retirer", "éjecter"],
+    "examples": [
+      "The price includes taxes.",
+      "The tour includes breakfast."
+    ]
+  },
+  {
+    "word": "learn",
+    "definition": "To gain knowledge.",
+    "translations": ["apprendre", "étudier"],
+    "main_translation": "apprendre",
+    "distractors": ["oublier", "ignorer", "négliger"],
+    "examples": [
+      "I'm learning English.",
+      "She learned a lot from him."
+    ]
+  },
+  {
+    "word": "listen",
+    "definition": "To pay attention to sound.",
+    "translations": ["écouter", "prêter attention"],
+    "main_translation": "écouter",
+    "distractors": ["ignorer", "parler", "interrompre"],
+    "examples": [
+      "Listen carefully.",
+      "He listened to music."
+    ]
+  },
+
+  {
+    "word": "look",
+    "definition": "To direct your eyes at something.",
+    "translations": ["regarder", "observer"],
+    "main_translation": "regarder",
+    "distractors": ["ignorer", "fermer les yeux", "tourner le dos"],
+    "examples": [
+      "Look at this!",
+      "She looked outside the window."
+    ]
+  },
+  {
+    "word": "make",
+    "definition": "To create or produce.",
+    "translations": ["faire", "fabriquer", "produire"],
+    "main_translation": "faire",
+    "distractors": ["casser", "détruire", "oublier"],
+    "examples": [
+      "She made a cake.",
+      "This makes no sense."
+    ]
+  },
+  {
+    "word": "manage",
+    "definition": "To handle or control something.",
+    "translations": ["gérer", "diriger", "maîtriser"],
+    "main_translation": "gérer",
+    "distractors": ["ignorer", "abandonner", "déléguer"],
+    "examples": [
+      "I manage a team.",
+      "She managed the project alone."
+    ]
+  },
+  {
+    "word": "pay",
+    "definition": "To give money for something.",
+    "translations": ["payer", "régler"],
+    "main_translation": "payer",
+    "distractors": ["voler", "refuser", "économiser"],
+    "examples": [
+      "I paid the bill.",
+      "She pays in cash."
+    ]
+  },
+  {
+    "word": "prepare",
+    "definition": "To get something ready.",
+    "translations": ["préparer", "organiser"],
+    "main_translation": "préparer",
+    "distractors": ["oublier", "retarder", "déranger"],
+    "examples": [
+      "Prepare your documents.",
+      "He prepared dinner."
+    ]
+  }
+]
+[
+  {
+    "word": "prevent",
+    "definition": "To stop something from happening.",
+    "translations": ["empêcher", "prévenir", "éviter"],
+    "main_translation": "empêcher",
+    "distractors": ["provoquer", "favoriser", "causer"],
+    "examples": [
+      "This medicine prevents infections.",
+      "They prevented an accident."
+    ]
+  },
+  {
+    "word": "produce",
+    "definition": "To create or make something.",
+    "translations": ["produire", "fabriquer", "générer"],
+    "main_translation": "produire",
+    "distractors": ["détruire", "casser", "interrompre"],
+    "examples": [
+      "The factory produces cars.",
+      "This plant produces oxygen."
+    ]
+  },
+  {
+    "word": "protect",
+    "definition": "To keep someone or something safe.",
+    "translations": ["protéger", "préserver", "mettre à l’abri"],
+    "main_translation": "protéger",
+    "distractors": ["attaquer", "exposer", "abandonner"],
+    "examples": [
+      "Wear sunscreen to protect your skin.",
+      "He protected her from danger."
+    ]
+  },
+  {
+    "word": "prove",
+    "definition": "To show something is true.",
+    "translations": ["prouver", "démontrer"],
+    "main_translation": "prouver",
+    "distractors": ["nier", "cacher", "inventer"],
+    "examples": [
+      "He proved he was right.",
+      "They proved the theory."
+    ]
+  },
+  {
+    "word": "provide",
+    "definition": "To supply or give something.",
+    "translations": ["fournir", "apporter", "offrir"],
+    "main_translation": "fournir",
+    "distractors": ["retirer", "refuser", "garder"],
+    "examples": [
+      "The school provides books.",
+      "They provided food for the poor."
+    ]
+  },
+  {
+    "word": "reach",
+    "definition": "To arrive at a place or goal.",
+    "translations": ["atteindre", "arriver à"],
+    "main_translation": "atteindre",
+    "distractors": ["quitter", "partir", "louper"],
+    "examples": [
+      "We reached the top.",
+      "Call me when you reach home."
+    ]
+  },
+  {
+    "word": "receive",
+    "definition": "To get something from someone.",
+    "translations": ["recevoir", "obtenir"],
+    "main_translation": "recevoir",
+    "distractors": ["donner", "retourner", "envoyer"],
+    "examples": [
+      "I received your message.",
+      "She received a gift."
+    ]
+  },
+  {
+    "word": "reduce",
+    "definition": "To make something smaller.",
+    "translations": ["réduire", "diminuer", "baisser"],
+    "main_translation": "réduire",
+    "distractors": ["augmenter", "intensifier", "étendre"],
+    "examples": [
+      "We reduced the cost.",
+      "This will reduce pollution."
+    ]
+  },
+  {
+    "word": "remember",
+    "definition": "To keep information in your mind.",
+    "translations": ["se souvenir", "se rappeler"],
+    "main_translation": "se souvenir",
+    "distractors": ["oublier", "ignorer", "effacer"],
+    "examples": [
+      "Remember to call me.",
+      "I remember his name."
+    ]
+  },
+  {
+    "word": "return",
+    "definition": "To come back to a place.",
+    "translations": ["revenir", "retourner"],
+    "main_translation": "revenir",
+    "distractors": ["partir", "fuir", "avancer"],
+    "examples": [
+      "I will return soon.",
+      "She returned the book."
+    ]
+  },
+
+  {
+    "word": "run",
+    "definition": "To move fast on foot.",
+    "translations": ["courir", "fonctionner"],
+    "main_translation": "courir",
+    "distractors": ["marcher", "rester", "glisser"],
+    "examples": [
+      "He runs every morning.",
+      "The machine is running."
+    ]
+  },
+  {
+    "word": "say",
+    "definition": "To speak words.",
+    "translations": ["dire", "annoncer"],
+    "main_translation": "dire",
+    "distractors": ["écouter", "taire", "écrire"],
+    "examples": [
+      "What did you say?",
+      "She said hello."
+    ]
+  },
+  {
+    "word": "see",
+    "definition": "To perceive with the eyes.",
+    "translations": ["voir", "apercevoir"],
+    "main_translation": "voir",
+    "distractors": ["ignorer", "fermer les yeux", "toucher"],
+    "examples": [
+      "I see the mountains.",
+      "She saw him yesterday."
+    ]
+  },
+  {
+    "word": "seem",
+    "definition": "To appear to be.",
+    "translations": ["sembler", "paraître"],
+    "main_translation": "sembler",
+    "distractors": ["être sûr", "prouver", "affirmer"],
+    "examples": [
+      "He seems tired.",
+      "It seems impossible now."
+    ]
+  },
+  {
+    "word": "send",
+    "definition": "To cause something to go to someone.",
+    "translations": ["envoyer", "transmettre"],
+    "main_translation": "envoyer",
+    "distractors": ["recevoir", "garder", "perdre"],
+    "examples": [
+      "Send me the file.",
+      "She sent a letter."
+    ]
+  },
+  {
+    "word": "serve",
+    "definition": "To give or provide service.",
+    "translations": ["servir", "fournir"],
+    "main_translation": "servir",
+    "distractors": ["ignorer", "priver", "cacher"],
+    "examples": [
+      "They serve breakfast.",
+      "She served the customers."
+    ]
+  },
+  {
+    "word": "set",
+    "definition": "To place something in a position.",
+    "translations": ["mettre", "poser", "fixer"],
+    "main_translation": "mettre",
+    "distractors": ["retirer", "bouger", "déplacer"],
+    "examples": [
+      "Set the table.",
+      "The sun sets at 7 PM."
+    ]
+  },
+  {
+    "word": "show",
+    "definition": "To display something.",
+    "translations": ["montrer", "présenter"],
+    "main_translation": "montrer",
+    "distractors": ["cacher", "dissimuler", "refuser"],
+    "examples": [
+      "Show me your ID.",
+      "She showed her work."
+    ]
+  },
+  {
+    "word": "sit",
+    "definition": "To rest on a chair.",
+    "translations": ["s’asseoir", "être assis"],
+    "main_translation": "s’asseoir",
+    "distractors": ["se lever", "marcher", "courir"],
+    "examples": [
+      "Please sit down.",
+      "He sat on the bench."
+    ]
+  },
+  {
+    "word": "sleep",
+    "definition": "To rest with eyes closed.",
+    "translations": ["dormir"],
+    "main_translation": "dormir",
+    "distractors": ["manger", "marcher", "penser"],
+    "examples": [
+      "I sleep eight hours.",
+      "She slept early."
+    ]
+  },
+
+  {
+    "word": "speak",
+    "definition": "To talk to someone.",
+    "translations": ["parler", "s’exprimer"],
+    "main_translation": "parler",
+    "distractors": ["se taire", "écouter", "écrire"],
+    "examples": [
+      "He speaks French.",
+      "Can I speak to you?"
+    ]
+  },
+  {
+    "word": "spend",
+    "definition": "To use money or time.",
+    "translations": ["dépenser", "passer du temps"],
+    "main_translation": "dépenser",
+    "distractors": ["garder", "économiser", "ignorer"],
+    "examples": [
+      "I spent $20.",
+      "We spent the day outside."
+    ]
+  },
+  {
+    "word": "stand",
+    "definition": "To be in an upright position.",
+    "translations": ["se tenir debout", "être debout"],
+    "main_translation": "se tenir debout",
+    "distractors": ["s’asseoir", "tomber", "marcher"],
+    "examples": [
+      "Stand over here.",
+      "She stood quietly."
+    ]
+  },
+  {
+    "word": "start",
+    "definition": "To begin something.",
+    "translations": ["commencer", "débuter"],
+    "main_translation": "commencer",
+    "distractors": ["finir", "arrêter", "stopper"],
+    "examples": [
+      "Let’s start now.",
+      "The movie starts at 8."
+    ]
+  },
+  {
+    "word": "stay",
+    "definition": "To remain in a place.",
+    "translations": ["rester", "demeurer"],
+    "main_translation": "rester",
+    "distractors": ["partir", "quitter", "bouger"],
+    "examples": [
+      "Stay here, please.",
+      "She stayed at home."
+    ]
+  },
+
+  {
+    "word": "stop",
+    "definition": "To end an action.",
+    "translations": ["arrêter", "cesser"],
+    "main_translation": "arrêter",
+    "distractors": ["continuer", "reprendre", "commencer"],
+    "examples": [
+      "Stop talking.",
+      "The rain stopped."
+    ]
+  },
+  {
+    "word": "study",
+    "definition": "To learn about a subject.",
+    "translations": ["étudier", "réviser"],
+    "main_translation": "étudier",
+    "distractors": ["oublier", "jouer", "dormir"],
+    "examples": [
+      "I study English.",
+      "She studied all night."
+    ]
+  },
+  {
+    "word": "succeed",
+    "definition": "To reach a goal.",
+    "translations": ["réussir", "parvenir à"],
+    "main_translation": "réussir",
+    "distractors": ["échouer", "abandonner", "oublier"],
+    "examples": [
+      "You will succeed.",
+      "She succeeded in her exams."
+    ]
+  },
+  {
+    "word": "support",
+    "definition": "To help or encourage.",
+    "translations": ["soutenir", "aider", "appuyer"],
+    "main_translation": "soutenir",
+    "distractors": ["abandonner", "critiquer", "ignorer"],
+    "examples": [
+      "I support your idea.",
+      "They supported him emotionally."
+    ]
+  },
+  {
+    "word": "take",
+    "definition": "To get something with your hands.",
+    "translations": ["prendre", "emporter"],
+    "main_translation": "prendre",
+    "distractors": ["donner", "laisser", "poser"],
+    "examples": [
+      "Take your time.",
+      "She took my pen."
+    ]
+  },
+
+  {
+    "word": "tell",
+    "definition": "To give information with words.",
+    "translations": ["dire", "raconter"],
+    "main_translation": "dire",
+    "distractors": ["écouter", "se taire", "mentir"],
+    "examples": [
+      "Tell me the truth.",
+      "She told a story."
+    ]
+  },
+  {
+    "word": "think",
+    "definition": "To use your mind to consider something.",
+    "translations": ["penser", "réfléchir"],
+    "main_translation": "penser",
+    "distractors": ["oublier", "ignorer", "parler"],
+    "examples": [
+      "I think it's true.",
+      "She thought about it."
+    ]
+  },
+  {
+    "word": "travel",
+    "definition": "To go from one place to another.",
+    "translations": ["voyager", "se déplacer"],
+    "main_translation": "voyager",
+    "distractors": ["rester", "attendre", "vivre"],
+    "examples": [
+      "I love traveling.",
+      "She travels often."
+    ]
+  },
+  {
+    "word": "try",
+    "definition": "To make an attempt.",
+    "translations": ["essayer", "tenter"],
+    "main_translation": "essayer",
+    "distractors": ["abandonner", "refuser", "ignorer"],
+    "examples": [
+      "Try again.",
+      "He tried his best."
+    ]
+  },
+  {
+    "word": "understand",
+    "definition": "To know the meaning of something.",
+    "translations": ["comprendre", "saisir"],
+    "main_translation": "comprendre",
+    "distractors": ["ignorer", "oublier", "confondre"],
+    "examples": [
+      "I understand you.",
+      "She understood the rules."
+    ]
+  }
+]
