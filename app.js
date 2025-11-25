@@ -1,5 +1,5 @@
 // --------------------------------------
-// LexiTrain — Version Multi-Sens Apple
+// LexiTrain — Version Premium Apple
 // --------------------------------------
 
 const inputField = document.getElementById("input");
@@ -10,20 +10,13 @@ const resultTitle = document.getElementById("result-title");
 const senseTabs = document.getElementById("senseTabs");
 const senseContent = document.getElementById("senseContent");
 
-
-// --------------------------------------
-// FETCH API (multi-sens)
-// --------------------------------------
+// Fetch endpoint
 async function fetchWord(word) {
     const response = await fetch(`/api/translate.js?word=${encodeURIComponent(word)}`);
-    const data = await response.json();
-    return data;
+    return await response.json();
 }
 
-
-// --------------------------------------
-// Rendu des pills des sens
-// --------------------------------------
+// Render tabs
 function renderSenseTabs(entries) {
     senseTabs.innerHTML = "";
 
@@ -32,7 +25,7 @@ function renderSenseTabs(entries) {
         pill.className = "sense-pill";
         if (index === 0) pill.classList.add("active");
 
-        pill.textContent = `${entry.label}`;
+        pill.textContent = entry.label;
 
         pill.addEventListener("click", () => {
             document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
@@ -44,90 +37,70 @@ function renderSenseTabs(entries) {
     });
 }
 
-
-// --------------------------------------
-// Rendu du contenu d’un sens
-// --------------------------------------
+// Render content for each sense
 function renderSenseContent(entry) {
     senseContent.innerHTML = "";
 
-    // ------- Bloc Traductions -------
-    if (entry.translations?.length) {
-        const tBlock = document.createElement("div");
-        tBlock.className = "translation-list";
-
-        const title = document.createElement("div");
-        title.className = "sense-block-title";
-        title.textContent = "Traductions";
-        tBlock.appendChild(title);
-
-        entry.translations.forEach((t) => {
-            const item = document.createElement("div");
-            item.className = "translation-item";
-            item.textContent = t;
-            tBlock.appendChild(item);
-        });
-
-        senseContent.appendChild(tBlock);
+    // Definition (EN)
+    if (entry.definition) {
+        const defSection = document.createElement("div");
+        defSection.className = "definition-section glass";
+        defSection.innerHTML = `
+            <div class="sense-block-title">Definition</div>
+            <div class="definition-text">${entry.definition}</div>
+        `;
+        senseContent.appendChild(defSection);
     }
 
-    // ------- Bloc Exemples -------
-    if (entry.examples?.length) {
-        const eBlock = document.createElement("div");
-        eBlock.className = "examples-list";
+    // Translations (FR)
+    const tBlock = document.createElement("div");
+    tBlock.className = "translation-list glass";
+    tBlock.innerHTML = `<div class="sense-block-title">Translations (FR)</div>`;
+    entry.translations.forEach(t => {
+        const item = document.createElement("div");
+        item.className = "translation-item";
+        item.textContent = t;
+        tBlock.appendChild(item);
+    });
+    senseContent.appendChild(tBlock);
 
-        const title = document.createElement("div");
-        title.className = "sense-block-title";
-        title.textContent = "Exemples";
-        eBlock.appendChild(title);
+    // Examples
+    const eBlock = document.createElement("div");
+    eBlock.className = "examples-list glass";
+    eBlock.innerHTML = `<div class="sense-block-title">Examples</div>`;
+    entry.examples.forEach(ex => {
+        const exampleDiv = document.createElement("div");
+        exampleDiv.className = "example-block";
 
-        entry.examples.forEach((ex) => {
-            const exampleDiv = document.createElement("div");
-            exampleDiv.className = "example-block";
+        exampleDiv.innerHTML = `
+            <div class="example-text">• ${ex.src}</div>
+            <div class="example-translation">→ ${ex.dest}</div>
+        `;
 
-            const srcText = document.createElement("div");
-            srcText.className = "example-text";
-            srcText.textContent = `• ${ex.src}`;
+        eBlock.appendChild(exampleDiv);
+    });
+    senseContent.appendChild(eBlock);
 
-            const transText = document.createElement("div");
-            transText.className = "example-translation";
-            transText.textContent = `→ ${ex.dest}`;
+    // Synonyms (EN)
+    const sBlock = document.createElement("div");
+    sBlock.className = "synonyms-wrapper glass";
 
-            exampleDiv.appendChild(srcText);
-            exampleDiv.appendChild(transText);
+    const synTitle = document.createElement("div");
+    synTitle.className = "sense-block-title";
+    synTitle.textContent = "Synonyms (EN)";
+    senseContent.appendChild(synTitle);
 
-            eBlock.appendChild(exampleDiv);
-        });
+    entry.synonyms.forEach(syn => {
+        const tag = document.createElement("div");
+        tag.className = "synonym-tag";
+        tag.textContent = syn;
+        sBlock.appendChild(tag);
+    });
 
-        senseContent.appendChild(eBlock);
-    }
-
-    // ------- Bloc Synonymes -------
-    if (entry.synonyms?.length) {
-        const sBlock = document.createElement("div");
-        sBlock.className = "synonyms-wrapper";
-
-        const title = document.createElement("div");
-        title.className = "sense-block-title";
-        title.style.marginBottom = "10px";
-        title.textContent = "Synonymes";
-        senseContent.appendChild(title);
-
-        entry.synonyms.forEach((syn) => {
-            const tag = document.createElement("div");
-            tag.className = "synonym-tag";
-            tag.textContent = syn;
-            sBlock.appendChild(tag);
-        });
-
-        senseContent.appendChild(sBlock);
-    }
+    senseContent.appendChild(sBlock);
 }
 
-
-// --------------------------------------
-// Fonction principale
-// --------------------------------------
+// Main
 async function translateWord() {
     const word = inputField.value.trim();
     if (!word) return;
@@ -137,22 +110,12 @@ async function translateWord() {
 
     const data = await fetchWord(word);
 
-    if (!data || !data.entries || !data.entries.length) {
-        senseTabs.innerHTML = "";
-        senseContent.innerHTML = "<p>Aucun résultat trouvé.</p>";
-        return;
-    }
-
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
 }
 
-
-// --------------------------------------
 // Listeners
-// --------------------------------------
 translateBtn.addEventListener("click", translateWord);
-
 inputField.addEventListener("keypress", (e) => {
     if (e.key === "Enter") translateWord();
 });
