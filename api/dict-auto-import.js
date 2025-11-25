@@ -12,8 +12,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1) Charger le JSON (tableau de mots)
+    // Charger premium100.json dans /api
     const filePath = path.join(process.cwd(), "api", "premium100.json");
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(500).json({ error: "premium100.json not found" });
+    }
+
     const raw = fs.readFileSync(filePath, "utf8");
     const data = JSON.parse(raw);
 
@@ -30,13 +35,11 @@ export default async function handler(req, res) {
 
     let imported = 0;
 
-    // 2) Importer chaque mot correctement
     for (const entry of data) {
       const word = entry.word?.toLowerCase();
-
       if (!word) continue;
 
-      const response = await fetch(`${KV_URL}/set/dict:${word}`, {
+      await fetch(`${KV_URL}/set/dict:${word}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${KV_TOKEN}`,
