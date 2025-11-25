@@ -11,15 +11,23 @@ export default async function handler(req, res) {
     const entry = entries[0];
 
     // DISTRACTEURS automatiques basés sur GPT
-    const distractors = entry.translations.slice(1, 4);
+    const translations = Array.isArray(entry.translations) ? entry.translations : [];
+    const distractors = translations.slice(1, 4);
     while (distractors.length < 3) distractors.push("option incorrecte");
 
     const dictEntry = {
         word,
         lang: "en",
+
+        // 👉 On garde TOUTES les entrées (sens, déf, exemples, synonymes…)
+        entries,
+
+        // Champs "plats" pour compatibilité (quiz, anciennes routes…)
         definition: entry.definition || "",
-        translations: entry.translations || [],
-        main_translation: entry.translations[0],
+        translations,
+        main_translation: translations[0] || "",
+        examples: Array.isArray(entry.examples) ? entry.examples : [],
+        synonyms: Array.isArray(entry.synonyms) ? entry.synonyms : [],
         distractors
     };
 
