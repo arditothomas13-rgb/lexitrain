@@ -645,3 +645,11 @@ body {
     background: rgba(255,255,255,0.85);
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999; /* force le nav AU-DESSUS */
+}
