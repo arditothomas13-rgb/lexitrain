@@ -11,37 +11,25 @@ export default async function handler(req, res) {
     }
 
     const systemPrompt = `
-Tu es un moteur de dictionnaire professionnel.
-Tu produis un JSON STRICT, jamais autre chose.
-Jamais de markdown. Jamais de texte avant/après.
-
-FORMAT FINAL EXACT :
+Tu es un moteur de dictionnaire. Retourne du JSON strict :
 
 {
-  "senses": [
-      {
-        "label": "nom" ou "verbe" ou "expression",
-        "translations": "<html propre>",
-        "synonyms": "<html propre>",
-        "examples": "<html propre>"
-      }
-  ]
+  "translations": "<html>",
+  "definitions": "<html>",
+  "synonyms": "<html>",
+  "examples": "<html>"
 }
 
-RÈGLES :
-- HTML ultra simple (<ul><li><b><br>).
-- Chaque sens doit contenir AU MOINS 3 exemples bilingues.
-- Style Apple minimal : phrases propres EN puis FR sur la ligne suivante.
-- Exemples toujours en contexte réel.
-- Si plusieurs sens existent → séparer proprement (ex: book : nom + verbe).
+PAS de texte autour.
 `;
 
     const userPrompt = `
 Mot : "${word}"
-Langue source : ${fromLang}
-Langue cible : ${toLang}
+Source : ${fromLang}
+Cible : ${toLang}
 
-Retourne uniquement le JSON strict demandé.
+Retourne traductions, définitions, synonymes, exemples.
+Format JSON STRICT, une seule réponse, pas de markdown.
 `;
 
     const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -66,12 +54,11 @@ Retourne uniquement le JSON strict demandé.
       return res.status(500).json({ ok: false, error: "Réponse OpenAI invalide." });
     }
 
-    let raw = data.choices[0].message.content.trim();
+    const raw = data.choices[0].message.content.trim();
 
     const match = raw.match(/\{[\s\S]*\}/);
     if (!match) {
-      console.error("JSON introuvable :", raw);
-      return res.status(500).json({ ok: false, error: "Format JSON invalide." });
+      return res.status(500).json({ ok: false, error: "JSON invalide." });
     }
 
     const json = JSON.parse(match[0]);
@@ -79,7 +66,7 @@ Retourne uniquement le JSON strict demandé.
     return res.status(200).json({ ok: true, word, ...json });
 
   } catch (err) {
-    console.error("Erreur serveur:", err);
-    return res.status(500).json({ ok: false, error: "Erreur serveur." });
+    console.error("Erreur serveur :", err);
+    return res.status(500).json({ ok: false, error: "Erreur fatale." });
   }
 }
