@@ -129,19 +129,17 @@ body {
 
 /* --- Bottom Navigation --- */
 .bottom-nav {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: calc(100% - 40px);
-  max-width: 430px;
-
-  display: flex;
-  justify-content: space-around;
-
-  padding: 14px 0;
-  border-radius: 26px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255,255,255,0.4);
+    z-index: 9999;
 }
 
 .nav-item {
