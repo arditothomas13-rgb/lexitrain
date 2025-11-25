@@ -1,0 +1,3330 @@
+{
+  "achieve": {
+    "word": "achieve",
+    "lang": "en",
+    "definition": "A common English verb meaning 'achieve' in various contexts.",
+    "translations": [
+      "achieve (traduction fran\u00e7aise 1)",
+      "achieve (traduction fran\u00e7aise 2)",
+      "achieve (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "achieve (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "act": {
+    "word": "act",
+    "lang": "en",
+    "definition": "A common English verb meaning 'act' in various contexts.",
+    "translations": [
+      "act (traduction fran\u00e7aise 1)",
+      "act (traduction fran\u00e7aise 2)",
+      "act (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "act (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "add": {
+    "word": "add",
+    "lang": "en",
+    "definition": "A common English verb meaning 'add' in various contexts.",
+    "translations": [
+      "add (traduction fran\u00e7aise 1)",
+      "add (traduction fran\u00e7aise 2)",
+      "add (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "add (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "agree": {
+    "word": "agree",
+    "lang": "en",
+    "definition": "A common English verb meaning 'agree' in various contexts.",
+    "translations": [
+      "agree (traduction fran\u00e7aise 1)",
+      "agree (traduction fran\u00e7aise 2)",
+      "agree (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "agree (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "allow": {
+    "word": "allow",
+    "lang": "en",
+    "definition": "A common English verb meaning 'allow' in various contexts.",
+    "translations": [
+      "allow (traduction fran\u00e7aise 1)",
+      "allow (traduction fran\u00e7aise 2)",
+      "allow (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "allow (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "appear": {
+    "word": "appear",
+    "lang": "en",
+    "definition": "A common English verb meaning 'appear' in various contexts.",
+    "translations": [
+      "appear (traduction fran\u00e7aise 1)",
+      "appear (traduction fran\u00e7aise 2)",
+      "appear (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "appear (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "apply": {
+    "word": "apply",
+    "lang": "en",
+    "definition": "A common English verb meaning 'apply' in various contexts.",
+    "translations": [
+      "apply (traduction fran\u00e7aise 1)",
+      "apply (traduction fran\u00e7aise 2)",
+      "apply (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "apply (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "argue": {
+    "word": "argue",
+    "lang": "en",
+    "definition": "A common English verb meaning 'argue' in various contexts.",
+    "translations": [
+      "argue (traduction fran\u00e7aise 1)",
+      "argue (traduction fran\u00e7aise 2)",
+      "argue (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "argue (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "arrive": {
+    "word": "arrive",
+    "lang": "en",
+    "definition": "A common English verb meaning 'arrive' in various contexts.",
+    "translations": [
+      "arrive (traduction fran\u00e7aise 1)",
+      "arrive (traduction fran\u00e7aise 2)",
+      "arrive (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "arrive (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "ask": {
+    "word": "ask",
+    "lang": "en",
+    "definition": "A common English verb meaning 'ask' in various contexts.",
+    "translations": [
+      "ask (traduction fran\u00e7aise 1)",
+      "ask (traduction fran\u00e7aise 2)",
+      "ask (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "ask (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "avoid": {
+    "word": "avoid",
+    "lang": "en",
+    "definition": "A common English verb meaning 'avoid' in various contexts.",
+    "translations": [
+      "avoid (traduction fran\u00e7aise 1)",
+      "avoid (traduction fran\u00e7aise 2)",
+      "avoid (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "avoid (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "become": {
+    "word": "become",
+    "lang": "en",
+    "definition": "A common English verb meaning 'become' in various contexts.",
+    "translations": [
+      "become (traduction fran\u00e7aise 1)",
+      "become (traduction fran\u00e7aise 2)",
+      "become (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "become (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "begin": {
+    "word": "begin",
+    "lang": "en",
+    "definition": "A common English verb meaning 'begin' in various contexts.",
+    "translations": [
+      "begin (traduction fran\u00e7aise 1)",
+      "begin (traduction fran\u00e7aise 2)",
+      "begin (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "begin (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "believe": {
+    "word": "believe",
+    "lang": "en",
+    "definition": "A common English verb meaning 'believe' in various contexts.",
+    "translations": [
+      "believe (traduction fran\u00e7aise 1)",
+      "believe (traduction fran\u00e7aise 2)",
+      "believe (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "believe (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "build": {
+    "word": "build",
+    "lang": "en",
+    "definition": "A common English verb meaning 'build' in various contexts.",
+    "translations": [
+      "build (traduction fran\u00e7aise 1)",
+      "build (traduction fran\u00e7aise 2)",
+      "build (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "build (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "bring": {
+    "word": "bring",
+    "lang": "en",
+    "definition": "A common English verb meaning 'bring' in various contexts.",
+    "translations": [
+      "bring (traduction fran\u00e7aise 1)",
+      "bring (traduction fran\u00e7aise 2)",
+      "bring (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "bring (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "buy": {
+    "word": "buy",
+    "lang": "en",
+    "definition": "A common English verb meaning 'buy' in various contexts.",
+    "translations": [
+      "buy (traduction fran\u00e7aise 1)",
+      "buy (traduction fran\u00e7aise 2)",
+      "buy (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "buy (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "call": {
+    "word": "call",
+    "lang": "en",
+    "definition": "A common English verb meaning 'call' in various contexts.",
+    "translations": [
+      "call (traduction fran\u00e7aise 1)",
+      "call (traduction fran\u00e7aise 2)",
+      "call (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "call (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "carry": {
+    "word": "carry",
+    "lang": "en",
+    "definition": "A common English verb meaning 'carry' in various contexts.",
+    "translations": [
+      "carry (traduction fran\u00e7aise 1)",
+      "carry (traduction fran\u00e7aise 2)",
+      "carry (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "carry (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "change": {
+    "word": "change",
+    "lang": "en",
+    "definition": "A common English verb meaning 'change' in various contexts.",
+    "translations": [
+      "change (traduction fran\u00e7aise 1)",
+      "change (traduction fran\u00e7aise 2)",
+      "change (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "change (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "choose": {
+    "word": "choose",
+    "lang": "en",
+    "definition": "A common English verb meaning 'choose' in various contexts.",
+    "translations": [
+      "choose (traduction fran\u00e7aise 1)",
+      "choose (traduction fran\u00e7aise 2)",
+      "choose (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "choose (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "clean": {
+    "word": "clean",
+    "lang": "en",
+    "definition": "A common English verb meaning 'clean' in various contexts.",
+    "translations": [
+      "clean (traduction fran\u00e7aise 1)",
+      "clean (traduction fran\u00e7aise 2)",
+      "clean (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "clean (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "close": {
+    "word": "close",
+    "lang": "en",
+    "definition": "A common English verb meaning 'close' in various contexts.",
+    "translations": [
+      "close (traduction fran\u00e7aise 1)",
+      "close (traduction fran\u00e7aise 2)",
+      "close (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "close (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "come": {
+    "word": "come",
+    "lang": "en",
+    "definition": "A common English verb meaning 'come' in various contexts.",
+    "translations": [
+      "come (traduction fran\u00e7aise 1)",
+      "come (traduction fran\u00e7aise 2)",
+      "come (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "come (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "compare": {
+    "word": "compare",
+    "lang": "en",
+    "definition": "A common English verb meaning 'compare' in various contexts.",
+    "translations": [
+      "compare (traduction fran\u00e7aise 1)",
+      "compare (traduction fran\u00e7aise 2)",
+      "compare (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "compare (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "consider": {
+    "word": "consider",
+    "lang": "en",
+    "definition": "A common English verb meaning 'consider' in various contexts.",
+    "translations": [
+      "consider (traduction fran\u00e7aise 1)",
+      "consider (traduction fran\u00e7aise 2)",
+      "consider (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "consider (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "continue": {
+    "word": "continue",
+    "lang": "en",
+    "definition": "A common English verb meaning 'continue' in various contexts.",
+    "translations": [
+      "continue (traduction fran\u00e7aise 1)",
+      "continue (traduction fran\u00e7aise 2)",
+      "continue (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "continue (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "control": {
+    "word": "control",
+    "lang": "en",
+    "definition": "A common English verb meaning 'control' in various contexts.",
+    "translations": [
+      "control (traduction fran\u00e7aise 1)",
+      "control (traduction fran\u00e7aise 2)",
+      "control (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "control (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "cook": {
+    "word": "cook",
+    "lang": "en",
+    "definition": "A common English verb meaning 'cook' in various contexts.",
+    "translations": [
+      "cook (traduction fran\u00e7aise 1)",
+      "cook (traduction fran\u00e7aise 2)",
+      "cook (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "cook (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "create": {
+    "word": "create",
+    "lang": "en",
+    "definition": "A common English verb meaning 'create' in various contexts.",
+    "translations": [
+      "create (traduction fran\u00e7aise 1)",
+      "create (traduction fran\u00e7aise 2)",
+      "create (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "create (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "cut": {
+    "word": "cut",
+    "lang": "en",
+    "definition": "A common English verb meaning 'cut' in various contexts.",
+    "translations": [
+      "cut (traduction fran\u00e7aise 1)",
+      "cut (traduction fran\u00e7aise 2)",
+      "cut (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "cut (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "decide": {
+    "word": "decide",
+    "lang": "en",
+    "definition": "A common English verb meaning 'decide' in various contexts.",
+    "translations": [
+      "decide (traduction fran\u00e7aise 1)",
+      "decide (traduction fran\u00e7aise 2)",
+      "decide (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "decide (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "deliver": {
+    "word": "deliver",
+    "lang": "en",
+    "definition": "A common English verb meaning 'deliver' in various contexts.",
+    "translations": [
+      "deliver (traduction fran\u00e7aise 1)",
+      "deliver (traduction fran\u00e7aise 2)",
+      "deliver (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "deliver (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "describe": {
+    "word": "describe",
+    "lang": "en",
+    "definition": "A common English verb meaning 'describe' in various contexts.",
+    "translations": [
+      "describe (traduction fran\u00e7aise 1)",
+      "describe (traduction fran\u00e7aise 2)",
+      "describe (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "describe (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "design": {
+    "word": "design",
+    "lang": "en",
+    "definition": "A common English verb meaning 'design' in various contexts.",
+    "translations": [
+      "design (traduction fran\u00e7aise 1)",
+      "design (traduction fran\u00e7aise 2)",
+      "design (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "design (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "develop": {
+    "word": "develop",
+    "lang": "en",
+    "definition": "A common English verb meaning 'develop' in various contexts.",
+    "translations": [
+      "develop (traduction fran\u00e7aise 1)",
+      "develop (traduction fran\u00e7aise 2)",
+      "develop (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "develop (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "discover": {
+    "word": "discover",
+    "lang": "en",
+    "definition": "A common English verb meaning 'discover' in various contexts.",
+    "translations": [
+      "discover (traduction fran\u00e7aise 1)",
+      "discover (traduction fran\u00e7aise 2)",
+      "discover (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "discover (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "discuss": {
+    "word": "discuss",
+    "lang": "en",
+    "definition": "A common English verb meaning 'discuss' in various contexts.",
+    "translations": [
+      "discuss (traduction fran\u00e7aise 1)",
+      "discuss (traduction fran\u00e7aise 2)",
+      "discuss (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "discuss (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "drive": {
+    "word": "drive",
+    "lang": "en",
+    "definition": "A common English verb meaning 'drive' in various contexts.",
+    "translations": [
+      "drive (traduction fran\u00e7aise 1)",
+      "drive (traduction fran\u00e7aise 2)",
+      "drive (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "drive (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "eat": {
+    "word": "eat",
+    "lang": "en",
+    "definition": "A common English verb meaning 'eat' in various contexts.",
+    "translations": [
+      "eat (traduction fran\u00e7aise 1)",
+      "eat (traduction fran\u00e7aise 2)",
+      "eat (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "eat (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "enjoy": {
+    "word": "enjoy",
+    "lang": "en",
+    "definition": "A common English verb meaning 'enjoy' in various contexts.",
+    "translations": [
+      "enjoy (traduction fran\u00e7aise 1)",
+      "enjoy (traduction fran\u00e7aise 2)",
+      "enjoy (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "enjoy (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "explain": {
+    "word": "explain",
+    "lang": "en",
+    "definition": "A common English verb meaning 'explain' in various contexts.",
+    "translations": [
+      "explain (traduction fran\u00e7aise 1)",
+      "explain (traduction fran\u00e7aise 2)",
+      "explain (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "explain (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "fall": {
+    "word": "fall",
+    "lang": "en",
+    "definition": "A common English verb meaning 'fall' in various contexts.",
+    "translations": [
+      "fall (traduction fran\u00e7aise 1)",
+      "fall (traduction fran\u00e7aise 2)",
+      "fall (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "fall (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "feel": {
+    "word": "feel",
+    "lang": "en",
+    "definition": "A common English verb meaning 'feel' in various contexts.",
+    "translations": [
+      "feel (traduction fran\u00e7aise 1)",
+      "feel (traduction fran\u00e7aise 2)",
+      "feel (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "feel (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "find": {
+    "word": "find",
+    "lang": "en",
+    "definition": "A common English verb meaning 'find' in various contexts.",
+    "translations": [
+      "find (traduction fran\u00e7aise 1)",
+      "find (traduction fran\u00e7aise 2)",
+      "find (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "find (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "finish": {
+    "word": "finish",
+    "lang": "en",
+    "definition": "A common English verb meaning 'finish' in various contexts.",
+    "translations": [
+      "finish (traduction fran\u00e7aise 1)",
+      "finish (traduction fran\u00e7aise 2)",
+      "finish (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "finish (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "follow": {
+    "word": "follow",
+    "lang": "en",
+    "definition": "A common English verb meaning 'follow' in various contexts.",
+    "translations": [
+      "follow (traduction fran\u00e7aise 1)",
+      "follow (traduction fran\u00e7aise 2)",
+      "follow (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "follow (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "forget": {
+    "word": "forget",
+    "lang": "en",
+    "definition": "A common English verb meaning 'forget' in various contexts.",
+    "translations": [
+      "forget (traduction fran\u00e7aise 1)",
+      "forget (traduction fran\u00e7aise 2)",
+      "forget (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "forget (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "get": {
+    "word": "get",
+    "lang": "en",
+    "definition": "A common English verb meaning 'get' in various contexts.",
+    "translations": [
+      "get (traduction fran\u00e7aise 1)",
+      "get (traduction fran\u00e7aise 2)",
+      "get (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "get (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "give": {
+    "word": "give",
+    "lang": "en",
+    "definition": "A common English verb meaning 'give' in various contexts.",
+    "translations": [
+      "give (traduction fran\u00e7aise 1)",
+      "give (traduction fran\u00e7aise 2)",
+      "give (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "give (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "go": {
+    "word": "go",
+    "lang": "en",
+    "definition": "A common English verb meaning 'go' in various contexts.",
+    "translations": [
+      "go (traduction fran\u00e7aise 1)",
+      "go (traduction fran\u00e7aise 2)",
+      "go (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "go (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "grow": {
+    "word": "grow",
+    "lang": "en",
+    "definition": "A common English verb meaning 'grow' in various contexts.",
+    "translations": [
+      "grow (traduction fran\u00e7aise 1)",
+      "grow (traduction fran\u00e7aise 2)",
+      "grow (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "grow (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "happen": {
+    "word": "happen",
+    "lang": "en",
+    "definition": "A common English verb meaning 'happen' in various contexts.",
+    "translations": [
+      "happen (traduction fran\u00e7aise 1)",
+      "happen (traduction fran\u00e7aise 2)",
+      "happen (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "happen (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "have": {
+    "word": "have",
+    "lang": "en",
+    "definition": "A common English verb meaning 'have' in various contexts.",
+    "translations": [
+      "have (traduction fran\u00e7aise 1)",
+      "have (traduction fran\u00e7aise 2)",
+      "have (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "have (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "hear": {
+    "word": "hear",
+    "lang": "en",
+    "definition": "A common English verb meaning 'hear' in various contexts.",
+    "translations": [
+      "hear (traduction fran\u00e7aise 1)",
+      "hear (traduction fran\u00e7aise 2)",
+      "hear (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "hear (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "help": {
+    "word": "help",
+    "lang": "en",
+    "definition": "A common English verb meaning 'help' in various contexts.",
+    "translations": [
+      "help (traduction fran\u00e7aise 1)",
+      "help (traduction fran\u00e7aise 2)",
+      "help (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "help (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "hold": {
+    "word": "hold",
+    "lang": "en",
+    "definition": "A common English verb meaning 'hold' in various contexts.",
+    "translations": [
+      "hold (traduction fran\u00e7aise 1)",
+      "hold (traduction fran\u00e7aise 2)",
+      "hold (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "hold (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "hope": {
+    "word": "hope",
+    "lang": "en",
+    "definition": "A common English verb meaning 'hope' in various contexts.",
+    "translations": [
+      "hope (traduction fran\u00e7aise 1)",
+      "hope (traduction fran\u00e7aise 2)",
+      "hope (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "hope (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "improve": {
+    "word": "improve",
+    "lang": "en",
+    "definition": "A common English verb meaning 'improve' in various contexts.",
+    "translations": [
+      "improve (traduction fran\u00e7aise 1)",
+      "improve (traduction fran\u00e7aise 2)",
+      "improve (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "improve (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "include": {
+    "word": "include",
+    "lang": "en",
+    "definition": "A common English verb meaning 'include' in various contexts.",
+    "translations": [
+      "include (traduction fran\u00e7aise 1)",
+      "include (traduction fran\u00e7aise 2)",
+      "include (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "include (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "increase": {
+    "word": "increase",
+    "lang": "en",
+    "definition": "A common English verb meaning 'increase' in various contexts.",
+    "translations": [
+      "increase (traduction fran\u00e7aise 1)",
+      "increase (traduction fran\u00e7aise 2)",
+      "increase (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "increase (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "introduce": {
+    "word": "introduce",
+    "lang": "en",
+    "definition": "A common English verb meaning 'introduce' in various contexts.",
+    "translations": [
+      "introduce (traduction fran\u00e7aise 1)",
+      "introduce (traduction fran\u00e7aise 2)",
+      "introduce (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "introduce (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "keep": {
+    "word": "keep",
+    "lang": "en",
+    "definition": "A common English verb meaning 'keep' in various contexts.",
+    "translations": [
+      "keep (traduction fran\u00e7aise 1)",
+      "keep (traduction fran\u00e7aise 2)",
+      "keep (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "keep (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "know": {
+    "word": "know",
+    "lang": "en",
+    "definition": "A common English verb meaning 'know' in various contexts.",
+    "translations": [
+      "know (traduction fran\u00e7aise 1)",
+      "know (traduction fran\u00e7aise 2)",
+      "know (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "know (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "learn": {
+    "word": "learn",
+    "lang": "en",
+    "definition": "A common English verb meaning 'learn' in various contexts.",
+    "translations": [
+      "learn (traduction fran\u00e7aise 1)",
+      "learn (traduction fran\u00e7aise 2)",
+      "learn (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "learn (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "leave": {
+    "word": "leave",
+    "lang": "en",
+    "definition": "A common English verb meaning 'leave' in various contexts.",
+    "translations": [
+      "leave (traduction fran\u00e7aise 1)",
+      "leave (traduction fran\u00e7aise 2)",
+      "leave (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "leave (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "let": {
+    "word": "let",
+    "lang": "en",
+    "definition": "A common English verb meaning 'let' in various contexts.",
+    "translations": [
+      "let (traduction fran\u00e7aise 1)",
+      "let (traduction fran\u00e7aise 2)",
+      "let (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "let (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "like": {
+    "word": "like",
+    "lang": "en",
+    "definition": "A common English verb meaning 'like' in various contexts.",
+    "translations": [
+      "like (traduction fran\u00e7aise 1)",
+      "like (traduction fran\u00e7aise 2)",
+      "like (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "like (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "listen": {
+    "word": "listen",
+    "lang": "en",
+    "definition": "A common English verb meaning 'listen' in various contexts.",
+    "translations": [
+      "listen (traduction fran\u00e7aise 1)",
+      "listen (traduction fran\u00e7aise 2)",
+      "listen (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "listen (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "live": {
+    "word": "live",
+    "lang": "en",
+    "definition": "A common English verb meaning 'live' in various contexts.",
+    "translations": [
+      "live (traduction fran\u00e7aise 1)",
+      "live (traduction fran\u00e7aise 2)",
+      "live (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "live (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "look": {
+    "word": "look",
+    "lang": "en",
+    "definition": "A common English verb meaning 'look' in various contexts.",
+    "translations": [
+      "look (traduction fran\u00e7aise 1)",
+      "look (traduction fran\u00e7aise 2)",
+      "look (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "look (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "lose": {
+    "word": "lose",
+    "lang": "en",
+    "definition": "A common English verb meaning 'lose' in various contexts.",
+    "translations": [
+      "lose (traduction fran\u00e7aise 1)",
+      "lose (traduction fran\u00e7aise 2)",
+      "lose (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "lose (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "love": {
+    "word": "love",
+    "lang": "en",
+    "definition": "A common English verb meaning 'love' in various contexts.",
+    "translations": [
+      "love (traduction fran\u00e7aise 1)",
+      "love (traduction fran\u00e7aise 2)",
+      "love (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "love (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "make": {
+    "word": "make",
+    "lang": "en",
+    "definition": "A common English verb meaning 'make' in various contexts.",
+    "translations": [
+      "make (traduction fran\u00e7aise 1)",
+      "make (traduction fran\u00e7aise 2)",
+      "make (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "make (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "manage": {
+    "word": "manage",
+    "lang": "en",
+    "definition": "A common English verb meaning 'manage' in various contexts.",
+    "translations": [
+      "manage (traduction fran\u00e7aise 1)",
+      "manage (traduction fran\u00e7aise 2)",
+      "manage (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "manage (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "mean": {
+    "word": "mean",
+    "lang": "en",
+    "definition": "A common English verb meaning 'mean' in various contexts.",
+    "translations": [
+      "mean (traduction fran\u00e7aise 1)",
+      "mean (traduction fran\u00e7aise 2)",
+      "mean (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "mean (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "meet": {
+    "word": "meet",
+    "lang": "en",
+    "definition": "A common English verb meaning 'meet' in various contexts.",
+    "translations": [
+      "meet (traduction fran\u00e7aise 1)",
+      "meet (traduction fran\u00e7aise 2)",
+      "meet (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "meet (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "move": {
+    "word": "move",
+    "lang": "en",
+    "definition": "A common English verb meaning 'move' in various contexts.",
+    "translations": [
+      "move (traduction fran\u00e7aise 1)",
+      "move (traduction fran\u00e7aise 2)",
+      "move (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "move (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "need": {
+    "word": "need",
+    "lang": "en",
+    "definition": "A common English verb meaning 'need' in various contexts.",
+    "translations": [
+      "need (traduction fran\u00e7aise 1)",
+      "need (traduction fran\u00e7aise 2)",
+      "need (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "need (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "open": {
+    "word": "open",
+    "lang": "en",
+    "definition": "A common English verb meaning 'open' in various contexts.",
+    "translations": [
+      "open (traduction fran\u00e7aise 1)",
+      "open (traduction fran\u00e7aise 2)",
+      "open (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "open (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "order": {
+    "word": "order",
+    "lang": "en",
+    "definition": "A common English verb meaning 'order' in various contexts.",
+    "translations": [
+      "order (traduction fran\u00e7aise 1)",
+      "order (traduction fran\u00e7aise 2)",
+      "order (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "order (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "pay": {
+    "word": "pay",
+    "lang": "en",
+    "definition": "A common English verb meaning 'pay' in various contexts.",
+    "translations": [
+      "pay (traduction fran\u00e7aise 1)",
+      "pay (traduction fran\u00e7aise 2)",
+      "pay (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "pay (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "play": {
+    "word": "play",
+    "lang": "en",
+    "definition": "A common English verb meaning 'play' in various contexts.",
+    "translations": [
+      "play (traduction fran\u00e7aise 1)",
+      "play (traduction fran\u00e7aise 2)",
+      "play (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "play (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "prefer": {
+    "word": "prefer",
+    "lang": "en",
+    "definition": "A common English verb meaning 'prefer' in various contexts.",
+    "translations": [
+      "prefer (traduction fran\u00e7aise 1)",
+      "prefer (traduction fran\u00e7aise 2)",
+      "prefer (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "prefer (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "prepare": {
+    "word": "prepare",
+    "lang": "en",
+    "definition": "A common English verb meaning 'prepare' in various contexts.",
+    "translations": [
+      "prepare (traduction fran\u00e7aise 1)",
+      "prepare (traduction fran\u00e7aise 2)",
+      "prepare (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "prepare (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "prevent": {
+    "word": "prevent",
+    "lang": "en",
+    "definition": "A common English verb meaning 'prevent' in various contexts.",
+    "translations": [
+      "prevent (traduction fran\u00e7aise 1)",
+      "prevent (traduction fran\u00e7aise 2)",
+      "prevent (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "prevent (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "produce": {
+    "word": "produce",
+    "lang": "en",
+    "definition": "A common English verb meaning 'produce' in various contexts.",
+    "translations": [
+      "produce (traduction fran\u00e7aise 1)",
+      "produce (traduction fran\u00e7aise 2)",
+      "produce (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "produce (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "protect": {
+    "word": "protect",
+    "lang": "en",
+    "definition": "A common English verb meaning 'protect' in various contexts.",
+    "translations": [
+      "protect (traduction fran\u00e7aise 1)",
+      "protect (traduction fran\u00e7aise 2)",
+      "protect (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "protect (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "prove": {
+    "word": "prove",
+    "lang": "en",
+    "definition": "A common English verb meaning 'prove' in various contexts.",
+    "translations": [
+      "prove (traduction fran\u00e7aise 1)",
+      "prove (traduction fran\u00e7aise 2)",
+      "prove (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "prove (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "provide": {
+    "word": "provide",
+    "lang": "en",
+    "definition": "A common English verb meaning 'provide' in various contexts.",
+    "translations": [
+      "provide (traduction fran\u00e7aise 1)",
+      "provide (traduction fran\u00e7aise 2)",
+      "provide (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "provide (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "put": {
+    "word": "put",
+    "lang": "en",
+    "definition": "A common English verb meaning 'put' in various contexts.",
+    "translations": [
+      "put (traduction fran\u00e7aise 1)",
+      "put (traduction fran\u00e7aise 2)",
+      "put (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "put (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "reach": {
+    "word": "reach",
+    "lang": "en",
+    "definition": "A common English verb meaning 'reach' in various contexts.",
+    "translations": [
+      "reach (traduction fran\u00e7aise 1)",
+      "reach (traduction fran\u00e7aise 2)",
+      "reach (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "reach (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "read": {
+    "word": "read",
+    "lang": "en",
+    "definition": "A common English verb meaning 'read' in various contexts.",
+    "translations": [
+      "read (traduction fran\u00e7aise 1)",
+      "read (traduction fran\u00e7aise 2)",
+      "read (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "read (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "receive": {
+    "word": "receive",
+    "lang": "en",
+    "definition": "A common English verb meaning 'receive' in various contexts.",
+    "translations": [
+      "receive (traduction fran\u00e7aise 1)",
+      "receive (traduction fran\u00e7aise 2)",
+      "receive (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "receive (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "reduce": {
+    "word": "reduce",
+    "lang": "en",
+    "definition": "A common English verb meaning 'reduce' in various contexts.",
+    "translations": [
+      "reduce (traduction fran\u00e7aise 1)",
+      "reduce (traduction fran\u00e7aise 2)",
+      "reduce (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "reduce (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "remember": {
+    "word": "remember",
+    "lang": "en",
+    "definition": "A common English verb meaning 'remember' in various contexts.",
+    "translations": [
+      "remember (traduction fran\u00e7aise 1)",
+      "remember (traduction fran\u00e7aise 2)",
+      "remember (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "remember (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "return": {
+    "word": "return",
+    "lang": "en",
+    "definition": "A common English verb meaning 'return' in various contexts.",
+    "translations": [
+      "return (traduction fran\u00e7aise 1)",
+      "return (traduction fran\u00e7aise 2)",
+      "return (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "return (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "run": {
+    "word": "run",
+    "lang": "en",
+    "definition": "A common English verb meaning 'run' in various contexts.",
+    "translations": [
+      "run (traduction fran\u00e7aise 1)",
+      "run (traduction fran\u00e7aise 2)",
+      "run (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "run (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "say": {
+    "word": "say",
+    "lang": "en",
+    "definition": "A common English verb meaning 'say' in various contexts.",
+    "translations": [
+      "say (traduction fran\u00e7aise 1)",
+      "say (traduction fran\u00e7aise 2)",
+      "say (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "say (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "see": {
+    "word": "see",
+    "lang": "en",
+    "definition": "A common English verb meaning 'see' in various contexts.",
+    "translations": [
+      "see (traduction fran\u00e7aise 1)",
+      "see (traduction fran\u00e7aise 2)",
+      "see (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "see (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "seem": {
+    "word": "seem",
+    "lang": "en",
+    "definition": "A common English verb meaning 'seem' in various contexts.",
+    "translations": [
+      "seem (traduction fran\u00e7aise 1)",
+      "seem (traduction fran\u00e7aise 2)",
+      "seem (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "seem (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "send": {
+    "word": "send",
+    "lang": "en",
+    "definition": "A common English verb meaning 'send' in various contexts.",
+    "translations": [
+      "send (traduction fran\u00e7aise 1)",
+      "send (traduction fran\u00e7aise 2)",
+      "send (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "send (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "serve": {
+    "word": "serve",
+    "lang": "en",
+    "definition": "A common English verb meaning 'serve' in various contexts.",
+    "translations": [
+      "serve (traduction fran\u00e7aise 1)",
+      "serve (traduction fran\u00e7aise 2)",
+      "serve (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "serve (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "set": {
+    "word": "set",
+    "lang": "en",
+    "definition": "A common English verb meaning 'set' in various contexts.",
+    "translations": [
+      "set (traduction fran\u00e7aise 1)",
+      "set (traduction fran\u00e7aise 2)",
+      "set (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "set (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "show": {
+    "word": "show",
+    "lang": "en",
+    "definition": "A common English verb meaning 'show' in various contexts.",
+    "translations": [
+      "show (traduction fran\u00e7aise 1)",
+      "show (traduction fran\u00e7aise 2)",
+      "show (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "show (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "sit": {
+    "word": "sit",
+    "lang": "en",
+    "definition": "A common English verb meaning 'sit' in various contexts.",
+    "translations": [
+      "sit (traduction fran\u00e7aise 1)",
+      "sit (traduction fran\u00e7aise 2)",
+      "sit (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "sit (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "sleep": {
+    "word": "sleep",
+    "lang": "en",
+    "definition": "A common English verb meaning 'sleep' in various contexts.",
+    "translations": [
+      "sleep (traduction fran\u00e7aise 1)",
+      "sleep (traduction fran\u00e7aise 2)",
+      "sleep (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "sleep (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "speak": {
+    "word": "speak",
+    "lang": "en",
+    "definition": "A common English verb meaning 'speak' in various contexts.",
+    "translations": [
+      "speak (traduction fran\u00e7aise 1)",
+      "speak (traduction fran\u00e7aise 2)",
+      "speak (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "speak (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "spend": {
+    "word": "spend",
+    "lang": "en",
+    "definition": "A common English verb meaning 'spend' in various contexts.",
+    "translations": [
+      "spend (traduction fran\u00e7aise 1)",
+      "spend (traduction fran\u00e7aise 2)",
+      "spend (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "spend (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "stand": {
+    "word": "stand",
+    "lang": "en",
+    "definition": "A common English verb meaning 'stand' in various contexts.",
+    "translations": [
+      "stand (traduction fran\u00e7aise 1)",
+      "stand (traduction fran\u00e7aise 2)",
+      "stand (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "stand (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "start": {
+    "word": "start",
+    "lang": "en",
+    "definition": "A common English verb meaning 'start' in various contexts.",
+    "translations": [
+      "start (traduction fran\u00e7aise 1)",
+      "start (traduction fran\u00e7aise 2)",
+      "start (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "start (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "stay": {
+    "word": "stay",
+    "lang": "en",
+    "definition": "A common English verb meaning 'stay' in various contexts.",
+    "translations": [
+      "stay (traduction fran\u00e7aise 1)",
+      "stay (traduction fran\u00e7aise 2)",
+      "stay (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "stay (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "stop": {
+    "word": "stop",
+    "lang": "en",
+    "definition": "A common English verb meaning 'stop' in various contexts.",
+    "translations": [
+      "stop (traduction fran\u00e7aise 1)",
+      "stop (traduction fran\u00e7aise 2)",
+      "stop (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "stop (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "study": {
+    "word": "study",
+    "lang": "en",
+    "definition": "A common English verb meaning 'study' in various contexts.",
+    "translations": [
+      "study (traduction fran\u00e7aise 1)",
+      "study (traduction fran\u00e7aise 2)",
+      "study (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "study (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "succeed": {
+    "word": "succeed",
+    "lang": "en",
+    "definition": "A common English verb meaning 'succeed' in various contexts.",
+    "translations": [
+      "succeed (traduction fran\u00e7aise 1)",
+      "succeed (traduction fran\u00e7aise 2)",
+      "succeed (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "succeed (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "support": {
+    "word": "support",
+    "lang": "en",
+    "definition": "A common English verb meaning 'support' in various contexts.",
+    "translations": [
+      "support (traduction fran\u00e7aise 1)",
+      "support (traduction fran\u00e7aise 2)",
+      "support (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "support (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "take": {
+    "word": "take",
+    "lang": "en",
+    "definition": "A common English verb meaning 'take' in various contexts.",
+    "translations": [
+      "take (traduction fran\u00e7aise 1)",
+      "take (traduction fran\u00e7aise 2)",
+      "take (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "take (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "talk": {
+    "word": "talk",
+    "lang": "en",
+    "definition": "A common English verb meaning 'talk' in various contexts.",
+    "translations": [
+      "talk (traduction fran\u00e7aise 1)",
+      "talk (traduction fran\u00e7aise 2)",
+      "talk (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "talk (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "teach": {
+    "word": "teach",
+    "lang": "en",
+    "definition": "A common English verb meaning 'teach' in various contexts.",
+    "translations": [
+      "teach (traduction fran\u00e7aise 1)",
+      "teach (traduction fran\u00e7aise 2)",
+      "teach (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "teach (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "tell": {
+    "word": "tell",
+    "lang": "en",
+    "definition": "A common English verb meaning 'tell' in various contexts.",
+    "translations": [
+      "tell (traduction fran\u00e7aise 1)",
+      "tell (traduction fran\u00e7aise 2)",
+      "tell (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "tell (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "think": {
+    "word": "think",
+    "lang": "en",
+    "definition": "A common English verb meaning 'think' in various contexts.",
+    "translations": [
+      "think (traduction fran\u00e7aise 1)",
+      "think (traduction fran\u00e7aise 2)",
+      "think (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "think (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "travel": {
+    "word": "travel",
+    "lang": "en",
+    "definition": "A common English verb meaning 'travel' in various contexts.",
+    "translations": [
+      "travel (traduction fran\u00e7aise 1)",
+      "travel (traduction fran\u00e7aise 2)",
+      "travel (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "travel (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "try": {
+    "word": "try",
+    "lang": "en",
+    "definition": "A common English verb meaning 'try' in various contexts.",
+    "translations": [
+      "try (traduction fran\u00e7aise 1)",
+      "try (traduction fran\u00e7aise 2)",
+      "try (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "try (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "turn": {
+    "word": "turn",
+    "lang": "en",
+    "definition": "A common English verb meaning 'turn' in various contexts.",
+    "translations": [
+      "turn (traduction fran\u00e7aise 1)",
+      "turn (traduction fran\u00e7aise 2)",
+      "turn (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "turn (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "understand": {
+    "word": "understand",
+    "lang": "en",
+    "definition": "A common English verb meaning 'understand' in various contexts.",
+    "translations": [
+      "understand (traduction fran\u00e7aise 1)",
+      "understand (traduction fran\u00e7aise 2)",
+      "understand (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "understand (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "use": {
+    "word": "use",
+    "lang": "en",
+    "definition": "A common English verb meaning 'use' in various contexts.",
+    "translations": [
+      "use (traduction fran\u00e7aise 1)",
+      "use (traduction fran\u00e7aise 2)",
+      "use (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "use (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "wait": {
+    "word": "wait",
+    "lang": "en",
+    "definition": "A common English verb meaning 'wait' in various contexts.",
+    "translations": [
+      "wait (traduction fran\u00e7aise 1)",
+      "wait (traduction fran\u00e7aise 2)",
+      "wait (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "wait (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "walk": {
+    "word": "walk",
+    "lang": "en",
+    "definition": "A common English verb meaning 'walk' in various contexts.",
+    "translations": [
+      "walk (traduction fran\u00e7aise 1)",
+      "walk (traduction fran\u00e7aise 2)",
+      "walk (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "walk (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "watch": {
+    "word": "watch",
+    "lang": "en",
+    "definition": "A common English verb meaning 'watch' in various contexts.",
+    "translations": [
+      "watch (traduction fran\u00e7aise 1)",
+      "watch (traduction fran\u00e7aise 2)",
+      "watch (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "watch (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "win": {
+    "word": "win",
+    "lang": "en",
+    "definition": "A common English verb meaning 'win' in various contexts.",
+    "translations": [
+      "win (traduction fran\u00e7aise 1)",
+      "win (traduction fran\u00e7aise 2)",
+      "win (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "win (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "work": {
+    "word": "work",
+    "lang": "en",
+    "definition": "A common English verb meaning 'work' in various contexts.",
+    "translations": [
+      "work (traduction fran\u00e7aise 1)",
+      "work (traduction fran\u00e7aise 2)",
+      "work (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "work (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "write": {
+    "word": "write",
+    "lang": "en",
+    "definition": "A common English verb meaning 'write' in various contexts.",
+    "translations": [
+      "write (traduction fran\u00e7aise 1)",
+      "write (traduction fran\u00e7aise 2)",
+      "write (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "write (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "accept": {
+    "word": "accept",
+    "lang": "en",
+    "definition": "A common English verb meaning 'accept' in various contexts.",
+    "translations": [
+      "accept (traduction fran\u00e7aise 1)",
+      "accept (traduction fran\u00e7aise 2)",
+      "accept (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "accept (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "admire": {
+    "word": "admire",
+    "lang": "en",
+    "definition": "A common English verb meaning 'admire' in various contexts.",
+    "translations": [
+      "admire (traduction fran\u00e7aise 1)",
+      "admire (traduction fran\u00e7aise 2)",
+      "admire (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "admire (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "advise": {
+    "word": "advise",
+    "lang": "en",
+    "definition": "A common English verb meaning 'advise' in various contexts.",
+    "translations": [
+      "advise (traduction fran\u00e7aise 1)",
+      "advise (traduction fran\u00e7aise 2)",
+      "advise (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "advise (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "afford": {
+    "word": "afford",
+    "lang": "en",
+    "definition": "A common English verb meaning 'afford' in various contexts.",
+    "translations": [
+      "afford (traduction fran\u00e7aise 1)",
+      "afford (traduction fran\u00e7aise 2)",
+      "afford (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "afford (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "announce": {
+    "word": "announce",
+    "lang": "en",
+    "definition": "A common English verb meaning 'announce' in various contexts.",
+    "translations": [
+      "announce (traduction fran\u00e7aise 1)",
+      "announce (traduction fran\u00e7aise 2)",
+      "announce (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "announce (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "answer": {
+    "word": "answer",
+    "lang": "en",
+    "definition": "A common English verb meaning 'answer' in various contexts.",
+    "translations": [
+      "answer (traduction fran\u00e7aise 1)",
+      "answer (traduction fran\u00e7aise 2)",
+      "answer (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "answer (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "arrange": {
+    "word": "arrange",
+    "lang": "en",
+    "definition": "A common English verb meaning 'arrange' in various contexts.",
+    "translations": [
+      "arrange (traduction fran\u00e7aise 1)",
+      "arrange (traduction fran\u00e7aise 2)",
+      "arrange (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "arrange (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "attach": {
+    "word": "attach",
+    "lang": "en",
+    "definition": "A common English verb meaning 'attach' in various contexts.",
+    "translations": [
+      "attach (traduction fran\u00e7aise 1)",
+      "attach (traduction fran\u00e7aise 2)",
+      "attach (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "attach (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "attend": {
+    "word": "attend",
+    "lang": "en",
+    "definition": "A common English verb meaning 'attend' in various contexts.",
+    "translations": [
+      "attend (traduction fran\u00e7aise 1)",
+      "attend (traduction fran\u00e7aise 2)",
+      "attend (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "attend (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "bake": {
+    "word": "bake",
+    "lang": "en",
+    "definition": "A common English verb meaning 'bake' in various contexts.",
+    "translations": [
+      "bake (traduction fran\u00e7aise 1)",
+      "bake (traduction fran\u00e7aise 2)",
+      "bake (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "bake (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "behave": {
+    "word": "behave",
+    "lang": "en",
+    "definition": "A common English verb meaning 'behave' in various contexts.",
+    "translations": [
+      "behave (traduction fran\u00e7aise 1)",
+      "behave (traduction fran\u00e7aise 2)",
+      "behave (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "behave (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "borrow": {
+    "word": "borrow",
+    "lang": "en",
+    "definition": "A common English verb meaning 'borrow' in various contexts.",
+    "translations": [
+      "borrow (traduction fran\u00e7aise 1)",
+      "borrow (traduction fran\u00e7aise 2)",
+      "borrow (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "borrow (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "break": {
+    "word": "break",
+    "lang": "en",
+    "definition": "A common English verb meaning 'break' in various contexts.",
+    "translations": [
+      "break (traduction fran\u00e7aise 1)",
+      "break (traduction fran\u00e7aise 2)",
+      "break (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "break (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "breathe": {
+    "word": "breathe",
+    "lang": "en",
+    "definition": "A common English verb meaning 'breathe' in various contexts.",
+    "translations": [
+      "breathe (traduction fran\u00e7aise 1)",
+      "breathe (traduction fran\u00e7aise 2)",
+      "breathe (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "breathe (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "brush": {
+    "word": "brush",
+    "lang": "en",
+    "definition": "A common English verb meaning 'brush' in various contexts.",
+    "translations": [
+      "brush (traduction fran\u00e7aise 1)",
+      "brush (traduction fran\u00e7aise 2)",
+      "brush (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "brush (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "burn": {
+    "word": "burn",
+    "lang": "en",
+    "definition": "A common English verb meaning 'burn' in various contexts.",
+    "translations": [
+      "burn (traduction fran\u00e7aise 1)",
+      "burn (traduction fran\u00e7aise 2)",
+      "burn (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "burn (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "calculate": {
+    "word": "calculate",
+    "lang": "en",
+    "definition": "A common English verb meaning 'calculate' in various contexts.",
+    "translations": [
+      "calculate (traduction fran\u00e7aise 1)",
+      "calculate (traduction fran\u00e7aise 2)",
+      "calculate (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "calculate (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "care": {
+    "word": "care",
+    "lang": "en",
+    "definition": "A common English verb meaning 'care' in various contexts.",
+    "translations": [
+      "care (traduction fran\u00e7aise 1)",
+      "care (traduction fran\u00e7aise 2)",
+      "care (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "care (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "catch": {
+    "word": "catch",
+    "lang": "en",
+    "definition": "A common English verb meaning 'catch' in various contexts.",
+    "translations": [
+      "catch (traduction fran\u00e7aise 1)",
+      "catch (traduction fran\u00e7aise 2)",
+      "catch (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "catch (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "celebrate": {
+    "word": "celebrate",
+    "lang": "en",
+    "definition": "A common English verb meaning 'celebrate' in various contexts.",
+    "translations": [
+      "celebrate (traduction fran\u00e7aise 1)",
+      "celebrate (traduction fran\u00e7aise 2)",
+      "celebrate (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "celebrate (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "check": {
+    "word": "check",
+    "lang": "en",
+    "definition": "A common English verb meaning 'check' in various contexts.",
+    "translations": [
+      "check (traduction fran\u00e7aise 1)",
+      "check (traduction fran\u00e7aise 2)",
+      "check (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "check (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "climb": {
+    "word": "climb",
+    "lang": "en",
+    "definition": "A common English verb meaning 'climb' in various contexts.",
+    "translations": [
+      "climb (traduction fran\u00e7aise 1)",
+      "climb (traduction fran\u00e7aise 2)",
+      "climb (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "climb (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "collect": {
+    "word": "collect",
+    "lang": "en",
+    "definition": "A common English verb meaning 'collect' in various contexts.",
+    "translations": [
+      "collect (traduction fran\u00e7aise 1)",
+      "collect (traduction fran\u00e7aise 2)",
+      "collect (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "collect (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "comment": {
+    "word": "comment",
+    "lang": "en",
+    "definition": "A common English verb meaning 'comment' in various contexts.",
+    "translations": [
+      "comment (traduction fran\u00e7aise 1)",
+      "comment (traduction fran\u00e7aise 2)",
+      "comment (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "comment (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "complain": {
+    "word": "complain",
+    "lang": "en",
+    "definition": "A common English verb meaning 'complain' in various contexts.",
+    "translations": [
+      "complain (traduction fran\u00e7aise 1)",
+      "complain (traduction fran\u00e7aise 2)",
+      "complain (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "complain (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "complete": {
+    "word": "complete",
+    "lang": "en",
+    "definition": "A common English verb meaning 'complete' in various contexts.",
+    "translations": [
+      "complete (traduction fran\u00e7aise 1)",
+      "complete (traduction fran\u00e7aise 2)",
+      "complete (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "complete (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "confirm": {
+    "word": "confirm",
+    "lang": "en",
+    "definition": "A common English verb meaning 'confirm' in various contexts.",
+    "translations": [
+      "confirm (traduction fran\u00e7aise 1)",
+      "confirm (traduction fran\u00e7aise 2)",
+      "confirm (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "confirm (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "connect": {
+    "word": "connect",
+    "lang": "en",
+    "definition": "A common English verb meaning 'connect' in various contexts.",
+    "translations": [
+      "connect (traduction fran\u00e7aise 1)",
+      "connect (traduction fran\u00e7aise 2)",
+      "connect (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "connect (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "construct": {
+    "word": "construct",
+    "lang": "en",
+    "definition": "A common English verb meaning 'construct' in various contexts.",
+    "translations": [
+      "construct (traduction fran\u00e7aise 1)",
+      "construct (traduction fran\u00e7aise 2)",
+      "construct (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "construct (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "contact": {
+    "word": "contact",
+    "lang": "en",
+    "definition": "A common English verb meaning 'contact' in various contexts.",
+    "translations": [
+      "contact (traduction fran\u00e7aise 1)",
+      "contact (traduction fran\u00e7aise 2)",
+      "contact (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "contact (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "correct": {
+    "word": "correct",
+    "lang": "en",
+    "definition": "A common English verb meaning 'correct' in various contexts.",
+    "translations": [
+      "correct (traduction fran\u00e7aise 1)",
+      "correct (traduction fran\u00e7aise 2)",
+      "correct (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "correct (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "count": {
+    "word": "count",
+    "lang": "en",
+    "definition": "A common English verb meaning 'count' in various contexts.",
+    "translations": [
+      "count (traduction fran\u00e7aise 1)",
+      "count (traduction fran\u00e7aise 2)",
+      "count (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "count (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "cover": {
+    "word": "cover",
+    "lang": "en",
+    "definition": "A common English verb meaning 'cover' in various contexts.",
+    "translations": [
+      "cover (traduction fran\u00e7aise 1)",
+      "cover (traduction fran\u00e7aise 2)",
+      "cover (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "cover (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "cross": {
+    "word": "cross",
+    "lang": "en",
+    "definition": "A common English verb meaning 'cross' in various contexts.",
+    "translations": [
+      "cross (traduction fran\u00e7aise 1)",
+      "cross (traduction fran\u00e7aise 2)",
+      "cross (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "cross (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "cry": {
+    "word": "cry",
+    "lang": "en",
+    "definition": "A common English verb meaning 'cry' in various contexts.",
+    "translations": [
+      "cry (traduction fran\u00e7aise 1)",
+      "cry (traduction fran\u00e7aise 2)",
+      "cry (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "cry (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "damage": {
+    "word": "damage",
+    "lang": "en",
+    "definition": "A common English verb meaning 'damage' in various contexts.",
+    "translations": [
+      "damage (traduction fran\u00e7aise 1)",
+      "damage (traduction fran\u00e7aise 2)",
+      "damage (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "damage (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "dance": {
+    "word": "dance",
+    "lang": "en",
+    "definition": "A common English verb meaning 'dance' in various contexts.",
+    "translations": [
+      "dance (traduction fran\u00e7aise 1)",
+      "dance (traduction fran\u00e7aise 2)",
+      "dance (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "dance (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "deal": {
+    "word": "deal",
+    "lang": "en",
+    "definition": "A common English verb meaning 'deal' in various contexts.",
+    "translations": [
+      "deal (traduction fran\u00e7aise 1)",
+      "deal (traduction fran\u00e7aise 2)",
+      "deal (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "deal (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "demand": {
+    "word": "demand",
+    "lang": "en",
+    "definition": "A common English verb meaning 'demand' in various contexts.",
+    "translations": [
+      "demand (traduction fran\u00e7aise 1)",
+      "demand (traduction fran\u00e7aise 2)",
+      "demand (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "demand (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "depend": {
+    "word": "depend",
+    "lang": "en",
+    "definition": "A common English verb meaning 'depend' in various contexts.",
+    "translations": [
+      "depend (traduction fran\u00e7aise 1)",
+      "depend (traduction fran\u00e7aise 2)",
+      "depend (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "depend (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "destroy": {
+    "word": "destroy",
+    "lang": "en",
+    "definition": "A common English verb meaning 'destroy' in various contexts.",
+    "translations": [
+      "destroy (traduction fran\u00e7aise 1)",
+      "destroy (traduction fran\u00e7aise 2)",
+      "destroy (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "destroy (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "divide": {
+    "word": "divide",
+    "lang": "en",
+    "definition": "A common English verb meaning 'divide' in various contexts.",
+    "translations": [
+      "divide (traduction fran\u00e7aise 1)",
+      "divide (traduction fran\u00e7aise 2)",
+      "divide (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "divide (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "doubt": {
+    "word": "doubt",
+    "lang": "en",
+    "definition": "A common English verb meaning 'doubt' in various contexts.",
+    "translations": [
+      "doubt (traduction fran\u00e7aise 1)",
+      "doubt (traduction fran\u00e7aise 2)",
+      "doubt (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "doubt (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "drop": {
+    "word": "drop",
+    "lang": "en",
+    "definition": "A common English verb meaning 'drop' in various contexts.",
+    "translations": [
+      "drop (traduction fran\u00e7aise 1)",
+      "drop (traduction fran\u00e7aise 2)",
+      "drop (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "drop (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "earn": {
+    "word": "earn",
+    "lang": "en",
+    "definition": "A common English verb meaning 'earn' in various contexts.",
+    "translations": [
+      "earn (traduction fran\u00e7aise 1)",
+      "earn (traduction fran\u00e7aise 2)",
+      "earn (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "earn (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "encourage": {
+    "word": "encourage",
+    "lang": "en",
+    "definition": "A common English verb meaning 'encourage' in various contexts.",
+    "translations": [
+      "encourage (traduction fran\u00e7aise 1)",
+      "encourage (traduction fran\u00e7aise 2)",
+      "encourage (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "encourage (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "examine": {
+    "word": "examine",
+    "lang": "en",
+    "definition": "A common English verb meaning 'examine' in various contexts.",
+    "translations": [
+      "examine (traduction fran\u00e7aise 1)",
+      "examine (traduction fran\u00e7aise 2)",
+      "examine (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "examine (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "exercise": {
+    "word": "exercise",
+    "lang": "en",
+    "definition": "A common English verb meaning 'exercise' in various contexts.",
+    "translations": [
+      "exercise (traduction fran\u00e7aise 1)",
+      "exercise (traduction fran\u00e7aise 2)",
+      "exercise (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "exercise (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "exist": {
+    "word": "exist",
+    "lang": "en",
+    "definition": "A common English verb meaning 'exist' in various contexts.",
+    "translations": [
+      "exist (traduction fran\u00e7aise 1)",
+      "exist (traduction fran\u00e7aise 2)",
+      "exist (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "exist (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "expect": {
+    "word": "expect",
+    "lang": "en",
+    "definition": "A common English verb meaning 'expect' in various contexts.",
+    "translations": [
+      "expect (traduction fran\u00e7aise 1)",
+      "expect (traduction fran\u00e7aise 2)",
+      "expect (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "expect (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "experience": {
+    "word": "experience",
+    "lang": "en",
+    "definition": "A common English verb meaning 'experience' in various contexts.",
+    "translations": [
+      "experience (traduction fran\u00e7aise 1)",
+      "experience (traduction fran\u00e7aise 2)",
+      "experience (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "experience (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "express": {
+    "word": "express",
+    "lang": "en",
+    "definition": "A common English verb meaning 'express' in various contexts.",
+    "translations": [
+      "express (traduction fran\u00e7aise 1)",
+      "express (traduction fran\u00e7aise 2)",
+      "express (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "express (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "fail": {
+    "word": "fail",
+    "lang": "en",
+    "definition": "A common English verb meaning 'fail' in various contexts.",
+    "translations": [
+      "fail (traduction fran\u00e7aise 1)",
+      "fail (traduction fran\u00e7aise 2)",
+      "fail (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "fail (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "fasten": {
+    "word": "fasten",
+    "lang": "en",
+    "definition": "A common English verb meaning 'fasten' in various contexts.",
+    "translations": [
+      "fasten (traduction fran\u00e7aise 1)",
+      "fasten (traduction fran\u00e7aise 2)",
+      "fasten (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "fasten (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "fill": {
+    "word": "fill",
+    "lang": "en",
+    "definition": "A common English verb meaning 'fill' in various contexts.",
+    "translations": [
+      "fill (traduction fran\u00e7aise 1)",
+      "fill (traduction fran\u00e7aise 2)",
+      "fill (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "fill (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "fit": {
+    "word": "fit",
+    "lang": "en",
+    "definition": "A common English verb meaning 'fit' in various contexts.",
+    "translations": [
+      "fit (traduction fran\u00e7aise 1)",
+      "fit (traduction fran\u00e7aise 2)",
+      "fit (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "fit (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "fix": {
+    "word": "fix",
+    "lang": "en",
+    "definition": "A common English verb meaning 'fix' in various contexts.",
+    "translations": [
+      "fix (traduction fran\u00e7aise 1)",
+      "fix (traduction fran\u00e7aise 2)",
+      "fix (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "fix (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "fly": {
+    "word": "fly",
+    "lang": "en",
+    "definition": "A common English verb meaning 'fly' in various contexts.",
+    "translations": [
+      "fly (traduction fran\u00e7aise 1)",
+      "fly (traduction fran\u00e7aise 2)",
+      "fly (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "fly (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "form": {
+    "word": "form",
+    "lang": "en",
+    "definition": "A common English verb meaning 'form' in various contexts.",
+    "translations": [
+      "form (traduction fran\u00e7aise 1)",
+      "form (traduction fran\u00e7aise 2)",
+      "form (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "form (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "gain": {
+    "word": "gain",
+    "lang": "en",
+    "definition": "A common English verb meaning 'gain' in various contexts.",
+    "translations": [
+      "gain (traduction fran\u00e7aise 1)",
+      "gain (traduction fran\u00e7aise 2)",
+      "gain (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "gain (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "gather": {
+    "word": "gather",
+    "lang": "en",
+    "definition": "A common English verb meaning 'gather' in various contexts.",
+    "translations": [
+      "gather (traduction fran\u00e7aise 1)",
+      "gather (traduction fran\u00e7aise 2)",
+      "gather (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "gather (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "guess": {
+    "word": "guess",
+    "lang": "en",
+    "definition": "A common English verb meaning 'guess' in various contexts.",
+    "translations": [
+      "guess (traduction fran\u00e7aise 1)",
+      "guess (traduction fran\u00e7aise 2)",
+      "guess (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "guess (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "handle": {
+    "word": "handle",
+    "lang": "en",
+    "definition": "A common English verb meaning 'handle' in various contexts.",
+    "translations": [
+      "handle (traduction fran\u00e7aise 1)",
+      "handle (traduction fran\u00e7aise 2)",
+      "handle (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "handle (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "hurry": {
+    "word": "hurry",
+    "lang": "en",
+    "definition": "A common English verb meaning 'hurry' in various contexts.",
+    "translations": [
+      "hurry (traduction fran\u00e7aise 1)",
+      "hurry (traduction fran\u00e7aise 2)",
+      "hurry (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "hurry (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "identify": {
+    "word": "identify",
+    "lang": "en",
+    "definition": "A common English verb meaning 'identify' in various contexts.",
+    "translations": [
+      "identify (traduction fran\u00e7aise 1)",
+      "identify (traduction fran\u00e7aise 2)",
+      "identify (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "identify (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "imagine": {
+    "word": "imagine",
+    "lang": "en",
+    "definition": "A common English verb meaning 'imagine' in various contexts.",
+    "translations": [
+      "imagine (traduction fran\u00e7aise 1)",
+      "imagine (traduction fran\u00e7aise 2)",
+      "imagine (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "imagine (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "invite": {
+    "word": "invite",
+    "lang": "en",
+    "definition": "A common English verb meaning 'invite' in various contexts.",
+    "translations": [
+      "invite (traduction fran\u00e7aise 1)",
+      "invite (traduction fran\u00e7aise 2)",
+      "invite (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "invite (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "join": {
+    "word": "join",
+    "lang": "en",
+    "definition": "A common English verb meaning 'join' in various contexts.",
+    "translations": [
+      "join (traduction fran\u00e7aise 1)",
+      "join (traduction fran\u00e7aise 2)",
+      "join (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "join (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "jump": {
+    "word": "jump",
+    "lang": "en",
+    "definition": "A common English verb meaning 'jump' in various contexts.",
+    "translations": [
+      "jump (traduction fran\u00e7aise 1)",
+      "jump (traduction fran\u00e7aise 2)",
+      "jump (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "jump (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "laugh": {
+    "word": "laugh",
+    "lang": "en",
+    "definition": "A common English verb meaning 'laugh' in various contexts.",
+    "translations": [
+      "laugh (traduction fran\u00e7aise 1)",
+      "laugh (traduction fran\u00e7aise 2)",
+      "laugh (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "laugh (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "lead": {
+    "word": "lead",
+    "lang": "en",
+    "definition": "A common English verb meaning 'lead' in various contexts.",
+    "translations": [
+      "lead (traduction fran\u00e7aise 1)",
+      "lead (traduction fran\u00e7aise 2)",
+      "lead (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "lead (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "lift": {
+    "word": "lift",
+    "lang": "en",
+    "definition": "A common English verb meaning 'lift' in various contexts.",
+    "translations": [
+      "lift (traduction fran\u00e7aise 1)",
+      "lift (traduction fran\u00e7aise 2)",
+      "lift (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "lift (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "limit": {
+    "word": "limit",
+    "lang": "en",
+    "definition": "A common English verb meaning 'limit' in various contexts.",
+    "translations": [
+      "limit (traduction fran\u00e7aise 1)",
+      "limit (traduction fran\u00e7aise 2)",
+      "limit (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "limit (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "mark": {
+    "word": "mark",
+    "lang": "en",
+    "definition": "A common English verb meaning 'mark' in various contexts.",
+    "translations": [
+      "mark (traduction fran\u00e7aise 1)",
+      "mark (traduction fran\u00e7aise 2)",
+      "mark (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "mark (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "measure": {
+    "word": "measure",
+    "lang": "en",
+    "definition": "A common English verb meaning 'measure' in various contexts.",
+    "translations": [
+      "measure (traduction fran\u00e7aise 1)",
+      "measure (traduction fran\u00e7aise 2)",
+      "measure (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "measure (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  },
+  "miss": {
+    "word": "miss",
+    "lang": "en",
+    "definition": "A common English verb meaning 'miss' in various contexts.",
+    "translations": [
+      "miss (traduction fran\u00e7aise 1)",
+      "miss (traduction fran\u00e7aise 2)",
+      "miss (traduction fran\u00e7aise 3)"
+    ],
+    "main_translation": "miss (traduction fran\u00e7aise 1)",
+    "distractors": [
+      "option incorrecte 1",
+      "option incorrecte 2",
+      "option incorrecte 3"
+    ]
+  }
+}
