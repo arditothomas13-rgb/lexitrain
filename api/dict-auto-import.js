@@ -8,10 +8,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1) Charger le fichier JSON Premium
+    // 1) Charger le JSON (tableau de mots)
     const filePath = path.join(process.cwd(), "api", "premium100.json");
     const raw = fs.readFileSync(filePath, "utf8");
     const data = JSON.parse(raw);
+
+    if (!Array.isArray(data)) {
+      return res.status(500).json({ error: "JSON must be an array" });
+    }
 
     const KV_URL = process.env.KV_REST_API_URL;
     const KV_TOKEN = process.env.KV_REST_API_TOKEN;
@@ -22,12 +26,13 @@ export default async function handler(req, res) {
 
     let imported = 0;
 
-    // 2) Pour chaque entrée JSON → écrire dans KV
-    for (const key of Object.keys(data)) {
-      const entry = data[key];
-      const word = entry.word.toLowerCase();
+    // 2) Importer chaque mot correctement
+    for (const entry of data) {
+      const word = entry.word?.toLowerCase();
 
-      await fetch(`${KV_URL}/set/dict:${word}`, {
+      if (!word) continue;
+
+      const response = await fetch(`${KV_URL}/set/dict:${word}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${KV_TOKEN}`,
@@ -41,7 +46,6 @@ export default async function handler(req, res) {
       imported++;
     }
 
-    // 3) Succès
     return res.status(200).json({ ok: true, imported });
 
   } catch (err) {
