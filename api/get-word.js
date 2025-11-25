@@ -1,39 +1,54 @@
-// ------------------------------------------------------
-//  API — get-word.js (FIXED)
-//  Returns full dictionary entry for a given word
-// ------------------------------------------------------
-export default async function handler(req, res) {
-  try {
-    const word = req.query.word?.toLowerCase();
+// /api/get-word.js
+// --------------------------------------------------------
 
-    if (!word) {
-      return res.status(400).json({ error: "Missing 'word' parameter" });
-    }
+export default async function handler(req, res) {
+    const word = req.query.word;
+    if (!word) return res.status(400).json({ error: "Missing 'word' parameter" });
+
+    const key = `word_${word.toLowerCase()}`;
 
     const KV_URL = process.env.KV_REST_API_URL;
     const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 
     if (!KV_URL || !KV_TOKEN) {
-      return res.status(500).json({ error: "Missing KV config" });
+        return res.status(500).json({ error: "Missing KV config" });
     }
 
-    const result = await fetch(`${KV_URL}/get/${word}`, {
-      headers: { Authorization: `Bearer ${KV_TOKEN}` }
-    });
+    // 1️⃣ — ESSAYER KV
+    try {
+        const cloud = await fetch(`${KV_URL}/get/${key}`, {
+            headers: { Authorization: `Bearer ${KV_TOKEN}` }
+        });
+        const data = await cloud.json();
 
-    const data = await result.json();
-
-    if (!data?.result) {
-      return res.status(404).json({ error: "Word not found in dictionary" });
+        if (data.result) {
+            return res.status(200).json(JSON.parse(data.result));
+        }
+    } catch (err) {
+        console.error("KV GET error", err);
     }
 
-    // data.result is a STRING → must parse!
-    const parsed = JSON.parse(data.result);
+    // 2️⃣ — PAS DANS KV → ON APPELLE /api/translate
+    try {
+        const gpt = await fetch(
+            `${req.headers.origin}/api/translate?word=${word}&from=en&to=fr`
+        );
+        const fresh = await gpt.json();
 
-    return res.status(200).json(parsed);
+        // 3️⃣ — STOCKAGE EN KV
+        await fetch(`${KV_URL}/set/${key}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${KV_TOKEN}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ value: JSON.stringify(fresh) })
+        });
 
-  } catch (err) {
-    console.error("GET WORD ERROR:", err);
-    return res.status(500).json({ error: err.message });
-  }
+        return res.status(200).json(fresh);
+
+    } catch (err) {
+        console.error("Translate fallback error", err);
+        return res.status(500).json({ error: "Unable to generate fallback translation" });
+    }
 }
