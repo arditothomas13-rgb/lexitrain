@@ -1,115 +1,68 @@
-// ------------------------------------------------------
-//  Vercel API Route — translate.js
-//  GPT → Multi-sense Dictionary Output (JSON strict)
-//  + Save result to Vercel KV
-// ------------------------------------------------------
+import { kv } from "@vercel/kv";
 
 export default async function handler(req, res) {
-  try {
-    const word = req.query.word?.toLowerCase();
+    try {
+        const word = req.query.word?.toLowerCase().trim();
+        if (!word) {
+            return res.status(400).json({ error: "Missing word" });
+        }
 
-    if (!word) {
-      return res.status(400).json({ error: "Missing 'word' parameter" });
-    }
+        // Prompt structuré pour ton format spécifique LexiTrain
+        const prompt = `
+Tu es un dictionnaire type Reverso/WordReference.
+Analyse le mot : "${word}"
 
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-    const KV_URL = process.env.KV_REST_API_URL;
-    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
-
-    if (!OPENAI_API_KEY || !KV_URL || !KV_TOKEN) {
-      return res.status(500).json({
-        error: "Missing KV or OPENAI API environment variables."
-      });
-    }
-
-    // -----------------------------
-    // PROMPT STRICT
-    // -----------------------------
-    const prompt = `
-You are an advanced dictionary engine (Oxford + Cambridge + Reverso).
-
-For the word: "${word}"
-
-Return ONLY valid JSON with this exact structure:
+Retourne EXACTEMENT ce JSON :
 
 {
   "entries": [
     {
-      "label": "book (noun)",
-      "definition": "a written work...",
-      "translations": ["...", "..."],
+      "label": "Nom — livre",
+      "definition": "définition brève",
+      "translations": ["translation1", "translation2"],
       "examples": [
-        { "src": "...", "dest": "..." },
-        { "src": "...", "dest": "..." }
+        { "src": "phrase source", "dest": "traduction" }
       ],
-      "synonyms": ["...", "...", "..."]
+      "synonyms": ["syn1", "syn2"]
     }
   ]
 }
 
-Rules:
-- Auto-detect EN/FR.
-- Definitions + synonyms in source language.
-- Translations in target language.
-- Examples: sentence in source, translated in target.
-- No text outside JSON.
-`;
+Jamais de texte autour, uniquement du JSON valide.
+        `;
 
-    // -----------------------------
-    // CALL OPENAI
-    // -----------------------------
+        const openaiRes = await fetch("https://api.openai.com/v1/responses", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini",
+                input: prompt
+            })
+        });
 
-    const completion = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: "You return ONLY valid JSON." },
-          { role: "user", content: prompt }
-        ],
-        temperature: 0.3,
-        max_tokens: 700
-      })
-    });
+        const ai = await openaiRes.json();
+        const jsonText = ai.output_text || "{}";
 
-    const data = await completion.json();
-    const raw = data.choices?.[0]?.message?.content || "{}";
+        let parsed;
+        try {
+            parsed = JSON.parse(jsonText);
+        } catch (e) {
+            return res.status(500).json({
+                error: "Invalid JSON returned by the AI",
+                raw: jsonText
+            });
+        }
 
-    let parsed;
-    try {
-      parsed = JSON.parse(raw);
+        // Sauvegarde KV
+        await kv.set(`word:${word}`, parsed.entries);
+
+        return res.status(200).json(parsed);
+
     } catch (err) {
-      return res.status(500).json({
-        error: "Invalid JSON returned by GPT",
-        raw: raw
-      });
+        console.error("translate.js error", err);
+        return res.status(500).json({ error: "Internal server error" });
     }
-
-    // -----------------------------
-    // SAVE TO KV
-    // -----------------------------
-    try {
-      await fetch(`${KV_URL}/set/${word}`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${KV_TOKEN}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(parsed)
-      });
-    } catch (err) {
-      console.error("KV SAVE ERROR:", err);
-      // On ne bloque pas l'utilisateur
-    }
-
-    return res.status(200).json(parsed);
-
-  } catch (e) {
-    console.error("SERVER ERROR (translate.js):", e);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
 }
