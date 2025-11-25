@@ -1,6 +1,7 @@
 // ------------------------------------------------------
 //  LexiTrain — API translate.js (PRO VERSION)
 //  EN ⇄ FR • Lang detection • Auto-switch • Clean senses
+//  + WORDLIST CLOUD (auto-save for dictionary)
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
@@ -34,28 +35,19 @@ Requested direction: ${from} → ${to}
 
 Your tasks:
 
-1) DETECT THE TRUE LANGUAGE of the user's input.
-Return in a field "detected_lang": "en" or "fr".
-If unsure, choose the most common usage.
+1) DETECT THE TRUE LANGUAGE: "en" or "fr".
+Return in "detected_lang".
 
-2) ONLY return senses for the detected language.
-(Option B: keep ONLY the senses in the detected language.)
+2) ONLY return senses for the detected language (Option B).
 
-Examples:
-- If word is French and direction is EN→FR, return "auto_switch": true
-- If word is English and direction is FR→EN, return "auto_switch": true
+3) If detected_lang ≠ from → set "auto_switch": true.
 
-3) NEVER invent senses:
-- No fake phrasal verbs
-- No invented adjectives/nouns/verbs
-- No "to to blaze"
-- No weak/uncommon forms
+4) NEVER invent senses.
+No fake phrasal verbs, no added "to", no weak forms.
 
-4) If the input starts with "to " then it's a verb → keep EXACT input
-Never add extra "to".
-Never modify the user’s form.
+5) If input begins with "to ", treat it as a verb and keep EXACT form.
 
-5) OUTPUT FORMAT (STRICT JSON):
+6) JSON FORMAT STRICT:
 
 {
   "detected_lang": "en",
@@ -73,17 +65,13 @@ Never modify the user’s form.
   ]
 }
 
-6) DEFINITIONS & SYNONYMS:
-- Always in the source language (detected_lang)
+7) Definitions + synonyms in source language.
+8) Translations in target language.
+9) Examples:
+- src in source lang
+- dest in target lang
 
-7) TRANSLATIONS:
-- Always in the target language (the "to" lang after auto-switch if needed)
-
-8) EXAMPLES:
-- "src": in source language
-- "dest": in target language
-
-Return ONLY JSON. No comments.
+Return ONLY clean JSON.
 `;
 
     // ------------------------------------------------------
@@ -120,10 +108,11 @@ Return ONLY JSON. No comments.
     }
 
     // ------------------------------------------------------
-    //  SAVE IN KV (CACHE)
+    // SAVE THE RESULT IN KV (CACHE)
     // ------------------------------------------------------
     try {
-      await fetch(`${KV_URL}/set/${word.toLowerCase()}_${from}_${to}`, {
+      const cacheKey = `${word.toLowerCase()}_${from}_${to}`;
+      await fetch(`${KV_URL}/set/${cacheKey}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${KV_TOKEN}`,
@@ -132,11 +121,48 @@ Return ONLY JSON. No comments.
         body: JSON.stringify(parsed)
       });
     } catch (err) {
-      console.error("KV SAVE ERROR:", err);
+      console.error("KV CACHE SAVE ERROR:", err);
     }
 
     // ------------------------------------------------------
-    //  RETURN DATA
+    // SAVE WORD IN GLOBAL WORD LIST (CLOUD DICTIONARY)
+    // ------------------------------------------------------
+    try {
+      // listKey depends on detected language
+      const detected = parsed.detected_lang === "fr" ? "wordlist:fr" : "wordlist:en";
+
+      // Load existing list
+      const existing = await fetch(`${KV_URL}/get/${detected}`, {
+        headers: { "Authorization": `Bearer ${KV_TOKEN}` }
+      }).then(r => r.json());
+
+      let list = [];
+      if (existing?.result) {
+        try { list = JSON.parse(existing.result); } catch {}
+      }
+
+      const normalized = word.toLowerCase();
+
+      if (!list.includes(normalized)) {
+        list.push(normalized);
+
+        // Save updated list
+        await fetch(`${KV_URL}/set/${detected}`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${KV_TOKEN}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(list)
+        });
+      }
+
+    } catch (err) {
+      console.error("KV WORDLIST SAVE ERROR:", err);
+    }
+
+    // ------------------------------------------------------
+    // RETURN
     // ------------------------------------------------------
     return res.status(200).json(parsed);
 
