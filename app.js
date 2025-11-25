@@ -455,11 +455,18 @@ async function startQuiz() {
         quizCard.style.display = "block";
         quizOptions.innerHTML = "";
 
-        // 2 — Fetch analyse du mot
-      const cloud = await fetch(`/api/get-dict-word?word=${word}`);
-        const dic = await cloud.json();
+      // 2 — Fetch DICT (pas GPT)
+const cloud = await fetch(`/api/get-dict-word?word=${word}`);
+const dic = await cloud.json();
 
-        const translations = dic.entries[0]?.translations || [];
+if (!dic || !dic.main_translation) {
+    index++;
+    showQuestion();
+    return;
+}
+
+const translations = [dic.main_translation, ...dic.distractors];
+
 
         quizQuestion.textContent = `Que veut dire : « ${word} » ?`;
 
