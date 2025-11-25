@@ -99,6 +99,38 @@
 
     </section>
 
+    <!-- ===================================================== -->
+<!-- PAGE QUIZ (nouveau) -->
+<!-- ===================================================== -->
+<section id="page-quiz" class="page" style="display:none;">
+
+    <h2 class="dictionary-title">Quiz</h2>
+
+    <div id="quizContainer">
+
+        <!-- Loader initial -->
+        <div id="quizLoader" class="glass quiz-card" style="text-align:center; padding:40px;">
+            Chargement des mots...
+        </div>
+
+        <!-- Carte de question -->
+        <div id="quizCard" class="glass quiz-card" style="display:none;">
+            <div id="quizQuestion" class="quiz-question"></div>
+
+            <div id="quizOptions" class="quiz-options"></div>
+        </div>
+
+        <!-- Résultat final -->
+        <div id="quizResult" class="glass quiz-card" style="display:none;">
+            <h3>Quiz terminé 🎉</h3>
+            <p id="quizScore"></p>
+            <button class="btn-green" id="quizRestart">Recommencer</button>
+        </div>
+
+    </div>
+
+</section>
+
 </main>
 
 
