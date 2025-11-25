@@ -2,8 +2,9 @@
 // VARIABLES
 // --------------------------------------------------
 const input = document.getElementById("wordInput");
-const translateBtn = document.getElementById("translateButton");   // FIX ICI
-const resultBox = document.getElementById("resultBox");
+const translateBtn = document.getElementById("translateButton");
+const resultCard = document.getElementById("resultCard"); // FIX
+const resultTitle = document.getElementById("result-title"); // FIX
 
 // Langues
 const langSwap = document.getElementById("langSwap");
@@ -29,13 +30,13 @@ langSwap.addEventListener("click", () => {
 // --------------------------------------------------
 // CLICK TRADUIRE
 // --------------------------------------------------
-translateBtn.addEventListener("click", async () => {   // FIX ICI
+translateBtn.addEventListener("click", async () => {
     const word = input.value.trim();
     if (!word) return;
 
-    // Loading visible
-    resultBox.style.opacity = 1;
-    resultBox.innerHTML = `
+    // ------- FIX : on utilise resultCard -------
+    resultCard.style.display = "block";
+    resultCard.innerHTML = `
         <h2>${word}</h2>
         <p>⏳ Traduction en cours...</p>
     `;
@@ -49,7 +50,7 @@ translateBtn.addEventListener("click", async () => {   // FIX ICI
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 word,
-                fromLang: from,   // IMPORTANT : NOM FIXÉ pour backend
+                fromLang: from,
                 toLang: to
             })
         });
@@ -58,14 +59,14 @@ translateBtn.addEventListener("click", async () => {   // FIX ICI
 
         if (!res.ok || !data.ok) throw new Error("Erreur API");
 
-        resultBox.innerHTML = `
+        resultCard.innerHTML = `
             <h2>${word}</h2>
 
             <div class="tabs">
-                <button class="active" data-tab="tab-traduction">Traduction</button>
-                <button data-tab="tab-definition">Définition</button>
-                <button data-tab="tab-synonymes">Synonymes</button>
-                <button data-tab="tab-exemples">Exemples</button>
+                <button class="tab active" data-tab="tab-traduction">Traduction</button>
+                <button class="tab" data-tab="tab-definition">Définition</button>
+                <button class="tab" data-tab="tab-synonymes">Synonymes</button>
+                <button class="tab" data-tab="tab-exemples">Exemples</button>
             </div>
 
             <div id="tab-traduction" class="tab-content active">
@@ -86,9 +87,9 @@ translateBtn.addEventListener("click", async () => {   // FIX ICI
         `;
 
         // Onglets
-        document.querySelectorAll(".tabs button").forEach(btn => {
+        document.querySelectorAll(".tab").forEach(btn => {
             btn.addEventListener("click", () => {
-                document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
                 document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
 
                 btn.classList.add("active");
@@ -97,7 +98,7 @@ translateBtn.addEventListener("click", async () => {   // FIX ICI
         });
 
     } catch (err) {
-        resultBox.innerHTML = `
+        resultCard.innerHTML = `
             <h2>${word}</h2>
             <p style="color:#c00;">⚠️ Erreur serveur.</p>
         `;
