@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: "Missing KV config" });
     }
 
-    // 1️⃣ — ESSAYER DE LIRE DANS KV
+    // 1️⃣ — ESSAYER DE LIRE EN KV
     try {
         const cloud = await fetch(`${KV_URL}/get/${key}`, {
             headers: { Authorization: `Bearer ${KV_TOKEN}` }
@@ -22,19 +22,17 @@ export default async function handler(req, res) {
 
         const data = await cloud.json();
 
-        if (data && data.result) {
+        if (data?.result) {
             return res.status(200).json(JSON.parse(data.result));
         }
     } catch (err) {
         console.error("KV GET error:", err);
     }
 
-    // 2️⃣ — PAS DANS KV → FALLBACK GPT
+    // 2️⃣ — FALLBACK GPT AVEC URL FIABLE
     try {
-        // URL fiable sans req.headers.origin
-        const baseUrl = process.env.VERCEL_URL
-            ? `https://${process.env.VERCEL_URL}`
-            : "http://localhost:3000";
+        // 🔥 URL correcte même en production
+        const baseUrl = `https://${req.headers.host}`;
 
         const gpt = await fetch(
             `${baseUrl}/api/translate?word=${encodeURIComponent(word)}&from=en&to=fr`
@@ -42,7 +40,7 @@ export default async function handler(req, res) {
 
         const fresh = await gpt.json();
 
-        // 3️⃣ — STOCKER EN KV correctement (pas de {value: ...})
+        // 3️⃣ — STOCKAGE EN KV
         await fetch(`${KV_URL}/set/${key}`, {
             method: "POST",
             headers: {
