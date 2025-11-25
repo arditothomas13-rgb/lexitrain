@@ -1,107 +1,107 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-<title>LexiTrain</title>
+    <title>LexiTrain</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <div class="bg-halo"></div>
 
 <main>
 
-<!-- ===================================================== -->
-<!-- PAGE TRADUCTION -->
-<!-- ===================================================== -->
-<section id="page-translate" class="page">
+    <!-- ===================================================== -->
+    <!-- PAGE TRADUCTION -->
+    <!-- ===================================================== -->
+    <section id="page-translate" class="page">
 
-    <h1 class="logo">LexiTrain</h1>
+        <h1 class="logo">LexiTrain</h1>
 
-    <p class="subtitle">
-        Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
-    </p>
+        <p class="subtitle">
+            Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
+        </p>
 
-    <!-- Input principale -->
-    <div class="input-card">
-        <input id="input" type="text" placeholder="Ex : stretched, although..." />
-    </div>
-
-    <button class="btn-green" id="translateBtn">Traduire</button>
-
-    <!-- Sélecteur de langues -->
-    <div class="lang-card glass">
-        <div class="lang">
-            <span id="fromFlag">🇬🇧</span>
-            <span id="fromLabel">Anglais</span>
+        <!-- Input principale -->
+        <div class="input-card">
+            <input id="input" type="text" placeholder="Ex : stretched, although..." />
         </div>
 
-        <div class="swap" id="langSwap">⇄</div>
+        <button class="btn-green" id="translateBtn">Traduire</button>
 
-        <div class="lang">
-            <span id="toFlag">🇫🇷</span>
-            <span id="toLabel">Français</span>
+        <!-- Sélecteur de langues -->
+        <div class="lang-card glass">
+            <div class="lang">
+                <span id="fromFlag">🇬🇧</span>
+                <span id="fromLabel">Anglais</span>
+            </div>
+
+            <div class="swap" id="langSwap">⇄</div>
+
+            <div class="lang">
+                <span id="toFlag">🇫🇷</span>
+                <span id="toLabel">Français</span>
+            </div>
         </div>
-    </div>
 
-    <!-- Résultat -->
-    <div id="resultCard" class="glass result-card" style="display:none;">
-        <div id="autoSwitchMessageContainer"></div>
-        <div id="result-title"></div>
-        <div id="senseTabs" class="sense-tabs"></div>
-        <div id="senseContent" class="sense-content"></div>
-    </div>
+        <!-- Résultat -->
+        <div id="resultCard" class="glass result-card" style="display:none;">
+            <div id="autoSwitchMessageContainer"></div>
+            <div id="result-title"></div>
+            <div id="senseTabs" class="sense-tabs"></div>
+            <div id="senseContent" class="sense-content"></div>
+        </div>
 
-    <!-- Historique -->
-    <div class="glass history-card">
-        <h3 class="history-title">Historique récent</h3>
-        <div id="historyList" class="history-list"></div>
-    </div>
+        <!-- Historique -->
+        <div class="glass history-card">
+            <h3 class="history-title">Historique récent</h3>
+            <div id="historyList" class="history-list"></div>
+        </div>
 
-</section>
+    </section>
 
-<!-- ===================================================== -->
-<!-- PAGE DICTIONNAIRE -->
-<!-- ===================================================== -->
-<section id="page-dictionary" class="page" style="display:none;">
 
-    <h2 class="dictionary-title">Dictionnaire</h2>
+    <!-- ===================================================== -->
+    <!-- PAGE DICTIONNAIRE -->
+    <!-- ===================================================== -->
+    <section id="page-dictionary" class="page" style="display:none;">
 
-    <div class="dic-switch">
-        <button id="dicLangEn" class="dic-btn active">🇬🇧 Anglais</button>
-        <button id="dicLangFr" class="dic-btn">🇫🇷 Français</button>
-    </div>
+        <h2 class="dictionary-title">Dictionnaire</h2>
 
-    <!-- Barre de recherche (avec icône SVG iOS) -->
-    <div class="search-wrapper">
-        <input id="dictionarySearch" type="text" placeholder="Rechercher un mot..." />
+        <div class="dic-switch">
+            <button id="dicLangEn" class="dic-btn active">🇬🇧 Anglais</button>
+            <button id="dicLangFr" class="dic-btn">🇫🇷 Français</button>
+        </div>
 
-        <span class="search-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-        </span>
-    </div>
+        <!-- Barre de recherche -->
+        <div class="search-wrapper">
+            <input id="dictionarySearch" type="text" placeholder="Rechercher un mot..." />
 
-    <div id="dictionaryList" class="dictionary-list"></div>
+            <span class="search-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </span>
+        </div>
 
-    <div id="alphabetScroller" class="alphabet-scroller"></div>
+        <div id="dictionaryList" class="dictionary-list"></div>
+        <div id="alphabetScroller" class="alphabet-scroller"></div>
+        <div id="letterPopup" class="letter-popup">A</div>
 
-    <div id="letterPopup" class="letter-popup">A</div>
-
-</section>
+    </section>
 
 </main>
+
 
 <!-- ===================================================== -->
 <!-- NAVIGATION FLOTTANTE -->
