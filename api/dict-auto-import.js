@@ -1,3 +1,7 @@
+export const config = {
+  runtime: "nodejs"
+};
+
 // /api/dict-auto-import.js
 import fs from "fs";
 import path from "path";
