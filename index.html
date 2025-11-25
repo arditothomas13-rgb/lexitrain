@@ -30,10 +30,9 @@
         Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
     </p>
 
-    <!-- Input principale -->
-    <div class="search-wrapper">
-        <input id="input" type="text" placeholder="Rechercher un mot..." />
-        <span class="search-icon">🔍</span>
+    <!-- Input principale (version originale, pas iOS) -->
+    <div class="input-card">
+        <input id="input" type="text" placeholder="Ex : stretched, although..." />
     </div>
 
     <button class="btn-green" id="translateBtn">Traduire</button>
@@ -76,13 +75,13 @@
 
     <h2 class="dictionary-title">Dictionnaire</h2>
 
-    <!-- FR / EN -->
+    <!-- Switch FR / EN -->
     <div class="dic-switch">
         <button id="dicLangEn" class="dic-btn active">🇬🇧 Anglais</button>
         <button id="dicLangFr" class="dic-btn">🇫🇷 Français</button>
     </div>
 
-    <!-- Barre de recherche -->
+    <!-- Barre de recherche iOS uniquement pour la page Dico -->
     <div class="search-wrapper">
         <input id="dictionarySearch" type="text" placeholder="Rechercher un mot..." />
         <span class="search-icon">🔍</span>
