@@ -39,9 +39,9 @@ const letterPopup = document.getElementById("letterPopup");
 const historyList = document.getElementById("historyList");
 const langSwap = document.getElementById("langSwap");
 
-/* -----------------------------
+/* ============================================================
    MESSAGE "AUTO SWITCH" (iOS subtle)
------------------------------ */
+============================================================ */
 function showAutoSwitchMessage(msg) {
     const div = document.createElement("div");
     div.style.background = "rgba(255,255,255,0.75)";
@@ -53,9 +53,9 @@ function showAutoSwitchMessage(msg) {
     div.style.fontWeight = "500";
     div.style.textAlign = "center";
     div.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
+    div.style.transition = "opacity 0.3s";
 
     div.innerText = msg;
-
     resultCard.prepend(div);
 
     setTimeout(() => {
@@ -92,7 +92,7 @@ langSwap.addEventListener("click", () => {
     updateLanguageUI();
 
     const word = inputField.value.trim();
-    if (word) translateWord(true); // Re-traduire après swap
+    if (word) translateWord(true);
 });
 
 /* ============================================================
@@ -128,13 +128,12 @@ async function fetchWord(word) {
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
-    resultTitle.textContent = "⏳ Traduction en cours...";
+    resultTitle.textContent = "Traduction en cours...";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `
         <div style="text-align:center; padding:34px; font-size:30px; opacity:0.6;">
             ⏳
-        </div>
-    `;
+        </div>`;
 }
 
 /* ============================================================
@@ -163,7 +162,8 @@ function renderSenseTabs(entries) {
             pill.classList.add("active");
             pill.scrollIntoView({ behavior: "smooth", inline: "center" });
             renderSenseContent(entry);
-            try { navigator.vibrate(10); } catch(e){}
+
+            try { navigator.vibrate(10); } catch (e) {}
         });
 
         senseTabs.appendChild(pill);
@@ -179,18 +179,17 @@ function renderSenseTabs(entries) {
 function renderSenseContent(entry) {
     senseContent.innerHTML = "";
 
-    /* Définition */
+    /* ----- Definition ----- */
     if (entry.definition) {
         const def = document.createElement("div");
         def.className = "glass translation-list";
         def.innerHTML = `
             <div class="sense-block-title">Definition</div>
-            <div>${entry.definition}</div>
-        `;
+            <div>${entry.definition}</div>`;
         senseContent.appendChild(def);
     }
 
-    /* Traductions */
+    /* ----- Translations ----- */
     const tList = document.createElement("div");
     tList.className = "glass translation-list";
 
@@ -203,10 +202,9 @@ function renderSenseContent(entry) {
         i.textContent = t;
         tList.appendChild(i);
     });
-
     senseContent.appendChild(tList);
 
-    /* Exemples */
+    /* ----- Examples ----- */
     const eList = document.createElement("div");
     eList.className = "glass examples-list";
     eList.innerHTML = `<div class="sense-block-title">Examples</div>`;
@@ -216,39 +214,37 @@ function renderSenseContent(entry) {
         exDiv.className = "example-block";
         exDiv.innerHTML = `
             <div class="example-text">• ${ex.src}</div>
-            <div class="example-translation">→ ${ex.dest}</div>
-        `;
+            <div class="example-translation">→ ${ex.dest}</div>`;
         eList.appendChild(exDiv);
     });
-
     senseContent.appendChild(eList);
 
-  /* Synonymes */
-if (entry.synonyms && entry.synonyms.length > 0) {
-    const sTitle = document.createElement("div");
-    sTitle.className = "sense-block-title";
-    sTitle.textContent = fromLang === "en" ? "Synonyms (EN)" : "Synonymes (FR)";
-    senseContent.appendChild(sTitle);
+    /* ----- Synonyms CLICKABLE ----- */
+    if (entry.synonyms && entry.synonyms.length > 0) {
+        const sTitle = document.createElement("div");
+        sTitle.className = "sense-block-title";
+        sTitle.textContent = fromLang === "en" ? "Synonyms (EN)" : "Synonymes (FR)";
+        senseContent.appendChild(sTitle);
 
-    const sWrap = document.createElement("div");
-    sWrap.className = "glass synonyms-wrapper";
+        const sWrap = document.createElement("div");
+        sWrap.className = "glass synonyms-wrapper";
 
-    entry.synonyms.forEach(s => {
-        const tag = document.createElement("div");
-        tag.className = "synonym-tag";
-        tag.textContent = s;
+        entry.synonyms.forEach(s => {
+            const tag = document.createElement("div");
+            tag.className = "synonym-tag";
+            tag.textContent = s;
 
-        // 🔥 Cliquer sur un synonyme lance une nouvelle traduction
-        tag.addEventListener("click", () => {
-            inputField.value = s;
-            translateWord();
-            try { navigator.vibrate(10); } catch(e){}
+            tag.addEventListener("click", () => {
+                inputField.value = s;
+                translateWord();
+                try { navigator.vibrate(10); } catch (e) {}
+            });
+
+            sWrap.appendChild(tag);
         });
 
-        sWrap.appendChild(tag);
-    });
-
-    senseContent.appendChild(sWrap);
+        senseContent.appendChild(sWrap);
+    }
 }
 
 /* ============================================================
@@ -261,7 +257,7 @@ async function translateWord(isSwap = false) {
     clearResult();
     showLoader();
 
-    let data = await fetchWord(word);
+    const data = await fetchWord(word);
 
     if (data.error) {
         resultTitle.textContent = "❌ Erreur";
@@ -269,7 +265,6 @@ async function translateWord(isSwap = false) {
         return;
     }
 
-    /* AUTO SWITCH ------------------------------------- */
     if (data.auto_switch && !isSwap) {
         const oldFrom = fromLang;
         fromLang = toLang;
@@ -280,15 +275,12 @@ async function translateWord(isSwap = false) {
             `🔄 Le mot est ${data.detected_lang === "fr" ? "français" : "anglais"} — passage automatique ${fromLang.toUpperCase()} → ${toLang.toUpperCase()}.`
         );
 
-        // Relance traduction dans le bon sens
         return translateWord(true);
     }
 
     resultTitle.textContent = word;
-
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
-
     addToHistory(word);
 }
 
@@ -344,7 +336,8 @@ async function loadDictionary(search = "") {
 
             item.addEventListener("click", () => {
                 inputField.value = w;
-                openTranslatePage();
+                pageTranslate.style.display = "block";
+                pageDictionary.style.display = "none";
                 translateWord();
             });
 
