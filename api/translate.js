@@ -1,12 +1,13 @@
 // ------------------------------------------------------
-//  Vercel API Route — translate.js (Version PRO CLEAN)
-//  No fake categories — No duplicated "to to"
-//  Only REAL Oxford/Cambridge senses
+//  LexiTrain — API translate.js (PRO VERSION)
+//  EN ⇄ FR • Lang detection • Auto-switch • Clean senses
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
   try {
     const word = req.query.word?.trim();
+    const from = req.query.from || "en";
+    const to = req.query.to || "fr";
 
     if (!word) {
       return res.status(400).json({ error: "Missing 'word' parameter" });
@@ -18,51 +19,50 @@ export default async function handler(req, res) {
 
     if (!OPENAI_API_KEY || !KV_URL || !KV_TOKEN) {
       return res.status(500).json({
-        error: "Missing KV or OPENAI API environment variables."
+        error: "Missing required environment variables."
       });
     }
 
     // ------------------------------------------------------
-    //  NEW PREMIUM PROMPT (NO FAKE CATEGORIES)
+    // PREMIUM PROMPT WITH LANGUAGE DETECTION
     // ------------------------------------------------------
     const prompt = `
-You are a professional dictionary engine (Oxford + Cambridge quality).
+You are a bilingual EN-FR dictionary engine (Oxford/Cambridge quality).
 
 For the word: "${word}"
+Requested direction: ${from} → ${to}
 
-You MUST return ONLY real linguistic senses.
-Never invent a category.
-Never output a sense if the usage is not attested or useful.
+Your tasks:
 
-Follow these rules:
+1) DETECT THE TRUE LANGUAGE of the user's input.
+Return in a field "detected_lang": "en" or "fr".
+If unsure, choose the most common usage.
 
-1) DETECT THE REAL TYPE(S):
-- noun
-- verb
-- adjective
-- adverb
-- expression / idiom
-- phrasal verb (ONLY if it is a REAL, established phrasal verb)
-Examples allowed: "wolf down", "blaze a trail", "run out", "break down"
-NEVER include weak/uncommon phrasal verbs like "book up", "blaze up" unless they are real in dictionaries.
+2) ONLY return senses for the detected language.
+(Option B: keep ONLY the senses in the detected language.)
 
-2) DO NOT MODIFY THE USER INPUT
-If the user types:
-- "to blaze" → keep "to blaze"
-- "wolf down" → keep exactly "wolf down"
-- "blazers" → keep "blazers" (noun, plural)
-NEVER add extra "to", NEVER output "to to blaze".
+Examples:
+- If word is French and direction is EN→FR, return "auto_switch": true
+- If word is English and direction is FR→EN, return "auto_switch": true
 
-3) IF THE WORD IS ALREADY A PHRASE
-Example: "wolf down"
-→ DO NOT split into invented noun/verb senses unless they exist in real dictionaries.
+3) NEVER invent senses:
+- No fake phrasal verbs
+- No invented adjectives/nouns/verbs
+- No "to to blaze"
+- No weak/uncommon forms
 
-4) OUTPUT FORMAT (strict JSON):
+4) If the input starts with "to " then it's a verb → keep EXACT input
+Never add extra "to".
+Never modify the user’s form.
+
+5) OUTPUT FORMAT (STRICT JSON):
 
 {
+  "detected_lang": "en",
+  "auto_switch": false,
   "entries": [
     {
-      "label": "to wolf down (verb)",         // or "wolf down (phrasal verb)"
+      "label": "to blaze (verb)",
       "definition": "…",
       "translations": ["…"],
       "examples": [
@@ -73,19 +73,17 @@ Example: "wolf down"
   ]
 }
 
-5) LANGUAGE:
-- Detect if the user word is EN or FR.
-- Definitions + synonyms in source language.
-- Translations in target language.
-- Examples: natural, authentic.
+6) DEFINITIONS & SYNONYMS:
+- Always in the source language (detected_lang)
 
-6) QUALITY:
-- Only include REAL senses found in high-quality dictionaries.
-- Skip irrelevant categories.
-- Skip senses that are too rare, slang, or unhelpful.
+7) TRANSLATIONS:
+- Always in the target language (the "to" lang after auto-switch if needed)
 
-Return ONLY valid JSON.
-No explanation.
+8) EXAMPLES:
+- "src": in source language
+- "dest": in target language
+
+Return ONLY JSON. No comments.
 `;
 
     // ------------------------------------------------------
@@ -100,11 +98,11 @@ No explanation.
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: "You output ONLY valid JSON. No extra text." },
+          { role: "system", content: "You output ONLY valid JSON. No explanations." },
           { role: "user", content: prompt }
         ],
         temperature: 0.2,
-        max_tokens: 900
+        max_tokens: 950
       })
     });
 
@@ -122,10 +120,10 @@ No explanation.
     }
 
     // ------------------------------------------------------
-    // SAVE RESULT IN KV (CACHE)
+    //  SAVE IN KV (CACHE)
     // ------------------------------------------------------
     try {
-      await fetch(`${KV_URL}/set/${word.toLowerCase()}`, {
+      await fetch(`${KV_URL}/set/${word.toLowerCase()}_${from}_${to}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${KV_TOKEN}`,
@@ -137,9 +135,13 @@ No explanation.
       console.error("KV SAVE ERROR:", err);
     }
 
+    // ------------------------------------------------------
+    //  RETURN DATA
+    // ------------------------------------------------------
     return res.status(200).json(parsed);
 
   } catch (e) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    console.error(e);
+    return res.status(500).json({ error: "Unexpected server error." });
   }
 }
