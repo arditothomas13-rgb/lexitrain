@@ -1,6 +1,6 @@
 // ---------------------------------------------
 // LexiTrain — Version Apple Premium
-// Navigation + Traduction + Dictionnaire
+// Navigation + Traduction + Historique + Dico
 // ---------------------------------------------
 
 /* ---------------------------------------------
@@ -25,6 +25,9 @@ const navTranslateBtn = document.getElementById("navTranslate");
 // Dico
 const dictionaryList = document.getElementById("dictionaryList");
 const dictionarySearch = document.getElementById("dictionarySearch");
+
+// Historique
+const historyList = document.getElementById("historyList");
 
 /* ---------------------------------------------
    API CALL — translate.js
@@ -153,6 +156,10 @@ async function translateWord() {
 
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
+
+    // ---- AJOUTER À L’HISTORIQUE ----
+    await fetch(`/api/history-add.js?word=${encodeURIComponent(word)}`);
+    await loadHistory();
 }
 
 /* ---------------------------------------------
@@ -227,3 +234,36 @@ async function loadDictionary(search = "") {
 dictionarySearch.addEventListener("input", (e) => {
     loadDictionary(e.target.value.toLowerCase());
 });
+
+/* ---------------------------------------------
+   HISTORIQUE — charger depuis KV
+--------------------------------------------- */
+async function loadHistory() {
+    try {
+        const res = await fetch("/api/history-get.js");
+        const data = await res.json();
+
+        historyList.innerHTML = "";
+
+        data.history.forEach(w => {
+            const item = document.createElement("div");
+            item.className = "history-item";
+            item.textContent = w;
+
+            item.addEventListener("click", () => {
+                inputField.value = w;
+                translateWord();
+            });
+
+            historyList.appendChild(item);
+        });
+
+    } catch (err) {
+        console.error("HISTORY ERROR:", err);
+    }
+}
+
+/* ---------------------------------------------
+   CHARGER L’HISTORIQUE AU DÉMARRAGE
+--------------------------------------------- */
+loadHistory();
