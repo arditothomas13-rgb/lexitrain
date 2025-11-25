@@ -1,12 +1,14 @@
 // ------------------------------------------------------
-//   Vercel API Route — list-words.js
-//   Optimisé pour LexiTrain — Lazy loading + Cache KV
-//   Objectif : retourner la liste des mots déjà traduits
-//   pour le dictionnaire interne
+//   LexiTrain — API list-words.js (PRO VERSION)
+//   Reads only dedicated word lists:
+//   - wordlist:en
+//   - wordlist:fr
+//   Fast, clean, no SCAN, no pollution
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
   try {
+    const lang = req.query.lang === "fr" ? "fr" : "en"; // default EN
     const search = req.query.q?.toLowerCase() || "";
 
     const KV_URL = process.env.KV_REST_API_URL;
@@ -18,54 +20,40 @@ export default async function handler(req, res) {
       });
     }
 
-    // ----------------------------------------------
-    // FETCH ALL KEYS FROM KV
-    // ----------------------------------------------
-    // Vercel KV supports SCAN pattern:
-    //   GET /scan/<cursor>?pattern=*
-    //
-    // We scan incrementally to avoid timeouts.
-    // ----------------------------------------------
+    // ------------------------------------------------------
+    // LOAD THE WORD LIST FROM KV
+    // ------------------------------------------------------
+    const key = `wordlist:${lang}`;
 
-    async function scanAllKeys() {
-      let cursor = 0;
-      const allKeys = [];
+    const existing = await fetch(`${KV_URL}/get/${key}`, {
+      headers: { Authorization: `Bearer ${KV_TOKEN}` }
+    }).then(r => r.json());
 
-      do {
-        const response = await fetch(`${KV_URL}/scan/${cursor}?pattern=*`, {
-          headers: { Authorization: `Bearer ${KV_TOKEN}` }
-        });
+    let words = [];
 
-        const data = await response.json();
-        cursor = data.cursor;
-
-        if (Array.isArray(data.keys)) {
-          allKeys.push(...data.keys);
-        }
-
-      } while (cursor !== 0);
-
-      return allKeys;
+    if (existing?.result) {
+      try {
+        words = JSON.parse(existing.result);
+      } catch {
+        words = [];
+      }
     }
 
-    const allWords = await scanAllKeys();
-
-    // ----------------------------------------------
-    // FILTER + SORT
-    // ----------------------------------------------
-    let result = allWords;
-
+    // ------------------------------------------------------
+    // FILTER BY SEARCH (optional)
+    // ------------------------------------------------------
     if (search.length > 0) {
-      result = allWords.filter(w => w.toLowerCase().includes(search));
+      words = words.filter(w => w.includes(search));
     }
 
-    result.sort((a, b) => a.localeCompare(b));
+    // Alphabetical sort
+    words.sort((a, b) => a.localeCompare(b));
 
-    // ----------------------------------------------
+    // ------------------------------------------------------
     // RETURN JSON RESPONSE
-    // ----------------------------------------------
+    // ------------------------------------------------------
     return res.status(200).json({
-      words: result
+      words
     });
 
   } catch (err) {
