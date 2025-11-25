@@ -381,3 +381,16 @@ alphabetScroller.addEventListener("touchmove", e => {
     const target = words.find(item => item.textContent[0].toUpperCase() === letter);
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
 });
+
+/* ============================================================
+   BIND TRANSLATE BUTTON
+============================================================ */
+translateBtn.addEventListener("click", () => {
+    translateWord(false, false);
+});
+inputField.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        translateWord(false, false);
+    }
+});
+
