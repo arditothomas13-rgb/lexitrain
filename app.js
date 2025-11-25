@@ -1,6 +1,6 @@
-/* ============================================================
-   LexiTrain — APP.JS PRO (EN ⇄ FR + AutoSwitch + DICO + Offline)
-============================================================ */
+/**************************************************************
+ * LexiTrain — APP.JS PRO (Traduction + Dico Premium + Quiz)
+ **************************************************************/
 
 /* -----------------------------
    GLOBAL LANGUAGE STATE
@@ -27,9 +27,11 @@ const toLabel = document.getElementById("toLabel");
 
 const pageTranslate = document.getElementById("page-translate");
 const pageDictionary = document.getElementById("page-dictionary");
+const pageQuiz = document.getElementById("page-quiz");
 
 const navTranslate = document.getElementById("navTranslate");
 const openDictionary = document.getElementById("openDictionary");
+const openQuiz = document.getElementById("openQuiz");
 
 const dictionaryList = document.getElementById("dictionaryList");
 const dictionarySearch = document.getElementById("dictionarySearch");
@@ -38,58 +40,37 @@ const alphabetScroller = document.getElementById("alphabetScroller");
 const letterPopup = document.getElementById("letterPopup");
 
 const historyList = document.getElementById("historyList");
-const langSwap = document.getElementById("langSwap");
 
 const btnDicEn = document.getElementById("dicLangEn");
 const btnDicFr = document.getElementById("dicLangFr");
-const pageQuiz = document.getElementById("page-quiz");
-const openQuiz = document.getElementById("openQuiz");
 
-const quizCard = document.getElementById("quizCard");
 const quizLoader = document.getElementById("quizLoader");
+const quizCard = document.getElementById("quizCard");
 const quizQuestion = document.getElementById("quizQuestion");
 const quizOptions = document.getElementById("quizOptions");
-
 const quizResult = document.getElementById("quizResult");
 const quizScore = document.getElementById("quizScore");
 const quizRestart = document.getElementById("quizRestart");
 
-/* ============================================================
-   LOCAL OFFLINE CACHE
-============================================================ */
+/**************************************************************
+ * OFFLINE CACHE
+ **************************************************************/
 function getLocalCache(key) {
     try {
-        const raw = localStorage.getItem("lexitrain_cache:" + key);
-        return raw ? JSON.parse(raw) : null;
+        return JSON.parse(localStorage.getItem("lexitrain_cache:" + key));
     } catch {
         return null;
     }
 }
-
 function setLocalCache(key, value) {
     try {
         localStorage.setItem("lexitrain_cache:" + key, JSON.stringify(value));
     } catch {}
 }
 
-/* ============================================================
-   AUTO SWITCH MESSAGE
-============================================================ */
-function showAutoSwitchMessage(msg) {
-    const div = document.createElement("div");
-    div.className = "autoswitch-msg";
-    div.innerText = msg;
-    resultCard.prepend(div);
-
-    setTimeout(() => {
-        div.style.opacity = "0";
-        setTimeout(() => div.remove(), 350);
-    }, 1800);
-}
-
-/* ============================================================
-   UPDATE LANGUAGE UI
-============================================================ */
+/**************************************************************
+ * UI LANGUAGE UPDATE
+ **************************************************************/
 function updateLanguageUI() {
     if (fromLang === "en") {
         fromFlag.textContent = "🇬🇧";
@@ -104,12 +85,13 @@ function updateLanguageUI() {
     }
 }
 
-/* ============================================================
-   PAGE SWITCHING
-============================================================ */
+/**************************************************************
+ * NAVIGATION
+ **************************************************************/
 function openTranslatePage() {
     pageTranslate.style.display = "block";
     pageDictionary.style.display = "none";
+    pageQuiz.style.display = "none";
 }
 
 navTranslate.addEventListener("click", openTranslatePage);
@@ -117,45 +99,39 @@ navTranslate.addEventListener("click", openTranslatePage);
 openDictionary.addEventListener("click", () => {
     pageTranslate.style.display = "none";
     pageDictionary.style.display = "block";
+    pageQuiz.style.display = "none";
     loadDictionary();
 });
 
-/* ============================================================
-   SWAP LANGUAGES
-============================================================ */
-langSwap.addEventListener("click", () => {
-    [fromLang, toLang] = [toLang, fromLang];
-    updateLanguageUI();
-    if (inputField.value.trim()) translateWord(true);
+openQuiz.addEventListener("click", () => {
+    pageTranslate.style.display = "none";
+    pageDictionary.style.display = "none";
+    pageQuiz.style.display = "block";
+
+    startQuiz();
 });
 
-/* ============================================================
-   SMART FETCH WORD
-============================================================ */
+/**************************************************************
+ * SMART FETCH WORD (GPT + Cache)
+ **************************************************************/
 async function fetchWord(word, cacheOnly = false) {
-    const cacheKey = `${word.toLowerCase()}_${fromLang}_${toLang}`;
+    const cacheKey = `${word}_${fromLang}_${toLang}`.toLowerCase();
 
-    // 1 — Local cache
     const local = getLocalCache(cacheKey);
-    if (local) return { ...local, fromCache: "local" };
+    if (local) return local;
 
-    // 2 — Cloud KV cache
     try {
         const cloud = await fetch(`/api/kv-get?key=${cacheKey}`);
         const data = await cloud.json();
-
         if (data.result) {
             const parsed = JSON.parse(data.result);
             setLocalCache(cacheKey, parsed);
-            return { ...parsed, fromCache: "cloud" };
+            return parsed;
         }
     } catch {}
 
-    // 3 — GPT API (only if not cacheOnly)
     if (!cacheOnly) {
-        const res = await fetch(
-            `/api/translate?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
-        );
+        const res = await fetch(`/api/translate?word=${word}&from=${fromLang}&to=${toLang}`);
         const apiData = await res.json();
         setLocalCache(cacheKey, apiData);
         return apiData;
@@ -164,39 +140,33 @@ async function fetchWord(word, cacheOnly = false) {
     return { error: "Donnée indisponible hors-ligne" };
 }
 
-/* ============================================================
-   LOADER UI
-============================================================ */
+/**************************************************************
+ * TRANSLATION RENDER
+ **************************************************************/
 function showLoader() {
     resultCard.style.display = "block";
     resultTitle.textContent = "Traduction en cours...";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `<div class="loader">⏳</div>`;
 }
-
 function clearResult() {
     resultTitle.textContent = "";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = "";
 }
 
-/* ============================================================
-   RENDER TABS + CONTENT
-============================================================ */
 function renderSenseTabs(entries) {
     senseTabs.innerHTML = "";
-    entries.forEach((entry, idx) => {
+    entries.forEach((e, i) => {
         const pill = document.createElement("div");
         pill.className = "sense-pill";
-        if (idx === 0) pill.classList.add("active");
-        pill.textContent = entry.label;
-
+        if (i === 0) pill.classList.add("active");
+        pill.textContent = e.label;
         pill.addEventListener("click", () => {
             document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
             pill.classList.add("active");
-            renderSenseContent(entry);
+            renderSenseContent(e);
         });
-
         senseTabs.appendChild(pill);
     });
 }
@@ -206,60 +176,36 @@ function renderSenseContent(entry) {
 
     if (entry.definition) {
         senseContent.innerHTML += `
-            <div class="glass translation-list">
-                <div class="sense-block-title">Definition</div>
-                <div>${entry.definition}</div>
-            </div>
-        `;
-    }
-
-    senseContent.innerHTML += `
         <div class="glass translation-list">
-            <div class="sense-block-title">Traduction</div>
-            ${entry.translations.map(t => `<div class="translation-item">${t}</div>`).join("")}
-        </div>
-    `;
+            <div class="sense-block-title">Definition</div>
+            <div>${entry.definition}</div>
+        </div>`;
+    }
 
     senseContent.innerHTML += `
-      ${dic.examples && dic.examples.length ? `
+    <div class="glass translation-list">
+        <div class="sense-block-title">Traductions</div>
+        ${entry.translations.map(t => `<div>${t}</div>`).join("")}
+    </div>`;
+
+    senseContent.innerHTML += `
     <div class="glass examples-list">
         <div class="sense-block-title">Exemples</div>
-        ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
-    </div>
-` : `
-    <div class="glass examples-list">
-        <div class="sense-block-title">Exemples</div>
-        <div>Pas d’exemples disponibles</div>
-    </div>
-`}
-            `
-                )
-                .join("")}
-        </div>
-    `;
-
-    if (entry.synonyms?.length) {
-        senseContent.innerHTML += `
-            <div class="sense-block-title">Synonyms</div>
-            <div class="glass synonyms-wrapper">
-                ${entry.synonyms
-                    .map(s => `<div class="synonym-tag" data-word="${s}">${s}</div>`)
-                    .join("")}
-            </div>
-        `;
-
-        document.querySelectorAll(".synonym-tag").forEach(tag => {
-            tag.addEventListener("click", () => {
-                inputField.value = tag.dataset.word;
-                translateWord();
-            });
-        });
-    }
+        ${
+            entry.examples?.length
+                ? entry.examples.map(ex => `
+                    <div class="example-block">
+                        <div class="example-text">• ${ex.src}</div>
+                        <div class="example-translation">→ ${ex.dest}</div>
+                    </div>`).join("")
+                : "<div>Aucun exemple disponible</div>"
+        }
+    </div>`;
 }
 
-/* ============================================================
-   TRANSLATE
-============================================================ */
+/**************************************************************
+ * TRANSLATE ACTION
+ **************************************************************/
 async function translateWord(isSwap = false, cacheOnly = false) {
     const word = inputField.value.trim();
     if (!word) return;
@@ -267,7 +213,7 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     clearResult();
     showLoader();
 
-    let data = await fetchWord(word, cacheOnly);
+    const data = await fetchWord(word, cacheOnly);
 
     if (data.error) {
         resultTitle.textContent = "❌ Erreur";
@@ -275,23 +221,14 @@ async function translateWord(isSwap = false, cacheOnly = false) {
         return;
     }
 
-    if (data.auto_switch && !isSwap) {
-        [fromLang, toLang] = [toLang, fromLang];
-        updateLanguageUI();
-        showAutoSwitchMessage(`🔄 Auto-switch : ${fromLang} → ${toLang}`);
-        return translateWord(true);
-    }
-
     resultTitle.textContent = word;
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
-
-    addToHistory(word);
 }
 
-/* ============================================================
-   HISTORY
-============================================================ */
+/**************************************************************
+ * HISTORY
+ **************************************************************/
 function loadHistory() {
     const list = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
     historyList.innerHTML = "";
@@ -301,25 +238,27 @@ function loadHistory() {
         item.className = "history-item";
         item.textContent = word;
 
-       item.addEventListener("click", () => {
-    loadPremiumWord(w);
-});
+        item.addEventListener("click", async () => {
+            inputField.value = word;
+            translateWord(false, true);
+            openTranslatePage();
+        });
+
         historyList.appendChild(item);
     });
 }
-
 loadHistory();
 
 function addToHistory(word) {
     let list = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
-    list = [word, ...list.filter(w => w !== word)].slice(0, 20);
+    list = [word, ...list.filter(x => x !== word)].slice(0, 20);
     localStorage.setItem("lexitrain_history", JSON.stringify(list));
     loadHistory();
 }
 
-/* ============================================================
-   DICTIONARY
-============================================================ */
+/**************************************************************
+ * DICTIONARY
+ **************************************************************/
 async function loadDictionary(q = "") {
     dictionaryList.innerHTML = "Chargement...";
 
@@ -333,42 +272,40 @@ async function loadDictionary(q = "") {
         item.className = "dic-item";
         item.textContent = w;
 
-      item.addEventListener("click", async () => {
-    pageTranslate.style.display = "block";
-    pageDictionary.style.display = "none";
+        item.addEventListener("click", async () => {
+            pageTranslate.style.display = "block";
+            pageDictionary.style.display = "none";
 
-    resultCard.style.display = "block";
-    resultTitle.textContent = w;
-    senseTabs.innerHTML = "";
-    senseContent.innerHTML = "Chargement...";
+            resultCard.style.display = "block";
+            resultTitle.textContent = w;
+            senseTabs.innerHTML = "";
+            senseContent.innerHTML = "Chargement...";
 
-    const res = await fetch(`/api/get-dict-word?word=${w}`);
-    const dic = await res.json();
+            const res = await fetch(`/api/get-dict-word?word=${w}`);
+            const dic = await res.json();
 
-    if (!dic || dic.error) {
-        senseContent.innerHTML = "<div>❌ Mot introuvable</div>";
-        return;
-    }
+            if (!dic || dic.error) {
+                senseContent.innerHTML = "<div>❌ Mot introuvable</div>";
+                return;
+            }
 
-    senseContent.innerHTML = `
-        ${dic.examples && dic.examples.length ? `
-    <div class="glass examples-list">
-        <div class="sense-block-title">Exemples</div>
-        ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
-    </div>
-` : `
-    <div class="glass examples-list">
-        <div class="sense-block-title">Exemples</div>
-        <div>Pas d’exemples disponibles</div>
-    </div>
-`}
+            senseContent.innerHTML = `
+                <div class="glass translation-list">
+                    <div class="sense-block-title">Traduction principale</div>
+                    <div>${dic.main_translation}</div>
+                </div>
 
-        <div class="glass examples-list">
-            <div class="sense-block-title">Exemples</div>
-            ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
-        </div>
-    `;
-});
+                <div class="glass translation-list">
+                    <div class="sense-block-title">Autres traductions</div>
+                    ${dic.translations.map(t => `<div>${t}</div>`).join("")}
+                </div>
+
+                <div class="glass examples-list">
+                    <div class="sense-block-title">Exemples</div>
+                    ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
+                </div>
+            `;
+        });
 
         dictionaryList.appendChild(item);
     });
@@ -378,130 +315,48 @@ dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
 });
 
-btnDicEn.addEventListener("click", () => {
-    dictionaryLang = "en";
-    btnDicEn.classList.add("active");
-    btnDicFr.classList.remove("active");
-    loadDictionary();
-});
-
-btnDicFr.addEventListener("click", () => {
-    dictionaryLang = "fr";
-    btnDicFr.classList.add("active");
-    btnDicEn.classList.remove("active");
-    loadDictionary();
-});
-
-openQuiz.addEventListener("click", () => {
-    pageTranslate.style.display = "none";
-    pageDictionary.style.display = "none";
-    pageQuiz.style.display = "block";
-
-    startQuiz();
-});
-
-/* ============================================================
-   ALPHABET SCROLLER
-============================================================ */
-const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
-function renderAlphabetScroller() {
-    alphabetScroller.innerHTML = alphabet
-        .map(l => `<div class="alpha-letter">${l}</div>`)
-        .join("");
-}
-
-renderAlphabetScroller();
-
-alphabetScroller.addEventListener("touchmove", e => {
-    const touch = e.touches[0];
-    const rect = alphabetScroller.getBoundingClientRect();
-    const pos = touch.clientY - rect.top;
-    const index = Math.floor((pos / rect.height) * alphabet.length);
-    const letter = alphabet[index];
-    if (!letter) return;
-
-    letterPopup.textContent = letter;
-    letterPopup.style.display = "block";
-    letterPopup.style.opacity = "1";
-
-    setTimeout(() => (letterPopup.style.opacity = "0"), 200);
-
-    const words = [...dictionaryList.children];
-    const target = words.find(item => item.textContent[0].toUpperCase() === letter);
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-/* ============================================================
-   BIND TRANSLATE BUTTON
-============================================================ */
-translateBtn.addEventListener("click", () => {
-    translateWord(false, false);
-});
-inputField.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        translateWord(false, false);
-    }
-});
-
-/* ============================================================
-   QUIZ ENGINE
-============================================================ */
-
+/**************************************************************
+ * QUIZ
+ **************************************************************/
 async function startQuiz() {
     quizLoader.style.display = "block";
     quizCard.style.display = "none";
     quizResult.style.display = "none";
 
-    // 1 — Fetch mots à réviser
-    const res = await fetch("/api/quiz-get-words");
+    const res = await fetch(`/api/quiz-get-words`);
     const data = await res.json();
-
     let words = data.toReview || [];
 
-    // Si pas de mots, on crée un fallback
     if (words.length === 0) {
-        quizLoader.innerHTML = "Aucun mot à réviser 🎉<br><br>Ajoute des mots pour commencer !";
+        quizLoader.innerHTML = "Aucun mot à réviser 🎉";
         return;
     }
 
-    // Mélange l'ordre
     shuffle(words);
 
     let index = 0;
     let score = 0;
 
-    function showQuestion() {
-        if (index >= words.length) {
-            endQuiz();
-            return;
-        }
+    async function showQuestion() {
+        if (index >= words.length) return endQuiz();
 
         const word = words[index];
-        loadQuizCard(word);
-    }
-
-    async function loadQuizCard(word) {
         quizLoader.style.display = "none";
         quizCard.style.display = "block";
         quizOptions.innerHTML = "";
 
-      // 2 — Fetch DICT (pas GPT)
-const cloud = await fetch(`/api/get-dict-word?word=${word}`);
-const dic = await cloud.json();
+        const cloud = await fetch(`/api/get-dict-word?word=${word}`);
+        const dic = await cloud.json();
 
-if (!dic || !dic.main_translation) {
-    index++;
-    showQuestion();
-    return;
-}
+        if (!dic) {
+            index++;
+            return showQuestion();
+        }
 
-const translations = [dic.main_translation, ...dic.distractors];
-
+        const translations = [dic.main_translation, ...dic.distractors];
 
         quizQuestion.textContent = `Que veut dire : « ${word} » ?`;
 
-        // 3 — Construire options
         const options = buildOptions(translations[0], translations);
 
         options.forEach(opt => {
@@ -513,16 +368,16 @@ const translations = [dic.main_translation, ...dic.distractors];
                 if (opt.correct) {
                     div.classList.add("correct");
                     score++;
-                    updateReview(word, true);
                 } else {
                     div.classList.add("wrong");
-                    updateReview(word, false);
                 }
+
+                fetch(`/api/review-update?word=${word}&correct=${opt.correct}`);
 
                 setTimeout(() => {
                     index++;
                     showQuestion();
-                }, 650);
+                }, 600);
             });
 
             quizOptions.appendChild(div);
@@ -540,88 +395,32 @@ const translations = [dic.main_translation, ...dic.distractors];
     showQuestion();
 }
 
-/* ============================================================
-   UTILS : shuffle + distracteurs
-============================================================ */
-
-function shuffle(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+        [a[i], a[j]] = [a[j], a[i]];
     }
-    return arr;
+    return a;
 }
 
-function buildOptions(correct, allTranslations) {
-
-    const opts = [];
-
-    opts.push({ label: correct, correct: true });
-
-    let distractors = allTranslations.filter(t => t !== correct);
-    distractors = distractors.slice(0, 3);
-
-    distractors.forEach(d => {
-        opts.push({ label: d, correct: false });
-    });
-
-    return shuffle(opts);
+function buildOptions(correct, all) {
+    const choices = [correct, ...all.filter(x => x !== correct).slice(0, 3)];
+    return shuffle(
+        choices.map(c => ({
+            label: c,
+            correct: c === correct
+        }))
+    );
 }
 
-/* ============================================================
-   UPDATE REVIEW AFTER QUESTION
-============================================================ */
+/**************************************************************
+ * EVENTS
+ **************************************************************/
+translateBtn.addEventListener("click", () => translateWord());
+inputField.addEventListener("keydown", e => {
+    if (e.key === "Enter") translateWord();
+});
 
-async function updateReview(word, isCorrect) {
-    try {
-        await fetch(`/api/review-update?word=${word}&correct=${isCorrect}`);
-    } catch (err) {
-        console.error("SRS update error", err);
-    }
-}
-async function loadPremiumWord(word) {
-    pageTranslate.style.display = "block";
-    pageDictionary.style.display = "none";
-
-    resultCard.style.display = "block";
-    resultTitle.textContent = word;
-    senseTabs.innerHTML = "";
-    senseContent.innerHTML = "Chargement...";
-
-    const res = await fetch(`/api/get-dict-word?word=${word}`);
-    const dic = await res.json();
-
-    if (!dic || dic.error) {
-        senseContent.innerHTML = "<div>❌ Mot introuvable dans le dictionnaire</div>";
-        return;
-    }
-
-    // Rendu premium complet sécurisé
-    senseContent.innerHTML = `
-        <div class="glass translation-list">
-            <div class="sense-block-title">Traduction principale</div>
-            <div>${dic.main_translation}</div>
-        </div>
-
-        <div class="glass translation-list">
-            <div class="sense-block-title">Autres traductions</div>
-            ${dic.translations.map(t => `<div>${t}</div>`).join("")}
-        </div>
-
-        ${
-            dic.examples && dic.examples.length
-                ? `
-                    <div class="glass examples-list">
-                        <div class="sense-block-title">Exemples</div>
-                        ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
-                    </div>
-                  `
-                : `
-                    <div class="glass examples-list">
-                        <div class="sense-block-title">Exemples</div>
-                        <div>Aucun exemple disponible</div>
-                    </div>
-                  `
-        }
-    `;
-}
+/**************************************************************
+ * END
+ **************************************************************/
