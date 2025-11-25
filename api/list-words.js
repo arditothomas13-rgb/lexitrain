@@ -4,22 +4,23 @@ export default async function handler(req, res) {
 
   try {
     const response = await fetch(`${KV_URL}/keys/dict:*`, {
-      headers: { Authorization: `Bearer ${KV_TOKEN}` },
+      headers: { Authorization: `Bearer ${KV_TOKEN}` }
     });
 
     const data = await response.json();
 
+    // Cas 1 — aucune clé trouvée
     if (!data?.result) {
-      return res.status(200).json([]);
+      return res.status(200).json({ words: [] });
     }
 
-    // data.result = ["dict:achieve", "dict:avoid", ...]
-    const words = data.result.map(k => k.replace("dict:", ""));
+    // Cas 2 — toutes les clés trouvées
+    const words = data.result.map(key => key.replace("dict:", ""));
 
-    return res.status(200).json(words);
+    return res.status(200).json({ words });
 
   } catch (err) {
-    console.error("LIST ERROR", err);
+    console.error("LIST ERROR:", err);
     return res.status(500).json({ error: err.message });
   }
 }
