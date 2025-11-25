@@ -394,3 +394,12 @@ inputField.addEventListener("keydown", (e) => {
     }
 });
 
+const pageQuiz = document.getElementById("page-quiz");
+const openQuiz = document.getElementById("openQuiz");
+
+openQuiz.addEventListener("click", () => {
+    pageTranslate.style.display = "none";
+    pageDictionary.style.display = "none";
+    pageQuiz.style.display = "block";
+    startQuiz();
+});
