@@ -119,3 +119,54 @@ translateBtn.addEventListener("click", translateWord);
 inputField.addEventListener("keypress", (e) => {
     if (e.key === "Enter") translateWord();
 });
+
+/* ------------------------------------------------ */
+/*  OUVERTURE / FERMETURE DU DICTIONNAIRE          */
+/* ------------------------------------------------ */
+
+const dictionaryPage = document.getElementById("dictionaryPage");
+const translateSection = document.querySelector(".container");
+const openDictionaryBtn = document.getElementById("openDictionary");
+const dictionaryList = document.getElementById("dictionaryList");
+const dictionarySearch = document.getElementById("dictionarySearch");
+
+// Charger la liste depuis l’API
+async function loadDictionary(search = "") {
+    const res = await fetch(`/api/list-words.js?q=${search}`);
+    const data = await res.json();
+
+    dictionaryList.innerHTML = "";
+
+    data.words.forEach(w => {
+        const item = document.createElement("div");
+        item.className = "dic-item";
+        item.textContent = w;
+
+        item.addEventListener("click", () => {
+            input.value = w;
+            translateWord();     // Réutilise ta fonction existante
+            openTranslationPage();
+        });
+
+        dictionaryList.appendChild(item);
+    });
+}
+
+// Fonction pour afficher la page Traduction
+function openTranslationPage() {
+    dictionaryPage.style.display = "none";
+    translateSection.style.display = "block";
+}
+
+// Ouvrir le Dico
+openDictionaryBtn.addEventListener("click", () => {
+    translateSection.style.display = "none";
+    dictionaryPage.style.display = "block";
+    loadDictionary();
+});
+
+// Recherche dynamique
+dictionarySearch.addEventListener("input", (e) => {
+    loadDictionary(e.target.value.toLowerCase());
+});
+
