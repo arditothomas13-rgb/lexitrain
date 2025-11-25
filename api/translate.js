@@ -1,11 +1,14 @@
 // ------------------------------------------------------
-//  Vercel API — translate.js
-//  Version 100% dynamique (OpenAI → multi-sens entries)
+//  Vercel API Route — translate.js
+//  GPT → Multi-sense Dictionary Output (JSON strict)
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
   const word = req.query.word;
 
+  // -------------------------------------------
+  // Validate query
+  // -------------------------------------------
   if (!word) {
     return res.status(400).json({ error: "Missing 'word' parameter" });
   }
@@ -14,13 +17,13 @@ export default async function handler(req, res) {
 
   if (!OPENAI_API_KEY) {
     return res.status(500).json({
-      error: "Missing OPENAI_API_KEY in server environment."
+      error: "Missing OPENAI_API_KEY in Vercel environment variables."
     });
   }
 
-  // ---------------------------------------------------
-  // PROMPT STRICT POUR FORCER LE FORMAT 'entries'
-  // ---------------------------------------------------
+  // -------------------------------------------
+  // STRICT DICTIONARY PROMPT
+  // -------------------------------------------
   const prompt = `
 You are an advanced dictionary engine (Oxford + Cambridge + Reverso).
 
@@ -54,58 +57,56 @@ Return ONLY valid JSON with this exact structure:
 }
 
 Rules:
-- Always detect whether the word is English or French.
-- If English → definitions & synonyms must be in English; translations in French.
-- If French → definitions & synonyms must be in French; translations in English.
-- If multiple senses exist, return multiple entries.
-- "label" must follow the format: "book (noun)" or "to run (verb)" etc.
-- Definitions MUST be short and in the source language.
-- Examples MUST be: one sentence in the source language + translation in the target language.
-- No text outside JSON. No explanations. No comments.
+- Auto-detect if input is EN or FR.
+- If English → definitions & synonyms in EN, translations in FR.
+- If French → definitions & synonyms in FR, translations in EN.
+- Multiple senses → multiple entries.
+- "label" must follow the format: "run (verb)" or "maison (nom)".
+- Definitions MUST be short, in the source language.
+- Examples MUST be: sentence in source + translated sentence.
+- No explanation, no comments, no introduction, no text outside JSON.
 `;
 
   try {
-    // ---------------------------------------------------
-    // APPEL À OPENAI
-    // ---------------------------------------------------
+    // -------------------------------------------
+    // CALL OPENAI
+    // -------------------------------------------
     const completion = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: "You return ONLY valid JSON." },
+          { role: "system", content: "You return ONLY valid JSON. No explanations." },
           { role: "user", content: prompt }
         ],
-        temperature: 0.3,
-        max_tokens: 700
+        max_tokens: 700,
+        temperature: 0.3
       })
     });
 
     const data = await completion.json();
-
     const raw = data.choices?.[0]?.message?.content || "{}";
 
-    // ---------------------------------------------------
-    // PARSING JSON
-    // ---------------------------------------------------
+    // -------------------------------------------
+    // PARSE JSON SAFELY
+    // -------------------------------------------
     let parsed;
-
     try {
       parsed = JSON.parse(raw);
-    } catch (error) {
+    } catch (err) {
       return res.status(500).json({
-        error: "Model returned invalid JSON",
+        error: "Model returned invalid JSON.",
         raw: raw
       });
     }
 
-    // ---------------------------------------------------
-    // OK → renvoyer la réponse propre
-    // ---------------------------------------------------
+    // -------------------------------------------
+    // RETURN CLEAN JSON
+    // -------------------------------------------
     return res.status(200).json(parsed);
 
   } catch (error) {
