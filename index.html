@@ -57,16 +57,12 @@
         <!-- RESULTAT -->
         <div id="resultCard" class="glass result-card" style="display:none;">
 
-            <!-- Container pour message automatique iOS -->
             <div id="autoSwitchMessageContainer"></div>
 
-            <!-- Titre -->
             <div id="result-title" class="result-title"></div>
 
-            <!-- Pills -->
             <div id="senseTabs" class="sense-tabs"></div>
 
-            <!-- Contenu du sens -->
             <div id="senseContent" class="sense-content"></div>
 
         </div>
@@ -81,15 +77,19 @@
 
 </section>
 
-
 <!-- ===================================================== -->
 <!-- PAGE DICTIONNAIRE -->
 <!-- ===================================================== -->
 <section id="page-dictionary" class="page" style="display:none;">
-
     <div class="container">
 
         <h2 class="dictionary-title">Dictionnaire</h2>
+
+        <!-- 🔥 Switch FR / EN -->
+        <div class="dic-switch">
+            <button id="dicLangEn" class="dic-btn active">🇬🇧 Anglais</button>
+            <button id="dicLangFr" class="dic-btn">🇫🇷 Français</button>
+        </div>
 
         <input id="dictionarySearch" type="text" placeholder="🔎 Rechercher un mot..." />
 
@@ -102,15 +102,13 @@
         <div id="letterPopup" class="letter-popup" style="display:none;">A</div>
 
     </div>
-
 </section>
 
 </main>
 
 <!-- ===================================================== -->
-<!-- NAVIGATION BAS (iOS style) -->
+<!-- NAVIGATION BAS -->
 <!-- ===================================================== -->
-
 <nav class="apple-nav">
     <div class="nav-item" id="navTranslate">
         <div class="icon">💬</div>
