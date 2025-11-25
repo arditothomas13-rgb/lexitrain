@@ -361,6 +361,14 @@ btnDicFr.addEventListener("click", () => {
     loadDictionary();
 });
 
+openQuiz.addEventListener("click", () => {
+    pageTranslate.style.display = "none";
+    pageDictionary.style.display = "none";
+    pageQuiz.style.display = "block";
+
+    startQuiz();
+});
+
 /* ============================================================
    ALPHABET SCROLLER
 ============================================================ */
