@@ -32,13 +32,14 @@
             Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
         </p>
 
-        <div class="glass input-card">
+        <!-- Input — corrigé (plus de bulle autour de la bulle) -->
+        <div class="input-card">
             <input id="input" type="text" placeholder="Ex : stretched, although..." />
         </div>
 
         <button class="btn-green" id="translateBtn">Traduire</button>
 
-        <div class="glass lang-card">
+        <div class="lang-card glass">
             <div class="lang"><span id="fromFlag">🇬🇧</span> <span id="fromLabel">Anglais</span></div>
             <div class="swap" id="langSwap">⇄</div>
             <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
@@ -50,10 +51,10 @@
             <!-- Mot cherché -->
             <div id="result-title" class="result-title">mot</div>
 
-            <!-- Labels grammaticaux (noun / verb / adj) -->
-            <div id="senseLabels" class="sense-labels"></div>
+            <!-- SENSE LABELS SUPPRIMÉS POUR ÉVITER DOUBLONS -->
+            <!-- <div id="senseLabels" class="sense-labels"></div> -->
 
-            <!-- Pills de sens -->
+            <!-- Pills de sens — seul système conservé -->
             <div id="senseTabs" class="sense-tabs"></div>
 
             <!-- Contenu du sens -->
@@ -81,16 +82,14 @@
 
         <h2 class="dictionary-title">Dictionnaire</h2>
 
-        <div class="search-wrapper">
-            <input id="dictionarySearch" type="text" placeholder="🔎 Rechercher un mot...">
-        </div>
+        <input id="dictionarySearch" type="text" placeholder="🔎 Rechercher un mot..." />
 
         <div id="dictionaryList" class="dictionary-list"></div>
 
-        <!-- Alphabet (A-Z) défilement iPhone) -->
+        <!-- Alphabet (A-Z) défilement style iPhone -->
         <div id="alphabetScroller" class="alphabet-scroller"></div>
 
-        <!-- Lettre popup style iOS -->
+        <!-- Popup lettre style iOS -->
         <div id="letterPopup" class="letter-popup" style="display:none;">A</div>
 
     </div>
