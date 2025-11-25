@@ -1,3330 +1,3954 @@
-{
-  "achieve": {
+[
+  {
     "word": "achieve",
-    "lang": "en",
     "definition": "A common English verb meaning 'achieve' in various contexts.",
     "translations": [
-      "achieve (traduction fran\u00e7aise 1)",
-      "achieve (traduction fran\u00e7aise 2)",
-      "achieve (traduction fran\u00e7aise 3)"
+      "réaliser",
+      "accomplir",
+      "atteindre"
     ],
-    "main_translation": "achieve (traduction fran\u00e7aise 1)",
+    "main_translation": "réaliser",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non achieve",
+      "achieve opposé",
+      "achieve incorrect"
+    ],
+    "examples": [
+      "I often need to achieve in daily life.",
+      "They decided to achieve after thinking about it."
     ]
   },
-  "act": {
+  {
     "word": "act",
-    "lang": "en",
     "definition": "A common English verb meaning 'act' in various contexts.",
     "translations": [
-      "act (traduction fran\u00e7aise 1)",
-      "act (traduction fran\u00e7aise 2)",
-      "act (traduction fran\u00e7aise 3)"
+      "act (action)",
+      "act (sens figuré)",
+      "act (utilisation commune)"
     ],
-    "main_translation": "act (traduction fran\u00e7aise 1)",
+    "main_translation": "act (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non act",
+      "act opposé",
+      "act incorrect"
+    ],
+    "examples": [
+      "I often need to act in daily life.",
+      "They decided to act after thinking about it."
     ]
   },
-  "add": {
+  {
     "word": "add",
-    "lang": "en",
     "definition": "A common English verb meaning 'add' in various contexts.",
     "translations": [
-      "add (traduction fran\u00e7aise 1)",
-      "add (traduction fran\u00e7aise 2)",
-      "add (traduction fran\u00e7aise 3)"
+      "add (action)",
+      "add (sens figuré)",
+      "add (utilisation commune)"
     ],
-    "main_translation": "add (traduction fran\u00e7aise 1)",
+    "main_translation": "add (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non add",
+      "add opposé",
+      "add incorrect"
+    ],
+    "examples": [
+      "I often need to add in daily life.",
+      "They decided to add after thinking about it."
     ]
   },
-  "agree": {
+  {
     "word": "agree",
-    "lang": "en",
     "definition": "A common English verb meaning 'agree' in various contexts.",
     "translations": [
-      "agree (traduction fran\u00e7aise 1)",
-      "agree (traduction fran\u00e7aise 2)",
-      "agree (traduction fran\u00e7aise 3)"
+      "agree (action)",
+      "agree (sens figuré)",
+      "agree (utilisation commune)"
     ],
-    "main_translation": "agree (traduction fran\u00e7aise 1)",
+    "main_translation": "agree (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non agree",
+      "agree opposé",
+      "agree incorrect"
+    ],
+    "examples": [
+      "I often need to agree in daily life.",
+      "They decided to agree after thinking about it."
     ]
   },
-  "allow": {
+  {
     "word": "allow",
-    "lang": "en",
     "definition": "A common English verb meaning 'allow' in various contexts.",
     "translations": [
-      "allow (traduction fran\u00e7aise 1)",
-      "allow (traduction fran\u00e7aise 2)",
-      "allow (traduction fran\u00e7aise 3)"
+      "allow (action)",
+      "allow (sens figuré)",
+      "allow (utilisation commune)"
     ],
-    "main_translation": "allow (traduction fran\u00e7aise 1)",
+    "main_translation": "allow (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non allow",
+      "allow opposé",
+      "allow incorrect"
+    ],
+    "examples": [
+      "I often need to allow in daily life.",
+      "They decided to allow after thinking about it."
     ]
   },
-  "appear": {
+  {
     "word": "appear",
-    "lang": "en",
     "definition": "A common English verb meaning 'appear' in various contexts.",
     "translations": [
-      "appear (traduction fran\u00e7aise 1)",
-      "appear (traduction fran\u00e7aise 2)",
-      "appear (traduction fran\u00e7aise 3)"
+      "appear (action)",
+      "appear (sens figuré)",
+      "appear (utilisation commune)"
     ],
-    "main_translation": "appear (traduction fran\u00e7aise 1)",
+    "main_translation": "appear (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non appear",
+      "appear opposé",
+      "appear incorrect"
+    ],
+    "examples": [
+      "I often need to appear in daily life.",
+      "They decided to appear after thinking about it."
     ]
   },
-  "apply": {
+  {
     "word": "apply",
-    "lang": "en",
     "definition": "A common English verb meaning 'apply' in various contexts.",
     "translations": [
-      "apply (traduction fran\u00e7aise 1)",
-      "apply (traduction fran\u00e7aise 2)",
-      "apply (traduction fran\u00e7aise 3)"
+      "apply (action)",
+      "apply (sens figuré)",
+      "apply (utilisation commune)"
     ],
-    "main_translation": "apply (traduction fran\u00e7aise 1)",
+    "main_translation": "apply (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non apply",
+      "apply opposé",
+      "apply incorrect"
+    ],
+    "examples": [
+      "I often need to apply in daily life.",
+      "They decided to apply after thinking about it."
     ]
   },
-  "argue": {
+  {
     "word": "argue",
-    "lang": "en",
     "definition": "A common English verb meaning 'argue' in various contexts.",
     "translations": [
-      "argue (traduction fran\u00e7aise 1)",
-      "argue (traduction fran\u00e7aise 2)",
-      "argue (traduction fran\u00e7aise 3)"
+      "argue (action)",
+      "argue (sens figuré)",
+      "argue (utilisation commune)"
     ],
-    "main_translation": "argue (traduction fran\u00e7aise 1)",
+    "main_translation": "argue (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non argue",
+      "argue opposé",
+      "argue incorrect"
+    ],
+    "examples": [
+      "I often need to argue in daily life.",
+      "They decided to argue after thinking about it."
     ]
   },
-  "arrive": {
+  {
     "word": "arrive",
-    "lang": "en",
     "definition": "A common English verb meaning 'arrive' in various contexts.",
     "translations": [
-      "arrive (traduction fran\u00e7aise 1)",
-      "arrive (traduction fran\u00e7aise 2)",
-      "arrive (traduction fran\u00e7aise 3)"
+      "arrive (action)",
+      "arrive (sens figuré)",
+      "arrive (utilisation commune)"
     ],
-    "main_translation": "arrive (traduction fran\u00e7aise 1)",
+    "main_translation": "arrive (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non arrive",
+      "arrive opposé",
+      "arrive incorrect"
+    ],
+    "examples": [
+      "I often need to arrive in daily life.",
+      "They decided to arrive after thinking about it."
     ]
   },
-  "ask": {
+  {
     "word": "ask",
-    "lang": "en",
     "definition": "A common English verb meaning 'ask' in various contexts.",
     "translations": [
-      "ask (traduction fran\u00e7aise 1)",
-      "ask (traduction fran\u00e7aise 2)",
-      "ask (traduction fran\u00e7aise 3)"
+      "ask (action)",
+      "ask (sens figuré)",
+      "ask (utilisation commune)"
     ],
-    "main_translation": "ask (traduction fran\u00e7aise 1)",
+    "main_translation": "ask (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non ask",
+      "ask opposé",
+      "ask incorrect"
+    ],
+    "examples": [
+      "I often need to ask in daily life.",
+      "They decided to ask after thinking about it."
     ]
   },
-  "avoid": {
+  {
     "word": "avoid",
-    "lang": "en",
     "definition": "A common English verb meaning 'avoid' in various contexts.",
     "translations": [
-      "avoid (traduction fran\u00e7aise 1)",
-      "avoid (traduction fran\u00e7aise 2)",
-      "avoid (traduction fran\u00e7aise 3)"
+      "éviter",
+      "fuir",
+      "contourner"
     ],
-    "main_translation": "avoid (traduction fran\u00e7aise 1)",
+    "main_translation": "éviter",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non avoid",
+      "avoid opposé",
+      "avoid incorrect"
+    ],
+    "examples": [
+      "I often need to avoid in daily life.",
+      "They decided to avoid after thinking about it."
     ]
   },
-  "become": {
+  {
     "word": "become",
-    "lang": "en",
     "definition": "A common English verb meaning 'become' in various contexts.",
     "translations": [
-      "become (traduction fran\u00e7aise 1)",
-      "become (traduction fran\u00e7aise 2)",
-      "become (traduction fran\u00e7aise 3)"
+      "become (action)",
+      "become (sens figuré)",
+      "become (utilisation commune)"
     ],
-    "main_translation": "become (traduction fran\u00e7aise 1)",
+    "main_translation": "become (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non become",
+      "become opposé",
+      "become incorrect"
+    ],
+    "examples": [
+      "I often need to become in daily life.",
+      "They decided to become after thinking about it."
     ]
   },
-  "begin": {
+  {
     "word": "begin",
-    "lang": "en",
     "definition": "A common English verb meaning 'begin' in various contexts.",
     "translations": [
-      "begin (traduction fran\u00e7aise 1)",
-      "begin (traduction fran\u00e7aise 2)",
-      "begin (traduction fran\u00e7aise 3)"
+      "begin (action)",
+      "begin (sens figuré)",
+      "begin (utilisation commune)"
     ],
-    "main_translation": "begin (traduction fran\u00e7aise 1)",
+    "main_translation": "begin (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non begin",
+      "begin opposé",
+      "begin incorrect"
+    ],
+    "examples": [
+      "I often need to begin in daily life.",
+      "They decided to begin after thinking about it."
     ]
   },
-  "believe": {
+  {
     "word": "believe",
-    "lang": "en",
     "definition": "A common English verb meaning 'believe' in various contexts.",
     "translations": [
-      "believe (traduction fran\u00e7aise 1)",
-      "believe (traduction fran\u00e7aise 2)",
-      "believe (traduction fran\u00e7aise 3)"
+      "believe (action)",
+      "believe (sens figuré)",
+      "believe (utilisation commune)"
     ],
-    "main_translation": "believe (traduction fran\u00e7aise 1)",
+    "main_translation": "believe (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non believe",
+      "believe opposé",
+      "believe incorrect"
+    ],
+    "examples": [
+      "I often need to believe in daily life.",
+      "They decided to believe after thinking about it."
     ]
   },
-  "build": {
+  {
     "word": "build",
-    "lang": "en",
     "definition": "A common English verb meaning 'build' in various contexts.",
     "translations": [
-      "build (traduction fran\u00e7aise 1)",
-      "build (traduction fran\u00e7aise 2)",
-      "build (traduction fran\u00e7aise 3)"
+      "build (action)",
+      "build (sens figuré)",
+      "build (utilisation commune)"
     ],
-    "main_translation": "build (traduction fran\u00e7aise 1)",
+    "main_translation": "build (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non build",
+      "build opposé",
+      "build incorrect"
+    ],
+    "examples": [
+      "I often need to build in daily life.",
+      "They decided to build after thinking about it."
     ]
   },
-  "bring": {
+  {
     "word": "bring",
-    "lang": "en",
     "definition": "A common English verb meaning 'bring' in various contexts.",
     "translations": [
-      "bring (traduction fran\u00e7aise 1)",
-      "bring (traduction fran\u00e7aise 2)",
-      "bring (traduction fran\u00e7aise 3)"
+      "bring (action)",
+      "bring (sens figuré)",
+      "bring (utilisation commune)"
     ],
-    "main_translation": "bring (traduction fran\u00e7aise 1)",
+    "main_translation": "bring (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non bring",
+      "bring opposé",
+      "bring incorrect"
+    ],
+    "examples": [
+      "I often need to bring in daily life.",
+      "They decided to bring after thinking about it."
     ]
   },
-  "buy": {
+  {
     "word": "buy",
-    "lang": "en",
     "definition": "A common English verb meaning 'buy' in various contexts.",
     "translations": [
-      "buy (traduction fran\u00e7aise 1)",
-      "buy (traduction fran\u00e7aise 2)",
-      "buy (traduction fran\u00e7aise 3)"
+      "buy (action)",
+      "buy (sens figuré)",
+      "buy (utilisation commune)"
     ],
-    "main_translation": "buy (traduction fran\u00e7aise 1)",
+    "main_translation": "buy (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non buy",
+      "buy opposé",
+      "buy incorrect"
+    ],
+    "examples": [
+      "I often need to buy in daily life.",
+      "They decided to buy after thinking about it."
     ]
   },
-  "call": {
+  {
     "word": "call",
-    "lang": "en",
     "definition": "A common English verb meaning 'call' in various contexts.",
     "translations": [
-      "call (traduction fran\u00e7aise 1)",
-      "call (traduction fran\u00e7aise 2)",
-      "call (traduction fran\u00e7aise 3)"
+      "call (action)",
+      "call (sens figuré)",
+      "call (utilisation commune)"
     ],
-    "main_translation": "call (traduction fran\u00e7aise 1)",
+    "main_translation": "call (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non call",
+      "call opposé",
+      "call incorrect"
+    ],
+    "examples": [
+      "I often need to call in daily life.",
+      "They decided to call after thinking about it."
     ]
   },
-  "carry": {
+  {
     "word": "carry",
-    "lang": "en",
     "definition": "A common English verb meaning 'carry' in various contexts.",
     "translations": [
-      "carry (traduction fran\u00e7aise 1)",
-      "carry (traduction fran\u00e7aise 2)",
-      "carry (traduction fran\u00e7aise 3)"
+      "carry (action)",
+      "carry (sens figuré)",
+      "carry (utilisation commune)"
     ],
-    "main_translation": "carry (traduction fran\u00e7aise 1)",
+    "main_translation": "carry (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non carry",
+      "carry opposé",
+      "carry incorrect"
+    ],
+    "examples": [
+      "I often need to carry in daily life.",
+      "They decided to carry after thinking about it."
     ]
   },
-  "change": {
+  {
     "word": "change",
-    "lang": "en",
     "definition": "A common English verb meaning 'change' in various contexts.",
     "translations": [
-      "change (traduction fran\u00e7aise 1)",
-      "change (traduction fran\u00e7aise 2)",
-      "change (traduction fran\u00e7aise 3)"
+      "change (action)",
+      "change (sens figuré)",
+      "change (utilisation commune)"
     ],
-    "main_translation": "change (traduction fran\u00e7aise 1)",
+    "main_translation": "change (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non change",
+      "change opposé",
+      "change incorrect"
+    ],
+    "examples": [
+      "I often need to change in daily life.",
+      "They decided to change after thinking about it."
     ]
   },
-  "choose": {
+  {
     "word": "choose",
-    "lang": "en",
     "definition": "A common English verb meaning 'choose' in various contexts.",
     "translations": [
-      "choose (traduction fran\u00e7aise 1)",
-      "choose (traduction fran\u00e7aise 2)",
-      "choose (traduction fran\u00e7aise 3)"
+      "choose (action)",
+      "choose (sens figuré)",
+      "choose (utilisation commune)"
     ],
-    "main_translation": "choose (traduction fran\u00e7aise 1)",
+    "main_translation": "choose (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non choose",
+      "choose opposé",
+      "choose incorrect"
+    ],
+    "examples": [
+      "I often need to choose in daily life.",
+      "They decided to choose after thinking about it."
     ]
   },
-  "clean": {
+  {
     "word": "clean",
-    "lang": "en",
     "definition": "A common English verb meaning 'clean' in various contexts.",
     "translations": [
-      "clean (traduction fran\u00e7aise 1)",
-      "clean (traduction fran\u00e7aise 2)",
-      "clean (traduction fran\u00e7aise 3)"
+      "clean (action)",
+      "clean (sens figuré)",
+      "clean (utilisation commune)"
     ],
-    "main_translation": "clean (traduction fran\u00e7aise 1)",
+    "main_translation": "clean (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non clean",
+      "clean opposé",
+      "clean incorrect"
+    ],
+    "examples": [
+      "I often need to clean in daily life.",
+      "They decided to clean after thinking about it."
     ]
   },
-  "close": {
+  {
     "word": "close",
-    "lang": "en",
     "definition": "A common English verb meaning 'close' in various contexts.",
     "translations": [
-      "close (traduction fran\u00e7aise 1)",
-      "close (traduction fran\u00e7aise 2)",
-      "close (traduction fran\u00e7aise 3)"
+      "close (action)",
+      "close (sens figuré)",
+      "close (utilisation commune)"
     ],
-    "main_translation": "close (traduction fran\u00e7aise 1)",
+    "main_translation": "close (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non close",
+      "close opposé",
+      "close incorrect"
+    ],
+    "examples": [
+      "I often need to close in daily life.",
+      "They decided to close after thinking about it."
     ]
   },
-  "come": {
+  {
     "word": "come",
-    "lang": "en",
     "definition": "A common English verb meaning 'come' in various contexts.",
     "translations": [
-      "come (traduction fran\u00e7aise 1)",
-      "come (traduction fran\u00e7aise 2)",
-      "come (traduction fran\u00e7aise 3)"
+      "come (action)",
+      "come (sens figuré)",
+      "come (utilisation commune)"
     ],
-    "main_translation": "come (traduction fran\u00e7aise 1)",
+    "main_translation": "come (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non come",
+      "come opposé",
+      "come incorrect"
+    ],
+    "examples": [
+      "I often need to come in daily life.",
+      "They decided to come after thinking about it."
     ]
   },
-  "compare": {
+  {
     "word": "compare",
-    "lang": "en",
     "definition": "A common English verb meaning 'compare' in various contexts.",
     "translations": [
-      "compare (traduction fran\u00e7aise 1)",
-      "compare (traduction fran\u00e7aise 2)",
-      "compare (traduction fran\u00e7aise 3)"
+      "compare (action)",
+      "compare (sens figuré)",
+      "compare (utilisation commune)"
     ],
-    "main_translation": "compare (traduction fran\u00e7aise 1)",
+    "main_translation": "compare (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non compare",
+      "compare opposé",
+      "compare incorrect"
+    ],
+    "examples": [
+      "I often need to compare in daily life.",
+      "They decided to compare after thinking about it."
     ]
   },
-  "consider": {
+  {
     "word": "consider",
-    "lang": "en",
     "definition": "A common English verb meaning 'consider' in various contexts.",
     "translations": [
-      "consider (traduction fran\u00e7aise 1)",
-      "consider (traduction fran\u00e7aise 2)",
-      "consider (traduction fran\u00e7aise 3)"
+      "consider (action)",
+      "consider (sens figuré)",
+      "consider (utilisation commune)"
     ],
-    "main_translation": "consider (traduction fran\u00e7aise 1)",
+    "main_translation": "consider (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non consider",
+      "consider opposé",
+      "consider incorrect"
+    ],
+    "examples": [
+      "I often need to consider in daily life.",
+      "They decided to consider after thinking about it."
     ]
   },
-  "continue": {
+  {
     "word": "continue",
-    "lang": "en",
     "definition": "A common English verb meaning 'continue' in various contexts.",
     "translations": [
-      "continue (traduction fran\u00e7aise 1)",
-      "continue (traduction fran\u00e7aise 2)",
-      "continue (traduction fran\u00e7aise 3)"
+      "continue (action)",
+      "continue (sens figuré)",
+      "continue (utilisation commune)"
     ],
-    "main_translation": "continue (traduction fran\u00e7aise 1)",
+    "main_translation": "continue (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non continue",
+      "continue opposé",
+      "continue incorrect"
+    ],
+    "examples": [
+      "I often need to continue in daily life.",
+      "They decided to continue after thinking about it."
     ]
   },
-  "control": {
+  {
     "word": "control",
-    "lang": "en",
     "definition": "A common English verb meaning 'control' in various contexts.",
     "translations": [
-      "control (traduction fran\u00e7aise 1)",
-      "control (traduction fran\u00e7aise 2)",
-      "control (traduction fran\u00e7aise 3)"
+      "control (action)",
+      "control (sens figuré)",
+      "control (utilisation commune)"
     ],
-    "main_translation": "control (traduction fran\u00e7aise 1)",
+    "main_translation": "control (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non control",
+      "control opposé",
+      "control incorrect"
+    ],
+    "examples": [
+      "I often need to control in daily life.",
+      "They decided to control after thinking about it."
     ]
   },
-  "cook": {
+  {
     "word": "cook",
-    "lang": "en",
     "definition": "A common English verb meaning 'cook' in various contexts.",
     "translations": [
-      "cook (traduction fran\u00e7aise 1)",
-      "cook (traduction fran\u00e7aise 2)",
-      "cook (traduction fran\u00e7aise 3)"
+      "cook (action)",
+      "cook (sens figuré)",
+      "cook (utilisation commune)"
     ],
-    "main_translation": "cook (traduction fran\u00e7aise 1)",
+    "main_translation": "cook (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non cook",
+      "cook opposé",
+      "cook incorrect"
+    ],
+    "examples": [
+      "I often need to cook in daily life.",
+      "They decided to cook after thinking about it."
     ]
   },
-  "create": {
+  {
     "word": "create",
-    "lang": "en",
     "definition": "A common English verb meaning 'create' in various contexts.",
     "translations": [
-      "create (traduction fran\u00e7aise 1)",
-      "create (traduction fran\u00e7aise 2)",
-      "create (traduction fran\u00e7aise 3)"
+      "create (action)",
+      "create (sens figuré)",
+      "create (utilisation commune)"
     ],
-    "main_translation": "create (traduction fran\u00e7aise 1)",
+    "main_translation": "create (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non create",
+      "create opposé",
+      "create incorrect"
+    ],
+    "examples": [
+      "I often need to create in daily life.",
+      "They decided to create after thinking about it."
     ]
   },
-  "cut": {
+  {
     "word": "cut",
-    "lang": "en",
     "definition": "A common English verb meaning 'cut' in various contexts.",
     "translations": [
-      "cut (traduction fran\u00e7aise 1)",
-      "cut (traduction fran\u00e7aise 2)",
-      "cut (traduction fran\u00e7aise 3)"
+      "cut (action)",
+      "cut (sens figuré)",
+      "cut (utilisation commune)"
     ],
-    "main_translation": "cut (traduction fran\u00e7aise 1)",
+    "main_translation": "cut (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non cut",
+      "cut opposé",
+      "cut incorrect"
+    ],
+    "examples": [
+      "I often need to cut in daily life.",
+      "They decided to cut after thinking about it."
     ]
   },
-  "decide": {
+  {
     "word": "decide",
-    "lang": "en",
     "definition": "A common English verb meaning 'decide' in various contexts.",
     "translations": [
-      "decide (traduction fran\u00e7aise 1)",
-      "decide (traduction fran\u00e7aise 2)",
-      "decide (traduction fran\u00e7aise 3)"
+      "decide (action)",
+      "decide (sens figuré)",
+      "decide (utilisation commune)"
     ],
-    "main_translation": "decide (traduction fran\u00e7aise 1)",
+    "main_translation": "decide (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non decide",
+      "decide opposé",
+      "decide incorrect"
+    ],
+    "examples": [
+      "I often need to decide in daily life.",
+      "They decided to decide after thinking about it."
     ]
   },
-  "deliver": {
+  {
     "word": "deliver",
-    "lang": "en",
     "definition": "A common English verb meaning 'deliver' in various contexts.",
     "translations": [
-      "deliver (traduction fran\u00e7aise 1)",
-      "deliver (traduction fran\u00e7aise 2)",
-      "deliver (traduction fran\u00e7aise 3)"
+      "deliver (action)",
+      "deliver (sens figuré)",
+      "deliver (utilisation commune)"
     ],
-    "main_translation": "deliver (traduction fran\u00e7aise 1)",
+    "main_translation": "deliver (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non deliver",
+      "deliver opposé",
+      "deliver incorrect"
+    ],
+    "examples": [
+      "I often need to deliver in daily life.",
+      "They decided to deliver after thinking about it."
     ]
   },
-  "describe": {
+  {
     "word": "describe",
-    "lang": "en",
     "definition": "A common English verb meaning 'describe' in various contexts.",
     "translations": [
-      "describe (traduction fran\u00e7aise 1)",
-      "describe (traduction fran\u00e7aise 2)",
-      "describe (traduction fran\u00e7aise 3)"
+      "describe (action)",
+      "describe (sens figuré)",
+      "describe (utilisation commune)"
     ],
-    "main_translation": "describe (traduction fran\u00e7aise 1)",
+    "main_translation": "describe (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non describe",
+      "describe opposé",
+      "describe incorrect"
+    ],
+    "examples": [
+      "I often need to describe in daily life.",
+      "They decided to describe after thinking about it."
     ]
   },
-  "design": {
+  {
     "word": "design",
-    "lang": "en",
     "definition": "A common English verb meaning 'design' in various contexts.",
     "translations": [
-      "design (traduction fran\u00e7aise 1)",
-      "design (traduction fran\u00e7aise 2)",
-      "design (traduction fran\u00e7aise 3)"
+      "design (action)",
+      "design (sens figuré)",
+      "design (utilisation commune)"
     ],
-    "main_translation": "design (traduction fran\u00e7aise 1)",
+    "main_translation": "design (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non design",
+      "design opposé",
+      "design incorrect"
+    ],
+    "examples": [
+      "I often need to design in daily life.",
+      "They decided to design after thinking about it."
     ]
   },
-  "develop": {
+  {
     "word": "develop",
-    "lang": "en",
     "definition": "A common English verb meaning 'develop' in various contexts.",
     "translations": [
-      "develop (traduction fran\u00e7aise 1)",
-      "develop (traduction fran\u00e7aise 2)",
-      "develop (traduction fran\u00e7aise 3)"
+      "develop (action)",
+      "develop (sens figuré)",
+      "develop (utilisation commune)"
     ],
-    "main_translation": "develop (traduction fran\u00e7aise 1)",
+    "main_translation": "develop (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non develop",
+      "develop opposé",
+      "develop incorrect"
+    ],
+    "examples": [
+      "I often need to develop in daily life.",
+      "They decided to develop after thinking about it."
     ]
   },
-  "discover": {
+  {
     "word": "discover",
-    "lang": "en",
     "definition": "A common English verb meaning 'discover' in various contexts.",
     "translations": [
-      "discover (traduction fran\u00e7aise 1)",
-      "discover (traduction fran\u00e7aise 2)",
-      "discover (traduction fran\u00e7aise 3)"
+      "discover (action)",
+      "discover (sens figuré)",
+      "discover (utilisation commune)"
     ],
-    "main_translation": "discover (traduction fran\u00e7aise 1)",
+    "main_translation": "discover (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non discover",
+      "discover opposé",
+      "discover incorrect"
+    ],
+    "examples": [
+      "I often need to discover in daily life.",
+      "They decided to discover after thinking about it."
     ]
   },
-  "discuss": {
+  {
     "word": "discuss",
-    "lang": "en",
     "definition": "A common English verb meaning 'discuss' in various contexts.",
     "translations": [
-      "discuss (traduction fran\u00e7aise 1)",
-      "discuss (traduction fran\u00e7aise 2)",
-      "discuss (traduction fran\u00e7aise 3)"
+      "discuss (action)",
+      "discuss (sens figuré)",
+      "discuss (utilisation commune)"
     ],
-    "main_translation": "discuss (traduction fran\u00e7aise 1)",
+    "main_translation": "discuss (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non discuss",
+      "discuss opposé",
+      "discuss incorrect"
+    ],
+    "examples": [
+      "I often need to discuss in daily life.",
+      "They decided to discuss after thinking about it."
     ]
   },
-  "drive": {
+  {
     "word": "drive",
-    "lang": "en",
     "definition": "A common English verb meaning 'drive' in various contexts.",
     "translations": [
-      "drive (traduction fran\u00e7aise 1)",
-      "drive (traduction fran\u00e7aise 2)",
-      "drive (traduction fran\u00e7aise 3)"
+      "drive (action)",
+      "drive (sens figuré)",
+      "drive (utilisation commune)"
     ],
-    "main_translation": "drive (traduction fran\u00e7aise 1)",
+    "main_translation": "drive (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non drive",
+      "drive opposé",
+      "drive incorrect"
+    ],
+    "examples": [
+      "I often need to drive in daily life.",
+      "They decided to drive after thinking about it."
     ]
   },
-  "eat": {
+  {
     "word": "eat",
-    "lang": "en",
     "definition": "A common English verb meaning 'eat' in various contexts.",
     "translations": [
-      "eat (traduction fran\u00e7aise 1)",
-      "eat (traduction fran\u00e7aise 2)",
-      "eat (traduction fran\u00e7aise 3)"
+      "eat (action)",
+      "eat (sens figuré)",
+      "eat (utilisation commune)"
     ],
-    "main_translation": "eat (traduction fran\u00e7aise 1)",
+    "main_translation": "eat (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non eat",
+      "eat opposé",
+      "eat incorrect"
+    ],
+    "examples": [
+      "I often need to eat in daily life.",
+      "They decided to eat after thinking about it."
     ]
   },
-  "enjoy": {
+  {
     "word": "enjoy",
-    "lang": "en",
     "definition": "A common English verb meaning 'enjoy' in various contexts.",
     "translations": [
-      "enjoy (traduction fran\u00e7aise 1)",
-      "enjoy (traduction fran\u00e7aise 2)",
-      "enjoy (traduction fran\u00e7aise 3)"
+      "enjoy (action)",
+      "enjoy (sens figuré)",
+      "enjoy (utilisation commune)"
     ],
-    "main_translation": "enjoy (traduction fran\u00e7aise 1)",
+    "main_translation": "enjoy (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non enjoy",
+      "enjoy opposé",
+      "enjoy incorrect"
+    ],
+    "examples": [
+      "I often need to enjoy in daily life.",
+      "They decided to enjoy after thinking about it."
     ]
   },
-  "explain": {
+  {
     "word": "explain",
-    "lang": "en",
     "definition": "A common English verb meaning 'explain' in various contexts.",
     "translations": [
-      "explain (traduction fran\u00e7aise 1)",
-      "explain (traduction fran\u00e7aise 2)",
-      "explain (traduction fran\u00e7aise 3)"
+      "explain (action)",
+      "explain (sens figuré)",
+      "explain (utilisation commune)"
     ],
-    "main_translation": "explain (traduction fran\u00e7aise 1)",
+    "main_translation": "explain (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non explain",
+      "explain opposé",
+      "explain incorrect"
+    ],
+    "examples": [
+      "I often need to explain in daily life.",
+      "They decided to explain after thinking about it."
     ]
   },
-  "fall": {
+  {
     "word": "fall",
-    "lang": "en",
     "definition": "A common English verb meaning 'fall' in various contexts.",
     "translations": [
-      "fall (traduction fran\u00e7aise 1)",
-      "fall (traduction fran\u00e7aise 2)",
-      "fall (traduction fran\u00e7aise 3)"
+      "fall (action)",
+      "fall (sens figuré)",
+      "fall (utilisation commune)"
     ],
-    "main_translation": "fall (traduction fran\u00e7aise 1)",
+    "main_translation": "fall (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non fall",
+      "fall opposé",
+      "fall incorrect"
+    ],
+    "examples": [
+      "I often need to fall in daily life.",
+      "They decided to fall after thinking about it."
     ]
   },
-  "feel": {
+  {
     "word": "feel",
-    "lang": "en",
     "definition": "A common English verb meaning 'feel' in various contexts.",
     "translations": [
-      "feel (traduction fran\u00e7aise 1)",
-      "feel (traduction fran\u00e7aise 2)",
-      "feel (traduction fran\u00e7aise 3)"
+      "feel (action)",
+      "feel (sens figuré)",
+      "feel (utilisation commune)"
     ],
-    "main_translation": "feel (traduction fran\u00e7aise 1)",
+    "main_translation": "feel (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non feel",
+      "feel opposé",
+      "feel incorrect"
+    ],
+    "examples": [
+      "I often need to feel in daily life.",
+      "They decided to feel after thinking about it."
     ]
   },
-  "find": {
+  {
     "word": "find",
-    "lang": "en",
     "definition": "A common English verb meaning 'find' in various contexts.",
     "translations": [
-      "find (traduction fran\u00e7aise 1)",
-      "find (traduction fran\u00e7aise 2)",
-      "find (traduction fran\u00e7aise 3)"
+      "find (action)",
+      "find (sens figuré)",
+      "find (utilisation commune)"
     ],
-    "main_translation": "find (traduction fran\u00e7aise 1)",
+    "main_translation": "find (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non find",
+      "find opposé",
+      "find incorrect"
+    ],
+    "examples": [
+      "I often need to find in daily life.",
+      "They decided to find after thinking about it."
     ]
   },
-  "finish": {
+  {
     "word": "finish",
-    "lang": "en",
     "definition": "A common English verb meaning 'finish' in various contexts.",
     "translations": [
-      "finish (traduction fran\u00e7aise 1)",
-      "finish (traduction fran\u00e7aise 2)",
-      "finish (traduction fran\u00e7aise 3)"
+      "finish (action)",
+      "finish (sens figuré)",
+      "finish (utilisation commune)"
     ],
-    "main_translation": "finish (traduction fran\u00e7aise 1)",
+    "main_translation": "finish (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non finish",
+      "finish opposé",
+      "finish incorrect"
+    ],
+    "examples": [
+      "I often need to finish in daily life.",
+      "They decided to finish after thinking about it."
     ]
   },
-  "follow": {
+  {
     "word": "follow",
-    "lang": "en",
     "definition": "A common English verb meaning 'follow' in various contexts.",
     "translations": [
-      "follow (traduction fran\u00e7aise 1)",
-      "follow (traduction fran\u00e7aise 2)",
-      "follow (traduction fran\u00e7aise 3)"
+      "follow (action)",
+      "follow (sens figuré)",
+      "follow (utilisation commune)"
     ],
-    "main_translation": "follow (traduction fran\u00e7aise 1)",
+    "main_translation": "follow (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non follow",
+      "follow opposé",
+      "follow incorrect"
+    ],
+    "examples": [
+      "I often need to follow in daily life.",
+      "They decided to follow after thinking about it."
     ]
   },
-  "forget": {
+  {
     "word": "forget",
-    "lang": "en",
     "definition": "A common English verb meaning 'forget' in various contexts.",
     "translations": [
-      "forget (traduction fran\u00e7aise 1)",
-      "forget (traduction fran\u00e7aise 2)",
-      "forget (traduction fran\u00e7aise 3)"
+      "forget (action)",
+      "forget (sens figuré)",
+      "forget (utilisation commune)"
     ],
-    "main_translation": "forget (traduction fran\u00e7aise 1)",
+    "main_translation": "forget (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non forget",
+      "forget opposé",
+      "forget incorrect"
+    ],
+    "examples": [
+      "I often need to forget in daily life.",
+      "They decided to forget after thinking about it."
     ]
   },
-  "get": {
+  {
     "word": "get",
-    "lang": "en",
     "definition": "A common English verb meaning 'get' in various contexts.",
     "translations": [
-      "get (traduction fran\u00e7aise 1)",
-      "get (traduction fran\u00e7aise 2)",
-      "get (traduction fran\u00e7aise 3)"
+      "get (action)",
+      "get (sens figuré)",
+      "get (utilisation commune)"
     ],
-    "main_translation": "get (traduction fran\u00e7aise 1)",
+    "main_translation": "get (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non get",
+      "get opposé",
+      "get incorrect"
+    ],
+    "examples": [
+      "I often need to get in daily life.",
+      "They decided to get after thinking about it."
     ]
   },
-  "give": {
+  {
     "word": "give",
-    "lang": "en",
     "definition": "A common English verb meaning 'give' in various contexts.",
     "translations": [
-      "give (traduction fran\u00e7aise 1)",
-      "give (traduction fran\u00e7aise 2)",
-      "give (traduction fran\u00e7aise 3)"
+      "give (action)",
+      "give (sens figuré)",
+      "give (utilisation commune)"
     ],
-    "main_translation": "give (traduction fran\u00e7aise 1)",
+    "main_translation": "give (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non give",
+      "give opposé",
+      "give incorrect"
+    ],
+    "examples": [
+      "I often need to give in daily life.",
+      "They decided to give after thinking about it."
     ]
   },
-  "go": {
+  {
     "word": "go",
-    "lang": "en",
     "definition": "A common English verb meaning 'go' in various contexts.",
     "translations": [
-      "go (traduction fran\u00e7aise 1)",
-      "go (traduction fran\u00e7aise 2)",
-      "go (traduction fran\u00e7aise 3)"
+      "go (action)",
+      "go (sens figuré)",
+      "go (utilisation commune)"
     ],
-    "main_translation": "go (traduction fran\u00e7aise 1)",
+    "main_translation": "go (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non go",
+      "go opposé",
+      "go incorrect"
+    ],
+    "examples": [
+      "I often need to go in daily life.",
+      "They decided to go after thinking about it."
     ]
   },
-  "grow": {
+  {
     "word": "grow",
-    "lang": "en",
     "definition": "A common English verb meaning 'grow' in various contexts.",
     "translations": [
-      "grow (traduction fran\u00e7aise 1)",
-      "grow (traduction fran\u00e7aise 2)",
-      "grow (traduction fran\u00e7aise 3)"
+      "grow (action)",
+      "grow (sens figuré)",
+      "grow (utilisation commune)"
     ],
-    "main_translation": "grow (traduction fran\u00e7aise 1)",
+    "main_translation": "grow (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non grow",
+      "grow opposé",
+      "grow incorrect"
+    ],
+    "examples": [
+      "I often need to grow in daily life.",
+      "They decided to grow after thinking about it."
     ]
   },
-  "happen": {
+  {
     "word": "happen",
-    "lang": "en",
     "definition": "A common English verb meaning 'happen' in various contexts.",
     "translations": [
-      "happen (traduction fran\u00e7aise 1)",
-      "happen (traduction fran\u00e7aise 2)",
-      "happen (traduction fran\u00e7aise 3)"
+      "happen (action)",
+      "happen (sens figuré)",
+      "happen (utilisation commune)"
     ],
-    "main_translation": "happen (traduction fran\u00e7aise 1)",
+    "main_translation": "happen (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non happen",
+      "happen opposé",
+      "happen incorrect"
+    ],
+    "examples": [
+      "I often need to happen in daily life.",
+      "They decided to happen after thinking about it."
     ]
   },
-  "have": {
+  {
     "word": "have",
-    "lang": "en",
     "definition": "A common English verb meaning 'have' in various contexts.",
     "translations": [
-      "have (traduction fran\u00e7aise 1)",
-      "have (traduction fran\u00e7aise 2)",
-      "have (traduction fran\u00e7aise 3)"
+      "have (action)",
+      "have (sens figuré)",
+      "have (utilisation commune)"
     ],
-    "main_translation": "have (traduction fran\u00e7aise 1)",
+    "main_translation": "have (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non have",
+      "have opposé",
+      "have incorrect"
+    ],
+    "examples": [
+      "I often need to have in daily life.",
+      "They decided to have after thinking about it."
     ]
   },
-  "hear": {
+  {
     "word": "hear",
-    "lang": "en",
     "definition": "A common English verb meaning 'hear' in various contexts.",
     "translations": [
-      "hear (traduction fran\u00e7aise 1)",
-      "hear (traduction fran\u00e7aise 2)",
-      "hear (traduction fran\u00e7aise 3)"
+      "hear (action)",
+      "hear (sens figuré)",
+      "hear (utilisation commune)"
     ],
-    "main_translation": "hear (traduction fran\u00e7aise 1)",
+    "main_translation": "hear (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non hear",
+      "hear opposé",
+      "hear incorrect"
+    ],
+    "examples": [
+      "I often need to hear in daily life.",
+      "They decided to hear after thinking about it."
     ]
   },
-  "help": {
+  {
     "word": "help",
-    "lang": "en",
     "definition": "A common English verb meaning 'help' in various contexts.",
     "translations": [
-      "help (traduction fran\u00e7aise 1)",
-      "help (traduction fran\u00e7aise 2)",
-      "help (traduction fran\u00e7aise 3)"
+      "help (action)",
+      "help (sens figuré)",
+      "help (utilisation commune)"
     ],
-    "main_translation": "help (traduction fran\u00e7aise 1)",
+    "main_translation": "help (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non help",
+      "help opposé",
+      "help incorrect"
+    ],
+    "examples": [
+      "I often need to help in daily life.",
+      "They decided to help after thinking about it."
     ]
   },
-  "hold": {
+  {
     "word": "hold",
-    "lang": "en",
     "definition": "A common English verb meaning 'hold' in various contexts.",
     "translations": [
-      "hold (traduction fran\u00e7aise 1)",
-      "hold (traduction fran\u00e7aise 2)",
-      "hold (traduction fran\u00e7aise 3)"
+      "hold (action)",
+      "hold (sens figuré)",
+      "hold (utilisation commune)"
     ],
-    "main_translation": "hold (traduction fran\u00e7aise 1)",
+    "main_translation": "hold (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non hold",
+      "hold opposé",
+      "hold incorrect"
+    ],
+    "examples": [
+      "I often need to hold in daily life.",
+      "They decided to hold after thinking about it."
     ]
   },
-  "hope": {
+  {
     "word": "hope",
-    "lang": "en",
     "definition": "A common English verb meaning 'hope' in various contexts.",
     "translations": [
-      "hope (traduction fran\u00e7aise 1)",
-      "hope (traduction fran\u00e7aise 2)",
-      "hope (traduction fran\u00e7aise 3)"
+      "hope (action)",
+      "hope (sens figuré)",
+      "hope (utilisation commune)"
     ],
-    "main_translation": "hope (traduction fran\u00e7aise 1)",
+    "main_translation": "hope (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non hope",
+      "hope opposé",
+      "hope incorrect"
+    ],
+    "examples": [
+      "I often need to hope in daily life.",
+      "They decided to hope after thinking about it."
     ]
   },
-  "improve": {
+  {
     "word": "improve",
-    "lang": "en",
     "definition": "A common English verb meaning 'improve' in various contexts.",
     "translations": [
-      "improve (traduction fran\u00e7aise 1)",
-      "improve (traduction fran\u00e7aise 2)",
-      "improve (traduction fran\u00e7aise 3)"
+      "improve (action)",
+      "improve (sens figuré)",
+      "improve (utilisation commune)"
     ],
-    "main_translation": "improve (traduction fran\u00e7aise 1)",
+    "main_translation": "improve (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non improve",
+      "improve opposé",
+      "improve incorrect"
+    ],
+    "examples": [
+      "I often need to improve in daily life.",
+      "They decided to improve after thinking about it."
     ]
   },
-  "include": {
+  {
     "word": "include",
-    "lang": "en",
     "definition": "A common English verb meaning 'include' in various contexts.",
     "translations": [
-      "include (traduction fran\u00e7aise 1)",
-      "include (traduction fran\u00e7aise 2)",
-      "include (traduction fran\u00e7aise 3)"
+      "include (action)",
+      "include (sens figuré)",
+      "include (utilisation commune)"
     ],
-    "main_translation": "include (traduction fran\u00e7aise 1)",
+    "main_translation": "include (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non include",
+      "include opposé",
+      "include incorrect"
+    ],
+    "examples": [
+      "I often need to include in daily life.",
+      "They decided to include after thinking about it."
     ]
   },
-  "increase": {
+  {
     "word": "increase",
-    "lang": "en",
     "definition": "A common English verb meaning 'increase' in various contexts.",
     "translations": [
-      "increase (traduction fran\u00e7aise 1)",
-      "increase (traduction fran\u00e7aise 2)",
-      "increase (traduction fran\u00e7aise 3)"
+      "increase (action)",
+      "increase (sens figuré)",
+      "increase (utilisation commune)"
     ],
-    "main_translation": "increase (traduction fran\u00e7aise 1)",
+    "main_translation": "increase (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non increase",
+      "increase opposé",
+      "increase incorrect"
+    ],
+    "examples": [
+      "I often need to increase in daily life.",
+      "They decided to increase after thinking about it."
     ]
   },
-  "introduce": {
+  {
     "word": "introduce",
-    "lang": "en",
     "definition": "A common English verb meaning 'introduce' in various contexts.",
     "translations": [
-      "introduce (traduction fran\u00e7aise 1)",
-      "introduce (traduction fran\u00e7aise 2)",
-      "introduce (traduction fran\u00e7aise 3)"
+      "introduce (action)",
+      "introduce (sens figuré)",
+      "introduce (utilisation commune)"
     ],
-    "main_translation": "introduce (traduction fran\u00e7aise 1)",
+    "main_translation": "introduce (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non introduce",
+      "introduce opposé",
+      "introduce incorrect"
+    ],
+    "examples": [
+      "I often need to introduce in daily life.",
+      "They decided to introduce after thinking about it."
     ]
   },
-  "keep": {
+  {
     "word": "keep",
-    "lang": "en",
     "definition": "A common English verb meaning 'keep' in various contexts.",
     "translations": [
-      "keep (traduction fran\u00e7aise 1)",
-      "keep (traduction fran\u00e7aise 2)",
-      "keep (traduction fran\u00e7aise 3)"
+      "keep (action)",
+      "keep (sens figuré)",
+      "keep (utilisation commune)"
     ],
-    "main_translation": "keep (traduction fran\u00e7aise 1)",
+    "main_translation": "keep (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non keep",
+      "keep opposé",
+      "keep incorrect"
+    ],
+    "examples": [
+      "I often need to keep in daily life.",
+      "They decided to keep after thinking about it."
     ]
   },
-  "know": {
+  {
     "word": "know",
-    "lang": "en",
     "definition": "A common English verb meaning 'know' in various contexts.",
     "translations": [
-      "know (traduction fran\u00e7aise 1)",
-      "know (traduction fran\u00e7aise 2)",
-      "know (traduction fran\u00e7aise 3)"
+      "know (action)",
+      "know (sens figuré)",
+      "know (utilisation commune)"
     ],
-    "main_translation": "know (traduction fran\u00e7aise 1)",
+    "main_translation": "know (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non know",
+      "know opposé",
+      "know incorrect"
+    ],
+    "examples": [
+      "I often need to know in daily life.",
+      "They decided to know after thinking about it."
     ]
   },
-  "learn": {
+  {
     "word": "learn",
-    "lang": "en",
     "definition": "A common English verb meaning 'learn' in various contexts.",
     "translations": [
-      "learn (traduction fran\u00e7aise 1)",
-      "learn (traduction fran\u00e7aise 2)",
-      "learn (traduction fran\u00e7aise 3)"
+      "learn (action)",
+      "learn (sens figuré)",
+      "learn (utilisation commune)"
     ],
-    "main_translation": "learn (traduction fran\u00e7aise 1)",
+    "main_translation": "learn (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non learn",
+      "learn opposé",
+      "learn incorrect"
+    ],
+    "examples": [
+      "I often need to learn in daily life.",
+      "They decided to learn after thinking about it."
     ]
   },
-  "leave": {
+  {
     "word": "leave",
-    "lang": "en",
     "definition": "A common English verb meaning 'leave' in various contexts.",
     "translations": [
-      "leave (traduction fran\u00e7aise 1)",
-      "leave (traduction fran\u00e7aise 2)",
-      "leave (traduction fran\u00e7aise 3)"
+      "leave (action)",
+      "leave (sens figuré)",
+      "leave (utilisation commune)"
     ],
-    "main_translation": "leave (traduction fran\u00e7aise 1)",
+    "main_translation": "leave (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non leave",
+      "leave opposé",
+      "leave incorrect"
+    ],
+    "examples": [
+      "I often need to leave in daily life.",
+      "They decided to leave after thinking about it."
     ]
   },
-  "let": {
+  {
     "word": "let",
-    "lang": "en",
     "definition": "A common English verb meaning 'let' in various contexts.",
     "translations": [
-      "let (traduction fran\u00e7aise 1)",
-      "let (traduction fran\u00e7aise 2)",
-      "let (traduction fran\u00e7aise 3)"
+      "let (action)",
+      "let (sens figuré)",
+      "let (utilisation commune)"
     ],
-    "main_translation": "let (traduction fran\u00e7aise 1)",
+    "main_translation": "let (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non let",
+      "let opposé",
+      "let incorrect"
+    ],
+    "examples": [
+      "I often need to let in daily life.",
+      "They decided to let after thinking about it."
     ]
   },
-  "like": {
+  {
     "word": "like",
-    "lang": "en",
     "definition": "A common English verb meaning 'like' in various contexts.",
     "translations": [
-      "like (traduction fran\u00e7aise 1)",
-      "like (traduction fran\u00e7aise 2)",
-      "like (traduction fran\u00e7aise 3)"
+      "like (action)",
+      "like (sens figuré)",
+      "like (utilisation commune)"
     ],
-    "main_translation": "like (traduction fran\u00e7aise 1)",
+    "main_translation": "like (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non like",
+      "like opposé",
+      "like incorrect"
+    ],
+    "examples": [
+      "I often need to like in daily life.",
+      "They decided to like after thinking about it."
     ]
   },
-  "listen": {
+  {
     "word": "listen",
-    "lang": "en",
     "definition": "A common English verb meaning 'listen' in various contexts.",
     "translations": [
-      "listen (traduction fran\u00e7aise 1)",
-      "listen (traduction fran\u00e7aise 2)",
-      "listen (traduction fran\u00e7aise 3)"
+      "listen (action)",
+      "listen (sens figuré)",
+      "listen (utilisation commune)"
     ],
-    "main_translation": "listen (traduction fran\u00e7aise 1)",
+    "main_translation": "listen (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non listen",
+      "listen opposé",
+      "listen incorrect"
+    ],
+    "examples": [
+      "I often need to listen in daily life.",
+      "They decided to listen after thinking about it."
     ]
   },
-  "live": {
+  {
     "word": "live",
-    "lang": "en",
     "definition": "A common English verb meaning 'live' in various contexts.",
     "translations": [
-      "live (traduction fran\u00e7aise 1)",
-      "live (traduction fran\u00e7aise 2)",
-      "live (traduction fran\u00e7aise 3)"
+      "live (action)",
+      "live (sens figuré)",
+      "live (utilisation commune)"
     ],
-    "main_translation": "live (traduction fran\u00e7aise 1)",
+    "main_translation": "live (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non live",
+      "live opposé",
+      "live incorrect"
+    ],
+    "examples": [
+      "I often need to live in daily life.",
+      "They decided to live after thinking about it."
     ]
   },
-  "look": {
+  {
     "word": "look",
-    "lang": "en",
     "definition": "A common English verb meaning 'look' in various contexts.",
     "translations": [
-      "look (traduction fran\u00e7aise 1)",
-      "look (traduction fran\u00e7aise 2)",
-      "look (traduction fran\u00e7aise 3)"
+      "look (action)",
+      "look (sens figuré)",
+      "look (utilisation commune)"
     ],
-    "main_translation": "look (traduction fran\u00e7aise 1)",
+    "main_translation": "look (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non look",
+      "look opposé",
+      "look incorrect"
+    ],
+    "examples": [
+      "I often need to look in daily life.",
+      "They decided to look after thinking about it."
     ]
   },
-  "lose": {
+  {
     "word": "lose",
-    "lang": "en",
     "definition": "A common English verb meaning 'lose' in various contexts.",
     "translations": [
-      "lose (traduction fran\u00e7aise 1)",
-      "lose (traduction fran\u00e7aise 2)",
-      "lose (traduction fran\u00e7aise 3)"
+      "lose (action)",
+      "lose (sens figuré)",
+      "lose (utilisation commune)"
     ],
-    "main_translation": "lose (traduction fran\u00e7aise 1)",
+    "main_translation": "lose (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non lose",
+      "lose opposé",
+      "lose incorrect"
+    ],
+    "examples": [
+      "I often need to lose in daily life.",
+      "They decided to lose after thinking about it."
     ]
   },
-  "love": {
+  {
     "word": "love",
-    "lang": "en",
     "definition": "A common English verb meaning 'love' in various contexts.",
     "translations": [
-      "love (traduction fran\u00e7aise 1)",
-      "love (traduction fran\u00e7aise 2)",
-      "love (traduction fran\u00e7aise 3)"
+      "love (action)",
+      "love (sens figuré)",
+      "love (utilisation commune)"
     ],
-    "main_translation": "love (traduction fran\u00e7aise 1)",
+    "main_translation": "love (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non love",
+      "love opposé",
+      "love incorrect"
+    ],
+    "examples": [
+      "I often need to love in daily life.",
+      "They decided to love after thinking about it."
     ]
   },
-  "make": {
+  {
     "word": "make",
-    "lang": "en",
     "definition": "A common English verb meaning 'make' in various contexts.",
     "translations": [
-      "make (traduction fran\u00e7aise 1)",
-      "make (traduction fran\u00e7aise 2)",
-      "make (traduction fran\u00e7aise 3)"
+      "make (action)",
+      "make (sens figuré)",
+      "make (utilisation commune)"
     ],
-    "main_translation": "make (traduction fran\u00e7aise 1)",
+    "main_translation": "make (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non make",
+      "make opposé",
+      "make incorrect"
+    ],
+    "examples": [
+      "I often need to make in daily life.",
+      "They decided to make after thinking about it."
     ]
   },
-  "manage": {
+  {
     "word": "manage",
-    "lang": "en",
     "definition": "A common English verb meaning 'manage' in various contexts.",
     "translations": [
-      "manage (traduction fran\u00e7aise 1)",
-      "manage (traduction fran\u00e7aise 2)",
-      "manage (traduction fran\u00e7aise 3)"
+      "manage (action)",
+      "manage (sens figuré)",
+      "manage (utilisation commune)"
     ],
-    "main_translation": "manage (traduction fran\u00e7aise 1)",
+    "main_translation": "manage (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non manage",
+      "manage opposé",
+      "manage incorrect"
+    ],
+    "examples": [
+      "I often need to manage in daily life.",
+      "They decided to manage after thinking about it."
     ]
   },
-  "mean": {
+  {
     "word": "mean",
-    "lang": "en",
     "definition": "A common English verb meaning 'mean' in various contexts.",
     "translations": [
-      "mean (traduction fran\u00e7aise 1)",
-      "mean (traduction fran\u00e7aise 2)",
-      "mean (traduction fran\u00e7aise 3)"
+      "mean (action)",
+      "mean (sens figuré)",
+      "mean (utilisation commune)"
     ],
-    "main_translation": "mean (traduction fran\u00e7aise 1)",
+    "main_translation": "mean (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non mean",
+      "mean opposé",
+      "mean incorrect"
+    ],
+    "examples": [
+      "I often need to mean in daily life.",
+      "They decided to mean after thinking about it."
     ]
   },
-  "meet": {
+  {
     "word": "meet",
-    "lang": "en",
     "definition": "A common English verb meaning 'meet' in various contexts.",
     "translations": [
-      "meet (traduction fran\u00e7aise 1)",
-      "meet (traduction fran\u00e7aise 2)",
-      "meet (traduction fran\u00e7aise 3)"
+      "meet (action)",
+      "meet (sens figuré)",
+      "meet (utilisation commune)"
     ],
-    "main_translation": "meet (traduction fran\u00e7aise 1)",
+    "main_translation": "meet (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non meet",
+      "meet opposé",
+      "meet incorrect"
+    ],
+    "examples": [
+      "I often need to meet in daily life.",
+      "They decided to meet after thinking about it."
     ]
   },
-  "move": {
+  {
     "word": "move",
-    "lang": "en",
     "definition": "A common English verb meaning 'move' in various contexts.",
     "translations": [
-      "move (traduction fran\u00e7aise 1)",
-      "move (traduction fran\u00e7aise 2)",
-      "move (traduction fran\u00e7aise 3)"
+      "move (action)",
+      "move (sens figuré)",
+      "move (utilisation commune)"
     ],
-    "main_translation": "move (traduction fran\u00e7aise 1)",
+    "main_translation": "move (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non move",
+      "move opposé",
+      "move incorrect"
+    ],
+    "examples": [
+      "I often need to move in daily life.",
+      "They decided to move after thinking about it."
     ]
   },
-  "need": {
+  {
     "word": "need",
-    "lang": "en",
     "definition": "A common English verb meaning 'need' in various contexts.",
     "translations": [
-      "need (traduction fran\u00e7aise 1)",
-      "need (traduction fran\u00e7aise 2)",
-      "need (traduction fran\u00e7aise 3)"
+      "need (action)",
+      "need (sens figuré)",
+      "need (utilisation commune)"
     ],
-    "main_translation": "need (traduction fran\u00e7aise 1)",
+    "main_translation": "need (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non need",
+      "need opposé",
+      "need incorrect"
+    ],
+    "examples": [
+      "I often need to need in daily life.",
+      "They decided to need after thinking about it."
     ]
   },
-  "open": {
+  {
     "word": "open",
-    "lang": "en",
     "definition": "A common English verb meaning 'open' in various contexts.",
     "translations": [
-      "open (traduction fran\u00e7aise 1)",
-      "open (traduction fran\u00e7aise 2)",
-      "open (traduction fran\u00e7aise 3)"
+      "open (action)",
+      "open (sens figuré)",
+      "open (utilisation commune)"
     ],
-    "main_translation": "open (traduction fran\u00e7aise 1)",
+    "main_translation": "open (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non open",
+      "open opposé",
+      "open incorrect"
+    ],
+    "examples": [
+      "I often need to open in daily life.",
+      "They decided to open after thinking about it."
     ]
   },
-  "order": {
+  {
     "word": "order",
-    "lang": "en",
     "definition": "A common English verb meaning 'order' in various contexts.",
     "translations": [
-      "order (traduction fran\u00e7aise 1)",
-      "order (traduction fran\u00e7aise 2)",
-      "order (traduction fran\u00e7aise 3)"
+      "order (action)",
+      "order (sens figuré)",
+      "order (utilisation commune)"
     ],
-    "main_translation": "order (traduction fran\u00e7aise 1)",
+    "main_translation": "order (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non order",
+      "order opposé",
+      "order incorrect"
+    ],
+    "examples": [
+      "I often need to order in daily life.",
+      "They decided to order after thinking about it."
     ]
   },
-  "pay": {
+  {
     "word": "pay",
-    "lang": "en",
     "definition": "A common English verb meaning 'pay' in various contexts.",
     "translations": [
-      "pay (traduction fran\u00e7aise 1)",
-      "pay (traduction fran\u00e7aise 2)",
-      "pay (traduction fran\u00e7aise 3)"
+      "pay (action)",
+      "pay (sens figuré)",
+      "pay (utilisation commune)"
     ],
-    "main_translation": "pay (traduction fran\u00e7aise 1)",
+    "main_translation": "pay (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non pay",
+      "pay opposé",
+      "pay incorrect"
+    ],
+    "examples": [
+      "I often need to pay in daily life.",
+      "They decided to pay after thinking about it."
     ]
   },
-  "play": {
+  {
     "word": "play",
-    "lang": "en",
     "definition": "A common English verb meaning 'play' in various contexts.",
     "translations": [
-      "play (traduction fran\u00e7aise 1)",
-      "play (traduction fran\u00e7aise 2)",
-      "play (traduction fran\u00e7aise 3)"
+      "play (action)",
+      "play (sens figuré)",
+      "play (utilisation commune)"
     ],
-    "main_translation": "play (traduction fran\u00e7aise 1)",
+    "main_translation": "play (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non play",
+      "play opposé",
+      "play incorrect"
+    ],
+    "examples": [
+      "I often need to play in daily life.",
+      "They decided to play after thinking about it."
     ]
   },
-  "prefer": {
+  {
     "word": "prefer",
-    "lang": "en",
     "definition": "A common English verb meaning 'prefer' in various contexts.",
     "translations": [
-      "prefer (traduction fran\u00e7aise 1)",
-      "prefer (traduction fran\u00e7aise 2)",
-      "prefer (traduction fran\u00e7aise 3)"
+      "prefer (action)",
+      "prefer (sens figuré)",
+      "prefer (utilisation commune)"
     ],
-    "main_translation": "prefer (traduction fran\u00e7aise 1)",
+    "main_translation": "prefer (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non prefer",
+      "prefer opposé",
+      "prefer incorrect"
+    ],
+    "examples": [
+      "I often need to prefer in daily life.",
+      "They decided to prefer after thinking about it."
     ]
   },
-  "prepare": {
+  {
     "word": "prepare",
-    "lang": "en",
     "definition": "A common English verb meaning 'prepare' in various contexts.",
     "translations": [
-      "prepare (traduction fran\u00e7aise 1)",
-      "prepare (traduction fran\u00e7aise 2)",
-      "prepare (traduction fran\u00e7aise 3)"
+      "prepare (action)",
+      "prepare (sens figuré)",
+      "prepare (utilisation commune)"
     ],
-    "main_translation": "prepare (traduction fran\u00e7aise 1)",
+    "main_translation": "prepare (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non prepare",
+      "prepare opposé",
+      "prepare incorrect"
+    ],
+    "examples": [
+      "I often need to prepare in daily life.",
+      "They decided to prepare after thinking about it."
     ]
   },
-  "prevent": {
+  {
     "word": "prevent",
-    "lang": "en",
     "definition": "A common English verb meaning 'prevent' in various contexts.",
     "translations": [
-      "prevent (traduction fran\u00e7aise 1)",
-      "prevent (traduction fran\u00e7aise 2)",
-      "prevent (traduction fran\u00e7aise 3)"
+      "prevent (action)",
+      "prevent (sens figuré)",
+      "prevent (utilisation commune)"
     ],
-    "main_translation": "prevent (traduction fran\u00e7aise 1)",
+    "main_translation": "prevent (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non prevent",
+      "prevent opposé",
+      "prevent incorrect"
+    ],
+    "examples": [
+      "I often need to prevent in daily life.",
+      "They decided to prevent after thinking about it."
     ]
   },
-  "produce": {
+  {
     "word": "produce",
-    "lang": "en",
     "definition": "A common English verb meaning 'produce' in various contexts.",
     "translations": [
-      "produce (traduction fran\u00e7aise 1)",
-      "produce (traduction fran\u00e7aise 2)",
-      "produce (traduction fran\u00e7aise 3)"
+      "produce (action)",
+      "produce (sens figuré)",
+      "produce (utilisation commune)"
     ],
-    "main_translation": "produce (traduction fran\u00e7aise 1)",
+    "main_translation": "produce (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non produce",
+      "produce opposé",
+      "produce incorrect"
+    ],
+    "examples": [
+      "I often need to produce in daily life.",
+      "They decided to produce after thinking about it."
     ]
   },
-  "protect": {
+  {
     "word": "protect",
-    "lang": "en",
     "definition": "A common English verb meaning 'protect' in various contexts.",
     "translations": [
-      "protect (traduction fran\u00e7aise 1)",
-      "protect (traduction fran\u00e7aise 2)",
-      "protect (traduction fran\u00e7aise 3)"
+      "protect (action)",
+      "protect (sens figuré)",
+      "protect (utilisation commune)"
     ],
-    "main_translation": "protect (traduction fran\u00e7aise 1)",
+    "main_translation": "protect (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non protect",
+      "protect opposé",
+      "protect incorrect"
+    ],
+    "examples": [
+      "I often need to protect in daily life.",
+      "They decided to protect after thinking about it."
     ]
   },
-  "prove": {
+  {
     "word": "prove",
-    "lang": "en",
     "definition": "A common English verb meaning 'prove' in various contexts.",
     "translations": [
-      "prove (traduction fran\u00e7aise 1)",
-      "prove (traduction fran\u00e7aise 2)",
-      "prove (traduction fran\u00e7aise 3)"
+      "prove (action)",
+      "prove (sens figuré)",
+      "prove (utilisation commune)"
     ],
-    "main_translation": "prove (traduction fran\u00e7aise 1)",
+    "main_translation": "prove (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non prove",
+      "prove opposé",
+      "prove incorrect"
+    ],
+    "examples": [
+      "I often need to prove in daily life.",
+      "They decided to prove after thinking about it."
     ]
   },
-  "provide": {
+  {
     "word": "provide",
-    "lang": "en",
     "definition": "A common English verb meaning 'provide' in various contexts.",
     "translations": [
-      "provide (traduction fran\u00e7aise 1)",
-      "provide (traduction fran\u00e7aise 2)",
-      "provide (traduction fran\u00e7aise 3)"
+      "provide (action)",
+      "provide (sens figuré)",
+      "provide (utilisation commune)"
     ],
-    "main_translation": "provide (traduction fran\u00e7aise 1)",
+    "main_translation": "provide (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non provide",
+      "provide opposé",
+      "provide incorrect"
+    ],
+    "examples": [
+      "I often need to provide in daily life.",
+      "They decided to provide after thinking about it."
     ]
   },
-  "put": {
+  {
     "word": "put",
-    "lang": "en",
     "definition": "A common English verb meaning 'put' in various contexts.",
     "translations": [
-      "put (traduction fran\u00e7aise 1)",
-      "put (traduction fran\u00e7aise 2)",
-      "put (traduction fran\u00e7aise 3)"
+      "put (action)",
+      "put (sens figuré)",
+      "put (utilisation commune)"
     ],
-    "main_translation": "put (traduction fran\u00e7aise 1)",
+    "main_translation": "put (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non put",
+      "put opposé",
+      "put incorrect"
+    ],
+    "examples": [
+      "I often need to put in daily life.",
+      "They decided to put after thinking about it."
     ]
   },
-  "reach": {
+  {
     "word": "reach",
-    "lang": "en",
     "definition": "A common English verb meaning 'reach' in various contexts.",
     "translations": [
-      "reach (traduction fran\u00e7aise 1)",
-      "reach (traduction fran\u00e7aise 2)",
-      "reach (traduction fran\u00e7aise 3)"
+      "reach (action)",
+      "reach (sens figuré)",
+      "reach (utilisation commune)"
     ],
-    "main_translation": "reach (traduction fran\u00e7aise 1)",
+    "main_translation": "reach (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non reach",
+      "reach opposé",
+      "reach incorrect"
+    ],
+    "examples": [
+      "I often need to reach in daily life.",
+      "They decided to reach after thinking about it."
     ]
   },
-  "read": {
+  {
     "word": "read",
-    "lang": "en",
     "definition": "A common English verb meaning 'read' in various contexts.",
     "translations": [
-      "read (traduction fran\u00e7aise 1)",
-      "read (traduction fran\u00e7aise 2)",
-      "read (traduction fran\u00e7aise 3)"
+      "read (action)",
+      "read (sens figuré)",
+      "read (utilisation commune)"
     ],
-    "main_translation": "read (traduction fran\u00e7aise 1)",
+    "main_translation": "read (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non read",
+      "read opposé",
+      "read incorrect"
+    ],
+    "examples": [
+      "I often need to read in daily life.",
+      "They decided to read after thinking about it."
     ]
   },
-  "receive": {
+  {
     "word": "receive",
-    "lang": "en",
     "definition": "A common English verb meaning 'receive' in various contexts.",
     "translations": [
-      "receive (traduction fran\u00e7aise 1)",
-      "receive (traduction fran\u00e7aise 2)",
-      "receive (traduction fran\u00e7aise 3)"
+      "receive (action)",
+      "receive (sens figuré)",
+      "receive (utilisation commune)"
     ],
-    "main_translation": "receive (traduction fran\u00e7aise 1)",
+    "main_translation": "receive (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non receive",
+      "receive opposé",
+      "receive incorrect"
+    ],
+    "examples": [
+      "I often need to receive in daily life.",
+      "They decided to receive after thinking about it."
     ]
   },
-  "reduce": {
+  {
     "word": "reduce",
-    "lang": "en",
     "definition": "A common English verb meaning 'reduce' in various contexts.",
     "translations": [
-      "reduce (traduction fran\u00e7aise 1)",
-      "reduce (traduction fran\u00e7aise 2)",
-      "reduce (traduction fran\u00e7aise 3)"
+      "reduce (action)",
+      "reduce (sens figuré)",
+      "reduce (utilisation commune)"
     ],
-    "main_translation": "reduce (traduction fran\u00e7aise 1)",
+    "main_translation": "reduce (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non reduce",
+      "reduce opposé",
+      "reduce incorrect"
+    ],
+    "examples": [
+      "I often need to reduce in daily life.",
+      "They decided to reduce after thinking about it."
     ]
   },
-  "remember": {
+  {
     "word": "remember",
-    "lang": "en",
     "definition": "A common English verb meaning 'remember' in various contexts.",
     "translations": [
-      "remember (traduction fran\u00e7aise 1)",
-      "remember (traduction fran\u00e7aise 2)",
-      "remember (traduction fran\u00e7aise 3)"
+      "remember (action)",
+      "remember (sens figuré)",
+      "remember (utilisation commune)"
     ],
-    "main_translation": "remember (traduction fran\u00e7aise 1)",
+    "main_translation": "remember (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non remember",
+      "remember opposé",
+      "remember incorrect"
+    ],
+    "examples": [
+      "I often need to remember in daily life.",
+      "They decided to remember after thinking about it."
     ]
   },
-  "return": {
+  {
     "word": "return",
-    "lang": "en",
     "definition": "A common English verb meaning 'return' in various contexts.",
     "translations": [
-      "return (traduction fran\u00e7aise 1)",
-      "return (traduction fran\u00e7aise 2)",
-      "return (traduction fran\u00e7aise 3)"
+      "return (action)",
+      "return (sens figuré)",
+      "return (utilisation commune)"
     ],
-    "main_translation": "return (traduction fran\u00e7aise 1)",
+    "main_translation": "return (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non return",
+      "return opposé",
+      "return incorrect"
+    ],
+    "examples": [
+      "I often need to return in daily life.",
+      "They decided to return after thinking about it."
     ]
   },
-  "run": {
+  {
     "word": "run",
-    "lang": "en",
     "definition": "A common English verb meaning 'run' in various contexts.",
     "translations": [
-      "run (traduction fran\u00e7aise 1)",
-      "run (traduction fran\u00e7aise 2)",
-      "run (traduction fran\u00e7aise 3)"
+      "run (action)",
+      "run (sens figuré)",
+      "run (utilisation commune)"
     ],
-    "main_translation": "run (traduction fran\u00e7aise 1)",
+    "main_translation": "run (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non run",
+      "run opposé",
+      "run incorrect"
+    ],
+    "examples": [
+      "I often need to run in daily life.",
+      "They decided to run after thinking about it."
     ]
   },
-  "say": {
+  {
     "word": "say",
-    "lang": "en",
     "definition": "A common English verb meaning 'say' in various contexts.",
     "translations": [
-      "say (traduction fran\u00e7aise 1)",
-      "say (traduction fran\u00e7aise 2)",
-      "say (traduction fran\u00e7aise 3)"
+      "say (action)",
+      "say (sens figuré)",
+      "say (utilisation commune)"
     ],
-    "main_translation": "say (traduction fran\u00e7aise 1)",
+    "main_translation": "say (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non say",
+      "say opposé",
+      "say incorrect"
+    ],
+    "examples": [
+      "I often need to say in daily life.",
+      "They decided to say after thinking about it."
     ]
   },
-  "see": {
+  {
     "word": "see",
-    "lang": "en",
     "definition": "A common English verb meaning 'see' in various contexts.",
     "translations": [
-      "see (traduction fran\u00e7aise 1)",
-      "see (traduction fran\u00e7aise 2)",
-      "see (traduction fran\u00e7aise 3)"
+      "see (action)",
+      "see (sens figuré)",
+      "see (utilisation commune)"
     ],
-    "main_translation": "see (traduction fran\u00e7aise 1)",
+    "main_translation": "see (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non see",
+      "see opposé",
+      "see incorrect"
+    ],
+    "examples": [
+      "I often need to see in daily life.",
+      "They decided to see after thinking about it."
     ]
   },
-  "seem": {
+  {
     "word": "seem",
-    "lang": "en",
     "definition": "A common English verb meaning 'seem' in various contexts.",
     "translations": [
-      "seem (traduction fran\u00e7aise 1)",
-      "seem (traduction fran\u00e7aise 2)",
-      "seem (traduction fran\u00e7aise 3)"
+      "seem (action)",
+      "seem (sens figuré)",
+      "seem (utilisation commune)"
     ],
-    "main_translation": "seem (traduction fran\u00e7aise 1)",
+    "main_translation": "seem (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non seem",
+      "seem opposé",
+      "seem incorrect"
+    ],
+    "examples": [
+      "I often need to seem in daily life.",
+      "They decided to seem after thinking about it."
     ]
   },
-  "send": {
+  {
     "word": "send",
-    "lang": "en",
     "definition": "A common English verb meaning 'send' in various contexts.",
     "translations": [
-      "send (traduction fran\u00e7aise 1)",
-      "send (traduction fran\u00e7aise 2)",
-      "send (traduction fran\u00e7aise 3)"
+      "send (action)",
+      "send (sens figuré)",
+      "send (utilisation commune)"
     ],
-    "main_translation": "send (traduction fran\u00e7aise 1)",
+    "main_translation": "send (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non send",
+      "send opposé",
+      "send incorrect"
+    ],
+    "examples": [
+      "I often need to send in daily life.",
+      "They decided to send after thinking about it."
     ]
   },
-  "serve": {
+  {
     "word": "serve",
-    "lang": "en",
     "definition": "A common English verb meaning 'serve' in various contexts.",
     "translations": [
-      "serve (traduction fran\u00e7aise 1)",
-      "serve (traduction fran\u00e7aise 2)",
-      "serve (traduction fran\u00e7aise 3)"
+      "serve (action)",
+      "serve (sens figuré)",
+      "serve (utilisation commune)"
     ],
-    "main_translation": "serve (traduction fran\u00e7aise 1)",
+    "main_translation": "serve (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non serve",
+      "serve opposé",
+      "serve incorrect"
+    ],
+    "examples": [
+      "I often need to serve in daily life.",
+      "They decided to serve after thinking about it."
     ]
   },
-  "set": {
+  {
     "word": "set",
-    "lang": "en",
     "definition": "A common English verb meaning 'set' in various contexts.",
     "translations": [
-      "set (traduction fran\u00e7aise 1)",
-      "set (traduction fran\u00e7aise 2)",
-      "set (traduction fran\u00e7aise 3)"
+      "set (action)",
+      "set (sens figuré)",
+      "set (utilisation commune)"
     ],
-    "main_translation": "set (traduction fran\u00e7aise 1)",
+    "main_translation": "set (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non set",
+      "set opposé",
+      "set incorrect"
+    ],
+    "examples": [
+      "I often need to set in daily life.",
+      "They decided to set after thinking about it."
     ]
   },
-  "show": {
+  {
     "word": "show",
-    "lang": "en",
     "definition": "A common English verb meaning 'show' in various contexts.",
     "translations": [
-      "show (traduction fran\u00e7aise 1)",
-      "show (traduction fran\u00e7aise 2)",
-      "show (traduction fran\u00e7aise 3)"
+      "show (action)",
+      "show (sens figuré)",
+      "show (utilisation commune)"
     ],
-    "main_translation": "show (traduction fran\u00e7aise 1)",
+    "main_translation": "show (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non show",
+      "show opposé",
+      "show incorrect"
+    ],
+    "examples": [
+      "I often need to show in daily life.",
+      "They decided to show after thinking about it."
     ]
   },
-  "sit": {
+  {
     "word": "sit",
-    "lang": "en",
     "definition": "A common English verb meaning 'sit' in various contexts.",
     "translations": [
-      "sit (traduction fran\u00e7aise 1)",
-      "sit (traduction fran\u00e7aise 2)",
-      "sit (traduction fran\u00e7aise 3)"
+      "sit (action)",
+      "sit (sens figuré)",
+      "sit (utilisation commune)"
     ],
-    "main_translation": "sit (traduction fran\u00e7aise 1)",
+    "main_translation": "sit (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non sit",
+      "sit opposé",
+      "sit incorrect"
+    ],
+    "examples": [
+      "I often need to sit in daily life.",
+      "They decided to sit after thinking about it."
     ]
   },
-  "sleep": {
+  {
     "word": "sleep",
-    "lang": "en",
     "definition": "A common English verb meaning 'sleep' in various contexts.",
     "translations": [
-      "sleep (traduction fran\u00e7aise 1)",
-      "sleep (traduction fran\u00e7aise 2)",
-      "sleep (traduction fran\u00e7aise 3)"
+      "sleep (action)",
+      "sleep (sens figuré)",
+      "sleep (utilisation commune)"
     ],
-    "main_translation": "sleep (traduction fran\u00e7aise 1)",
+    "main_translation": "sleep (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non sleep",
+      "sleep opposé",
+      "sleep incorrect"
+    ],
+    "examples": [
+      "I often need to sleep in daily life.",
+      "They decided to sleep after thinking about it."
     ]
   },
-  "speak": {
+  {
     "word": "speak",
-    "lang": "en",
     "definition": "A common English verb meaning 'speak' in various contexts.",
     "translations": [
-      "speak (traduction fran\u00e7aise 1)",
-      "speak (traduction fran\u00e7aise 2)",
-      "speak (traduction fran\u00e7aise 3)"
+      "speak (action)",
+      "speak (sens figuré)",
+      "speak (utilisation commune)"
     ],
-    "main_translation": "speak (traduction fran\u00e7aise 1)",
+    "main_translation": "speak (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non speak",
+      "speak opposé",
+      "speak incorrect"
+    ],
+    "examples": [
+      "I often need to speak in daily life.",
+      "They decided to speak after thinking about it."
     ]
   },
-  "spend": {
+  {
     "word": "spend",
-    "lang": "en",
     "definition": "A common English verb meaning 'spend' in various contexts.",
     "translations": [
-      "spend (traduction fran\u00e7aise 1)",
-      "spend (traduction fran\u00e7aise 2)",
-      "spend (traduction fran\u00e7aise 3)"
+      "spend (action)",
+      "spend (sens figuré)",
+      "spend (utilisation commune)"
     ],
-    "main_translation": "spend (traduction fran\u00e7aise 1)",
+    "main_translation": "spend (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non spend",
+      "spend opposé",
+      "spend incorrect"
+    ],
+    "examples": [
+      "I often need to spend in daily life.",
+      "They decided to spend after thinking about it."
     ]
   },
-  "stand": {
+  {
     "word": "stand",
-    "lang": "en",
     "definition": "A common English verb meaning 'stand' in various contexts.",
     "translations": [
-      "stand (traduction fran\u00e7aise 1)",
-      "stand (traduction fran\u00e7aise 2)",
-      "stand (traduction fran\u00e7aise 3)"
+      "stand (action)",
+      "stand (sens figuré)",
+      "stand (utilisation commune)"
     ],
-    "main_translation": "stand (traduction fran\u00e7aise 1)",
+    "main_translation": "stand (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non stand",
+      "stand opposé",
+      "stand incorrect"
+    ],
+    "examples": [
+      "I often need to stand in daily life.",
+      "They decided to stand after thinking about it."
     ]
   },
-  "start": {
+  {
     "word": "start",
-    "lang": "en",
     "definition": "A common English verb meaning 'start' in various contexts.",
     "translations": [
-      "start (traduction fran\u00e7aise 1)",
-      "start (traduction fran\u00e7aise 2)",
-      "start (traduction fran\u00e7aise 3)"
+      "start (action)",
+      "start (sens figuré)",
+      "start (utilisation commune)"
     ],
-    "main_translation": "start (traduction fran\u00e7aise 1)",
+    "main_translation": "start (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non start",
+      "start opposé",
+      "start incorrect"
+    ],
+    "examples": [
+      "I often need to start in daily life.",
+      "They decided to start after thinking about it."
     ]
   },
-  "stay": {
+  {
     "word": "stay",
-    "lang": "en",
     "definition": "A common English verb meaning 'stay' in various contexts.",
     "translations": [
-      "stay (traduction fran\u00e7aise 1)",
-      "stay (traduction fran\u00e7aise 2)",
-      "stay (traduction fran\u00e7aise 3)"
+      "stay (action)",
+      "stay (sens figuré)",
+      "stay (utilisation commune)"
     ],
-    "main_translation": "stay (traduction fran\u00e7aise 1)",
+    "main_translation": "stay (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non stay",
+      "stay opposé",
+      "stay incorrect"
+    ],
+    "examples": [
+      "I often need to stay in daily life.",
+      "They decided to stay after thinking about it."
     ]
   },
-  "stop": {
+  {
     "word": "stop",
-    "lang": "en",
     "definition": "A common English verb meaning 'stop' in various contexts.",
     "translations": [
-      "stop (traduction fran\u00e7aise 1)",
-      "stop (traduction fran\u00e7aise 2)",
-      "stop (traduction fran\u00e7aise 3)"
+      "stop (action)",
+      "stop (sens figuré)",
+      "stop (utilisation commune)"
     ],
-    "main_translation": "stop (traduction fran\u00e7aise 1)",
+    "main_translation": "stop (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non stop",
+      "stop opposé",
+      "stop incorrect"
+    ],
+    "examples": [
+      "I often need to stop in daily life.",
+      "They decided to stop after thinking about it."
     ]
   },
-  "study": {
+  {
     "word": "study",
-    "lang": "en",
     "definition": "A common English verb meaning 'study' in various contexts.",
     "translations": [
-      "study (traduction fran\u00e7aise 1)",
-      "study (traduction fran\u00e7aise 2)",
-      "study (traduction fran\u00e7aise 3)"
+      "study (action)",
+      "study (sens figuré)",
+      "study (utilisation commune)"
     ],
-    "main_translation": "study (traduction fran\u00e7aise 1)",
+    "main_translation": "study (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non study",
+      "study opposé",
+      "study incorrect"
+    ],
+    "examples": [
+      "I often need to study in daily life.",
+      "They decided to study after thinking about it."
     ]
   },
-  "succeed": {
+  {
     "word": "succeed",
-    "lang": "en",
     "definition": "A common English verb meaning 'succeed' in various contexts.",
     "translations": [
-      "succeed (traduction fran\u00e7aise 1)",
-      "succeed (traduction fran\u00e7aise 2)",
-      "succeed (traduction fran\u00e7aise 3)"
+      "succeed (action)",
+      "succeed (sens figuré)",
+      "succeed (utilisation commune)"
     ],
-    "main_translation": "succeed (traduction fran\u00e7aise 1)",
+    "main_translation": "succeed (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non succeed",
+      "succeed opposé",
+      "succeed incorrect"
+    ],
+    "examples": [
+      "I often need to succeed in daily life.",
+      "They decided to succeed after thinking about it."
     ]
   },
-  "support": {
+  {
     "word": "support",
-    "lang": "en",
     "definition": "A common English verb meaning 'support' in various contexts.",
     "translations": [
-      "support (traduction fran\u00e7aise 1)",
-      "support (traduction fran\u00e7aise 2)",
-      "support (traduction fran\u00e7aise 3)"
+      "support (action)",
+      "support (sens figuré)",
+      "support (utilisation commune)"
     ],
-    "main_translation": "support (traduction fran\u00e7aise 1)",
+    "main_translation": "support (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non support",
+      "support opposé",
+      "support incorrect"
+    ],
+    "examples": [
+      "I often need to support in daily life.",
+      "They decided to support after thinking about it."
     ]
   },
-  "take": {
+  {
     "word": "take",
-    "lang": "en",
     "definition": "A common English verb meaning 'take' in various contexts.",
     "translations": [
-      "take (traduction fran\u00e7aise 1)",
-      "take (traduction fran\u00e7aise 2)",
-      "take (traduction fran\u00e7aise 3)"
+      "take (action)",
+      "take (sens figuré)",
+      "take (utilisation commune)"
     ],
-    "main_translation": "take (traduction fran\u00e7aise 1)",
+    "main_translation": "take (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non take",
+      "take opposé",
+      "take incorrect"
+    ],
+    "examples": [
+      "I often need to take in daily life.",
+      "They decided to take after thinking about it."
     ]
   },
-  "talk": {
+  {
     "word": "talk",
-    "lang": "en",
     "definition": "A common English verb meaning 'talk' in various contexts.",
     "translations": [
-      "talk (traduction fran\u00e7aise 1)",
-      "talk (traduction fran\u00e7aise 2)",
-      "talk (traduction fran\u00e7aise 3)"
+      "talk (action)",
+      "talk (sens figuré)",
+      "talk (utilisation commune)"
     ],
-    "main_translation": "talk (traduction fran\u00e7aise 1)",
+    "main_translation": "talk (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non talk",
+      "talk opposé",
+      "talk incorrect"
+    ],
+    "examples": [
+      "I often need to talk in daily life.",
+      "They decided to talk after thinking about it."
     ]
   },
-  "teach": {
+  {
     "word": "teach",
-    "lang": "en",
     "definition": "A common English verb meaning 'teach' in various contexts.",
     "translations": [
-      "teach (traduction fran\u00e7aise 1)",
-      "teach (traduction fran\u00e7aise 2)",
-      "teach (traduction fran\u00e7aise 3)"
+      "teach (action)",
+      "teach (sens figuré)",
+      "teach (utilisation commune)"
     ],
-    "main_translation": "teach (traduction fran\u00e7aise 1)",
+    "main_translation": "teach (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non teach",
+      "teach opposé",
+      "teach incorrect"
+    ],
+    "examples": [
+      "I often need to teach in daily life.",
+      "They decided to teach after thinking about it."
     ]
   },
-  "tell": {
+  {
     "word": "tell",
-    "lang": "en",
     "definition": "A common English verb meaning 'tell' in various contexts.",
     "translations": [
-      "tell (traduction fran\u00e7aise 1)",
-      "tell (traduction fran\u00e7aise 2)",
-      "tell (traduction fran\u00e7aise 3)"
+      "tell (action)",
+      "tell (sens figuré)",
+      "tell (utilisation commune)"
     ],
-    "main_translation": "tell (traduction fran\u00e7aise 1)",
+    "main_translation": "tell (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non tell",
+      "tell opposé",
+      "tell incorrect"
+    ],
+    "examples": [
+      "I often need to tell in daily life.",
+      "They decided to tell after thinking about it."
     ]
   },
-  "think": {
+  {
     "word": "think",
-    "lang": "en",
     "definition": "A common English verb meaning 'think' in various contexts.",
     "translations": [
-      "think (traduction fran\u00e7aise 1)",
-      "think (traduction fran\u00e7aise 2)",
-      "think (traduction fran\u00e7aise 3)"
+      "think (action)",
+      "think (sens figuré)",
+      "think (utilisation commune)"
     ],
-    "main_translation": "think (traduction fran\u00e7aise 1)",
+    "main_translation": "think (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non think",
+      "think opposé",
+      "think incorrect"
+    ],
+    "examples": [
+      "I often need to think in daily life.",
+      "They decided to think after thinking about it."
     ]
   },
-  "travel": {
+  {
     "word": "travel",
-    "lang": "en",
     "definition": "A common English verb meaning 'travel' in various contexts.",
     "translations": [
-      "travel (traduction fran\u00e7aise 1)",
-      "travel (traduction fran\u00e7aise 2)",
-      "travel (traduction fran\u00e7aise 3)"
+      "travel (action)",
+      "travel (sens figuré)",
+      "travel (utilisation commune)"
     ],
-    "main_translation": "travel (traduction fran\u00e7aise 1)",
+    "main_translation": "travel (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non travel",
+      "travel opposé",
+      "travel incorrect"
+    ],
+    "examples": [
+      "I often need to travel in daily life.",
+      "They decided to travel after thinking about it."
     ]
   },
-  "try": {
+  {
     "word": "try",
-    "lang": "en",
     "definition": "A common English verb meaning 'try' in various contexts.",
     "translations": [
-      "try (traduction fran\u00e7aise 1)",
-      "try (traduction fran\u00e7aise 2)",
-      "try (traduction fran\u00e7aise 3)"
+      "try (action)",
+      "try (sens figuré)",
+      "try (utilisation commune)"
     ],
-    "main_translation": "try (traduction fran\u00e7aise 1)",
+    "main_translation": "try (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non try",
+      "try opposé",
+      "try incorrect"
+    ],
+    "examples": [
+      "I often need to try in daily life.",
+      "They decided to try after thinking about it."
     ]
   },
-  "turn": {
+  {
     "word": "turn",
-    "lang": "en",
     "definition": "A common English verb meaning 'turn' in various contexts.",
     "translations": [
-      "turn (traduction fran\u00e7aise 1)",
-      "turn (traduction fran\u00e7aise 2)",
-      "turn (traduction fran\u00e7aise 3)"
+      "turn (action)",
+      "turn (sens figuré)",
+      "turn (utilisation commune)"
     ],
-    "main_translation": "turn (traduction fran\u00e7aise 1)",
+    "main_translation": "turn (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non turn",
+      "turn opposé",
+      "turn incorrect"
+    ],
+    "examples": [
+      "I often need to turn in daily life.",
+      "They decided to turn after thinking about it."
     ]
   },
-  "understand": {
+  {
     "word": "understand",
-    "lang": "en",
     "definition": "A common English verb meaning 'understand' in various contexts.",
     "translations": [
-      "understand (traduction fran\u00e7aise 1)",
-      "understand (traduction fran\u00e7aise 2)",
-      "understand (traduction fran\u00e7aise 3)"
+      "understand (action)",
+      "understand (sens figuré)",
+      "understand (utilisation commune)"
     ],
-    "main_translation": "understand (traduction fran\u00e7aise 1)",
+    "main_translation": "understand (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non understand",
+      "understand opposé",
+      "understand incorrect"
+    ],
+    "examples": [
+      "I often need to understand in daily life.",
+      "They decided to understand after thinking about it."
     ]
   },
-  "use": {
+  {
     "word": "use",
-    "lang": "en",
     "definition": "A common English verb meaning 'use' in various contexts.",
     "translations": [
-      "use (traduction fran\u00e7aise 1)",
-      "use (traduction fran\u00e7aise 2)",
-      "use (traduction fran\u00e7aise 3)"
+      "use (action)",
+      "use (sens figuré)",
+      "use (utilisation commune)"
     ],
-    "main_translation": "use (traduction fran\u00e7aise 1)",
+    "main_translation": "use (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non use",
+      "use opposé",
+      "use incorrect"
+    ],
+    "examples": [
+      "I often need to use in daily life.",
+      "They decided to use after thinking about it."
     ]
   },
-  "wait": {
+  {
     "word": "wait",
-    "lang": "en",
     "definition": "A common English verb meaning 'wait' in various contexts.",
     "translations": [
-      "wait (traduction fran\u00e7aise 1)",
-      "wait (traduction fran\u00e7aise 2)",
-      "wait (traduction fran\u00e7aise 3)"
+      "wait (action)",
+      "wait (sens figuré)",
+      "wait (utilisation commune)"
     ],
-    "main_translation": "wait (traduction fran\u00e7aise 1)",
+    "main_translation": "wait (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non wait",
+      "wait opposé",
+      "wait incorrect"
+    ],
+    "examples": [
+      "I often need to wait in daily life.",
+      "They decided to wait after thinking about it."
     ]
   },
-  "walk": {
+  {
     "word": "walk",
-    "lang": "en",
     "definition": "A common English verb meaning 'walk' in various contexts.",
     "translations": [
-      "walk (traduction fran\u00e7aise 1)",
-      "walk (traduction fran\u00e7aise 2)",
-      "walk (traduction fran\u00e7aise 3)"
+      "walk (action)",
+      "walk (sens figuré)",
+      "walk (utilisation commune)"
     ],
-    "main_translation": "walk (traduction fran\u00e7aise 1)",
+    "main_translation": "walk (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non walk",
+      "walk opposé",
+      "walk incorrect"
+    ],
+    "examples": [
+      "I often need to walk in daily life.",
+      "They decided to walk after thinking about it."
     ]
   },
-  "watch": {
+  {
     "word": "watch",
-    "lang": "en",
     "definition": "A common English verb meaning 'watch' in various contexts.",
     "translations": [
-      "watch (traduction fran\u00e7aise 1)",
-      "watch (traduction fran\u00e7aise 2)",
-      "watch (traduction fran\u00e7aise 3)"
+      "watch (action)",
+      "watch (sens figuré)",
+      "watch (utilisation commune)"
     ],
-    "main_translation": "watch (traduction fran\u00e7aise 1)",
+    "main_translation": "watch (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non watch",
+      "watch opposé",
+      "watch incorrect"
+    ],
+    "examples": [
+      "I often need to watch in daily life.",
+      "They decided to watch after thinking about it."
     ]
   },
-  "win": {
+  {
     "word": "win",
-    "lang": "en",
     "definition": "A common English verb meaning 'win' in various contexts.",
     "translations": [
-      "win (traduction fran\u00e7aise 1)",
-      "win (traduction fran\u00e7aise 2)",
-      "win (traduction fran\u00e7aise 3)"
+      "win (action)",
+      "win (sens figuré)",
+      "win (utilisation commune)"
     ],
-    "main_translation": "win (traduction fran\u00e7aise 1)",
+    "main_translation": "win (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non win",
+      "win opposé",
+      "win incorrect"
+    ],
+    "examples": [
+      "I often need to win in daily life.",
+      "They decided to win after thinking about it."
     ]
   },
-  "work": {
+  {
     "word": "work",
-    "lang": "en",
     "definition": "A common English verb meaning 'work' in various contexts.",
     "translations": [
-      "work (traduction fran\u00e7aise 1)",
-      "work (traduction fran\u00e7aise 2)",
-      "work (traduction fran\u00e7aise 3)"
+      "work (action)",
+      "work (sens figuré)",
+      "work (utilisation commune)"
     ],
-    "main_translation": "work (traduction fran\u00e7aise 1)",
+    "main_translation": "work (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non work",
+      "work opposé",
+      "work incorrect"
+    ],
+    "examples": [
+      "I often need to work in daily life.",
+      "They decided to work after thinking about it."
     ]
   },
-  "write": {
+  {
     "word": "write",
-    "lang": "en",
     "definition": "A common English verb meaning 'write' in various contexts.",
     "translations": [
-      "write (traduction fran\u00e7aise 1)",
-      "write (traduction fran\u00e7aise 2)",
-      "write (traduction fran\u00e7aise 3)"
+      "write (action)",
+      "write (sens figuré)",
+      "write (utilisation commune)"
     ],
-    "main_translation": "write (traduction fran\u00e7aise 1)",
+    "main_translation": "write (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non write",
+      "write opposé",
+      "write incorrect"
+    ],
+    "examples": [
+      "I often need to write in daily life.",
+      "They decided to write after thinking about it."
     ]
   },
-  "accept": {
+  {
     "word": "accept",
-    "lang": "en",
     "definition": "A common English verb meaning 'accept' in various contexts.",
     "translations": [
-      "accept (traduction fran\u00e7aise 1)",
-      "accept (traduction fran\u00e7aise 2)",
-      "accept (traduction fran\u00e7aise 3)"
+      "accept (action)",
+      "accept (sens figuré)",
+      "accept (utilisation commune)"
     ],
-    "main_translation": "accept (traduction fran\u00e7aise 1)",
+    "main_translation": "accept (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non accept",
+      "accept opposé",
+      "accept incorrect"
+    ],
+    "examples": [
+      "I often need to accept in daily life.",
+      "They decided to accept after thinking about it."
     ]
   },
-  "admire": {
+  {
     "word": "admire",
-    "lang": "en",
     "definition": "A common English verb meaning 'admire' in various contexts.",
     "translations": [
-      "admire (traduction fran\u00e7aise 1)",
-      "admire (traduction fran\u00e7aise 2)",
-      "admire (traduction fran\u00e7aise 3)"
+      "admire (action)",
+      "admire (sens figuré)",
+      "admire (utilisation commune)"
     ],
-    "main_translation": "admire (traduction fran\u00e7aise 1)",
+    "main_translation": "admire (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non admire",
+      "admire opposé",
+      "admire incorrect"
+    ],
+    "examples": [
+      "I often need to admire in daily life.",
+      "They decided to admire after thinking about it."
     ]
   },
-  "advise": {
+  {
     "word": "advise",
-    "lang": "en",
     "definition": "A common English verb meaning 'advise' in various contexts.",
     "translations": [
-      "advise (traduction fran\u00e7aise 1)",
-      "advise (traduction fran\u00e7aise 2)",
-      "advise (traduction fran\u00e7aise 3)"
+      "advise (action)",
+      "advise (sens figuré)",
+      "advise (utilisation commune)"
     ],
-    "main_translation": "advise (traduction fran\u00e7aise 1)",
+    "main_translation": "advise (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non advise",
+      "advise opposé",
+      "advise incorrect"
+    ],
+    "examples": [
+      "I often need to advise in daily life.",
+      "They decided to advise after thinking about it."
     ]
   },
-  "afford": {
+  {
     "word": "afford",
-    "lang": "en",
     "definition": "A common English verb meaning 'afford' in various contexts.",
     "translations": [
-      "afford (traduction fran\u00e7aise 1)",
-      "afford (traduction fran\u00e7aise 2)",
-      "afford (traduction fran\u00e7aise 3)"
+      "afford (action)",
+      "afford (sens figuré)",
+      "afford (utilisation commune)"
     ],
-    "main_translation": "afford (traduction fran\u00e7aise 1)",
+    "main_translation": "afford (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non afford",
+      "afford opposé",
+      "afford incorrect"
+    ],
+    "examples": [
+      "I often need to afford in daily life.",
+      "They decided to afford after thinking about it."
     ]
   },
-  "announce": {
+  {
     "word": "announce",
-    "lang": "en",
     "definition": "A common English verb meaning 'announce' in various contexts.",
     "translations": [
-      "announce (traduction fran\u00e7aise 1)",
-      "announce (traduction fran\u00e7aise 2)",
-      "announce (traduction fran\u00e7aise 3)"
+      "announce (action)",
+      "announce (sens figuré)",
+      "announce (utilisation commune)"
     ],
-    "main_translation": "announce (traduction fran\u00e7aise 1)",
+    "main_translation": "announce (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non announce",
+      "announce opposé",
+      "announce incorrect"
+    ],
+    "examples": [
+      "I often need to announce in daily life.",
+      "They decided to announce after thinking about it."
     ]
   },
-  "answer": {
+  {
     "word": "answer",
-    "lang": "en",
     "definition": "A common English verb meaning 'answer' in various contexts.",
     "translations": [
-      "answer (traduction fran\u00e7aise 1)",
-      "answer (traduction fran\u00e7aise 2)",
-      "answer (traduction fran\u00e7aise 3)"
+      "answer (action)",
+      "answer (sens figuré)",
+      "answer (utilisation commune)"
     ],
-    "main_translation": "answer (traduction fran\u00e7aise 1)",
+    "main_translation": "answer (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non answer",
+      "answer opposé",
+      "answer incorrect"
+    ],
+    "examples": [
+      "I often need to answer in daily life.",
+      "They decided to answer after thinking about it."
     ]
   },
-  "arrange": {
+  {
     "word": "arrange",
-    "lang": "en",
     "definition": "A common English verb meaning 'arrange' in various contexts.",
     "translations": [
-      "arrange (traduction fran\u00e7aise 1)",
-      "arrange (traduction fran\u00e7aise 2)",
-      "arrange (traduction fran\u00e7aise 3)"
+      "arrange (action)",
+      "arrange (sens figuré)",
+      "arrange (utilisation commune)"
     ],
-    "main_translation": "arrange (traduction fran\u00e7aise 1)",
+    "main_translation": "arrange (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non arrange",
+      "arrange opposé",
+      "arrange incorrect"
+    ],
+    "examples": [
+      "I often need to arrange in daily life.",
+      "They decided to arrange after thinking about it."
     ]
   },
-  "attach": {
+  {
     "word": "attach",
-    "lang": "en",
     "definition": "A common English verb meaning 'attach' in various contexts.",
     "translations": [
-      "attach (traduction fran\u00e7aise 1)",
-      "attach (traduction fran\u00e7aise 2)",
-      "attach (traduction fran\u00e7aise 3)"
+      "attach (action)",
+      "attach (sens figuré)",
+      "attach (utilisation commune)"
     ],
-    "main_translation": "attach (traduction fran\u00e7aise 1)",
+    "main_translation": "attach (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non attach",
+      "attach opposé",
+      "attach incorrect"
+    ],
+    "examples": [
+      "I often need to attach in daily life.",
+      "They decided to attach after thinking about it."
     ]
   },
-  "attend": {
+  {
     "word": "attend",
-    "lang": "en",
     "definition": "A common English verb meaning 'attend' in various contexts.",
     "translations": [
-      "attend (traduction fran\u00e7aise 1)",
-      "attend (traduction fran\u00e7aise 2)",
-      "attend (traduction fran\u00e7aise 3)"
+      "attend (action)",
+      "attend (sens figuré)",
+      "attend (utilisation commune)"
     ],
-    "main_translation": "attend (traduction fran\u00e7aise 1)",
+    "main_translation": "attend (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non attend",
+      "attend opposé",
+      "attend incorrect"
+    ],
+    "examples": [
+      "I often need to attend in daily life.",
+      "They decided to attend after thinking about it."
     ]
   },
-  "bake": {
+  {
     "word": "bake",
-    "lang": "en",
     "definition": "A common English verb meaning 'bake' in various contexts.",
     "translations": [
-      "bake (traduction fran\u00e7aise 1)",
-      "bake (traduction fran\u00e7aise 2)",
-      "bake (traduction fran\u00e7aise 3)"
+      "bake (action)",
+      "bake (sens figuré)",
+      "bake (utilisation commune)"
     ],
-    "main_translation": "bake (traduction fran\u00e7aise 1)",
+    "main_translation": "bake (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non bake",
+      "bake opposé",
+      "bake incorrect"
+    ],
+    "examples": [
+      "I often need to bake in daily life.",
+      "They decided to bake after thinking about it."
     ]
   },
-  "behave": {
+  {
     "word": "behave",
-    "lang": "en",
     "definition": "A common English verb meaning 'behave' in various contexts.",
     "translations": [
-      "behave (traduction fran\u00e7aise 1)",
-      "behave (traduction fran\u00e7aise 2)",
-      "behave (traduction fran\u00e7aise 3)"
+      "behave (action)",
+      "behave (sens figuré)",
+      "behave (utilisation commune)"
     ],
-    "main_translation": "behave (traduction fran\u00e7aise 1)",
+    "main_translation": "behave (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non behave",
+      "behave opposé",
+      "behave incorrect"
+    ],
+    "examples": [
+      "I often need to behave in daily life.",
+      "They decided to behave after thinking about it."
     ]
   },
-  "borrow": {
+  {
     "word": "borrow",
-    "lang": "en",
     "definition": "A common English verb meaning 'borrow' in various contexts.",
     "translations": [
-      "borrow (traduction fran\u00e7aise 1)",
-      "borrow (traduction fran\u00e7aise 2)",
-      "borrow (traduction fran\u00e7aise 3)"
+      "borrow (action)",
+      "borrow (sens figuré)",
+      "borrow (utilisation commune)"
     ],
-    "main_translation": "borrow (traduction fran\u00e7aise 1)",
+    "main_translation": "borrow (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non borrow",
+      "borrow opposé",
+      "borrow incorrect"
+    ],
+    "examples": [
+      "I often need to borrow in daily life.",
+      "They decided to borrow after thinking about it."
     ]
   },
-  "break": {
+  {
     "word": "break",
-    "lang": "en",
     "definition": "A common English verb meaning 'break' in various contexts.",
     "translations": [
-      "break (traduction fran\u00e7aise 1)",
-      "break (traduction fran\u00e7aise 2)",
-      "break (traduction fran\u00e7aise 3)"
+      "break (action)",
+      "break (sens figuré)",
+      "break (utilisation commune)"
     ],
-    "main_translation": "break (traduction fran\u00e7aise 1)",
+    "main_translation": "break (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non break",
+      "break opposé",
+      "break incorrect"
+    ],
+    "examples": [
+      "I often need to break in daily life.",
+      "They decided to break after thinking about it."
     ]
   },
-  "breathe": {
+  {
     "word": "breathe",
-    "lang": "en",
     "definition": "A common English verb meaning 'breathe' in various contexts.",
     "translations": [
-      "breathe (traduction fran\u00e7aise 1)",
-      "breathe (traduction fran\u00e7aise 2)",
-      "breathe (traduction fran\u00e7aise 3)"
+      "breathe (action)",
+      "breathe (sens figuré)",
+      "breathe (utilisation commune)"
     ],
-    "main_translation": "breathe (traduction fran\u00e7aise 1)",
+    "main_translation": "breathe (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non breathe",
+      "breathe opposé",
+      "breathe incorrect"
+    ],
+    "examples": [
+      "I often need to breathe in daily life.",
+      "They decided to breathe after thinking about it."
     ]
   },
-  "brush": {
+  {
     "word": "brush",
-    "lang": "en",
     "definition": "A common English verb meaning 'brush' in various contexts.",
     "translations": [
-      "brush (traduction fran\u00e7aise 1)",
-      "brush (traduction fran\u00e7aise 2)",
-      "brush (traduction fran\u00e7aise 3)"
+      "brush (action)",
+      "brush (sens figuré)",
+      "brush (utilisation commune)"
     ],
-    "main_translation": "brush (traduction fran\u00e7aise 1)",
+    "main_translation": "brush (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non brush",
+      "brush opposé",
+      "brush incorrect"
+    ],
+    "examples": [
+      "I often need to brush in daily life.",
+      "They decided to brush after thinking about it."
     ]
   },
-  "burn": {
+  {
     "word": "burn",
-    "lang": "en",
     "definition": "A common English verb meaning 'burn' in various contexts.",
     "translations": [
-      "burn (traduction fran\u00e7aise 1)",
-      "burn (traduction fran\u00e7aise 2)",
-      "burn (traduction fran\u00e7aise 3)"
+      "burn (action)",
+      "burn (sens figuré)",
+      "burn (utilisation commune)"
     ],
-    "main_translation": "burn (traduction fran\u00e7aise 1)",
+    "main_translation": "burn (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non burn",
+      "burn opposé",
+      "burn incorrect"
+    ],
+    "examples": [
+      "I often need to burn in daily life.",
+      "They decided to burn after thinking about it."
     ]
   },
-  "calculate": {
+  {
     "word": "calculate",
-    "lang": "en",
     "definition": "A common English verb meaning 'calculate' in various contexts.",
     "translations": [
-      "calculate (traduction fran\u00e7aise 1)",
-      "calculate (traduction fran\u00e7aise 2)",
-      "calculate (traduction fran\u00e7aise 3)"
+      "calculate (action)",
+      "calculate (sens figuré)",
+      "calculate (utilisation commune)"
     ],
-    "main_translation": "calculate (traduction fran\u00e7aise 1)",
+    "main_translation": "calculate (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non calculate",
+      "calculate opposé",
+      "calculate incorrect"
+    ],
+    "examples": [
+      "I often need to calculate in daily life.",
+      "They decided to calculate after thinking about it."
     ]
   },
-  "care": {
+  {
     "word": "care",
-    "lang": "en",
     "definition": "A common English verb meaning 'care' in various contexts.",
     "translations": [
-      "care (traduction fran\u00e7aise 1)",
-      "care (traduction fran\u00e7aise 2)",
-      "care (traduction fran\u00e7aise 3)"
+      "care (action)",
+      "care (sens figuré)",
+      "care (utilisation commune)"
     ],
-    "main_translation": "care (traduction fran\u00e7aise 1)",
+    "main_translation": "care (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non care",
+      "care opposé",
+      "care incorrect"
+    ],
+    "examples": [
+      "I often need to care in daily life.",
+      "They decided to care after thinking about it."
     ]
   },
-  "catch": {
+  {
     "word": "catch",
-    "lang": "en",
     "definition": "A common English verb meaning 'catch' in various contexts.",
     "translations": [
-      "catch (traduction fran\u00e7aise 1)",
-      "catch (traduction fran\u00e7aise 2)",
-      "catch (traduction fran\u00e7aise 3)"
+      "catch (action)",
+      "catch (sens figuré)",
+      "catch (utilisation commune)"
     ],
-    "main_translation": "catch (traduction fran\u00e7aise 1)",
+    "main_translation": "catch (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non catch",
+      "catch opposé",
+      "catch incorrect"
+    ],
+    "examples": [
+      "I often need to catch in daily life.",
+      "They decided to catch after thinking about it."
     ]
   },
-  "celebrate": {
+  {
     "word": "celebrate",
-    "lang": "en",
     "definition": "A common English verb meaning 'celebrate' in various contexts.",
     "translations": [
-      "celebrate (traduction fran\u00e7aise 1)",
-      "celebrate (traduction fran\u00e7aise 2)",
-      "celebrate (traduction fran\u00e7aise 3)"
+      "celebrate (action)",
+      "celebrate (sens figuré)",
+      "celebrate (utilisation commune)"
     ],
-    "main_translation": "celebrate (traduction fran\u00e7aise 1)",
+    "main_translation": "celebrate (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non celebrate",
+      "celebrate opposé",
+      "celebrate incorrect"
+    ],
+    "examples": [
+      "I often need to celebrate in daily life.",
+      "They decided to celebrate after thinking about it."
     ]
   },
-  "check": {
+  {
     "word": "check",
-    "lang": "en",
     "definition": "A common English verb meaning 'check' in various contexts.",
     "translations": [
-      "check (traduction fran\u00e7aise 1)",
-      "check (traduction fran\u00e7aise 2)",
-      "check (traduction fran\u00e7aise 3)"
+      "check (action)",
+      "check (sens figuré)",
+      "check (utilisation commune)"
     ],
-    "main_translation": "check (traduction fran\u00e7aise 1)",
+    "main_translation": "check (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non check",
+      "check opposé",
+      "check incorrect"
+    ],
+    "examples": [
+      "I often need to check in daily life.",
+      "They decided to check after thinking about it."
     ]
   },
-  "climb": {
+  {
     "word": "climb",
-    "lang": "en",
     "definition": "A common English verb meaning 'climb' in various contexts.",
     "translations": [
-      "climb (traduction fran\u00e7aise 1)",
-      "climb (traduction fran\u00e7aise 2)",
-      "climb (traduction fran\u00e7aise 3)"
+      "climb (action)",
+      "climb (sens figuré)",
+      "climb (utilisation commune)"
     ],
-    "main_translation": "climb (traduction fran\u00e7aise 1)",
+    "main_translation": "climb (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non climb",
+      "climb opposé",
+      "climb incorrect"
+    ],
+    "examples": [
+      "I often need to climb in daily life.",
+      "They decided to climb after thinking about it."
     ]
   },
-  "collect": {
+  {
     "word": "collect",
-    "lang": "en",
     "definition": "A common English verb meaning 'collect' in various contexts.",
     "translations": [
-      "collect (traduction fran\u00e7aise 1)",
-      "collect (traduction fran\u00e7aise 2)",
-      "collect (traduction fran\u00e7aise 3)"
+      "collect (action)",
+      "collect (sens figuré)",
+      "collect (utilisation commune)"
     ],
-    "main_translation": "collect (traduction fran\u00e7aise 1)",
+    "main_translation": "collect (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non collect",
+      "collect opposé",
+      "collect incorrect"
+    ],
+    "examples": [
+      "I often need to collect in daily life.",
+      "They decided to collect after thinking about it."
     ]
   },
-  "comment": {
+  {
     "word": "comment",
-    "lang": "en",
     "definition": "A common English verb meaning 'comment' in various contexts.",
     "translations": [
-      "comment (traduction fran\u00e7aise 1)",
-      "comment (traduction fran\u00e7aise 2)",
-      "comment (traduction fran\u00e7aise 3)"
+      "comment (action)",
+      "comment (sens figuré)",
+      "comment (utilisation commune)"
     ],
-    "main_translation": "comment (traduction fran\u00e7aise 1)",
+    "main_translation": "comment (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non comment",
+      "comment opposé",
+      "comment incorrect"
+    ],
+    "examples": [
+      "I often need to comment in daily life.",
+      "They decided to comment after thinking about it."
     ]
   },
-  "complain": {
+  {
     "word": "complain",
-    "lang": "en",
     "definition": "A common English verb meaning 'complain' in various contexts.",
     "translations": [
-      "complain (traduction fran\u00e7aise 1)",
-      "complain (traduction fran\u00e7aise 2)",
-      "complain (traduction fran\u00e7aise 3)"
+      "complain (action)",
+      "complain (sens figuré)",
+      "complain (utilisation commune)"
     ],
-    "main_translation": "complain (traduction fran\u00e7aise 1)",
+    "main_translation": "complain (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non complain",
+      "complain opposé",
+      "complain incorrect"
+    ],
+    "examples": [
+      "I often need to complain in daily life.",
+      "They decided to complain after thinking about it."
     ]
   },
-  "complete": {
+  {
     "word": "complete",
-    "lang": "en",
     "definition": "A common English verb meaning 'complete' in various contexts.",
     "translations": [
-      "complete (traduction fran\u00e7aise 1)",
-      "complete (traduction fran\u00e7aise 2)",
-      "complete (traduction fran\u00e7aise 3)"
+      "complete (action)",
+      "complete (sens figuré)",
+      "complete (utilisation commune)"
     ],
-    "main_translation": "complete (traduction fran\u00e7aise 1)",
+    "main_translation": "complete (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non complete",
+      "complete opposé",
+      "complete incorrect"
+    ],
+    "examples": [
+      "I often need to complete in daily life.",
+      "They decided to complete after thinking about it."
     ]
   },
-  "confirm": {
+  {
     "word": "confirm",
-    "lang": "en",
     "definition": "A common English verb meaning 'confirm' in various contexts.",
     "translations": [
-      "confirm (traduction fran\u00e7aise 1)",
-      "confirm (traduction fran\u00e7aise 2)",
-      "confirm (traduction fran\u00e7aise 3)"
+      "confirm (action)",
+      "confirm (sens figuré)",
+      "confirm (utilisation commune)"
     ],
-    "main_translation": "confirm (traduction fran\u00e7aise 1)",
+    "main_translation": "confirm (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non confirm",
+      "confirm opposé",
+      "confirm incorrect"
+    ],
+    "examples": [
+      "I often need to confirm in daily life.",
+      "They decided to confirm after thinking about it."
     ]
   },
-  "connect": {
+  {
     "word": "connect",
-    "lang": "en",
     "definition": "A common English verb meaning 'connect' in various contexts.",
     "translations": [
-      "connect (traduction fran\u00e7aise 1)",
-      "connect (traduction fran\u00e7aise 2)",
-      "connect (traduction fran\u00e7aise 3)"
+      "connect (action)",
+      "connect (sens figuré)",
+      "connect (utilisation commune)"
     ],
-    "main_translation": "connect (traduction fran\u00e7aise 1)",
+    "main_translation": "connect (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non connect",
+      "connect opposé",
+      "connect incorrect"
+    ],
+    "examples": [
+      "I often need to connect in daily life.",
+      "They decided to connect after thinking about it."
     ]
   },
-  "construct": {
+  {
     "word": "construct",
-    "lang": "en",
     "definition": "A common English verb meaning 'construct' in various contexts.",
     "translations": [
-      "construct (traduction fran\u00e7aise 1)",
-      "construct (traduction fran\u00e7aise 2)",
-      "construct (traduction fran\u00e7aise 3)"
+      "construct (action)",
+      "construct (sens figuré)",
+      "construct (utilisation commune)"
     ],
-    "main_translation": "construct (traduction fran\u00e7aise 1)",
+    "main_translation": "construct (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non construct",
+      "construct opposé",
+      "construct incorrect"
+    ],
+    "examples": [
+      "I often need to construct in daily life.",
+      "They decided to construct after thinking about it."
     ]
   },
-  "contact": {
+  {
     "word": "contact",
-    "lang": "en",
     "definition": "A common English verb meaning 'contact' in various contexts.",
     "translations": [
-      "contact (traduction fran\u00e7aise 1)",
-      "contact (traduction fran\u00e7aise 2)",
-      "contact (traduction fran\u00e7aise 3)"
+      "contact (action)",
+      "contact (sens figuré)",
+      "contact (utilisation commune)"
     ],
-    "main_translation": "contact (traduction fran\u00e7aise 1)",
+    "main_translation": "contact (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non contact",
+      "contact opposé",
+      "contact incorrect"
+    ],
+    "examples": [
+      "I often need to contact in daily life.",
+      "They decided to contact after thinking about it."
     ]
   },
-  "correct": {
+  {
     "word": "correct",
-    "lang": "en",
     "definition": "A common English verb meaning 'correct' in various contexts.",
     "translations": [
-      "correct (traduction fran\u00e7aise 1)",
-      "correct (traduction fran\u00e7aise 2)",
-      "correct (traduction fran\u00e7aise 3)"
+      "correct (action)",
+      "correct (sens figuré)",
+      "correct (utilisation commune)"
     ],
-    "main_translation": "correct (traduction fran\u00e7aise 1)",
+    "main_translation": "correct (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non correct",
+      "correct opposé",
+      "correct incorrect"
+    ],
+    "examples": [
+      "I often need to correct in daily life.",
+      "They decided to correct after thinking about it."
     ]
   },
-  "count": {
+  {
     "word": "count",
-    "lang": "en",
     "definition": "A common English verb meaning 'count' in various contexts.",
     "translations": [
-      "count (traduction fran\u00e7aise 1)",
-      "count (traduction fran\u00e7aise 2)",
-      "count (traduction fran\u00e7aise 3)"
+      "count (action)",
+      "count (sens figuré)",
+      "count (utilisation commune)"
     ],
-    "main_translation": "count (traduction fran\u00e7aise 1)",
+    "main_translation": "count (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non count",
+      "count opposé",
+      "count incorrect"
+    ],
+    "examples": [
+      "I often need to count in daily life.",
+      "They decided to count after thinking about it."
     ]
   },
-  "cover": {
+  {
     "word": "cover",
-    "lang": "en",
     "definition": "A common English verb meaning 'cover' in various contexts.",
     "translations": [
-      "cover (traduction fran\u00e7aise 1)",
-      "cover (traduction fran\u00e7aise 2)",
-      "cover (traduction fran\u00e7aise 3)"
+      "cover (action)",
+      "cover (sens figuré)",
+      "cover (utilisation commune)"
     ],
-    "main_translation": "cover (traduction fran\u00e7aise 1)",
+    "main_translation": "cover (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non cover",
+      "cover opposé",
+      "cover incorrect"
+    ],
+    "examples": [
+      "I often need to cover in daily life.",
+      "They decided to cover after thinking about it."
     ]
   },
-  "cross": {
+  {
     "word": "cross",
-    "lang": "en",
     "definition": "A common English verb meaning 'cross' in various contexts.",
     "translations": [
-      "cross (traduction fran\u00e7aise 1)",
-      "cross (traduction fran\u00e7aise 2)",
-      "cross (traduction fran\u00e7aise 3)"
+      "cross (action)",
+      "cross (sens figuré)",
+      "cross (utilisation commune)"
     ],
-    "main_translation": "cross (traduction fran\u00e7aise 1)",
+    "main_translation": "cross (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non cross",
+      "cross opposé",
+      "cross incorrect"
+    ],
+    "examples": [
+      "I often need to cross in daily life.",
+      "They decided to cross after thinking about it."
     ]
   },
-  "cry": {
+  {
     "word": "cry",
-    "lang": "en",
     "definition": "A common English verb meaning 'cry' in various contexts.",
     "translations": [
-      "cry (traduction fran\u00e7aise 1)",
-      "cry (traduction fran\u00e7aise 2)",
-      "cry (traduction fran\u00e7aise 3)"
+      "cry (action)",
+      "cry (sens figuré)",
+      "cry (utilisation commune)"
     ],
-    "main_translation": "cry (traduction fran\u00e7aise 1)",
+    "main_translation": "cry (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non cry",
+      "cry opposé",
+      "cry incorrect"
+    ],
+    "examples": [
+      "I often need to cry in daily life.",
+      "They decided to cry after thinking about it."
     ]
   },
-  "damage": {
+  {
     "word": "damage",
-    "lang": "en",
     "definition": "A common English verb meaning 'damage' in various contexts.",
     "translations": [
-      "damage (traduction fran\u00e7aise 1)",
-      "damage (traduction fran\u00e7aise 2)",
-      "damage (traduction fran\u00e7aise 3)"
+      "damage (action)",
+      "damage (sens figuré)",
+      "damage (utilisation commune)"
     ],
-    "main_translation": "damage (traduction fran\u00e7aise 1)",
+    "main_translation": "damage (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non damage",
+      "damage opposé",
+      "damage incorrect"
+    ],
+    "examples": [
+      "I often need to damage in daily life.",
+      "They decided to damage after thinking about it."
     ]
   },
-  "dance": {
+  {
     "word": "dance",
-    "lang": "en",
     "definition": "A common English verb meaning 'dance' in various contexts.",
     "translations": [
-      "dance (traduction fran\u00e7aise 1)",
-      "dance (traduction fran\u00e7aise 2)",
-      "dance (traduction fran\u00e7aise 3)"
+      "dance (action)",
+      "dance (sens figuré)",
+      "dance (utilisation commune)"
     ],
-    "main_translation": "dance (traduction fran\u00e7aise 1)",
+    "main_translation": "dance (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non dance",
+      "dance opposé",
+      "dance incorrect"
+    ],
+    "examples": [
+      "I often need to dance in daily life.",
+      "They decided to dance after thinking about it."
     ]
   },
-  "deal": {
+  {
     "word": "deal",
-    "lang": "en",
     "definition": "A common English verb meaning 'deal' in various contexts.",
     "translations": [
-      "deal (traduction fran\u00e7aise 1)",
-      "deal (traduction fran\u00e7aise 2)",
-      "deal (traduction fran\u00e7aise 3)"
+      "deal (action)",
+      "deal (sens figuré)",
+      "deal (utilisation commune)"
     ],
-    "main_translation": "deal (traduction fran\u00e7aise 1)",
+    "main_translation": "deal (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non deal",
+      "deal opposé",
+      "deal incorrect"
+    ],
+    "examples": [
+      "I often need to deal in daily life.",
+      "They decided to deal after thinking about it."
     ]
   },
-  "demand": {
+  {
     "word": "demand",
-    "lang": "en",
     "definition": "A common English verb meaning 'demand' in various contexts.",
     "translations": [
-      "demand (traduction fran\u00e7aise 1)",
-      "demand (traduction fran\u00e7aise 2)",
-      "demand (traduction fran\u00e7aise 3)"
+      "demand (action)",
+      "demand (sens figuré)",
+      "demand (utilisation commune)"
     ],
-    "main_translation": "demand (traduction fran\u00e7aise 1)",
+    "main_translation": "demand (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non demand",
+      "demand opposé",
+      "demand incorrect"
+    ],
+    "examples": [
+      "I often need to demand in daily life.",
+      "They decided to demand after thinking about it."
     ]
   },
-  "depend": {
+  {
     "word": "depend",
-    "lang": "en",
     "definition": "A common English verb meaning 'depend' in various contexts.",
     "translations": [
-      "depend (traduction fran\u00e7aise 1)",
-      "depend (traduction fran\u00e7aise 2)",
-      "depend (traduction fran\u00e7aise 3)"
+      "depend (action)",
+      "depend (sens figuré)",
+      "depend (utilisation commune)"
     ],
-    "main_translation": "depend (traduction fran\u00e7aise 1)",
+    "main_translation": "depend (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non depend",
+      "depend opposé",
+      "depend incorrect"
+    ],
+    "examples": [
+      "I often need to depend in daily life.",
+      "They decided to depend after thinking about it."
     ]
   },
-  "destroy": {
+  {
     "word": "destroy",
-    "lang": "en",
     "definition": "A common English verb meaning 'destroy' in various contexts.",
     "translations": [
-      "destroy (traduction fran\u00e7aise 1)",
-      "destroy (traduction fran\u00e7aise 2)",
-      "destroy (traduction fran\u00e7aise 3)"
+      "destroy (action)",
+      "destroy (sens figuré)",
+      "destroy (utilisation commune)"
     ],
-    "main_translation": "destroy (traduction fran\u00e7aise 1)",
+    "main_translation": "destroy (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non destroy",
+      "destroy opposé",
+      "destroy incorrect"
+    ],
+    "examples": [
+      "I often need to destroy in daily life.",
+      "They decided to destroy after thinking about it."
     ]
   },
-  "divide": {
+  {
     "word": "divide",
-    "lang": "en",
     "definition": "A common English verb meaning 'divide' in various contexts.",
     "translations": [
-      "divide (traduction fran\u00e7aise 1)",
-      "divide (traduction fran\u00e7aise 2)",
-      "divide (traduction fran\u00e7aise 3)"
+      "divide (action)",
+      "divide (sens figuré)",
+      "divide (utilisation commune)"
     ],
-    "main_translation": "divide (traduction fran\u00e7aise 1)",
+    "main_translation": "divide (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non divide",
+      "divide opposé",
+      "divide incorrect"
+    ],
+    "examples": [
+      "I often need to divide in daily life.",
+      "They decided to divide after thinking about it."
     ]
   },
-  "doubt": {
+  {
     "word": "doubt",
-    "lang": "en",
     "definition": "A common English verb meaning 'doubt' in various contexts.",
     "translations": [
-      "doubt (traduction fran\u00e7aise 1)",
-      "doubt (traduction fran\u00e7aise 2)",
-      "doubt (traduction fran\u00e7aise 3)"
+      "doubt (action)",
+      "doubt (sens figuré)",
+      "doubt (utilisation commune)"
     ],
-    "main_translation": "doubt (traduction fran\u00e7aise 1)",
+    "main_translation": "doubt (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non doubt",
+      "doubt opposé",
+      "doubt incorrect"
+    ],
+    "examples": [
+      "I often need to doubt in daily life.",
+      "They decided to doubt after thinking about it."
     ]
   },
-  "drop": {
+  {
     "word": "drop",
-    "lang": "en",
     "definition": "A common English verb meaning 'drop' in various contexts.",
     "translations": [
-      "drop (traduction fran\u00e7aise 1)",
-      "drop (traduction fran\u00e7aise 2)",
-      "drop (traduction fran\u00e7aise 3)"
+      "drop (action)",
+      "drop (sens figuré)",
+      "drop (utilisation commune)"
     ],
-    "main_translation": "drop (traduction fran\u00e7aise 1)",
+    "main_translation": "drop (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non drop",
+      "drop opposé",
+      "drop incorrect"
+    ],
+    "examples": [
+      "I often need to drop in daily life.",
+      "They decided to drop after thinking about it."
     ]
   },
-  "earn": {
+  {
     "word": "earn",
-    "lang": "en",
     "definition": "A common English verb meaning 'earn' in various contexts.",
     "translations": [
-      "earn (traduction fran\u00e7aise 1)",
-      "earn (traduction fran\u00e7aise 2)",
-      "earn (traduction fran\u00e7aise 3)"
+      "earn (action)",
+      "earn (sens figuré)",
+      "earn (utilisation commune)"
     ],
-    "main_translation": "earn (traduction fran\u00e7aise 1)",
+    "main_translation": "earn (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non earn",
+      "earn opposé",
+      "earn incorrect"
+    ],
+    "examples": [
+      "I often need to earn in daily life.",
+      "They decided to earn after thinking about it."
     ]
   },
-  "encourage": {
+  {
     "word": "encourage",
-    "lang": "en",
     "definition": "A common English verb meaning 'encourage' in various contexts.",
     "translations": [
-      "encourage (traduction fran\u00e7aise 1)",
-      "encourage (traduction fran\u00e7aise 2)",
-      "encourage (traduction fran\u00e7aise 3)"
+      "encourage (action)",
+      "encourage (sens figuré)",
+      "encourage (utilisation commune)"
     ],
-    "main_translation": "encourage (traduction fran\u00e7aise 1)",
+    "main_translation": "encourage (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non encourage",
+      "encourage opposé",
+      "encourage incorrect"
+    ],
+    "examples": [
+      "I often need to encourage in daily life.",
+      "They decided to encourage after thinking about it."
     ]
   },
-  "examine": {
+  {
     "word": "examine",
-    "lang": "en",
     "definition": "A common English verb meaning 'examine' in various contexts.",
     "translations": [
-      "examine (traduction fran\u00e7aise 1)",
-      "examine (traduction fran\u00e7aise 2)",
-      "examine (traduction fran\u00e7aise 3)"
+      "examine (action)",
+      "examine (sens figuré)",
+      "examine (utilisation commune)"
     ],
-    "main_translation": "examine (traduction fran\u00e7aise 1)",
+    "main_translation": "examine (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non examine",
+      "examine opposé",
+      "examine incorrect"
+    ],
+    "examples": [
+      "I often need to examine in daily life.",
+      "They decided to examine after thinking about it."
     ]
   },
-  "exercise": {
+  {
     "word": "exercise",
-    "lang": "en",
     "definition": "A common English verb meaning 'exercise' in various contexts.",
     "translations": [
-      "exercise (traduction fran\u00e7aise 1)",
-      "exercise (traduction fran\u00e7aise 2)",
-      "exercise (traduction fran\u00e7aise 3)"
+      "exercise (action)",
+      "exercise (sens figuré)",
+      "exercise (utilisation commune)"
     ],
-    "main_translation": "exercise (traduction fran\u00e7aise 1)",
+    "main_translation": "exercise (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non exercise",
+      "exercise opposé",
+      "exercise incorrect"
+    ],
+    "examples": [
+      "I often need to exercise in daily life.",
+      "They decided to exercise after thinking about it."
     ]
   },
-  "exist": {
+  {
     "word": "exist",
-    "lang": "en",
     "definition": "A common English verb meaning 'exist' in various contexts.",
     "translations": [
-      "exist (traduction fran\u00e7aise 1)",
-      "exist (traduction fran\u00e7aise 2)",
-      "exist (traduction fran\u00e7aise 3)"
+      "exist (action)",
+      "exist (sens figuré)",
+      "exist (utilisation commune)"
     ],
-    "main_translation": "exist (traduction fran\u00e7aise 1)",
+    "main_translation": "exist (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non exist",
+      "exist opposé",
+      "exist incorrect"
+    ],
+    "examples": [
+      "I often need to exist in daily life.",
+      "They decided to exist after thinking about it."
     ]
   },
-  "expect": {
+  {
     "word": "expect",
-    "lang": "en",
     "definition": "A common English verb meaning 'expect' in various contexts.",
     "translations": [
-      "expect (traduction fran\u00e7aise 1)",
-      "expect (traduction fran\u00e7aise 2)",
-      "expect (traduction fran\u00e7aise 3)"
+      "expect (action)",
+      "expect (sens figuré)",
+      "expect (utilisation commune)"
     ],
-    "main_translation": "expect (traduction fran\u00e7aise 1)",
+    "main_translation": "expect (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non expect",
+      "expect opposé",
+      "expect incorrect"
+    ],
+    "examples": [
+      "I often need to expect in daily life.",
+      "They decided to expect after thinking about it."
     ]
   },
-  "experience": {
+  {
     "word": "experience",
-    "lang": "en",
     "definition": "A common English verb meaning 'experience' in various contexts.",
     "translations": [
-      "experience (traduction fran\u00e7aise 1)",
-      "experience (traduction fran\u00e7aise 2)",
-      "experience (traduction fran\u00e7aise 3)"
+      "experience (action)",
+      "experience (sens figuré)",
+      "experience (utilisation commune)"
     ],
-    "main_translation": "experience (traduction fran\u00e7aise 1)",
+    "main_translation": "experience (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non experience",
+      "experience opposé",
+      "experience incorrect"
+    ],
+    "examples": [
+      "I often need to experience in daily life.",
+      "They decided to experience after thinking about it."
     ]
   },
-  "express": {
+  {
     "word": "express",
-    "lang": "en",
     "definition": "A common English verb meaning 'express' in various contexts.",
     "translations": [
-      "express (traduction fran\u00e7aise 1)",
-      "express (traduction fran\u00e7aise 2)",
-      "express (traduction fran\u00e7aise 3)"
+      "express (action)",
+      "express (sens figuré)",
+      "express (utilisation commune)"
     ],
-    "main_translation": "express (traduction fran\u00e7aise 1)",
+    "main_translation": "express (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non express",
+      "express opposé",
+      "express incorrect"
+    ],
+    "examples": [
+      "I often need to express in daily life.",
+      "They decided to express after thinking about it."
     ]
   },
-  "fail": {
+  {
     "word": "fail",
-    "lang": "en",
     "definition": "A common English verb meaning 'fail' in various contexts.",
     "translations": [
-      "fail (traduction fran\u00e7aise 1)",
-      "fail (traduction fran\u00e7aise 2)",
-      "fail (traduction fran\u00e7aise 3)"
+      "fail (action)",
+      "fail (sens figuré)",
+      "fail (utilisation commune)"
     ],
-    "main_translation": "fail (traduction fran\u00e7aise 1)",
+    "main_translation": "fail (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non fail",
+      "fail opposé",
+      "fail incorrect"
+    ],
+    "examples": [
+      "I often need to fail in daily life.",
+      "They decided to fail after thinking about it."
     ]
   },
-  "fasten": {
+  {
     "word": "fasten",
-    "lang": "en",
     "definition": "A common English verb meaning 'fasten' in various contexts.",
     "translations": [
-      "fasten (traduction fran\u00e7aise 1)",
-      "fasten (traduction fran\u00e7aise 2)",
-      "fasten (traduction fran\u00e7aise 3)"
+      "fasten (action)",
+      "fasten (sens figuré)",
+      "fasten (utilisation commune)"
     ],
-    "main_translation": "fasten (traduction fran\u00e7aise 1)",
+    "main_translation": "fasten (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non fasten",
+      "fasten opposé",
+      "fasten incorrect"
+    ],
+    "examples": [
+      "I often need to fasten in daily life.",
+      "They decided to fasten after thinking about it."
     ]
   },
-  "fill": {
+  {
     "word": "fill",
-    "lang": "en",
     "definition": "A common English verb meaning 'fill' in various contexts.",
     "translations": [
-      "fill (traduction fran\u00e7aise 1)",
-      "fill (traduction fran\u00e7aise 2)",
-      "fill (traduction fran\u00e7aise 3)"
+      "fill (action)",
+      "fill (sens figuré)",
+      "fill (utilisation commune)"
     ],
-    "main_translation": "fill (traduction fran\u00e7aise 1)",
+    "main_translation": "fill (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non fill",
+      "fill opposé",
+      "fill incorrect"
+    ],
+    "examples": [
+      "I often need to fill in daily life.",
+      "They decided to fill after thinking about it."
     ]
   },
-  "fit": {
+  {
     "word": "fit",
-    "lang": "en",
     "definition": "A common English verb meaning 'fit' in various contexts.",
     "translations": [
-      "fit (traduction fran\u00e7aise 1)",
-      "fit (traduction fran\u00e7aise 2)",
-      "fit (traduction fran\u00e7aise 3)"
+      "fit (action)",
+      "fit (sens figuré)",
+      "fit (utilisation commune)"
     ],
-    "main_translation": "fit (traduction fran\u00e7aise 1)",
+    "main_translation": "fit (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non fit",
+      "fit opposé",
+      "fit incorrect"
+    ],
+    "examples": [
+      "I often need to fit in daily life.",
+      "They decided to fit after thinking about it."
     ]
   },
-  "fix": {
+  {
     "word": "fix",
-    "lang": "en",
     "definition": "A common English verb meaning 'fix' in various contexts.",
     "translations": [
-      "fix (traduction fran\u00e7aise 1)",
-      "fix (traduction fran\u00e7aise 2)",
-      "fix (traduction fran\u00e7aise 3)"
+      "fix (action)",
+      "fix (sens figuré)",
+      "fix (utilisation commune)"
     ],
-    "main_translation": "fix (traduction fran\u00e7aise 1)",
+    "main_translation": "fix (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non fix",
+      "fix opposé",
+      "fix incorrect"
+    ],
+    "examples": [
+      "I often need to fix in daily life.",
+      "They decided to fix after thinking about it."
     ]
   },
-  "fly": {
+  {
     "word": "fly",
-    "lang": "en",
     "definition": "A common English verb meaning 'fly' in various contexts.",
     "translations": [
-      "fly (traduction fran\u00e7aise 1)",
-      "fly (traduction fran\u00e7aise 2)",
-      "fly (traduction fran\u00e7aise 3)"
+      "fly (action)",
+      "fly (sens figuré)",
+      "fly (utilisation commune)"
     ],
-    "main_translation": "fly (traduction fran\u00e7aise 1)",
+    "main_translation": "fly (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non fly",
+      "fly opposé",
+      "fly incorrect"
+    ],
+    "examples": [
+      "I often need to fly in daily life.",
+      "They decided to fly after thinking about it."
     ]
   },
-  "form": {
+  {
     "word": "form",
-    "lang": "en",
     "definition": "A common English verb meaning 'form' in various contexts.",
     "translations": [
-      "form (traduction fran\u00e7aise 1)",
-      "form (traduction fran\u00e7aise 2)",
-      "form (traduction fran\u00e7aise 3)"
+      "form (action)",
+      "form (sens figuré)",
+      "form (utilisation commune)"
     ],
-    "main_translation": "form (traduction fran\u00e7aise 1)",
+    "main_translation": "form (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non form",
+      "form opposé",
+      "form incorrect"
+    ],
+    "examples": [
+      "I often need to form in daily life.",
+      "They decided to form after thinking about it."
     ]
   },
-  "gain": {
+  {
     "word": "gain",
-    "lang": "en",
     "definition": "A common English verb meaning 'gain' in various contexts.",
     "translations": [
-      "gain (traduction fran\u00e7aise 1)",
-      "gain (traduction fran\u00e7aise 2)",
-      "gain (traduction fran\u00e7aise 3)"
+      "gain (action)",
+      "gain (sens figuré)",
+      "gain (utilisation commune)"
     ],
-    "main_translation": "gain (traduction fran\u00e7aise 1)",
+    "main_translation": "gain (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non gain",
+      "gain opposé",
+      "gain incorrect"
+    ],
+    "examples": [
+      "I often need to gain in daily life.",
+      "They decided to gain after thinking about it."
     ]
   },
-  "gather": {
+  {
     "word": "gather",
-    "lang": "en",
     "definition": "A common English verb meaning 'gather' in various contexts.",
     "translations": [
-      "gather (traduction fran\u00e7aise 1)",
-      "gather (traduction fran\u00e7aise 2)",
-      "gather (traduction fran\u00e7aise 3)"
+      "gather (action)",
+      "gather (sens figuré)",
+      "gather (utilisation commune)"
     ],
-    "main_translation": "gather (traduction fran\u00e7aise 1)",
+    "main_translation": "gather (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non gather",
+      "gather opposé",
+      "gather incorrect"
+    ],
+    "examples": [
+      "I often need to gather in daily life.",
+      "They decided to gather after thinking about it."
     ]
   },
-  "guess": {
+  {
     "word": "guess",
-    "lang": "en",
     "definition": "A common English verb meaning 'guess' in various contexts.",
     "translations": [
-      "guess (traduction fran\u00e7aise 1)",
-      "guess (traduction fran\u00e7aise 2)",
-      "guess (traduction fran\u00e7aise 3)"
+      "guess (action)",
+      "guess (sens figuré)",
+      "guess (utilisation commune)"
     ],
-    "main_translation": "guess (traduction fran\u00e7aise 1)",
+    "main_translation": "guess (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non guess",
+      "guess opposé",
+      "guess incorrect"
+    ],
+    "examples": [
+      "I often need to guess in daily life.",
+      "They decided to guess after thinking about it."
     ]
   },
-  "handle": {
+  {
     "word": "handle",
-    "lang": "en",
     "definition": "A common English verb meaning 'handle' in various contexts.",
     "translations": [
-      "handle (traduction fran\u00e7aise 1)",
-      "handle (traduction fran\u00e7aise 2)",
-      "handle (traduction fran\u00e7aise 3)"
+      "handle (action)",
+      "handle (sens figuré)",
+      "handle (utilisation commune)"
     ],
-    "main_translation": "handle (traduction fran\u00e7aise 1)",
+    "main_translation": "handle (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non handle",
+      "handle opposé",
+      "handle incorrect"
+    ],
+    "examples": [
+      "I often need to handle in daily life.",
+      "They decided to handle after thinking about it."
     ]
   },
-  "hurry": {
+  {
     "word": "hurry",
-    "lang": "en",
     "definition": "A common English verb meaning 'hurry' in various contexts.",
     "translations": [
-      "hurry (traduction fran\u00e7aise 1)",
-      "hurry (traduction fran\u00e7aise 2)",
-      "hurry (traduction fran\u00e7aise 3)"
+      "hurry (action)",
+      "hurry (sens figuré)",
+      "hurry (utilisation commune)"
     ],
-    "main_translation": "hurry (traduction fran\u00e7aise 1)",
+    "main_translation": "hurry (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non hurry",
+      "hurry opposé",
+      "hurry incorrect"
+    ],
+    "examples": [
+      "I often need to hurry in daily life.",
+      "They decided to hurry after thinking about it."
     ]
   },
-  "identify": {
+  {
     "word": "identify",
-    "lang": "en",
     "definition": "A common English verb meaning 'identify' in various contexts.",
     "translations": [
-      "identify (traduction fran\u00e7aise 1)",
-      "identify (traduction fran\u00e7aise 2)",
-      "identify (traduction fran\u00e7aise 3)"
+      "identify (action)",
+      "identify (sens figuré)",
+      "identify (utilisation commune)"
     ],
-    "main_translation": "identify (traduction fran\u00e7aise 1)",
+    "main_translation": "identify (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non identify",
+      "identify opposé",
+      "identify incorrect"
+    ],
+    "examples": [
+      "I often need to identify in daily life.",
+      "They decided to identify after thinking about it."
     ]
   },
-  "imagine": {
+  {
     "word": "imagine",
-    "lang": "en",
     "definition": "A common English verb meaning 'imagine' in various contexts.",
     "translations": [
-      "imagine (traduction fran\u00e7aise 1)",
-      "imagine (traduction fran\u00e7aise 2)",
-      "imagine (traduction fran\u00e7aise 3)"
+      "imagine (action)",
+      "imagine (sens figuré)",
+      "imagine (utilisation commune)"
     ],
-    "main_translation": "imagine (traduction fran\u00e7aise 1)",
+    "main_translation": "imagine (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non imagine",
+      "imagine opposé",
+      "imagine incorrect"
+    ],
+    "examples": [
+      "I often need to imagine in daily life.",
+      "They decided to imagine after thinking about it."
     ]
   },
-  "invite": {
+  {
     "word": "invite",
-    "lang": "en",
     "definition": "A common English verb meaning 'invite' in various contexts.",
     "translations": [
-      "invite (traduction fran\u00e7aise 1)",
-      "invite (traduction fran\u00e7aise 2)",
-      "invite (traduction fran\u00e7aise 3)"
+      "invite (action)",
+      "invite (sens figuré)",
+      "invite (utilisation commune)"
     ],
-    "main_translation": "invite (traduction fran\u00e7aise 1)",
+    "main_translation": "invite (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non invite",
+      "invite opposé",
+      "invite incorrect"
+    ],
+    "examples": [
+      "I often need to invite in daily life.",
+      "They decided to invite after thinking about it."
     ]
   },
-  "join": {
+  {
     "word": "join",
-    "lang": "en",
     "definition": "A common English verb meaning 'join' in various contexts.",
     "translations": [
-      "join (traduction fran\u00e7aise 1)",
-      "join (traduction fran\u00e7aise 2)",
-      "join (traduction fran\u00e7aise 3)"
+      "join (action)",
+      "join (sens figuré)",
+      "join (utilisation commune)"
     ],
-    "main_translation": "join (traduction fran\u00e7aise 1)",
+    "main_translation": "join (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non join",
+      "join opposé",
+      "join incorrect"
+    ],
+    "examples": [
+      "I often need to join in daily life.",
+      "They decided to join after thinking about it."
     ]
   },
-  "jump": {
+  {
     "word": "jump",
-    "lang": "en",
     "definition": "A common English verb meaning 'jump' in various contexts.",
     "translations": [
-      "jump (traduction fran\u00e7aise 1)",
-      "jump (traduction fran\u00e7aise 2)",
-      "jump (traduction fran\u00e7aise 3)"
+      "jump (action)",
+      "jump (sens figuré)",
+      "jump (utilisation commune)"
     ],
-    "main_translation": "jump (traduction fran\u00e7aise 1)",
+    "main_translation": "jump (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non jump",
+      "jump opposé",
+      "jump incorrect"
+    ],
+    "examples": [
+      "I often need to jump in daily life.",
+      "They decided to jump after thinking about it."
     ]
   },
-  "laugh": {
+  {
     "word": "laugh",
-    "lang": "en",
     "definition": "A common English verb meaning 'laugh' in various contexts.",
     "translations": [
-      "laugh (traduction fran\u00e7aise 1)",
-      "laugh (traduction fran\u00e7aise 2)",
-      "laugh (traduction fran\u00e7aise 3)"
+      "laugh (action)",
+      "laugh (sens figuré)",
+      "laugh (utilisation commune)"
     ],
-    "main_translation": "laugh (traduction fran\u00e7aise 1)",
+    "main_translation": "laugh (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non laugh",
+      "laugh opposé",
+      "laugh incorrect"
+    ],
+    "examples": [
+      "I often need to laugh in daily life.",
+      "They decided to laugh after thinking about it."
     ]
   },
-  "lead": {
+  {
     "word": "lead",
-    "lang": "en",
     "definition": "A common English verb meaning 'lead' in various contexts.",
     "translations": [
-      "lead (traduction fran\u00e7aise 1)",
-      "lead (traduction fran\u00e7aise 2)",
-      "lead (traduction fran\u00e7aise 3)"
+      "lead (action)",
+      "lead (sens figuré)",
+      "lead (utilisation commune)"
     ],
-    "main_translation": "lead (traduction fran\u00e7aise 1)",
+    "main_translation": "lead (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non lead",
+      "lead opposé",
+      "lead incorrect"
+    ],
+    "examples": [
+      "I often need to lead in daily life.",
+      "They decided to lead after thinking about it."
     ]
   },
-  "lift": {
+  {
     "word": "lift",
-    "lang": "en",
     "definition": "A common English verb meaning 'lift' in various contexts.",
     "translations": [
-      "lift (traduction fran\u00e7aise 1)",
-      "lift (traduction fran\u00e7aise 2)",
-      "lift (traduction fran\u00e7aise 3)"
+      "lift (action)",
+      "lift (sens figuré)",
+      "lift (utilisation commune)"
     ],
-    "main_translation": "lift (traduction fran\u00e7aise 1)",
+    "main_translation": "lift (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non lift",
+      "lift opposé",
+      "lift incorrect"
+    ],
+    "examples": [
+      "I often need to lift in daily life.",
+      "They decided to lift after thinking about it."
     ]
   },
-  "limit": {
+  {
     "word": "limit",
-    "lang": "en",
     "definition": "A common English verb meaning 'limit' in various contexts.",
     "translations": [
-      "limit (traduction fran\u00e7aise 1)",
-      "limit (traduction fran\u00e7aise 2)",
-      "limit (traduction fran\u00e7aise 3)"
+      "limit (action)",
+      "limit (sens figuré)",
+      "limit (utilisation commune)"
     ],
-    "main_translation": "limit (traduction fran\u00e7aise 1)",
+    "main_translation": "limit (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non limit",
+      "limit opposé",
+      "limit incorrect"
+    ],
+    "examples": [
+      "I often need to limit in daily life.",
+      "They decided to limit after thinking about it."
     ]
   },
-  "mark": {
+  {
     "word": "mark",
-    "lang": "en",
     "definition": "A common English verb meaning 'mark' in various contexts.",
     "translations": [
-      "mark (traduction fran\u00e7aise 1)",
-      "mark (traduction fran\u00e7aise 2)",
-      "mark (traduction fran\u00e7aise 3)"
+      "mark (action)",
+      "mark (sens figuré)",
+      "mark (utilisation commune)"
     ],
-    "main_translation": "mark (traduction fran\u00e7aise 1)",
+    "main_translation": "mark (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non mark",
+      "mark opposé",
+      "mark incorrect"
+    ],
+    "examples": [
+      "I often need to mark in daily life.",
+      "They decided to mark after thinking about it."
     ]
   },
-  "measure": {
+  {
     "word": "measure",
-    "lang": "en",
     "definition": "A common English verb meaning 'measure' in various contexts.",
     "translations": [
-      "measure (traduction fran\u00e7aise 1)",
-      "measure (traduction fran\u00e7aise 2)",
-      "measure (traduction fran\u00e7aise 3)"
+      "measure (action)",
+      "measure (sens figuré)",
+      "measure (utilisation commune)"
     ],
-    "main_translation": "measure (traduction fran\u00e7aise 1)",
+    "main_translation": "measure (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non measure",
+      "measure opposé",
+      "measure incorrect"
+    ],
+    "examples": [
+      "I often need to measure in daily life.",
+      "They decided to measure after thinking about it."
     ]
   },
-  "miss": {
+  {
     "word": "miss",
-    "lang": "en",
     "definition": "A common English verb meaning 'miss' in various contexts.",
     "translations": [
-      "miss (traduction fran\u00e7aise 1)",
-      "miss (traduction fran\u00e7aise 2)",
-      "miss (traduction fran\u00e7aise 3)"
+      "miss (action)",
+      "miss (sens figuré)",
+      "miss (utilisation commune)"
     ],
-    "main_translation": "miss (traduction fran\u00e7aise 1)",
+    "main_translation": "miss (action)",
     "distractors": [
-      "option incorrecte 1",
-      "option incorrecte 2",
-      "option incorrecte 3"
+      "non miss",
+      "miss opposé",
+      "miss incorrect"
+    ],
+    "examples": [
+      "I often need to miss in daily life.",
+      "They decided to miss after thinking about it."
     ]
   }
-}
+]
