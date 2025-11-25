@@ -319,11 +319,14 @@ function addToHistory(word) {
 }
 
 /* ============================================================
-   DICTIONNAIRE
+   DICTIONNAIRE (selon langue source fromLang)
 ============================================================ */
 async function loadDictionary(search = "") {
     try {
-        const res = await fetch(`/api/list-words.js?q=${search}`);
+        // Langue du dictionnaire = langue source
+        const lang = fromLang; // "en" ou "fr"
+
+        const res = await fetch(`/api/list-words.js?lang=${lang}&q=${search}`);
         const data = await res.json();
 
         dictionaryList.innerHTML = "";
@@ -347,6 +350,7 @@ async function loadDictionary(search = "") {
         console.error(err);
     }
 }
+
 
 dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
