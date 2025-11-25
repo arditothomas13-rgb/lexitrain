@@ -291,7 +291,7 @@ loadHistory();
 ============================================================ */
 async function loadDictionary(search = "") {
     try {
-        const res = await fetch(`/api/list-words.js?q=${search}`);
+      const res = await fetch(`/api/list-words?q=${search}`);
         const data = await res.json();
 
         dictionaryList.innerHTML = "";
