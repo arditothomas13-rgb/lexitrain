@@ -42,6 +42,17 @@ const langSwap = document.getElementById("langSwap");
 
 const btnDicEn = document.getElementById("dicLangEn");
 const btnDicFr = document.getElementById("dicLangFr");
+const pageQuiz = document.getElementById("page-quiz");
+const openQuiz = document.getElementById("openQuiz");
+
+const quizCard = document.getElementById("quizCard");
+const quizLoader = document.getElementById("quizLoader");
+const quizQuestion = document.getElementById("quizQuestion");
+const quizOptions = document.getElementById("quizOptions");
+
+const quizResult = document.getElementById("quizResult");
+const quizScore = document.getElementById("quizScore");
+const quizRestart = document.getElementById("quizRestart");
 
 /* ============================================================
    LOCAL OFFLINE CACHE
