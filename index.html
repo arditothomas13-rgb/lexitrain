@@ -24,29 +24,23 @@
         Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
     </p>
 
-    <!-- Input corrigé -->
     <div class="glass input-card">
         <input id="input" type="text" placeholder="Ex : stretched, although..." />
     </div>
 
-    <!-- Bouton corrigé -->
     <button class="btn-green" id="translateBtn">Traduire</button>
 
-    <!-- Langues -->
     <div class="glass lang-card">
         <div class="lang"><span id="fromFlag">🇬🇧</span> <span id="fromLabel">Anglais</span></div>
         <div class="swap" id="langSwap">⇄</div>
         <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
     </div>
 
-    <!-- Résultats -->
     <div id="resultCard" class="glass result-card" style="display:none;">
         <div id="result-title" class="result-title">mot</div>
 
-        <!-- Pills des sens -->
         <div id="senseTabs" class="sense-tabs"></div>
 
-        <!-- Contenu du sens actif -->
         <div id="senseContent" class="sense-content"></div>
     </div>
 
