@@ -1,7 +1,7 @@
 // ------------------------------------------------------
-//  Vercel API Route — translate.js (version corrigée)
+//  Vercel API Route — translate.js (version mise à jour)
 //  Multi-sense Dictionary Engine (Oxford + Reverso)
-//  Output 100% compatible avec l'UI LexiTrain
+//  Règle ajoutée : verbs = "to <word> (verb)"
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
@@ -23,15 +23,14 @@ export default async function handler(req, res) {
     }
 
     // ------------------------------------------------------
-    // NEW MULTI-SENSE PROMPT (Oxford + Cambridge + Reverso)
+    // PROMPT MULTI-SENS + FORMATAGE VERBES “to <word> (verb)”
     // ------------------------------------------------------
     const prompt = `
 You are an advanced dictionary engine (Oxford + Cambridge + Reverso).
 
 For the word: "${word}"
 
-Your task is to detect *all grammatical senses*, including:
-
+Your task is to detect ALL grammatical senses, including:
 - noun
 - verb
 - adjective
@@ -39,16 +38,15 @@ Your task is to detect *all grammatical senses*, including:
 - phrasal verbs
 - idioms
 - expressions
-- alternative meanings
 
-Return ONLY valid JSON with this exact structure:
+Return ONLY valid JSON with EXACTLY this structure:
 
 {
   "entries": [
     {
-      "label": "book (noun)",              // includes word + POS
-      "definition": "…",                   // definition in source language
-      "translations": ["…","…"],           // FR <-> EN depending on direction
+      "label": "word (noun)",            // FOR VERBS: MUST be "to word (verb)"
+      "definition": "…",                 // definition in source language
+      "translations": ["…","…"],         // FR <-> EN depending on detected direction
       "examples": [
         { "src": "…", "dest": "…" },
         { "src": "…", "dest": "…" }
@@ -59,15 +57,19 @@ Return ONLY valid JSON with this exact structure:
 }
 
 STRICT RULES:
-- Return AS MANY entries as there are distinct senses.
-- Each entry corresponds to ONE grammatical sense.
-- If the word has multiple meanings (ex: “run”, “book”, “light”…), return minimum 2–6 entries.
-- Auto-detect source language (EN or FR).
-- Definitions + synonyms ALWAYS in source language.
-- Translations ALWAYS in target language.
-- Examples: 2 per entry.
-- No commentary or text outside JSON.
-- JSON must be valid and parsable.
+- For ANY verb sense, ALWAYS format the label as:
+  "to ${word} (verb)"
+- For nouns: "${word} (noun)"
+- For adjectives: "${word} (adjective)"
+- For phrasal verbs: "to ${word} <particle> (phrasal verb)"
+- Return one "entry" per grammatical sense.
+- Minimum 2 entries if the word has multiple meanings (ex: “house”, “book”, “light”).
+- Auto-detect source language (EN/FR).
+- Definitions + synonyms = source language.
+- Translations = target language.
+- Always return exactly 2 examples per entry.
+- Never output text outside JSON.
+- JSON MUST be valid.
 `;
 
     // ------------------------------------------------------
@@ -105,7 +107,7 @@ STRICT RULES:
     }
 
     // ------------------------------------------------------
-    // SAVE RESULT INTO VERCEL KV
+    // SAVE TO KV
     // ------------------------------------------------------
     try {
       await fetch(`${KV_URL}/set/${word}`, {
@@ -118,9 +120,12 @@ STRICT RULES:
       });
     } catch (err) {
       console.error("KV SAVE ERROR:", err);
-      // Not blocking: user still gets the result
+      // We do not block the user
     }
 
+    // ------------------------------------------------------
+    // RETURN RESULT
+    // ------------------------------------------------------
     return res.status(200).json(parsed);
 
   } catch (e) {
