@@ -593,3 +593,55 @@ body {
         font-size: 14px;
     }
 }
+
+/* ------------------------------------------- */
+/* PAGE DICTIONNAIRE — APPLE STYLE            */
+/* ------------------------------------------- */
+.dictionary-page {
+    padding: 24px;
+    margin-top: 20px;
+}
+
+.dictionary-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-wrapper {
+    margin-bottom: 18px;
+}
+
+#dictionarySearch {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 14px;
+    border: none;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    outline: none;
+}
+
+.dictionary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dic-item {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(16px);
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.dic-item:hover {
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
