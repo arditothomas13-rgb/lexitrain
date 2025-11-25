@@ -1,2 +1,2 @@
 # lexitrain
-Application web personnelle pour apprendre du vocabulaire anglais
+Application web personnelle pour apprendre du vocabulaire anglais et français
