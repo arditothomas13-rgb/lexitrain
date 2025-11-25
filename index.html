@@ -14,51 +14,44 @@
 </head>
 <body>
 
-<div class="bg-halo"></div>
+<main>
+    <h1 class="title">LexiTrain</h1>
+    <p class="subtitle">Tape un <span class="highlight">mot</span> ou une <span class="highlight">expression</span> à traduire</p>
 
-<main class="container">
-
-    <h1 class="logo">LexiTrain</h1>
-
-    <p class="subtitle">
-        Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
-    </p>
-
-    <!-- Input -->
-    <div class="glass input-card">
-        <input id="wordInput" type="text" placeholder="Ex : stretched, although..." />
+    <!-- INPUT FIELD — corrected: added id="input" -->
+    <div class="input-wrapper glass">
+        <input 
+            type="text" 
+            id="input"
+            placeholder="Ex : stretched, although..."
+            class="input-field"
+        >
     </div>
 
-    <!-- Bouton TRÈS IMPORTANT : id corrigé -->
-    <button class="btn-green" id="translateButton">Traduire</button>
+    <!-- TRANSLATE BUTTON — corrected: added id="translateBtn" -->
+    <button id="translateBtn" class="translate-btn">
+        Traduire
+    </button>
 
-    <!-- Langues -->
-    <div class="glass lang-card">
-        <div class="lang"><span id="fromFlag">🇬🇧</span> <span id="fromLabel">Anglais</span></div>
-        <div class="swap" id="langSwap">⇄</div>
-        <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
+    <!-- LANGUAGE SWITCH -->
+    <div class="lang-switch glass">
+        <span>🇬🇧 ⇄ 🇫🇷</span>
     </div>
 
-    <!-- Résultats -->
-   <div id="resultCard" class="glass result-card" style="display:none;">
-    <div id="result-title" class="result-title">mot</div>
+    <!-- RESULT CARD -->
+    <div id="resultCard" class="glass result-card" style="display:none;">
+        <div id="result-title" class="result-title">mot</div>
 
-    <!-- Pills des sens -->
-    <div id="senseTabs" class="sense-tabs"></div>
+        <!-- Sens Pills -->
+        <div id="senseTabs" class="sense-tabs"></div>
 
-    <!-- Contenu du sens actif -->
-    <div id="senseContent" class="sense-content"></div>
-</div>
-
-        <div class="tab-content active" id="tab-traduction"></div>
-        <div class="tab-content" id="tab-definition"></div>
-        <div class="tab-content" id="tab-synonymes"></div>
-        <div class="tab-content" id="tab-exemples"></div>
-
+        <!-- Content of active sense -->
+        <div id="senseContent" class="sense-content"></div>
     </div>
 
 </main>
 
+<!-- Bottom Navigation -->
 <nav class="glass bottom-nav">
     <div class="nav-item">💬<span>Traduire</span></div>
     <div class="nav-item">📚<span>Dico</span></div>
