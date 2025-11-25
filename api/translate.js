@@ -1,72 +1,52 @@
-export default async function handler(req, res) {
-  try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ ok: false, error: "Méthode non autorisée." });
-    }
+// --------------------------------------------
+//  translate.js — Version Serverless Vercel
+// --------------------------------------------
+//
+// IMPORTANT :
+// Vercel exécute ce fichier comme un endpoint backend.
+// Il doit exporter "default function handler(req, res)".
+// --------------------------------------------
 
-    const { word, fromLang, toLang } = req.body;
+export default async function handler(req, res) {
+    const word = req.query.word;
 
     if (!word) {
-      return res.status(400).json({ ok: false, error: "Mot manquant." });
+        return res.status(400).json({ error: "Missing 'word' parameter" });
     }
 
-    const systemPrompt = `
-Tu es un moteur de dictionnaire. Retourne du JSON strict :
+    try {
+        // Ici tu mets TON ALGO actuel de parsing / tes data / ton mapping
+        // Pour le moment, je laisse un "mock" structurel qui suit ton format "entries".
 
-{
-  "translations": "<html>",
-  "definitions": "<html>",
-  "synonyms": "<html>",
-  "examples": "<html>"
-}
+        // ⚠️ Remplace ce bloc par ta vraie logique interne si tu avais un dictionnaire
+        const mock = {
+            entries: [
+                {
+                    label: "Nom — livre",
+                    translations: ["livre", "ouvrage"],
+                    examples: [
+                        { src: "I read a book.", dest: "Je lis un livre." },
+                        { src: "This book is amazing.", dest: "Ce livre est incroyable." }
+                    ],
+                    synonyms: ["volume", "ouvrage", "manuel"]
+                },
+                {
+                    label: "Verbe — réserver",
+                    translations: ["réserver", "retenir"],
+                    examples: [
+                        { src: "I booked a table.", dest: "J’ai réservé une table." },
+                        { src: "She booked a flight.", dest: "Elle a réservé un vol." }
+                    ],
+                    synonyms: ["réserver", "retenir", "prévoir"]
+                }
+            ]
+        };
 
-PAS de texte autour.
-`;
+        // Envoie ton objet final
+        return res.status(200).json(mock);
 
-    const userPrompt = `
-Mot : "${word}"
-Source : ${fromLang}
-Cible : ${toLang}
-
-Retourne traductions, définitions, synonymes, exemples.
-Format JSON STRICT, une seule réponse, pas de markdown.
-`;
-
-    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt }
-        ],
-        temperature: 0.2
-      })
-    });
-
-    const data = await openaiRes.json();
-
-    if (!data.choices || !data.choices[0]) {
-      return res.status(500).json({ ok: false, error: "Réponse OpenAI invalide." });
+    } catch (error) {
+        console.error("Server error:", error);
+        return res.status(500).json({ error: "Server error" });
     }
-
-    const raw = data.choices[0].message.content.trim();
-
-    const match = raw.match(/\{[\s\S]*\}/);
-    if (!match) {
-      return res.status(500).json({ ok: false, error: "JSON invalide." });
-    }
-
-    const json = JSON.parse(match[0]);
-
-    return res.status(200).json({ ok: true, word, ...json });
-
-  } catch (err) {
-    console.error("Erreur serveur :", err);
-    return res.status(500).json({ ok: false, error: "Erreur fatale." });
-  }
 }
