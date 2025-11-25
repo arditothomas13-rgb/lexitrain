@@ -8,19 +8,18 @@
 html, body {
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden !important;  /* empêche le scroll horizontal */
+  overflow-x: hidden !important;
   font-family: "Inter", sans-serif;
   background: transparent;
 }
 
-/* Empêche les flottements sur iPhone */
 body {
   position: relative;
   padding-bottom: 120px;
   overscroll-behavior: none;
 }
 
-/* --- HALO BACKGROUND FIXE (comme sur ton screenshot) --- */
+/* --- HALO BACKGROUND --- */
 .bg-halo {
   position: fixed;
   inset: 0;
@@ -32,7 +31,6 @@ body {
   background: radial-gradient(circle at 20% 20%, rgba(173, 255, 235, 0.55), transparent 60%),
               radial-gradient(circle at 80% 70%, rgba(200, 180, 255, 0.55), transparent 60%),
               radial-gradient(circle at 40% 90%, rgba(255, 220, 250, 0.5), transparent 60%);
-  
   filter: blur(60px);
 }
 
@@ -62,53 +60,67 @@ body {
 .subtitle .blue { color: #4ba4ff; }
 .subtitle .purple { color: #b27cff; }
 
-/* --- GLASS EFFECT --- */
+/* --- GLASS EFFECT (Liquid UI) --- */
 .glass {
-  background: rgba(255,255,255,0.55);
-  border: 1px solid rgba(255,255,255,0.4);
-  backdrop-filter: blur(22px);
-  border-radius: 22px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  background: rgba(255, 255, 255, 0.32);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
 }
 
-/* --- Champ texte --- */
+.glass:hover {
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+}
+
+/* --- INPUT --- */
 .input-card {
-  width: 100%;
-  padding: 12px;
+  padding: 8px 18px;
   margin-bottom: 20px;
 }
 
 .input-card input {
   width: 100%;
   padding: 16px;
+  font-size: 17px;
   border-radius: 18px;
   border: none;
   outline: none;
-  background: rgba(255,255,255,0.8);
-  font-size: 17px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
 }
 
-/* --- Bouton vert --- */
+.input-card input:focus {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* --- BOUTON APPLE GREEN --- */
 .btn-green {
+  margin-top: 18px;
+  background: linear-gradient(135deg, #34d26a, #23b65a);
+  padding: 14px 0;
   width: 100%;
-  max-width: 290px;
-  margin: 0 auto;
-  display: block;
-
-  padding: 15px 0;
-  border-radius: 50px;
-
-  background: linear-gradient(135deg, #12d37a, #08a85e);
-  box-shadow: 0 6px 20px rgba(0,125,60,0.25);
-
-  color: white;
+  max-width: 380px;
+  border-radius: 18px;
   font-size: 18px;
   font-weight: 600;
+  color: white;
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(52,210,106,0.35);
+  transition: all 0.25s ease;
 }
 
-/* --- Card langues --- */
+.btn-green:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(52,210,106,0.45);
+}
+
+/* --- CARTE LANGUES --- */
 .lang-card {
   width: 100%;
   max-width: 360px;
@@ -127,7 +139,9 @@ body {
   color: #333;
 }
 
-/* --- Bottom Navigation --- */
+/* ------------------------------------------- */
+/*             BOTTOM NAVIGATION               */
+/* ------------------------------------------- */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -146,6 +160,7 @@ body {
   text-align: center;
   color: #334944;
   font-size: 15px;
+  cursor: pointer;
 }
 
 .nav-item span {
@@ -154,446 +169,129 @@ body {
   margin-top: 4px;
 }
 
-/* Bulle résultat */
-.bubble-title {
-  font-size: 22px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-/* Tabs container */
-.tabs-container {
+/* ------------------------------------------- */
+/*        RESULT CARD / SENSE TABS UI          */
+/* ------------------------------------------- */
+.result-card {
+  margin-top: 18px;
+  padding: 24px;
   width: 100%;
+  max-width: 620px;
 }
-
-.tabs {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 12px;
-  background: #ffffffaa;
-  padding: 10px;
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
-}
-
-.tab {
-  background: none;
-  border: none;
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  opacity: .6;
-}
-
-.tab.active {
-  background: #fff;
-  opacity: 1;
-  font-weight: 600;
-}
-
-.tab-content {
-  display: none;
-  padding: 12px;
-  text-align: left;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* ----------- ONGLETS ----------- */
-
-.tabs-container {
-  width: 100%;
-  margin-top: 15px;
-}
-
-.tabs {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 12px;
-}
-
-.tab {
-  background: #ffffffd8;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.tab.active {
-  background: #4CAF50;
-  color: white;
-  font-weight: 600;
-}
-
-.tab-content {
-  display: none;
-  padding: 10px;
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-  line-height: 1.55;
-  text-align: left;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-.bubble-title {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-.tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  justify-content: center;
-}
-
-.tab {
-  padding: 6px 14px;
-  border: none;
-  background: #eee;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.tab.active {
-  background: #4CAF50;
-  color: white;
-}
-
-.tab-content {
-  display: none;
-  text-align: left;
-  padding: 10px 5px;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-.loading {
-  text-align: center;
-  padding: 15px;
-  font-size: 16px;
-}
-
-.error {
-  color: red;
-  padding: 15px;
-  font-size: 16px;
-}
-/* ------------------------------- */
-/*   PILLS DES SENS (ONGLETS)      */
-/* ------------------------------- */
 
 .sense-tabs {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding: 12px 0;
-    margin-bottom: 15px;
-    scroll-snap-type: x mandatory;
+  margin-top: 18px;
+  padding: 6px 0;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
 }
 
-.sense-tabs::-webkit-scrollbar {
-    display: none;
-}
+.sense-tabs::-webkit-scrollbar { display: none; }
 
 .sense-pill {
-    flex: 0 0 auto;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 15px;
-    font-weight: 500;
-    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-    color: #333;
-    cursor: pointer;
-    transition: all 0.20s ease;
-    scroll-snap-align: start;
-    white-space: nowrap;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 15px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .sense-pill:hover {
-    transform: translateY(-1px);
+  background: rgba(255,255,255,0.7);
 }
 
 .sense-pill.active {
-    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
-    color: white;
-    box-shadow: 0px 3px 8px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 14px rgba(34,197,94,0.25);
 }
-
-
-/* ------------------------------- */
-/*   CONTENU DU SENS ACTIF         */
-/* ------------------------------- */
 
 .sense-content {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-bottom: 8px;
 }
 
-/* Section title */
+/* --- TITRES DE BLOCS --- */
 .sense-block-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #222;
-    margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 6px;
 }
 
-/* ------------------------------- */
-/*   Traductions                   */
-/* ------------------------------- */
+/* --- TRADUCTIONS --- */
 .translation-list {
-    background: #fff;
-    border-radius: 14px;
-    padding: 14px 16px;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.07);
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.07);
 }
 
 .translation-item {
-    font-size: 16px;
-    padding: 4px 0;
-    color: #333;
+  font-size: 16px;
+  padding: 4px 0;
+  color: #333;
 }
 
-/* ------------------------------- */
-/*   Exemples                      */
-/* ------------------------------- */
+/* --- EXEMPLES --- */
 .examples-list {
-    background: #fff;
-    border-radius: 14px;
-    padding: 14px 16px;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.07);
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.07);
 }
 
-.example-block {
-    margin-bottom: 12px;
-}
+.example-block { margin-bottom: 12px; }
 
 .example-text {
-    font-size: 15px;
-    color: #333;
+  font-size: 15px;
+  color: #333;
 }
 
 .example-translation {
-    font-size: 14px;
-    color: #666;
-    margin-top: 2px;
+  font-size: 14px;
+  color: #666;
+  margin-top: 2px;
 }
 
-.example-block:last-child {
-    margin-bottom: 0;
-}
+.example-block:last-child { margin-bottom: 0; }
 
-/* ------------------------------- */
-/*   Synonymes (tags Apple)        */
-/* ------------------------------- */
-
+/* --- SYNONYMES (TAGS APPLE) --- */
 .synonyms-wrapper {
-    background: #fff;
-    padding: 14px 16px;
-    border-radius: 14px;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.07);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  background: white;
+  padding: 14px 16px;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .synonym-tag {
-    background: #f5f5f5;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 14px;
-    color: #333;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    transition: all 0.15s ease;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(14px);
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: 0.2s ease;
 }
 
 .synonym-tag:hover {
-    background: #e9e9e9;
-}
-
-/* =============================== */
-/*   APPLE INTELLIGENCE — LIQUID UI */
-/* =============================== */
-
-/* Liquid Glass Général */
-.glass {
-    backdrop-filter: blur(22px) saturate(180%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
-    background: rgba(255, 255, 255, 0.32);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-    transition: all 0.25s ease;
-}
-
-.glass:hover {
-    background: rgba(255, 255, 255, 0.38);
-    box-shadow: 0 6px 30px rgba(0,0,0,0.12);
-}
-
-/* Container résultat */
-.result-card {
-    margin-top: 18px;
-    padding: 24px;
-    width: 100%;
-    max-width: 620px;
-}
-
-/* Input card */
-.input-card {
-    padding: 8px 18px;
-}
-
-/* Input Apple */
-.input-card input {
-    padding: 16px;
-    font-size: 17px;
-    border-radius: 18px;
-    border: none;
-    outline: none;
-    width: 100%;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: all 0.25s ease;
-}
-
-.input-card input:focus {
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-/* Langues */
-.lang-card {
-    margin-top: 18px;
-    padding: 14px 24px;
-}
-
-/* Bouton Apple */
-.btn-green {
-    margin-top: 18px;
-    background: linear-gradient(135deg, #34d26a, #23b65a);
-    padding: 14px 0;
-    width: 100%;
-    max-width: 380px;
-    border-radius: 18px;
-    font-size: 18px;
-    font-weight: 600;
-    color: white;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(52,210,106,0.35);
-    transition: all 0.25s ease;
-}
-
-.btn-green:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(52,210,106,0.45);
-}
-
-/* Pills Apple */
-.sense-tabs {
-    margin-top: 18px;
-    padding: 6px 0;
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-}
-
-.sense-tabs::-webkit-scrollbar {
-    display: none;
-}
-
-.sense-pill {
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 15px;
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,0.35);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    transition: all 0.25s ease;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.sense-pill:hover {
-    background: rgba(255,255,255,0.7);
-}
-
-.sense-pill.active {
-    background: linear-gradient(135deg, #4ade80, #22c55e);
-    color: white;
-    border: none;
-    box-shadow: 0 4px 14px rgba(34,197,94,0.25);
-}
-
-/* Synonymes Apple */
-.synonyms-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    background: white;
-    padding: 14px;
-    border-radius: 16px;
-}
-
-.synonym-tag {
-    padding: 8px 14px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(14px);
-    font-size: 15px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    transition: 0.2s ease;
-}
-
-.synonym-tag:hover {
-    background: rgba(255,255,255,0.8);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-}
-
-/* Responsive Apple */
-@media (max-width: 480px) {
-    .container {
-        padding: 0 18px;
-    }
-
-    .result-card {
-        padding: 18px;
-        margin-top: 14px;
-    }
-
-    .btn-green {
-        font-size: 17px;
-        border-radius: 16px;
-    }
-
-    .sense-pill {
-        padding: 6px 16px;
-        font-size: 14px;
-    }
+  background: rgba(255,255,255,0.8);
 }
 
 /* ------------------------------------------- */
-/* PAGE DICTIONNAIRE — APPLE STYLE            */
+/*        PAGE DICO — Apple Intelligence        */
 /* ------------------------------------------- */
 .dictionary-page {
     padding: 24px;
@@ -642,4 +340,22 @@ body {
 .dic-item:hover {
     background: rgba(255,255,255,0.85);
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* ------------------------------------------- */
+/*               RESPONSIVE                    */
+/* ------------------------------------------- */
+@media (max-width: 480px) {
+    .container { padding: 0 18px; }
+    .result-card { padding: 18px; margin-top: 14px; }
+
+    .btn-green {
+        font-size: 17px;
+        border-radius: 16px;
+    }
+
+    .sense-pill {
+        padding: 6px 16px;
+        font-size: 14px;
+    }
 }
