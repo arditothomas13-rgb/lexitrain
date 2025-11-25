@@ -1,9 +1,15 @@
 /* ============================================================
-   LexiTrain — JS Final Optimisé
+   LexiTrain — APP.JS PRO (EN ⇄ FR + AutoSwitch + Clean UX)
 ============================================================ */
 
 /* -----------------------------
-   DOM ELEMENTS
+   GLOBAL LANGUAGE STATE
+----------------------------- */
+let fromLang = "en";
+let toLang = "fr";
+
+/* -----------------------------
+   DOM
 ----------------------------- */
 const inputField = document.getElementById("input");
 const translateBtn = document.getElementById("translateBtn");
@@ -12,6 +18,11 @@ const resultCard = document.getElementById("resultCard");
 const resultTitle = document.getElementById("result-title");
 const senseTabs = document.getElementById("senseTabs");
 const senseContent = document.getElementById("senseContent");
+
+const fromFlag = document.getElementById("fromFlag");
+const fromLabel = document.getElementById("fromLabel");
+const toFlag = document.getElementById("toFlag");
+const toLabel = document.getElementById("toLabel");
 
 const pageTranslate = document.getElementById("page-translate");
 const pageDictionary = document.getElementById("page-dictionary");
@@ -26,34 +37,85 @@ const alphabetScroller = document.getElementById("alphabetScroller");
 const letterPopup = document.getElementById("letterPopup");
 
 const historyList = document.getElementById("historyList");
+const langSwap = document.getElementById("langSwap");
 
+/* -----------------------------
+   MESSAGE "AUTO SWITCH" (iOS subtle)
+----------------------------- */
+function showAutoSwitchMessage(msg) {
+    const div = document.createElement("div");
+    div.style.background = "rgba(255,255,255,0.75)";
+    div.style.backdropFilter = "blur(14px)";
+    div.style.padding = "12px 18px";
+    div.style.borderRadius = "16px";
+    div.style.marginBottom = "14px";
+    div.style.fontSize = "15px";
+    div.style.fontWeight = "500";
+    div.style.textAlign = "center";
+    div.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
 
+    div.innerText = msg;
+
+    resultCard.prepend(div);
+
+    setTimeout(() => {
+        div.style.opacity = "0";
+        setTimeout(() => div.remove(), 350);
+    }, 1800);
+}
+
+/* ============================================================
+   UPDATE LANGUAGE UI
+============================================================ */
+function updateLanguageUI() {
+    if (fromLang === "en") {
+        fromFlag.textContent = "🇬🇧";
+        fromLabel.textContent = "Anglais";
+        toFlag.textContent = "🇫🇷";
+        toLabel.textContent = "Français";
+    } else {
+        fromFlag.textContent = "🇫🇷";
+        fromLabel.textContent = "Français";
+        toFlag.textContent = "🇬🇧";
+        toLabel.textContent = "Anglais";
+    }
+}
+
+/* ============================================================
+   MANUAL SWAP BUTTON
+============================================================ */
+langSwap.addEventListener("click", () => {
+    const oldFrom = fromLang;
+    fromLang = toLang;
+    toLang = oldFrom;
+
+    updateLanguageUI();
+
+    const word = inputField.value.trim();
+    if (word) translateWord(true); // Re-traduire après swap
+});
 
 /* ============================================================
    PAGE NAVIGATION
 ============================================================ */
-function openTranslatePage() {
+navTranslate.addEventListener("click", () => {
     pageTranslate.style.display = "block";
     pageDictionary.style.display = "none";
-}
-
-function openDictionaryPage() {
+});
+openDictionary.addEventListener("click", () => {
     pageTranslate.style.display = "none";
     pageDictionary.style.display = "block";
     loadDictionary();
-}
-
-navTranslate.addEventListener("click", openTranslatePage);
-openDictionary.addEventListener("click", openDictionaryPage);
-
-
+});
 
 /* ============================================================
-   API CALL → translate.js
+   CALL translate.js WITH LANGS
 ============================================================ */
 async function fetchWord(word) {
     try {
-        const res = await fetch(`/api/translate.js?word=${encodeURIComponent(word)}`);
+        const res = await fetch(
+            `/api/translate.js?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
+        );
         return await res.json();
     } catch (err) {
         console.error(err);
@@ -61,27 +123,22 @@ async function fetchWord(word) {
     }
 }
 
-
-
 /* ============================================================
-   LOADER OPTIMISÉ (clean)
+   LOADER
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
     resultTitle.textContent = "⏳ Traduction en cours...";
-
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `
-        <div style="text-align:center; padding:30px; font-size:30px; opacity:0.6;">
+        <div style="text-align:center; padding:34px; font-size:30px; opacity:0.6;">
             ⏳
         </div>
     `;
 }
 
-
-
 /* ============================================================
-   RESET RESULT
+   CLEAR RESULT
 ============================================================ */
 function clearResult() {
     resultTitle.textContent = "";
@@ -89,10 +146,8 @@ function clearResult() {
     senseContent.innerHTML = "";
 }
 
-
-
 /* ============================================================
-   RENDER TABS (ONLY TABS — NO DUPLICATES)
+   RENDER TABS
 ============================================================ */
 function renderSenseTabs(entries) {
     senseTabs.innerHTML = "";
@@ -101,33 +156,22 @@ function renderSenseTabs(entries) {
         const pill = document.createElement("div");
         pill.className = "sense-pill";
         if (index === 0) pill.classList.add("active");
-
         pill.textContent = entry.label;
 
         pill.addEventListener("click", () => {
-            document.querySelectorAll(".sense-pill")
-                .forEach(p => p.classList.remove("active"));
+            document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
             pill.classList.add("active");
-
-            // Center the pill horizontally (iOS effect)
-            pill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-
+            pill.scrollIntoView({ behavior: "smooth", inline: "center" });
             renderSenseContent(entry);
-
-            try { navigator.vibrate(12); } catch(e){}
+            try { navigator.vibrate(10); } catch(e){}
         });
 
         senseTabs.appendChild(pill);
     });
 
-    // Auto-center pill 0
-    const firstPill = senseTabs.querySelector(".sense-pill.active");
-    if (firstPill) {
-        firstPill.scrollIntoView({ behavior: "smooth", inline: "center" });
-    }
+    const first = document.querySelector(".sense-pill.active");
+    if (first) first.scrollIntoView({ behavior: "smooth", inline: "center" });
 }
-
-
 
 /* ============================================================
    RENDER CONTENT
@@ -149,19 +193,24 @@ function renderSenseContent(entry) {
     /* Traductions */
     const tList = document.createElement("div");
     tList.className = "glass translation-list";
-    tList.innerHTML = `<div class="sense-block-title">Translations (FR)</div>`;
+
+    const label = toLang === "fr" ? "Traduction" : "Translation";
+    tList.innerHTML = `<div class="sense-block-title">${label}</div>`;
+
     entry.translations.forEach(t => {
         const i = document.createElement("div");
         i.className = "translation-item";
         i.textContent = t;
         tList.appendChild(i);
     });
+
     senseContent.appendChild(tList);
 
     /* Exemples */
     const eList = document.createElement("div");
     eList.className = "glass examples-list";
     eList.innerHTML = `<div class="sense-block-title">Examples</div>`;
+
     entry.examples.forEach(ex => {
         const exDiv = document.createElement("div");
         exDiv.className = "example-block";
@@ -171,17 +220,19 @@ function renderSenseContent(entry) {
         `;
         eList.appendChild(exDiv);
     });
+
     senseContent.appendChild(eList);
 
     /* Synonymes */
     if (entry.synonyms.length > 0) {
         const sTitle = document.createElement("div");
         sTitle.className = "sense-block-title";
-        sTitle.textContent = "Synonyms (EN)";
+        sTitle.textContent = fromLang === "en" ? "Synonyms (EN)" : "Synonymes (FR)";
         senseContent.appendChild(sTitle);
 
         const sWrap = document.createElement("div");
         sWrap.className = "glass synonyms-wrapper";
+
         entry.synonyms.forEach(s => {
             const tag = document.createElement("div");
             tag.className = "synonym-tag";
@@ -192,24 +243,37 @@ function renderSenseContent(entry) {
     }
 }
 
-
-
 /* ============================================================
-   ACTION : TRADUIRE UN MOT
+   TRANSLATE ACTION (with auto-switch)
 ============================================================ */
-async function translateWord() {
+async function translateWord(isSwap = false) {
     const word = inputField.value.trim();
     if (!word) return;
 
     clearResult();
     showLoader();
 
-    const data = await fetchWord(word);
+    let data = await fetchWord(word);
 
     if (data.error) {
         resultTitle.textContent = "❌ Erreur";
-        senseContent.innerHTML = `<div class="error">${data.error}</div>`;
+        senseContent.innerHTML = `<div>${data.error}</div>`;
         return;
+    }
+
+    /* AUTO SWITCH ------------------------------------- */
+    if (data.auto_switch && !isSwap) {
+        const oldFrom = fromLang;
+        fromLang = toLang;
+        toLang = oldFrom;
+        updateLanguageUI();
+
+        showAutoSwitchMessage(
+            `🔄 Le mot est ${data.detected_lang === "fr" ? "français" : "anglais"} — passage automatique ${fromLang.toUpperCase()} → ${toLang.toUpperCase()}.`
+        );
+
+        // Relance traduction dans le bon sens
+        return translateWord(true);
     }
 
     resultTitle.textContent = word;
@@ -220,15 +284,13 @@ async function translateWord() {
     addToHistory(word);
 }
 
-translateBtn.addEventListener("click", translateWord);
+translateBtn.addEventListener("click", () => translateWord());
 inputField.addEventListener("keypress", e => {
     if (e.key === "Enter") translateWord();
 });
 
-
-
 /* ============================================================
-   HISTORIQUE localStorage
+   HISTORY
 ============================================================ */
 function loadHistory() {
     const hist = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
@@ -241,13 +303,13 @@ function loadHistory() {
 
         item.addEventListener("click", () => {
             inputField.value = word;
-            openTranslatePage();
             translateWord();
         });
 
         historyList.appendChild(item);
     });
 }
+loadHistory();
 
 function addToHistory(word) {
     let hist = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
@@ -256,12 +318,8 @@ function addToHistory(word) {
     loadHistory();
 }
 
-loadHistory();
-
-
-
 /* ============================================================
-   DICTIONNAIRE + ALPHABET iOS
+   DICTIONNAIRE
 ============================================================ */
 async function loadDictionary(search = "") {
     try {
@@ -269,9 +327,7 @@ async function loadDictionary(search = "") {
         const data = await res.json();
 
         dictionaryList.innerHTML = "";
-
-        const words = data.words || [];
-        words.sort((a, b) => a.localeCompare(b));
+        const words = (data.words || []).sort();
 
         words.forEach(w => {
             const item = document.createElement("div");
@@ -286,7 +342,6 @@ async function loadDictionary(search = "") {
 
             dictionaryList.appendChild(item);
         });
-
     } catch (err) {
         console.error(err);
     }
@@ -296,16 +351,13 @@ dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
 });
 
-
-
 /* ============================================================
-   SCROLLER ALPHABÉTIQUE (iOS style)
+   SCROLLER A-Z iOS
 ============================================================ */
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 function renderAlphabetScroller() {
     alphabetScroller.innerHTML = "";
-
     alphabet.forEach(letter => {
         const div = document.createElement("div");
         div.className = "alpha-letter";
@@ -313,7 +365,6 @@ function renderAlphabetScroller() {
         alphabetScroller.appendChild(div);
     });
 }
-
 renderAlphabetScroller();
 
 function showLetterPopup(letter) {
@@ -323,18 +374,16 @@ function showLetterPopup(letter) {
 
     setTimeout(() => {
         letterPopup.style.opacity = "0";
-        setTimeout(() => (letterPopup.style.display = "none"), 200);
-    }, 600);
-
-    try { navigator.vibrate(15); } catch(e){}
+        setTimeout(() => (letterPopup.style.display = "none"), 180);
+    }, 500);
 }
 
 alphabetScroller.addEventListener("touchmove", e => {
     const touch = e.touches[0];
     const rect = alphabetScroller.getBoundingClientRect();
     const y = touch.clientY - rect.top;
-
     const index = Math.floor((y / rect.height) * alphabet.length);
+
     if (alphabet[index]) {
         const letter = alphabet[index];
         showLetterPopup(letter);
