@@ -301,11 +301,9 @@ function loadHistory() {
         item.className = "history-item";
         item.textContent = word;
 
-        item.addEventListener("click", () => {
-            inputField.value = word;
-            translateWord(false, true);
-        });
-
+       item.addEventListener("click", () => {
+    loadPremiumWord(w);
+});
         historyList.appendChild(item);
     });
 }
@@ -580,4 +578,50 @@ async function updateReview(word, isCorrect) {
     } catch (err) {
         console.error("SRS update error", err);
     }
+}
+async function loadPremiumWord(word) {
+    pageTranslate.style.display = "block";
+    pageDictionary.style.display = "none";
+
+    resultCard.style.display = "block";
+    resultTitle.textContent = word;
+    senseTabs.innerHTML = "";
+    senseContent.innerHTML = "Chargement...";
+
+    const res = await fetch(`/api/get-dict-word?word=${word}`);
+    const dic = await res.json();
+
+    if (!dic || dic.error) {
+        senseContent.innerHTML = "<div>❌ Mot introuvable dans le dictionnaire</div>";
+        return;
+    }
+
+    // Rendu premium complet sécurisé
+    senseContent.innerHTML = `
+        <div class="glass translation-list">
+            <div class="sense-block-title">Traduction principale</div>
+            <div>${dic.main_translation}</div>
+        </div>
+
+        <div class="glass translation-list">
+            <div class="sense-block-title">Autres traductions</div>
+            ${dic.translations.map(t => `<div>${t}</div>`).join("")}
+        </div>
+
+        ${
+            dic.examples && dic.examples.length
+                ? `
+                    <div class="glass examples-list">
+                        <div class="sense-block-title">Exemples</div>
+                        ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
+                    </div>
+                  `
+                : `
+                    <div class="glass examples-list">
+                        <div class="sense-block-title">Exemples</div>
+                        <div>Aucun exemple disponible</div>
+                    </div>
+                  `
+        }
+    `;
 }
