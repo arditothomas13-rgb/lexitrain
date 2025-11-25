@@ -456,7 +456,7 @@ async function startQuiz() {
         quizOptions.innerHTML = "";
 
         // 2 — Fetch analyse du mot
-        const cloud = await fetch(`/api/get-word?word=${word}`);
+      const cloud = await fetch(`/api/get-dict-word?word=${word}`);
         const dic = await cloud.json();
 
         const translations = dic.entries[0]?.translations || [];
