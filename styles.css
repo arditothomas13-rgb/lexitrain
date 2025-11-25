@@ -383,4 +383,35 @@ body {
   .btn-green {
     font-size: 17px;
   }
+/* ----------------------------- */
+/* NAVIGATION APPLE VERSION     */
+/* ----------------------------- */
+.apple-nav {
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 26px 26px 0 0;
+    backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(255,255,255,0.65);
+    border-top: 1px solid rgba(255,255,255,0.45);
+}
+
+.apple-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    color: #2a3d35;
+    font-weight: 500;
+}
+
+.apple-nav .icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.apple-nav .label {
+    font-size: 13px;
+    opacity: 0.85;
 }
