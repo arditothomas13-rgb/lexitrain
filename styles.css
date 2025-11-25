@@ -152,14 +152,14 @@ body {
 }
 
 /* =======================================================
-   OLD SENSE LABELS — DÉSACTIVÉS (ÉVITE DOUBLONS)
+   OLD SENSE LABELS — DÉSACTIVÉS
 ======================================================= */
 .sense-labels {
   display: none !important;
 }
 
 /* =======================================================
-   SENSE TABS (UNIC LINE)
+   SENSE TABS
 ======================================================= */
 .sense-tabs {
   margin-top: 12px;
@@ -284,16 +284,6 @@ body {
   margin-bottom: 20px;
 }
 
-#dictionarySearch {
-  width: 100%;
-  padding: 14px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  border: none;
-  margin-bottom: 20px;
-}
-
 .dictionary-list {
   display: flex;
   flex-direction: column;
@@ -356,31 +346,6 @@ body {
 }
 
 /* =======================================================
-   NAV BAR
-======================================================= */
-.apple-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 22px;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255,255,255,0.45);
-  z-index: 50;
-}
-
-.nav-item {
-  text-align: center;
-  cursor: pointer;
-  flex: 1;
-}
-
-.nav-item .icon { font-size: 20px; }
-.nav-item .label { font-size: 13px; opacity: 0.85; }
-
-/* =======================================================
    RESPONSIVE
 ======================================================= */
 @media (max-width: 480px) {
@@ -388,93 +353,39 @@ body {
     padding: 32px 16px 90px;
   }
 }
-/* =======================================================
-   DICTIONARY LANGUAGE SWITCH (EN / FR)
-======================================================= */
-
-.dic-lang-switch {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin: 0 auto 20px;
-  padding: 8px;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(18px);
-  border-radius: 16px;
-  max-width: 260px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-}
-
-.dic-lang-btn {
-  flex: 1;
-  padding: 10px 0;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(12px);
-  transition: all 0.22s ease;
-  color: #444;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.dic-lang-btn:hover {
-  background: rgba(255,255,255,0.75);
-  transform: translateY(-1px);
-}
-
-.dic-lang-btn.active {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
-  color: white;
-  box-shadow: 0 4px 10px rgba(34,197,94,0.35);
-}
-
-.dic-lang-btn:active {
-  transform: scale(0.97);
-}
-
-/* SWITCH FR/EN DU DICTIONNAIRE */
-.dic-switch {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.dic-btn {
-  flex: 1;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  background: rgba(255,255,255,0.6);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: 0.25s ease;
-}
-
-.dic-btn.active {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
-  color: white;
-  box-shadow: 0 4px 12px rgba(34,197,94,0.3);
-}
 
 /* =======================================================
-   SEARCH BAR iOS — PAGE DICTIONNAIRE UNIQUEMENT
+   SEARCH BAR iOS — VERSION DÉFINITIVE (LOUPE SVG CENTRÉE)
 ======================================================= */
-/* LOUPE CENTRÉE VISUELLEMENT – PAGE DICTIONNAIRE */
+#page-dictionary .search-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 18px;
+}
+
+#page-dictionary .search-wrapper input {
+  width: 100%;
+  height: 52px;
+  padding: 0 55px 0 18px;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 18px;
+  border: none;
+  background: white;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
 #page-dictionary .search-wrapper .search-icon {
   position: absolute;
   right: 18px;
   top: 50%;
-  transform: translateY(-58%); /* ⇐ ON REMONTE LA LOUPE */
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  opacity: 0.70;
+  opacity: 0.72;
   pointer-events: none;
 }
 
