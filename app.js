@@ -67,6 +67,26 @@ function setLocalCache(key, value) {
         localStorage.setItem("lexitrain_cache:" + key, JSON.stringify(value));
     } catch {}
 }
+/* -----------------------------
+   LANGUAGE SWAP
+----------------------------- */
+
+// Bouton swap (ajoute cet ID dans ton HTML si pas présent)
+const swapBtn = document.getElementById("swapBtn");
+
+// Fonction switch EN/FR
+function swapLanguages() {
+    const temp = fromLang;
+    fromLang = toLang;
+    toLang = temp;
+
+    updateLanguageUI();   // met à jour drapeaux + labels
+}
+
+// Listener sur le bouton
+if (swapBtn) {
+    swapBtn.addEventListener("click", swapLanguages);
+}
 
 /**************************************************************
  * UI LANGUAGE UPDATE
