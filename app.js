@@ -1,15 +1,17 @@
 /* ============================================================
    LexiTrain — APP.JS PRO (EN ⇄ FR + AutoSwitch + Clean UX)
+   + DICO FR/EN dynamique (wordlist:fr / wordlist:en)
 ============================================================ */
 
 /* -----------------------------
    GLOBAL LANGUAGE STATE
 ----------------------------- */
-let fromLang = "en";
-let toLang = "fr";
+let fromLang = "en";   // source
+let toLang = "fr";     // target
+let dictionaryLang = "en"; // dico par défaut
 
 /* -----------------------------
-   DOM
+   DOM ELEMENTS
 ----------------------------- */
 const inputField = document.getElementById("input");
 const translateBtn = document.getElementById("translateBtn");
@@ -39,22 +41,16 @@ const letterPopup = document.getElementById("letterPopup");
 const historyList = document.getElementById("historyList");
 const langSwap = document.getElementById("langSwap");
 
-/* ============================================================
-   MESSAGE "AUTO SWITCH" (iOS subtle)
-============================================================ */
+/* === NEW : boutons FR/EN du Dico === */
+const btnDicEn = document.getElementById("dicLangEn");
+const btnDicFr = document.getElementById("dicLangFr");
+
+/* -----------------------------
+   AUTO SWITCH MESSAGE
+----------------------------- */
 function showAutoSwitchMessage(msg) {
     const div = document.createElement("div");
-    div.style.background = "rgba(255,255,255,0.75)";
-    div.style.backdropFilter = "blur(14px)";
-    div.style.padding = "12px 18px";
-    div.style.borderRadius = "16px";
-    div.style.marginBottom = "14px";
-    div.style.fontSize = "15px";
-    div.style.fontWeight = "500";
-    div.style.textAlign = "center";
-    div.style.boxShadow = "0 2px 10px rgba(0,0,0,0.08)";
-    div.style.transition = "opacity 0.3s";
-
+    div.className = "autoswitch-msg";
     div.innerText = msg;
     resultCard.prepend(div);
 
@@ -90,9 +86,7 @@ langSwap.addEventListener("click", () => {
     toLang = oldFrom;
 
     updateLanguageUI();
-
-    const word = inputField.value.trim();
-    if (word) translateWord(true);
+    if (inputField.value.trim()) translateWord(true);
 });
 
 /* ============================================================
@@ -102,6 +96,7 @@ navTranslate.addEventListener("click", () => {
     pageTranslate.style.display = "block";
     pageDictionary.style.display = "none";
 });
+
 openDictionary.addEventListener("click", () => {
     pageTranslate.style.display = "none";
     pageDictionary.style.display = "block";
@@ -109,7 +104,7 @@ openDictionary.addEventListener("click", () => {
 });
 
 /* ============================================================
-   CALL translate.js WITH LANGS
+   API CALL WITH LANGS
 ============================================================ */
 async function fetchWord(word) {
     try {
@@ -128,12 +123,13 @@ async function fetchWord(word) {
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
-    resultTitle.textContent = "Traduction en cours...";
+    resultTitle.textContent = "⏳ Traduction en cours...";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `
         <div style="text-align:center; padding:34px; font-size:30px; opacity:0.6;">
             ⏳
-        </div>`;
+        </div>
+    `;
 }
 
 /* ============================================================
@@ -162,8 +158,6 @@ function renderSenseTabs(entries) {
             pill.classList.add("active");
             pill.scrollIntoView({ behavior: "smooth", inline: "center" });
             renderSenseContent(entry);
-
-            try { navigator.vibrate(10); } catch (e) {}
         });
 
         senseTabs.appendChild(pill);
@@ -179,17 +173,18 @@ function renderSenseTabs(entries) {
 function renderSenseContent(entry) {
     senseContent.innerHTML = "";
 
-    /* ----- Definition ----- */
+    /* Définition */
     if (entry.definition) {
         const def = document.createElement("div");
         def.className = "glass translation-list";
         def.innerHTML = `
             <div class="sense-block-title">Definition</div>
-            <div>${entry.definition}</div>`;
+            <div>${entry.definition}</div>
+        `;
         senseContent.appendChild(def);
     }
 
-    /* ----- Translations ----- */
+    /* Traductions */
     const tList = document.createElement("div");
     tList.className = "glass translation-list";
 
@@ -204,28 +199,24 @@ function renderSenseContent(entry) {
     });
     senseContent.appendChild(tList);
 
-    /* ----- Examples ----- */
+    /* Exemples */
     const eList = document.createElement("div");
     eList.className = "glass examples-list";
     eList.innerHTML = `<div class="sense-block-title">Examples</div>`;
 
     entry.examples.forEach(ex => {
-        const exDiv = document.createElement("div");
-        exDiv.className = "example-block";
-        exDiv.innerHTML = `
+        const block = document.createElement("div");
+        block.className = "example-block";
+        block.innerHTML = `
             <div class="example-text">• ${ex.src}</div>
-            <div class="example-translation">→ ${ex.dest}</div>`;
-        eList.appendChild(exDiv);
+            <div class="example-translation">→ ${ex.dest}</div>
+        `;
+        eList.appendChild(block);
     });
     senseContent.appendChild(eList);
 
-    /* ----- Synonyms CLICKABLE ----- */
+    /* Synonymes */
     if (entry.synonyms && entry.synonyms.length > 0) {
-        const sTitle = document.createElement("div");
-        sTitle.className = "sense-block-title";
-        sTitle.textContent = fromLang === "en" ? "Synonyms (EN)" : "Synonymes (FR)";
-        senseContent.appendChild(sTitle);
-
         const sWrap = document.createElement("div");
         sWrap.className = "glass synonyms-wrapper";
 
@@ -234,21 +225,25 @@ function renderSenseContent(entry) {
             tag.className = "synonym-tag";
             tag.textContent = s;
 
+            // NEW : clic => nouvelle recherche
             tag.addEventListener("click", () => {
                 inputField.value = s;
                 translateWord();
-                try { navigator.vibrate(10); } catch (e) {}
             });
 
             sWrap.appendChild(tag);
         });
 
+        const sTitle = document.createElement("div");
+        sTitle.className = "sense-block-title";
+        sTitle.textContent = "Synonyms";
+        senseContent.appendChild(sTitle);
         senseContent.appendChild(sWrap);
     }
 }
 
 /* ============================================================
-   TRANSLATE ACTION (with auto-switch)
+   TRANSLATE + AUTO SWITCH
 ============================================================ */
 async function translateWord(isSwap = false) {
     const word = inputField.value.trim();
@@ -257,7 +252,7 @@ async function translateWord(isSwap = false) {
     clearResult();
     showLoader();
 
-    const data = await fetchWord(word);
+    let data = await fetchWord(word);
 
     if (data.error) {
         resultTitle.textContent = "❌ Erreur";
@@ -265,26 +260,33 @@ async function translateWord(isSwap = false) {
         return;
     }
 
+    /* AUTO SWITCH */
     if (data.auto_switch && !isSwap) {
         const oldFrom = fromLang;
         fromLang = toLang;
         toLang = oldFrom;
+
         updateLanguageUI();
 
         showAutoSwitchMessage(
-            `🔄 Le mot est ${data.detected_lang === "fr" ? "français" : "anglais"} — passage automatique ${fromLang.toUpperCase()} → ${toLang.toUpperCase()}.`
+            `🔄 Détection automatique → passage ${fromLang.toUpperCase()} → ${toLang.toUpperCase()}`
         );
 
         return translateWord(true);
     }
 
     resultTitle.textContent = word;
+
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
+
     addToHistory(word);
 }
 
-translateBtn.addEventListener("click", () => translateWord());
+/* ============================================================
+   USER ACTIONS
+============================================================ */
+translateBtn.addEventListener("click", translateWord);
 inputField.addEventListener("keypress", e => {
     if (e.key === "Enter") translateWord();
 });
@@ -319,19 +321,18 @@ function addToHistory(word) {
 }
 
 /* ============================================================
-   DICTIONNAIRE (selon langue source fromLang)
+   DICO — LOAD FROM wordlist:en / wordlist:fr
 ============================================================ */
 async function loadDictionary(search = "") {
-    try {
-        // Langue du dictionnaire = langue source
-        const lang = fromLang; // "en" ou "fr"
+    dictionaryList.innerHTML = "Chargement...";
 
-        const res = await fetch(`/api/list-words.js?lang=${lang}&q=${search}`);
+    try {
+        const res = await fetch(`/api/list-words.js?lang=${dictionaryLang}&q=${search}`);
         const data = await res.json();
 
         dictionaryList.innerHTML = "";
-        const words = (data.words || []).sort();
 
+        const words = data.words || [];
         words.forEach(w => {
             const item = document.createElement("div");
             item.className = "dic-item";
@@ -339,25 +340,31 @@ async function loadDictionary(search = "") {
 
             item.addEventListener("click", () => {
                 inputField.value = w;
-                pageTranslate.style.display = "block";
-                pageDictionary.style.display = "none";
+                openTranslatePage();
                 translateWord();
             });
 
             dictionaryList.appendChild(item);
         });
+
     } catch (err) {
-        console.error(err);
+        dictionaryList.innerHTML = "Erreur de chargement.";
     }
 }
 
+/* === RADIO BUTTONS DU DICO === */
+btnDicEn.addEventListener("click", () => {
+    dictionaryLang = "en";
+    loadDictionary();
+});
 
-dictionarySearch.addEventListener("input", e => {
-    loadDictionary(e.target.value.toLowerCase());
+btnDicFr.addEventListener("click", () => {
+    dictionaryLang = "fr";
+    loadDictionary();
 });
 
 /* ============================================================
-   SCROLLER A-Z iOS
+   SCROLLER A-Z (iOS)
 ============================================================ */
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -376,7 +383,6 @@ function showLetterPopup(letter) {
     letterPopup.textContent = letter;
     letterPopup.style.display = "block";
     letterPopup.style.opacity = "1";
-
     setTimeout(() => {
         letterPopup.style.opacity = "0";
         setTimeout(() => (letterPopup.style.display = "none"), 180);
