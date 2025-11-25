@@ -482,3 +482,51 @@ body {
   font-size: 12px;
   opacity: 0.85;
 }
+
+/* =======================================================
+   QUIZ PAGE
+======================================================= */
+.quiz-card {
+  margin-top: 20px;
+  padding: 26px;
+  border-radius: 22px;
+}
+
+.quiz-question {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quiz-option {
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 17px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: 0.25s ease;
+}
+
+.quiz-option:hover {
+  background: rgba(255,255,255,1);
+  transform: translateY(-2px);
+}
+
+.quiz-option.correct {
+  background: #4ade80 !important;
+  color: white;
+}
+
+.quiz-option.wrong {
+  background: #f87171 !important;
+  color: white;
+}
+
