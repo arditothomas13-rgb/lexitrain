@@ -1,5 +1,5 @@
 /* =======================================================
-   RESET â€” NO HORIZONTAL SCROLL
+   RESET — NO HORIZONTAL SCROLL
 ======================================================= */
 * {
   margin: 0;
@@ -17,7 +17,7 @@ html, body {
 
 body {
   position: relative;
-  padding-bottom: 120px; /* espace sous la nav */
+  padding-bottom: 120px;
   overscroll-behavior: none;
 }
 
@@ -63,15 +63,11 @@ body {
   margin-bottom: 30px;
 }
 
-.subtitle .blue {
-  color: #4ba4ff;
-}
-.subtitle .purple {
-  color: #b27cff;
-}
+.subtitle .blue { color: #4ba4ff; }
+.subtitle .purple { color: #b27cff; }
 
 /* =======================================================
-   GLASS
+   GLASS STYLE
 ======================================================= */
 .glass {
   backdrop-filter: blur(22px) saturate(180%);
@@ -89,21 +85,21 @@ body {
 }
 
 /* =======================================================
-   INPUT FIELD
+   INPUT — CORRIGÉ (PLUS DE DOUBLE BULLE)
 ======================================================= */
 .input-card {
-  padding: 10px 18px;
+  padding: 10px 0;
   margin-bottom: 20px;
 }
 
 .input-card input {
   width: 100%;
-  padding: 18px;
+  padding: 18px 18px;
   font-size: 17px;
   border-radius: 18px;
   border: none;
   background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
 }
 
 /* =======================================================
@@ -124,7 +120,6 @@ body {
   box-shadow: 0 4px 15px rgba(52,210,106,0.35);
   transition: 0.25s ease;
 }
-
 .btn-green:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(52,210,106,0.45);
@@ -158,39 +153,17 @@ body {
 }
 
 /* =======================================================
-   SENSE LABELS (noun / verb / adj)
+   OLD SENSE LABELS — DÉSACTIVÉS (ÉVITE DOUBLONS)
 ======================================================= */
 .sense-labels {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-}
-
-.sense-labels::-webkit-scrollbar { display: none; }
-
-.sense-label-pill {
-  padding: 8px 18px;
-  background: rgba(255,255,255,0.55);
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(18px);
-  font-size: 14px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.sense-label-pill.active {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
-  color: white;
-  border: none;
+  display: none !important;
 }
 
 /* =======================================================
-   SENSE PILLS (meaning)
+   SENSE TABS (UNIC LINE)
 ======================================================= */
 .sense-tabs {
-  margin-top: 16px;
+  margin-top: 12px;
   display: flex;
   gap: 10px;
   overflow-x: auto;
@@ -220,7 +193,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .sense-block-title {
@@ -230,9 +203,10 @@ body {
 }
 
 /* =======================================================
-   TRANSLATIONS
+   TRANSLATION BLOCKS
 ======================================================= */
-.translation-list {
+.translation-list,
+.examples-list {
   background: white;
   border-radius: 14px;
   padding: 16px;
@@ -247,25 +221,9 @@ body {
 /* =======================================================
    EXAMPLES
 ======================================================= */
-.examples-list {
-  background: white;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.07);
-}
-
-.example-block {
-  margin-bottom: 12px;
-}
-
-.example-text {
-  font-size: 15px;
-}
-
-.example-translation {
-  font-size: 14px;
-  color: #666;
-}
+.example-block { margin-bottom: 12px; }
+.example-text { font-size: 15px; }
+.example-translation { font-size: 14px; color: #666; }
 
 /* =======================================================
    SYNONYMS
@@ -355,7 +313,7 @@ body {
 }
 
 /* =======================================================
-   A-Z ALPHABET SCROLLER
+   A-Z SCROLLER
 ======================================================= */
 .alphabet-scroller {
   position: fixed;
@@ -399,7 +357,7 @@ body {
 }
 
 /* =======================================================
-   BOTTOM NAV (Apple)
+   NAV BAR
 ======================================================= */
 .apple-nav {
   position: fixed;
@@ -420,13 +378,8 @@ body {
   flex: 1;
 }
 
-.nav-item .icon {
-  font-size: 20px;
-}
-.nav-item .label {
-  font-size: 13px;
-  opacity: 0.85;
-}
+.nav-item .icon { font-size: 20px; }
+.nav-item .label { font-size: 13px; opacity: 0.85; }
 
 /* =======================================================
    RESPONSIVE
