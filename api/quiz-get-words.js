@@ -1,7 +1,7 @@
 // ------------------------------------------------------
-//  LexiTrain — API quiz-get-words.js
-//  Sélectionne automatiquement les mots à réviser (SRS)
-//  Plug & Play — Compatible Upstash KV (Vercel KV)
+//  LexiTrain — API quiz-get-words.js (VERSION STABLE)
+//  Nettoie la wordlist, enlève les mots inexistants,
+//  renvoie uniquement les mots prêts pour le quiz.
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     }
 
     // ------------------------------------------------------
-    // 1) CHARGER LA WORDLIST
+    // 1) CHARGER LA WORDLIST (listKey)
     // ------------------------------------------------------
     const listKey = `wordlist:${lang}`;
 
@@ -35,18 +35,41 @@ export default async function handler(req, res) {
       }
     }
 
-    // Si pas de mot → retourner vide
     if (words.length === 0) {
       return res.status(200).json({ toReview: [] });
     }
 
     // ------------------------------------------------------
-    // 2) CHARGER LES DONNÉES SRS POUR CHAQUE MOT
+    // 2) NETTOYER LA WORDLIST → garder seulement les mots
+    //    qui existent vraiment dans le dictionnaire KV
+    // ------------------------------------------------------
+    const validWords = [];
+
+    for (let w of words) {
+      const dictKey = `dict:${w.toLowerCase()}`;
+
+      const dictRes = await fetch(`${KV_URL}/get/${dictKey}`, {
+        headers: { Authorization: `Bearer ${KV_TOKEN}` }
+      });
+
+      const dictJson = await dictRes.json();
+
+      if (dictJson?.result) {
+        validWords.push(w);
+      }
+    }
+
+    if (validWords.length === 0) {
+      return res.status(200).json({ toReview: [] });
+    }
+
+    // ------------------------------------------------------
+    // 3) CHARGER LES DONNÉES SRS POUR CHAQUE MOT
     // ------------------------------------------------------
     const now = new Date();
     const toReview = [];
 
-    for (let word of words) {
+    for (let word of validWords) {
       const reviewKey = `review:${word}`;
 
       const reviewRes = await fetch(`${KV_URL}/get/${reviewKey}`, {
@@ -55,28 +78,22 @@ export default async function handler(req, res) {
 
       const reviewData = await reviewRes.json();
 
-      // Si pas encore révisé → à réviser maintenant
       if (!reviewData?.result) {
         toReview.push(word);
         continue;
       }
 
-      // Parse review JSON
       let review = null;
       try {
         review = JSON.parse(reviewData.result);
       } catch {
-        // JSON cassé → réviser maintenant
         toReview.push(word);
         continue;
       }
 
-      // Déjà mémorisé → on ignore
-      if (review.memorized) {
-        continue;
-      }
+      if (review.memorized) continue;
 
-      // Jamais révisé → réviser
+      // Mot jamais révisé
       if (!review.last_reviewed_at || !review.next_review_at) {
         toReview.push(word);
         continue;
@@ -84,19 +101,13 @@ export default async function handler(req, res) {
 
       const nextReview = new Date(review.next_review_at);
 
-      // Si la révision est due ou en retard → réviser
       if (nextReview <= now) {
         toReview.push(word);
       }
     }
 
     // ------------------------------------------------------
-    // 3) TRIER LES MOTS PAR URGENCE (optionnel)
-    // ------------------------------------------------------
-    toReview.sort((a, b) => a.localeCompare(b));
-
-    // ------------------------------------------------------
-    // 4) RETOURNER LE JSON FINAL
+    // 4) RENVoyer le JSON FINAL
     // ------------------------------------------------------
     return res.status(200).json({
       count: toReview.length,
