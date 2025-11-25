@@ -384,28 +384,40 @@ body {
     font-size: 17px;
   }
    }
+/* =======================================================
+   APPLE BOTTOM NAV — VERSION EXACTE DU SCREEN
+======================================================= */
 
-/* ----------------------------- */
-/* NAVIGATION APPLE VERSION     */
-/* ----------------------------- */
 .apple-nav {
-    padding: 14px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 480px;
+
     display: flex;
-    justify-content: space-between;
-    border-radius: 26px 26px 0 0;
-    backdrop-filter: blur(20px) saturate(180%);
-    background: rgba(255,255,255,0.65);
-    border-top: 1px solid rgba(255,255,255,0.45);
+    justify-content: space-around;
+    align-items: center;
+    padding: 16px 22px;
+
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+
+    border-radius: 28px 28px 0 0;
+    border-top: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 -4px 18px rgba(0,0,0,0.08);
+
+    z-index: 9999;
 }
 
 .apple-nav .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     flex: 1;
-    color: #2a3d35;
+    text-align: center;
+    color: #2f3e38;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .apple-nav .icon {
@@ -417,3 +429,4 @@ body {
     font-size: 13px;
     opacity: 0.85;
 }
+
