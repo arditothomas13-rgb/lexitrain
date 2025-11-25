@@ -553,4 +553,94 @@ body {
   opacity: 0.68;
   pointer-events: none;
 }
+/* =======================================================
+   SCROLLER A-Z — FULL iOS VERSION
+======================================================= */
 
+// Génère automatiquement data-letter pour chaque mot
+function assignLettersToItems() {
+    const items = document.querySelectorAll('.dic-item');
+
+    items.forEach(item => {
+        const text = item.textContent.trim();
+        if (text.length > 0) {
+            const first = text[0].toUpperCase();
+            item.setAttribute("data-letter", first);
+        }
+    });
+}
+
+// Scroll vers la section d’une lettre
+function scrollToLetter(letter) {
+    const target = document.querySelector(`.dic-item[data-letter="${letter}"]`);
+
+    if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+// Affiche la popup centrale
+function showLetterPopup(letter) {
+    const popup = document.getElementById("letterPopup");
+    popup.textContent = letter;
+    popup.style.display = "block";
+    popup.style.opacity = "1";
+
+    clearTimeout(window.__popupTimer);
+    window.__popupTimer = setTimeout(() => {
+        popup.style.opacity = "0";
+        setTimeout(() => popup.style.display = "none", 120);
+    }, 500);
+}
+
+// Gestion des clics sur les lettres
+function enableLetterClicks() {
+    document.querySelectorAll('.alpha-letter').forEach(letter => {
+        letter.addEventListener('click', () => {
+            const L = letter.textContent.trim();
+            scrollToLetter(L);
+            showLetterPopup(L);
+        });
+    });
+}
+
+// Gestion du glisser sur les lettres (effet iOS)
+function enableLetterDrag() {
+    const scroller = document.getElementById('alphabetScroller');
+
+    let dragging = false;
+
+    const handleMove = (e) => {
+        if (!dragging) return;
+
+        const touch = e.touches ? e.touches[0] : e;
+        const element = document.elementFromPoint(touch.clientX, touch.clientY);
+
+        if (element && element.classList.contains('alpha-letter')) {
+            const L = element.textContent.trim();
+            scrollToLetter(L);
+            showLetterPopup(L);
+        }
+    };
+
+    scroller.addEventListener('mousedown', () => dragging = true);
+    scroller.addEventListener('mouseup', () => dragging = false);
+
+    scroller.addEventListener('touchstart', () => dragging = true, { passive: true });
+    scroller.addEventListener('touchend', () => dragging = false);
+
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('touchmove', handleMove, { passive: false });
+}
+
+// =====================================================
+// INITIALISATION  
+// Appelle cette fonction après chargement du dictionnaire
+// =====================================================
+function initAlphabetScroller() {
+    assignLettersToItems();
+    enableLetterClicks();
+    enableLetterDrag();
+}
+
+// 🔥 Appeler initAlphabetScroller() après avoir généré dictionaryList
