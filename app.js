@@ -221,15 +221,17 @@ function renderSenseContent(entry) {
     `;
 
     senseContent.innerHTML += `
-        <div class="glass examples-list">
-            <div class="sense-block-title">Examples</div>
-            ${entry.examples
-                .map(
-                    ex => `
-                <div class="example-block">
-                    <div class="example-text">• ${ex.src}</div>
-                    <div class="example-translation">→ ${ex.dest}</div>
-                </div>
+      ${dic.examples && dic.examples.length ? `
+    <div class="glass examples-list">
+        <div class="sense-block-title">Exemples</div>
+        ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
+    </div>
+` : `
+    <div class="glass examples-list">
+        <div class="sense-block-title">Exemples</div>
+        <div>Pas d’exemples disponibles</div>
+    </div>
+`}
             `
                 )
                 .join("")}
@@ -351,15 +353,17 @@ async function loadDictionary(q = "") {
     }
 
     senseContent.innerHTML = `
-        <div class="glass translation-list">
-            <div class="sense-block-title">Traduction principale</div>
-            <div>${dic.main_translation}</div>
-        </div>
-
-        <div class="glass translation-list">
-            <div class="sense-block-title">Autres traductions</div>
-            ${dic.translations.map(t => `<div>${t}</div>`).join("")}
-        </div>
+        ${dic.examples && dic.examples.length ? `
+    <div class="glass examples-list">
+        <div class="sense-block-title">Exemples</div>
+        ${dic.examples.map(ex => `<div>• ${ex}</div>`).join("")}
+    </div>
+` : `
+    <div class="glass examples-list">
+        <div class="sense-block-title">Exemples</div>
+        <div>Pas d’exemples disponibles</div>
+    </div>
+`}
 
         <div class="glass examples-list">
             <div class="sense-block-title">Exemples</div>
