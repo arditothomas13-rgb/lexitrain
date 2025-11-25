@@ -1,7 +1,6 @@
 // ------------------------------------------------------
-//  LexiTrain — API review-update.js
-//  Crée + met à jour les données SRS pour un mot
-//  Plug & Play, compatible Upstash KV (Vercel KV)
+//  LexiTrain — API review-update.js (VERSION STABLE)
+//  Mise à jour SRS sécurisée + normalisation garantie
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
@@ -18,7 +17,7 @@ export default async function handler(req, res) {
 
     const isCorrect = correct === "true";
 
-    const KV_URL = process.env.KV_REST_API_URL;
+    const KV_URL   = process.env.KV_REST_API_URL;
     const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 
     if (!KV_URL || !KV_TOKEN) {
@@ -28,12 +27,8 @@ export default async function handler(req, res) {
     const reviewKey = `review:${word.toLowerCase()}`;
 
     // ------------------------------------------------------
-    // 1) LECTURE DE LA DONNÉE EXISTANTE
+    // 1) LECTURE DONNÉES EXISTANTES
     // ------------------------------------------------------
-    const existing = await fetch(`${KV_URL}/get/${reviewKey}`, {
-      headers: { Authorization: `Bearer ${KV_TOKEN}` }
-    }).then(r => r.json());
-
     let review = {
       srs_level: 0,
       last_reviewed_at: null,
@@ -43,16 +38,30 @@ export default async function handler(req, res) {
       wrong_count: 0
     };
 
-    if (existing?.result) {
-      try {
-        review = JSON.parse(existing.result);
-      } catch {
-        // Si JSON cassé → reset clean
+    try {
+      const existing = await fetch(`${KV_URL}/get/${reviewKey}`, {
+        headers: { Authorization: `Bearer ${KV_TOKEN}` }
+      }).then(r => r.json());
+
+      if (existing?.result) {
+        const parsed = JSON.parse(existing.result);
+
+        // Sécurisation / normalisation obligatoire
+        review = {
+          srs_level: Number(parsed.srs_level) || 0,
+          last_reviewed_at: parsed.last_reviewed_at || null,
+          next_review_at: parsed.next_review_at || null,
+          memorized: Boolean(parsed.memorized),
+          correct_count: Number(parsed.correct_count) || 0,
+          wrong_count: Number(parsed.wrong_count) || 0
+        };
       }
+    } catch {
+      // JSON cassé → on reset clean automatiquement
     }
 
     // ------------------------------------------------------
-    // 2) MISE À JOUR SRS
+    // 2) SRS UPDATE
     // ------------------------------------------------------
     const now = new Date();
 
@@ -66,22 +75,21 @@ export default async function handler(req, res) {
 
     review.last_reviewed_at = now.toISOString();
 
-    // Intervalles (jours) pour SRS
+    // Intervalles SRS en jours
     const intervals = [1, 2, 4, 7, 15, 30, 60, 120];
-    const addedDays = intervals[review.srs_level] || 1;
+    const index = Math.min(Math.max(review.srs_level, 0), intervals.length - 1);
+    const addedDays = intervals[index];
 
     const nextReview = new Date(now);
     nextReview.setDate(now.getDate() + addedDays);
 
     review.next_review_at = nextReview.toISOString();
-
-    // Marqué comme mémorisé si niveau haut
     review.memorized = review.srs_level >= 6;
 
     // ------------------------------------------------------
-    // 3) SAUVEGARDE
+    // 3) SAUVEGARDE KV
     // ------------------------------------------------------
-    await fetch(`${KV_URL}/set/${reviewKey}`, {
+    const saveRes = await fetch(`${KV_URL}/set/${reviewKey}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${KV_TOKEN}`,
@@ -90,8 +98,12 @@ export default async function handler(req, res) {
       body: JSON.stringify(review)
     });
 
+    if (!saveRes.ok) {
+      return res.status(500).json({ error: "KV Save failed" });
+    }
+
     // ------------------------------------------------------
-    // 4) RÉPONSE
+    // 4) RÉPONSE OK
     // ------------------------------------------------------
     return res.status(200).json({
       ok: true,
