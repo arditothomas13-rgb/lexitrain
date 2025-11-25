@@ -16,55 +16,74 @@
 
 <div class="bg-halo"></div>
 
-<main class="container">
+<!-- ------------------------------------------------------ -->
+<!--                    PAGE TRADUCTION                     -->
+<!-- ------------------------------------------------------ -->
+<main>
 
-    <h1 class="logo">LexiTrain</h1>
+<section id="page-translate" class="page">
 
-    <p class="subtitle">
-        Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
-    </p>
+    <div class="container">
 
-    <div class="glass input-card">
-        <input id="input" type="text" placeholder="Ex : stretched, although..." />
+        <h1 class="logo">LexiTrain</h1>
+
+        <p class="subtitle">
+            Tape un <span class="blue">mot</span> ou une <span class="purple">expression</span> à traduire
+        </p>
+
+        <div class="glass input-card">
+            <input id="input" type="text" placeholder="Ex : stretched, although..." />
+        </div>
+
+        <button class="btn-green" id="translateBtn">Traduire</button>
+
+        <div class="glass lang-card">
+            <div class="lang"><span id="fromFlag">🇬🇧</span> <span id="fromLabel">Anglais</span></div>
+            <div class="swap" id="langSwap">⇄</div>
+            <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
+        </div>
+
+        <div id="resultCard" class="glass result-card" style="display:none;">
+            <div id="result-title" class="result-title">mot</div>
+
+            <div id="senseTabs" class="sense-tabs"></div>
+
+            <div id="senseContent" class="sense-content"></div>
+        </div>
+
     </div>
 
-    <button class="btn-green" id="translateBtn">Traduire</button>
+</section>
 
-    <div class="glass lang-card">
-        <div class="lang"><span id="fromFlag">🇬🇧</span> <span id="fromLabel">Anglais</span></div>
-        <div class="swap" id="langSwap">⇄</div>
-        <div class="lang"><span id="toFlag">🇫🇷</span> <span id="toLabel">Français</span></div>
+<!-- ------------------------------------------------------ -->
+<!--                       PAGE DICO                         -->
+<!-- ------------------------------------------------------ -->
+
+<section id="page-dictionary" class="page" style="display:none;">
+
+    <div class="container">
+
+        <h2 class="dictionary-title">Dictionnaire</h2>
+
+        <div class="search-wrapper">
+            <input id="dictionarySearch" type="text" placeholder="Rechercher un mot...">
+        </div>
+
+        <div id="dictionaryList" class="dictionary-list"></div>
+
     </div>
 
-    <div id="resultCard" class="glass result-card" style="display:none;">
-        <div id="result-title" class="result-title">mot</div>
-
-        <div id="senseTabs" class="sense-tabs"></div>
-
-        <div id="senseContent" class="sense-content"></div>
-    </div>
-<!-- ------------------------------------------- -->
-<!--          SECTION : DICTIONNAIRE            -->
-<!-- ------------------------------------------- -->
-<div id="dictionaryPage" class="glass dictionary-page" style="display:none;">
-
-    <h2 class="dictionary-title">Dictionnaire</h2>
-
-    <!-- Barre de recherche -->
-    <div class="search-wrapper">
-        <input id="dictionarySearch" type="text" placeholder="Rechercher un mot...">
-    </div>
-
-    <!-- Liste des mots -->
-    <div id="dictionaryList" class="dictionary-list"></div>
-
-</div>
+</section>
 
 </main>
 
+<!-- ------------------------------------------------------ -->
+<!--                    BOTTOM NAVIGATION                    -->
+<!-- ------------------------------------------------------ -->
+
 <nav class="glass bottom-nav">
-    <div class="nav-item">💬<span>Traduire</span></div>
-<div class="nav-item" id="openDictionary">📚<span>Dico</span></div>
+    <div class="nav-item" id="navTranslate">💬<span>Traduire</span></div>
+    <div class="nav-item" id="openDictionary">📚<span>Dico</span></div>
     <div class="nav-item">😊<span>Quiz</span></div>
     <div class="nav-item">⭐<span>Options</span></div>
 </nav>
