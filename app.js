@@ -1,106 +1,158 @@
-// --------------------------------------------------
-// VARIABLES
-// --------------------------------------------------
-const input = document.getElementById("wordInput");
-const translateBtn = document.getElementById("translateButton");
-const resultCard = document.getElementById("resultCard"); // FIX
-const resultTitle = document.getElementById("result-title"); // FIX
+// --------------------------------------
+// LexiTrain — Version Multi-Sens Apple
+// --------------------------------------
 
-// Langues
-const langSwap = document.getElementById("langSwap");
-const fromLabel = document.getElementById("fromLabel");
-const toLabel   = document.getElementById("toLabel");
-const fromFlag  = document.getElementById("fromFlag");
-const toFlag    = document.getElementById("toFlag");
+const inputField = document.getElementById("input");
+const translateBtn = document.getElementById("translateBtn");
+const resultCard = document.getElementById("resultCard");
+const resultTitle = document.getElementById("result-title");
 
-// --------------------------------------------------
-// SWAP LANGUES
-// --------------------------------------------------
-langSwap.addEventListener("click", () => {
-    const tmpLabel = fromLabel.textContent;
-    const tmpFlag  = fromFlag.textContent;
+const senseTabs = document.getElementById("senseTabs");
+const senseContent = document.getElementById("senseContent");
 
-    fromLabel.textContent = toLabel.textContent;
-    fromFlag.textContent  = toFlag.textContent;
 
-    toLabel.textContent = tmpLabel;
-    toFlag.textContent  = tmpFlag;
-});
+// --------------------------------------
+// FETCH API (multi-sens)
+// --------------------------------------
+async function fetchWord(word) {
+    const response = await fetch(`/api/translate.js?word=${encodeURIComponent(word)}`);
+    const data = await response.json();
+    return data;
+}
 
-// --------------------------------------------------
-// CLICK TRADUIRE
-// --------------------------------------------------
-translateBtn.addEventListener("click", async () => {
-    const word = input.value.trim();
+
+// --------------------------------------
+// Rendu des pills des sens
+// --------------------------------------
+function renderSenseTabs(entries) {
+    senseTabs.innerHTML = "";
+
+    entries.forEach((entry, index) => {
+        const pill = document.createElement("div");
+        pill.className = "sense-pill";
+        if (index === 0) pill.classList.add("active");
+
+        pill.textContent = `${entry.label}`;
+
+        pill.addEventListener("click", () => {
+            document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
+            pill.classList.add("active");
+            renderSenseContent(entry);
+        });
+
+        senseTabs.appendChild(pill);
+    });
+}
+
+
+// --------------------------------------
+// Rendu du contenu d’un sens
+// --------------------------------------
+function renderSenseContent(entry) {
+    senseContent.innerHTML = "";
+
+    // ------- Bloc Traductions -------
+    if (entry.translations?.length) {
+        const tBlock = document.createElement("div");
+        tBlock.className = "translation-list";
+
+        const title = document.createElement("div");
+        title.className = "sense-block-title";
+        title.textContent = "Traductions";
+        tBlock.appendChild(title);
+
+        entry.translations.forEach((t) => {
+            const item = document.createElement("div");
+            item.className = "translation-item";
+            item.textContent = t;
+            tBlock.appendChild(item);
+        });
+
+        senseContent.appendChild(tBlock);
+    }
+
+    // ------- Bloc Exemples -------
+    if (entry.examples?.length) {
+        const eBlock = document.createElement("div");
+        eBlock.className = "examples-list";
+
+        const title = document.createElement("div");
+        title.className = "sense-block-title";
+        title.textContent = "Exemples";
+        eBlock.appendChild(title);
+
+        entry.examples.forEach((ex) => {
+            const exampleDiv = document.createElement("div");
+            exampleDiv.className = "example-block";
+
+            const srcText = document.createElement("div");
+            srcText.className = "example-text";
+            srcText.textContent = `• ${ex.src}`;
+
+            const transText = document.createElement("div");
+            transText.className = "example-translation";
+            transText.textContent = `→ ${ex.dest}`;
+
+            exampleDiv.appendChild(srcText);
+            exampleDiv.appendChild(transText);
+
+            eBlock.appendChild(exampleDiv);
+        });
+
+        senseContent.appendChild(eBlock);
+    }
+
+    // ------- Bloc Synonymes -------
+    if (entry.synonyms?.length) {
+        const sBlock = document.createElement("div");
+        sBlock.className = "synonyms-wrapper";
+
+        const title = document.createElement("div");
+        title.className = "sense-block-title";
+        title.style.marginBottom = "10px";
+        title.textContent = "Synonymes";
+        senseContent.appendChild(title);
+
+        entry.synonyms.forEach((syn) => {
+            const tag = document.createElement("div");
+            tag.className = "synonym-tag";
+            tag.textContent = syn;
+            sBlock.appendChild(tag);
+        });
+
+        senseContent.appendChild(sBlock);
+    }
+}
+
+
+// --------------------------------------
+// Fonction principale
+// --------------------------------------
+async function translateWord() {
+    const word = inputField.value.trim();
     if (!word) return;
 
-    // ------- FIX : on utilise resultCard -------
+    resultTitle.textContent = word;
     resultCard.style.display = "block";
-    resultCard.innerHTML = `
-        <h2>${word}</h2>
-        <p>⏳ Traduction en cours...</p>
-    `;
 
-    const from = (fromLabel.textContent === "Anglais") ? "en" : "fr";
-    const to   = (toLabel.textContent === "Français") ? "fr" : "en";
+    const data = await fetchWord(word);
 
-    try {
-        const res = await fetch("/api/translate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                word,
-                fromLang: from,
-                toLang: to
-            })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok || !data.ok) throw new Error("Erreur API");
-
-        resultCard.innerHTML = `
-            <h2>${word}</h2>
-
-            <div class="tabs">
-                <button class="tab active" data-tab="tab-traduction">Traduction</button>
-                <button class="tab" data-tab="tab-definition">Définition</button>
-                <button class="tab" data-tab="tab-synonymes">Synonymes</button>
-                <button class="tab" data-tab="tab-exemples">Exemples</button>
-            </div>
-
-            <div id="tab-traduction" class="tab-content active">
-                ${data.translations}
-            </div>
-
-            <div id="tab-definition" class="tab-content">
-                ${data.definitions || "Aucune définition disponible."}
-            </div>
-
-            <div id="tab-synonymes" class="tab-content">
-                ${data.synonyms || "Aucun synonyme disponible."}
-            </div>
-
-            <div id="tab-exemples" class="tab-content">
-                ${data.examples || "Aucun exemple disponible."}
-            </div>
-        `;
-
-        // Onglets
-        document.querySelectorAll(".tab").forEach(btn => {
-            btn.addEventListener("click", () => {
-                document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-                document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-
-                btn.classList.add("active");
-                document.getElementById(btn.dataset.tab).classList.add("active");
-            });
-        });
-
-    } catch (err) {
-        resultCard.innerHTML = `
-            <h2>${word}</h2>
-            <p style="color:#c00;">⚠️ Erreur serveur.</p>
-        `;
+    if (!data || !data.entries || !data.entries.length) {
+        senseTabs.innerHTML = "";
+        senseContent.innerHTML = "<p>Aucun résultat trouvé.</p>";
+        return;
     }
+
+    renderSenseTabs(data.entries);
+    renderSenseContent(data.entries[0]);
+}
+
+
+// --------------------------------------
+// Listeners
+// --------------------------------------
+translateBtn.addEventListener("click", translateWord);
+
+inputField.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") translateWord();
 });
