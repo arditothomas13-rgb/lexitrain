@@ -1,8 +1,9 @@
 /* ============================================================
    LexiTrain — APP.JS PRO (EN ⇄ FR + AutoSwitch + DICO + Offline)
-   Avec :
-   ✔ Patch 1 : LocalStorage cache
-   ✔ Patch 2 : fetchWord() intelligent (local -> cloud -> GPT)
+   + Fix slider iOS
+   + Fix dico EN/FR
+   + Fix clics dico
+   + Fix historique (sans GPT)
 ============================================================ */
 
 /* -----------------------------
@@ -10,7 +11,7 @@
 ----------------------------- */
 let fromLang = "en";   // source language
 let toLang = "fr";     // target language
-let dictionaryLang = "en"; // default dictionary language
+let dictionaryLang = "en"; // language displayed in dictionary
 
 /* -----------------------------
    DOM ELEMENTS
@@ -43,14 +44,12 @@ const letterPopup = document.getElementById("letterPopup");
 const historyList = document.getElementById("historyList");
 const langSwap = document.getElementById("langSwap");
 
-/* === RADIO BUTTONS DICO === */
 const btnDicEn = document.getElementById("dicLangEn");
 const btnDicFr = document.getElementById("dicLangFr");
 
 /* ============================================================
-   PATCH 1 — LOCAL OFFLINE CACHE
+   LOCAL OFFLINE CACHE
 ============================================================ */
-
 function getLocalCache(key) {
     try {
         const raw = localStorage.getItem("lexitrain_cache:" + key);
@@ -100,25 +99,14 @@ function updateLanguageUI() {
 }
 
 /* ============================================================
-   SWAP BUTTON
+   PAGE SWITCHING
 ============================================================ */
-langSwap.addEventListener("click", () => {
-    const oldFrom = fromLang;
-    fromLang = toLang;
-    toLang = oldFrom;
-
-    updateLanguageUI();
-
-    if (inputField.value.trim()) translateWord(true);
-});
-
-/* ============================================================
-   PAGES
-============================================================ */
-navTranslate.addEventListener("click", () => {
+function openTranslatePage() {
     pageTranslate.style.display = "block";
     pageDictionary.style.display = "none";
-});
+}
+
+navTranslate.addEventListener("click", openTranslatePage);
 
 openDictionary.addEventListener("click", () => {
     pageTranslate.style.display = "none";
@@ -127,70 +115,66 @@ openDictionary.addEventListener("click", () => {
 });
 
 /* ============================================================
-   PATCH 2 — fetchWord() intelligent (local → cloud → GPT)
+   SWAP EN/FR
 ============================================================ */
-async function fetchWord(word) {
+langSwap.addEventListener("click", () => {
+    const old = fromLang;
+    fromLang = toLang;
+    toLang = old;
+
+    updateLanguageUI();
+
+    if (inputField.value.trim()) translateWord(true);
+});
+
+/* ============================================================
+   SMART FETCH WORD
+============================================================ */
+async function fetchWord(word, cacheOnly = false) {
 
     const cacheKey = `${word.toLowerCase()}_${fromLang}_${toLang}`;
 
-    /* 1 — LOCAL CACHE */
+    // 1 — LOCAL CACHE
     const local = getLocalCache(cacheKey);
-    if (local) {
-        return { ...local, fromCache: "local" };
-    }
+    if (local) return { ...local, fromCache: "local" };
 
-    /* 2 — KV (cloud) */
+    // 2 — CLOUD CACHE
     try {
         const cloud = await fetch(`/api/kv-get.js?key=${cacheKey}`);
-        const cloudData = await cloud.json();
+        const data = await cloud.json();
 
-        if (cloudData.result) {
-            const parsed = JSON.parse(cloudData.result);
-
-            // Save locally
+        if (data.result) {
+            const parsed = JSON.parse(data.result);
             setLocalCache(cacheKey, parsed);
-
             return { ...parsed, fromCache: "cloud" };
         }
+    } catch {}
 
-    } catch (e) {}
-
-    /* 3 — GPT (fallback uniquement si nécessaire) */
-    try {
+    // 3 — GPT (only if NOT cacheOnly)
+    if (!cacheOnly) {
         const res = await fetch(
             `/api/translate.js?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
         );
+        const apiData = await res.json();
 
-        const data = await res.json();
+        setLocalCache(cacheKey, apiData);
 
-        // Solution déjà enregistrée côté API → mais on la garde localement aussi :
-        setLocalCache(cacheKey, data);
-
-        return data;
-
-    } catch (err) {
-        return {
-            error:
-                "Impossible d'obtenir la traduction et le mot n'existe pas en mode hors-ligne."
-        };
+        return apiData;
     }
+
+    return { error: "Donnée indisponible hors-ligne" };
 }
 
 /* ============================================================
-   LOADER
+   LOADING UI
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
     resultTitle.textContent = "Traduction en cours...";
     senseTabs.innerHTML = "";
-    senseContent.innerHTML = `
-        <div style="text-align:center; padding:34px; font-size:30px; opacity:0.6;">⏳</div>
-    `;
+    senseContent.innerHTML = `<div class="loader">⏳</div>`;
 }
 
-/* ============================================================
-   CLEAR RESULT
-============================================================ */
 function clearResult() {
     resultTitle.textContent = "";
     senseTabs.innerHTML = "";
@@ -198,11 +182,10 @@ function clearResult() {
 }
 
 /* ============================================================
-   RENDER TABS
+   RENDER TABS + CONTENT
 ============================================================ */
 function renderSenseTabs(entries) {
     senseTabs.innerHTML = "";
-
     entries.forEach((entry, index) => {
         const pill = document.createElement("div");
         pill.className = "sense-pill";
@@ -212,105 +195,76 @@ function renderSenseTabs(entries) {
         pill.addEventListener("click", () => {
             document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
             pill.classList.add("active");
-
-            pill.scrollIntoView({ behavior: "smooth", inline: "center" });
-
             renderSenseContent(entry);
         });
 
         senseTabs.appendChild(pill);
     });
-
-    const first = document.querySelector(".sense-pill.active");
-    if (first) first.scrollIntoView({ behavior: "smooth", inline: "center" });
 }
 
-/* ============================================================
-   RENDER CONTENT
-============================================================ */
 function renderSenseContent(entry) {
     senseContent.innerHTML = "";
 
-    /* Définition */
     if (entry.definition) {
-        const def = document.createElement("div");
-        def.className = "glass translation-list";
-        def.innerHTML = `
-            <div class="sense-block-title">Definition</div>
-            <div>${entry.definition}</div>
-        `;
-        senseContent.appendChild(def);
+        senseContent.innerHTML += `
+            <div class="glass translation-list">
+                <div class="sense-block-title">Definition</div>
+                <div>${entry.definition}</div>
+            </div>`;
     }
 
-    /* Traductions */
-    const tList = document.createElement("div");
-    tList.className = "glass translation-list";
+    const tLabel = toLang === "fr" ? "Traduction" : "Translation";
 
-    const label = toLang === "fr" ? "Traduction" : "Translation";
-    tList.innerHTML = `<div class="sense-block-title">${label}</div>`;
+    senseContent.innerHTML += `
+        <div class="glass translation-list">
+            <div class="sense-block-title">${tLabel}</div>
+            ${entry.translations.map(t => `<div class="translation-item">${t}</div>`).join("")}
+        </div>
+    `;
 
-    entry.translations.forEach(t => {
-        const i = document.createElement("div");
-        i.className = "translation-item";
-        i.textContent = t;
-        tList.appendChild(i);
-    });
-    senseContent.appendChild(tList);
+    senseContent.innerHTML += `
+        <div class="glass examples-list">
+            <div class="sense-block-title">Examples</div>
+            ${entry.examples.map(ex => `
+                <div class="example-block">
+                    <div class="example-text">• ${ex.src}</div>
+                    <div class="example-translation">→ ${ex.dest}</div>
+                </div>`).join("")}
+        </div>
+    `;
 
-    /* Exemples */
-    const eList = document.createElement("div");
-    eList.className = "glass examples-list";
-    eList.innerHTML = `<div class="sense-block-title">Examples</div>`;
-
-    entry.examples.forEach(ex => {
-        const block = document.createElement("div");
-        block.className = "example-block";
-        block.innerHTML = `
-            <div class="example-text">• ${ex.src}</div>
-            <div class="example-translation">→ ${ex.dest}</div>
+    if (entry.synonyms?.length) {
+        senseContent.innerHTML += `
+            <div class="sense-block-title">Synonyms</div>
+            <div class="glass synonyms-wrapper">
+                ${entry.synonyms
+                    .map(
+                        s => `<div class="synonym-tag" data-word="${s}">${s}</div>`
+                    )
+                    .join("")}
+            </div>
         `;
-        eList.appendChild(block);
-    });
-    senseContent.appendChild(eList);
 
-    /* Synonymes */
-    if (entry.synonyms && entry.synonyms.length > 0) {
-        const sWrap = document.createElement("div");
-        sWrap.className = "glass synonyms-wrapper";
-
-        entry.synonyms.forEach(s => {
-            const tag = document.createElement("div");
-            tag.className = "synonym-tag";
-            tag.textContent = s;
-
+        document.querySelectorAll(".synonym-tag").forEach(tag => {
             tag.addEventListener("click", () => {
-                inputField.value = s;
+                inputField.value = tag.dataset.word;
                 translateWord();
             });
-
-            sWrap.appendChild(tag);
         });
-
-        const sTitle = document.createElement("div");
-        sTitle.className = "sense-block-title";
-        sTitle.textContent = "Synonyms";
-
-        senseContent.appendChild(sTitle);
-        senseContent.appendChild(sWrap);
     }
 }
 
 /* ============================================================
-   TRANSLATE + AUTO SWITCH
+   TRANSLATE
 ============================================================ */
-async function translateWord(isSwap = false) {
+async function translateWord(isSwap = false, cacheOnly = false) {
     const word = inputField.value.trim();
     if (!word) return;
 
     clearResult();
     showLoader();
 
-    let data = await fetchWord(word);
+    let data = await fetchWord(word, cacheOnly);
 
     if (data.error) {
         resultTitle.textContent = "❌ Erreur";
@@ -318,23 +272,21 @@ async function translateWord(isSwap = false) {
         return;
     }
 
-    /* AUTO SWITCH */
     if (data.auto_switch && !isSwap) {
-        const oldFrom = fromLang;
+        const old = fromLang;
         fromLang = toLang;
-        toLang = oldFrom;
+        toLang = old;
 
         updateLanguageUI();
 
         showAutoSwitchMessage(
-            `🔄 Détection automatique → passage ${fromLang.toUpperCase()} → ${toLang.toUpperCase()}`
+            `🔄 Détection automatique : ${fromLang.toUpperCase()} → ${toLang.toUpperCase()}`
         );
 
         return translateWord(true);
     }
 
     resultTitle.textContent = word;
-
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
 
@@ -342,28 +294,20 @@ async function translateWord(isSwap = false) {
 }
 
 /* ============================================================
-   ACTIONS
-============================================================ */
-translateBtn.addEventListener("click", translateWord);
-inputField.addEventListener("keypress", e => {
-    if (e.key === "Enter") translateWord();
-});
-
-/* ============================================================
    HISTORY
 ============================================================ */
 function loadHistory() {
-    const hist = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
+    const list = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
     historyList.innerHTML = "";
 
-    hist.forEach(word => {
+    list.forEach(word => {
         const item = document.createElement("div");
         item.className = "history-item";
         item.textContent = word;
 
         item.addEventListener("click", () => {
             inputField.value = word;
-            translateWord();
+            translateWord(false, true); // CACHE ONLY
         });
 
         historyList.appendChild(item);
@@ -372,95 +316,86 @@ function loadHistory() {
 loadHistory();
 
 function addToHistory(word) {
-    let hist = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
-    hist = [word, ...hist.filter(w => w !== word)].slice(0, 10);
-    localStorage.setItem("lexitrain_history", JSON.stringify(hist));
+    let list = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
+    list = [word, ...list.filter(w => w !== word)].slice(0, 20);
+    localStorage.setItem("lexitrain_history", JSON.stringify(list));
     loadHistory();
 }
 
 /* ============================================================
-   DICO — Load list
+   DICTIONNAIRE
 ============================================================ */
-async function loadDictionary(search = "") {
+async function loadDictionary(q = "") {
     dictionaryList.innerHTML = "Chargement...";
 
-    try {
-        const res = await fetch(`/api/list-words.js?lang=${dictionaryLang}&q=${search}`);
-        const data = await res.json();
+    const res = await fetch(`/api/list-words.js?lang=${dictionaryLang}&q=${q}`);
+    const data = await res.json();
 
-        dictionaryList.innerHTML = "";
+    dictionaryList.innerHTML = "";
 
-        (data.words || []).forEach(w => {
-            const item = document.createElement("div");
-            item.className = "dic-item";
-            item.textContent = w;
+    (data.words || []).forEach(w => {
+        const item = document.createElement("div");
+        item.className = "dic-item";
+        item.textContent = w;
 
-            item.addEventListener("click", () => {
-                inputField.value = w;
-                openTranslatePage();
-                translateWord();
-            });
-
-            dictionaryList.appendChild(item);
+        item.addEventListener("click", () => {
+            inputField.value = w;
+            openTranslatePage();
+            translateWord(false, true);
         });
 
-    } catch (err) {
-        dictionaryList.innerHTML = "Erreur de chargement.";
-    }
+        dictionaryList.appendChild(item);
+    });
 }
 
-/* RADIO BUTTONS */
+dictionarySearch.addEventListener("input", e => {
+    loadDictionary(e.target.value.toLowerCase());
+});
+
+/* Switch FR/EN in dictionary */
 btnDicEn.addEventListener("click", () => {
     dictionaryLang = "en";
+    btnDicEn.classList.add("active");
+    btnDicFr.classList.remove("active");
     loadDictionary();
 });
 
 btnDicFr.addEventListener("click", () => {
     dictionaryLang = "fr";
+    btnDicFr.classList.add("active");
+    btnDicEn.classList.remove("active");
     loadDictionary();
 });
 
 /* ============================================================
-   SCROLLER A-Z
+   ALPHABET SCROLLER
 ============================================================ */
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 function renderAlphabetScroller() {
-    alphabetScroller.innerHTML = "";
-    alphabet.forEach(letter => {
-        const div = document.createElement("div");
-        div.className = "alpha-letter";
-        div.textContent = letter;
-        alphabetScroller.appendChild(div);
-    });
+    alphabetScroller.innerHTML = alphabet
+        .map(l => `<div class="alpha-letter">${l}</div>`)
+        .join("");
 }
 renderAlphabetScroller();
-
-function showLetterPopup(letter) {
-    letterPopup.textContent = letter;
-    letterPopup.style.display = "block";
-    letterPopup.style.opacity = "1";
-    setTimeout(() => {
-        letterPopup.style.opacity = "0";
-        setTimeout(() => (letterPopup.style.display = "none"), 180);
-    }, 500);
-}
 
 alphabetScroller.addEventListener("touchmove", e => {
     const touch = e.touches[0];
     const rect = alphabetScroller.getBoundingClientRect();
-    const y = touch.clientY - rect.top;
-    const index = Math.floor((y / rect.height) * alphabet.length);
+    const pos = touch.clientY - rect.top;
+    const index = Math.floor((pos / rect.height) * alphabet.length);
 
-    if (alphabet[index]) {
-        const letter = alphabet[index];
-        showLetterPopup(letter);
-        scrollToLetter(letter);
-    }
-});
+    const letter = alphabet[index];
+    if (!letter) return;
 
-function scrollToLetter(letter) {
-    const items = [...dictionaryList.children];
-    const target = items.find(i => i.textContent[0]?.toUpperCase() === letter);
+    letterPopup.textContent = letter;
+    letterPopup.style.display = "block";
+    letterPopup.style.opacity = "1";
+
+    setTimeout(() => (letterPopup.style.opacity = "0"), 200);
+
+    const words = [...dictionaryList.children];
+    const target = words.find(item => item.textContent[0].toUpperCase() === letter);
+
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-}
+});
