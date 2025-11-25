@@ -1,6 +1,6 @@
 /* ============================================================
-   LexiTrain — JS Complet (Traduction + Dico + Historique)
-   Version Apple Liquid Glass
+   LexiTrain — JS Complet
+   (Traduction + Dico + Historique + Alphabet iOS)
 ============================================================ */
 
 /* -----------------------------
@@ -11,6 +11,7 @@ const translateBtn = document.getElementById("translateBtn");
 
 const resultCard = document.getElementById("resultCard");
 const resultTitle = document.getElementById("result-title");
+const senseLabels = document.getElementById("senseLabels");
 const senseTabs = document.getElementById("senseTabs");
 const senseContent = document.getElementById("senseContent");
 
@@ -23,12 +24,15 @@ const openDictionary = document.getElementById("openDictionary");
 const dictionaryList = document.getElementById("dictionaryList");
 const dictionarySearch = document.getElementById("dictionarySearch");
 
+const alphabetScroller = document.getElementById("alphabetScroller");
+const letterPopup = document.getElementById("letterPopup");
+
 const historyList = document.getElementById("historyList");
 
 
 
 /* ============================================================
-   🔄 PAGE NAVIGATION
+   PAGE NAVIGATION
 ============================================================ */
 function openTranslatePage() {
     pageTranslate.style.display = "block";
@@ -47,7 +51,7 @@ openDictionary.addEventListener("click", openDictionaryPage);
 
 
 /* ============================================================
-   🔎 CALL API → translate.js (GPT)
+   API CALL → translate.js
 ============================================================ */
 async function fetchWord(word) {
     try {
@@ -62,11 +66,12 @@ async function fetchWord(word) {
 
 
 /* ============================================================
-   🟢 LOADER : “Traduction en cours…”
+   LOADER
 ============================================================ */
 function showLoader() {
     resultCard.style.display = "block";
     resultTitle.textContent = "⏳ Traduction en cours...";
+    senseLabels.innerHTML = "";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = `
         <div style="text-align:center; padding:20px; opacity:0.6;">
@@ -78,10 +83,11 @@ function showLoader() {
 
 
 /* ============================================================
-   🧹 RESET propre avant une nouvelle traduction
+   RESET RESULT
 ============================================================ */
 function clearResult() {
     resultTitle.textContent = "";
+    senseLabels.innerHTML = "";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = "";
 }
@@ -89,7 +95,37 @@ function clearResult() {
 
 
 /* ============================================================
-   🧠 RENDER : Onglets (pills)
+   RENDER — LABELS (noun / verb / adj…)
+============================================================ */
+function renderSenseLabels(entries) {
+    senseLabels.innerHTML = "";
+
+    entries.forEach((entry, index) => {
+        const lbl = document.createElement("div");
+        lbl.className = "sense-label-pill";
+        if (index === 0) lbl.classList.add("active");
+
+        lbl.textContent = entry.label;
+
+        lbl.addEventListener("click", () => {
+            document.querySelectorAll(".sense-label-pill")
+                .forEach(p => p.classList.remove("active"));
+            lbl.classList.add("active");
+
+            renderSenseContent(entry);
+
+            // haptique
+            try { navigator.vibrate(10); } catch(e){}
+        });
+
+        senseLabels.appendChild(lbl);
+    });
+}
+
+
+
+/* ============================================================
+   RENDER — PILLS DES SENS
 ============================================================ */
 function renderSenseTabs(entries) {
     senseTabs.innerHTML = "";
@@ -102,9 +138,14 @@ function renderSenseTabs(entries) {
         pill.textContent = entry.label;
 
         pill.addEventListener("click", () => {
-            document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
+            document.querySelectorAll(".sense-pill")
+                .forEach(p => p.classList.remove("active"));
             pill.classList.add("active");
+
             renderSenseContent(entry);
+
+            // haptique
+            try { navigator.vibrate(10); } catch(e){}
         });
 
         senseTabs.appendChild(pill);
@@ -114,13 +155,13 @@ function renderSenseTabs(entries) {
 
 
 /* ============================================================
-   📚 RENDER : Contenu du sens sélectionné
+   RENDER — CONTENU DU SENS
 ============================================================ */
 function renderSenseContent(entry) {
 
     senseContent.innerHTML = "";
 
-    /* ------ Définition ------ */
+    /* Définition */
     if (entry.definition) {
         const def = document.createElement("div");
         def.className = "glass translation-list";
@@ -131,60 +172,54 @@ function renderSenseContent(entry) {
         senseContent.appendChild(def);
     }
 
-    /* ------ Traductions ------ */
+    /* Traductions */
     const tList = document.createElement("div");
     tList.className = "glass translation-list";
     tList.innerHTML = `<div class="sense-block-title">Translations (FR)</div>`;
-
     entry.translations.forEach(t => {
-        const item = document.createElement("div");
-        item.className = "translation-item";
-        item.textContent = t;
-        tList.appendChild(item);
+        const i = document.createElement("div");
+        i.className = "translation-item";
+        i.textContent = t;
+        tList.appendChild(i);
     });
-
     senseContent.appendChild(tList);
 
-    /* ------ Exemples ------ */
+    /* Exemples */
     const eList = document.createElement("div");
     eList.className = "glass examples-list";
     eList.innerHTML = `<div class="sense-block-title">Examples</div>`;
-
     entry.examples.forEach(ex => {
-        const e = document.createElement("div");
-        e.className = "example-block";
-        e.innerHTML = `
+        const exDiv = document.createElement("div");
+        exDiv.className = "example-block";
+        exDiv.innerHTML = `
             <div class="example-text">• ${ex.src}</div>
             <div class="example-translation">→ ${ex.dest}</div>
         `;
-        eList.appendChild(e);
+        eList.appendChild(exDiv);
     });
-
     senseContent.appendChild(eList);
 
-    /* ------ Synonymes ------ */
-    const synTitle = document.createElement("div");
-    synTitle.className = "sense-block-title";
-    synTitle.textContent = "Synonyms (EN)";
-    senseContent.appendChild(synTitle);
+    /* Synonymes */
+    const sTitle = document.createElement("div");
+    sTitle.className = "sense-block-title";
+    sTitle.textContent = "Synonyms (EN)";
+    senseContent.appendChild(sTitle);
 
-    const synWrap = document.createElement("div");
-    synWrap.className = "glass synonyms-wrapper";
-
+    const sWrap = document.createElement("div");
+    sWrap.className = "glass synonyms-wrapper";
     entry.synonyms.forEach(s => {
         const tag = document.createElement("div");
         tag.className = "synonym-tag";
         tag.textContent = s;
-        synWrap.appendChild(tag);
+        sWrap.appendChild(tag);
     });
-
-    senseContent.appendChild(synWrap);
+    senseContent.appendChild(sWrap);
 }
 
 
 
 /* ============================================================
-   🟩 TRADUIRE UN MOT
+   ACTION : TRADUIRE UN MOT
 ============================================================ */
 async function translateWord() {
     const word = inputField.value.trim();
@@ -203,6 +238,7 @@ async function translateWord() {
 
     resultTitle.textContent = word;
 
+    renderSenseLabels(data.entries);
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
 
@@ -210,15 +246,14 @@ async function translateWord() {
 }
 
 translateBtn.addEventListener("click", translateWord);
-
-inputField.addEventListener("keypress", (e) => {
+inputField.addEventListener("keypress", e => {
     if (e.key === "Enter") translateWord();
 });
 
 
 
 /* ============================================================
-   🕘 HISTORIQUE (localStorage)
+   HISTORIQUE localStorage
 ============================================================ */
 function loadHistory() {
     const hist = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
@@ -241,12 +276,9 @@ function loadHistory() {
 
 function addToHistory(word) {
     let hist = JSON.parse(localStorage.getItem("lexitrain_history") || "[]");
-
-    hist = [word, ...hist.filter(w => w !== word)]; // unique
-    hist = hist.slice(0, 10); // 10 max
-
+    hist = [word, ...hist.filter(w => w !== word)];
+    hist = hist.slice(0, 10);
     localStorage.setItem("lexitrain_history", JSON.stringify(hist));
-
     loadHistory();
 }
 
@@ -255,7 +287,7 @@ loadHistory();
 
 
 /* ============================================================
-   📘 DICTIONNAIRE : API /list-words.js
+   DICTIONNAIRE + ALPHABET iOS
 ============================================================ */
 async function loadDictionary(search = "") {
     try {
@@ -264,7 +296,13 @@ async function loadDictionary(search = "") {
 
         dictionaryList.innerHTML = "";
 
-        data.words.forEach(w => {
+        const words = data.words || [];
+
+        // tri alphabétique
+        words.sort((a, b) => a.localeCompare(b));
+
+        // injection
+        words.forEach(w => {
             const item = document.createElement("div");
             item.className = "dic-item";
             item.textContent = w;
@@ -283,6 +321,60 @@ async function loadDictionary(search = "") {
     }
 }
 
-dictionarySearch.addEventListener("input", (e) => {
+dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
 });
+
+
+
+/* ============================================================
+   SCROLLER ALPHABETIQUE (A-Z)
+============================================================ */
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+function renderAlphabetScroller() {
+    alphabetScroller.innerHTML = "";
+
+    alphabet.forEach(letter => {
+        const div = document.createElement("div");
+        div.className = "alpha-letter";
+        div.textContent = letter;
+        alphabetScroller.appendChild(div);
+    });
+}
+
+renderAlphabetScroller();
+
+function showLetterPopup(letter) {
+    letterPopup.textContent = letter;
+    letterPopup.style.display = "block";
+    letterPopup.style.opacity = "1";
+
+    setTimeout(() => {
+        letterPopup.style.opacity = "0";
+        setTimeout(() => (letterPopup.style.display = "none"), 200);
+    }, 600);
+
+    try { navigator.vibrate(15); } catch(e){}
+}
+
+alphabetScroller.addEventListener("touchmove", e => {
+    const touch = e.touches[0];
+    const rect = alphabetScroller.getBoundingClientRect();
+    const y = touch.clientY - rect.top;
+
+    const index = Math.floor((y / rect.height) * alphabet.length);
+    if (alphabet[index]) {
+        const letter = alphabet[index];
+        showLetterPopup(letter);
+        scrollToLetter(letter);
+    }
+});
+
+function scrollToLetter(letter) {
+    const items = [...dictionaryList.children];
+    const target = items.find(i => i.textContent[0]?.toUpperCase() === letter);
+    if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
