@@ -353,6 +353,51 @@ body {
     padding: 32px 16px 90px;
   }
 }
+/* =======================================================
+   DICTIONARY LANGUAGE SWITCH — RESTAURATION DESIGN iOS
+======================================================= */
+
+.dic-lang-switch {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 0 auto 22px;
+  padding: 6px;
+  background: rgba(255,255,255,0.50);
+  backdrop-filter: blur(18px);
+  border-radius: 18px;
+  max-width: 330px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.dic-lang-btn {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  background: rgba(255,255,255,0.75);
+  color: #444;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+}
+
+.dic-lang-btn:hover {
+  background: rgba(255,255,255,0.95);
+  transform: translateY(-1px);
+}
+
+.dic-lang-btn.active {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: white;
+  box-shadow: 0 4px 16px rgba(34,197,94,0.35);
+}
+
+.dic-lang-btn:active {
+  transform: scale(0.97);
+}
 
 /* =======================================================
    SEARCH BAR iOS — VERSION DÉFINITIVE (LOUPE SVG CENTRÉE)
