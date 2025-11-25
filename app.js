@@ -176,31 +176,48 @@ function renderSenseContent(entry) {
 
     if (entry.definition) {
         senseContent.innerHTML += `
-        <div class="glass translation-list">
-            <div class="sense-block-title">Definition</div>
-            <div>${entry.definition}</div>
-        </div>`;
+            <div class="glass translation-list">
+                <div class="sense-block-title">Definition</div>
+                <div>${entry.definition}</div>
+            </div>
+        `;
     }
 
     senseContent.innerHTML += `
-    <div class="glass translation-list">
-        <div class="sense-block-title">Traductions</div>
-        ${entry.translations.map(t => `<div>${t}</div>`).join("")}
-    </div>`;
+        <div class="glass translation-list">
+            <div class="sense-block-title">Traductions</div>
+            ${entry.translations.map(t => `<div class="translation-item">${t}</div>`).join("")}
+        </div>
+    `;
 
     senseContent.innerHTML += `
-    <div class="glass examples-list">
-        <div class="sense-block-title">Exemples</div>
-        ${
-            entry.examples?.length
-                ? entry.examples.map(ex => `
-                    <div class="example-block">
-                        <div class="example-text">• ${ex.src}</div>
-                        <div class="example-translation">→ ${ex.dest}</div>
-                    </div>`).join("")
-                : "<div>Aucun exemple disponible</div>"
-        }
-    </div>`;
+        <div class="glass examples-list">
+            <div class="sense-block-title">Exemples</div>
+            ${
+                entry.examples && entry.examples.length
+                    ? entry.examples.map(ex => `<div>• ${ex.src || ex}</div>`).join("")
+                    : `<div>Aucun exemple disponible</div>`
+            }
+        </div>
+    `;
+
+    if (entry.synonyms?.length) {
+        senseContent.innerHTML += `
+            <div class="sense-block-title">Synonymes</div>
+            <div class="glass synonyms-wrapper">
+                ${entry.synonyms
+                    .map(s => `<div class="synonym-tag" data-word="${s}">${s}</div>`)
+                    .join("")}
+            </div>
+        `;
+
+        document.querySelectorAll(".synonym-tag").forEach(tag => {
+            tag.addEventListener("click", () => {
+                inputField.value = tag.dataset.word;
+                translateWord();
+            });
+        });
+    }
 }
 
 /**************************************************************
