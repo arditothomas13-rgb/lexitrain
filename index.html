@@ -160,6 +160,134 @@
     </div>
 
 </nav>
+/* ============================================================
+   QUIZ ENGINE
+============================================================ */
+
+async function startQuiz() {
+    quizLoader.style.display = "block";
+    quizCard.style.display = "none";
+    quizResult.style.display = "none";
+
+    // 1 — Fetch mots à réviser
+    const res = await fetch("/api/quiz-get-words");
+    const data = await res.json();
+
+    let words = data.toReview || [];
+
+    // Si pas de mots, on crée un fallback
+    if (words.length === 0) {
+        quizLoader.innerHTML = "Aucun mot à réviser 🎉<br><br>Ajoute des mots pour commencer !";
+        return;
+    }
+
+    // Mélange l'ordre
+    shuffle(words);
+
+    let index = 0;
+    let score = 0;
+
+    function showQuestion() {
+        if (index >= words.length) {
+            endQuiz();
+            return;
+        }
+
+        const word = words[index];
+        loadQuizCard(word);
+    }
+
+    async function loadQuizCard(word) {
+        quizLoader.style.display = "none";
+        quizCard.style.display = "block";
+        quizOptions.innerHTML = "";
+
+        // 2 — Fetch analyse du mot
+        const cloud = await fetch(`/api/get-word?word=${word}`);
+        const dic = await cloud.json();
+
+        const translations = dic.entries[0]?.translations || [];
+
+        quizQuestion.textContent = `Que veut dire : « ${word} » ?`;
+
+        // 3 — Construire options
+        const options = buildOptions(translations[0], translations);
+
+        options.forEach(opt => {
+            const div = document.createElement("div");
+            div.className = "quiz-option";
+            div.textContent = opt.label;
+
+            div.addEventListener("click", () => {
+                if (opt.correct) {
+                    div.classList.add("correct");
+                    score++;
+                    updateReview(word, true);
+                } else {
+                    div.classList.add("wrong");
+                    updateReview(word, false);
+                }
+
+                setTimeout(() => {
+                    index++;
+                    showQuestion();
+                }, 650);
+            });
+
+            quizOptions.appendChild(div);
+        });
+    }
+
+    function endQuiz() {
+        quizCard.style.display = "none";
+        quizResult.style.display = "block";
+        quizScore.textContent = `Score : ${score} / ${words.length}`;
+    }
+
+    quizRestart.addEventListener("click", startQuiz);
+
+    showQuestion();
+}
+
+/* ============================================================
+   UTILS : shuffle + distracteurs
+============================================================ */
+
+function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function buildOptions(correct, allTranslations) {
+
+    const opts = [];
+
+    opts.push({ label: correct, correct: true });
+
+    let distractors = allTranslations.filter(t => t !== correct);
+    distractors = distractors.slice(0, 3);
+
+    distractors.forEach(d => {
+        opts.push({ label: d, correct: false });
+    });
+
+    return shuffle(opts);
+}
+
+/* ============================================================
+   UPDATE REVIEW AFTER QUESTION
+============================================================ */
+
+async function updateReview(word, isCorrect) {
+    try {
+        await fetch(`/api/review-update?word=${word}&correct=${isCorrect}`);
+    } catch (err) {
+        console.error("SRS update error", err);
+    }
+}
 
 <script src="app.js"></script>
 
