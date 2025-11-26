@@ -579,15 +579,14 @@ async function startQuiz() {
     quizLoader.textContent = "Préparation du quiz…";
 
     try {
-        // 1) Récupérer une liste de mots à réviser (EN)
-        const res = await fetch(`/api/quiz-get-words`);
-        const data = await res.json();
-        let words = Array.isArray(data.toReview) ? data.toReview : [];
-
-        if (!words.length) {
-            quizLoader.innerHTML = "Aucun mot à réviser 🎉";
-            return;
+        // 1) Récupérer la liste des mots anglais du dictionnaire
+        const res = await fetch(`/api/list-words?lang=en`);
+        if (!res.ok) {
+            throw new Error("HTTP " + res.status);
         }
+
+        const data = await res.json();
+        let words = Array.isArray(data.words) ? data.words : [];
 
         // On mélange et on limite le nombre de questions
         shuffle(words);
