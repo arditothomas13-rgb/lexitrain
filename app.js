@@ -139,23 +139,19 @@ function detectLanguage(text) {
         if (englishWords.includes(t)) enScore++;
     }
 
-    if (frScore === 0 && enScore === 0) return null;
+    // Si l'un des scores gagne clairement → on tranche
     if (frScore > enScore) return "fr";
     if (enScore > frScore) return "en";
+
+    // ⚙️ Heuristiques supplémentaires pour les mots isolés (marteau, bateau, etc.)
+    const frenchPattern = /(eau|eaux|eur|euse|tion|ment|age|ette|ille|able|ance|ence|isme|iste|oir|ier|ière|ais|ait|aient|eux|euse|ienne|oire)$/;
+    const englishPattern = /(ing|ed|er|ly|ous|ness|ment|able|ful|less|tion|ize|ise)$/;
+
+    if (frenchPattern.test(lower)) return "fr";
+    if (englishPattern.test(lower)) return "en";
+
+    // Rien de concluant
     return null;
-}
-
-function showLanguageWarning(fromLabel, toLabel) {
-    if (!autoSwitchMessageContainer) return;
-    autoSwitchMessageContainer.textContent =
-        `Mauvaise langue détectée, je bascule de ${fromLabel} vers ${toLabel}.`;
-    autoSwitchMessageContainer.style.display = "block";
-}
-
-function hideLanguageWarning() {
-    if (!autoSwitchMessageContainer) return;
-    autoSwitchMessageContainer.style.display = "none";
-    autoSwitchMessageContainer.textContent = "";
 }
 
 /**************************************************************
