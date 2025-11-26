@@ -52,6 +52,11 @@ const quizResult = document.getElementById("quizResult");
 const quizScore = document.getElementById("quizScore");
 const quizRestart = document.getElementById("quizRestart");
 const autoSwitchMessageContainer = document.getElementById("autoSwitchMessageContainer");
+// Éléments de la nouvelle interface "chat" du quiz
+const chatMessages = document.getElementById("chatMessages");
+const chatAnswer = document.getElementById("chatAnswer");
+const chatSend = document.getElementById("chatSend");
+const chatStatus = document.getElementById("chatStatus");
 
 
 /**************************************************************
@@ -572,181 +577,239 @@ dictionarySearch.addEventListener("input", e => {
 
 /**************************************************************
  * QUIZ — MODE PROFESSEUR (CHAT)
- *  - Pose une question : "Comment dit-on X en français ?"
- *  - Tu écris ta réponse
- *  - L'app corrige + explique
+ *  Nouvelle version : chat dans la carte Quiz
  **************************************************************/
-async function startQuiz() {
-    // État initial : on affiche le loader
-    quizLoader.style.display = "block";
-    quizCard.style.display = "none";
-    quizResult.style.display = "none";
-    quizLoader.textContent = "Préparation du quiz…";
 
-    try {
-        // 1) Récupérer la liste des mots anglais du dictionnaire
-        const res = await fetch(`/api/list-words?lang=en`);
-        if (!res.ok) {
-            throw new Error("HTTP " + res.status);
+// État du quiz
+let chatQuizInitialized = false;
+let chatQuizWords = [];
+let chatQuizIndex = 0;
+let chatQuizScore = 0;
+let chatQuizExpectingAnswer = false;
+let chatQuizCurrentWord = "";
+let chatQuizCurrentAnswers = [];
+
+// Appelé quand on ouvre l’onglet Quiz
+async function startQuiz() {
+    if (!chatMessages || !chatAnswer || !chatSend || !chatStatus) {
+        console.warn("Éléments du chat Quiz introuvables dans le DOM.");
+        return;
+    }
+
+    // Réinitialiser l’état
+    chatQuizWords = [];
+    chatQuizIndex = 0;
+    chatQuizScore = 0;
+    chatQuizExpectingAnswer = false;
+    chatQuizCurrentWord = "";
+    chatQuizCurrentAnswers = [];
+
+    // Réinitialiser l’UI
+    chatMessages.innerHTML = "";
+    addProfChatMessage(
+        "👋 Salut ! Je suis ton prof de vocabulaire.\n" +
+        "Je vais te poser 5 questions sur les mots que tu as déjà traduits.\n" +
+        "Prêt(e) ? Écris « OK » pour commencer."
+    );
+    chatStatus.textContent =
+        "Écris « OK » puis appuie sur Entrée ou sur Envoyer.";
+    chatAnswer.value = "";
+    chatAnswer.disabled = false;
+    chatSend.disabled = false;
+
+    // On connecte les events une seule fois
+    if (!chatQuizInitialized) {
+        chatSend.addEventListener("click", onChatSend);
+        chatAnswer.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                onChatSend();
+            }
+        });
+        chatQuizInitialized = true;
+    }
+}
+
+// Ajout d’un message du prof
+function addProfChatMessage(text) {
+    const div = document.createElement("div");
+    div.className = "chat-message prof";
+    div.textContent = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Ajout d’un message de l’élève
+function addUserChatMessage(text) {
+    const div = document.createElement("div");
+    div.className = "chat-message user";
+    div.textContent = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Quand on clique sur "Envoyer" ou on appuie sur Entrée
+async function onChatSend() {
+    if (!chatAnswer) return;
+    const raw = chatAnswer.value.trim();
+    if (!raw) return;
+
+    addUserChatMessage(raw);
+    chatAnswer.value = "";
+
+    // Si le quiz n’a pas encore démarré, on attend "OK"
+    if (!chatQuizWords.length) {
+        const norm = normalizeAnswer(raw);
+        if (norm === "ok") {
+            chatStatus.textContent = "Je prépare tes questions…";
+            await prepareChatQuizWords();
+            if (!chatQuizWords.length) {
+                return;
+            }
+            chatQuizIndex = 0;
+            chatQuizScore = 0;
+            await askChatQuizQuestion();
+        } else {
+            addProfChatMessage(
+                "Pour démarrer, écris simplement « OK » 😄"
+            );
         }
+        return;
+    }
+
+    // En plein quiz → on traite la réponse
+    if (chatQuizExpectingAnswer) {
+        await handleChatQuizAnswer(raw);
+    } else {
+        // Quiz terminé : si l’utilisateur retape OK, on relance un tour
+        const norm = normalizeAnswer(raw);
+        if (norm === "ok") {
+            startQuiz();
+        }
+    }
+}
+
+// Préparer la liste des mots à interroger
+async function prepareChatQuizWords() {
+    try {
+        const res = await fetch(`/api/list-words?lang=en`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
 
         const data = await res.json();
         let words = Array.isArray(data.words) ? data.words : [];
 
         if (!words.length) {
-            quizLoader.innerHTML = "Aucun mot à réviser 🎉";
+            addProfChatMessage(
+                "Pour l’instant tu n’as encore aucun mot à réviser. " +
+                "Va d’abord traduire quelques mots 😉"
+            );
+            chatStatus.textContent = "";
             return;
         }
 
-        // On mélange et on limite le nombre de questions
         shuffle(words);
-        const MAX_QUESTIONS = 10;
-        words = words.slice(0, MAX_QUESTIONS);
+        chatQuizWords = words.slice(0, 5); // 5 questions
+    } catch (e) {
+        console.error("prepareChatQuizWords error", e);
+        addProfChatMessage(
+            "Oups, impossible de préparer le quiz pour le moment."
+        );
+        chatStatus.textContent = "";
+    }
+}
 
-        let index = 0;
-        let score = 0;
+// Poser la question suivante
+async function askChatQuizQuestion() {
+    chatQuizExpectingAnswer = false;
+    chatQuizCurrentWord = "";
+    chatQuizCurrentAnswers = [];
 
-        // 2) Fonction qui affiche une question, une par une
-        async function askNextQuestion() {
-            // Chercher le prochain mot qui a une traduction exploitable
-            let wordData = null;
-            let acceptedAnswers = [];
+    if (chatQuizIndex >= chatQuizWords.length) {
+        endChatQuiz();
+        return;
+    }
 
-            while (index < words.length && !wordData) {
-                const candidate = words[index];
+    const word = chatQuizWords[chatQuizIndex];
 
-                // On va lire les infos de ce mot (via /api/get-dict-word)
-                const data = await fetchWordForQuiz(candidate);
+    try {
+        const data = await fetchWordForQuiz(word);
+        const answers = extractTranslationsForQuiz(data);
 
-                if (!data) {
-                    // Rien trouvé pour ce mot → on passe au suivant
-                    index++;
-                    continue;
-                }
-
-                const answers = extractTranslationsForQuiz(data);
-
-                if (!answers || !answers.length) {
-                    // Aucune traduction exploitable → suivant
-                    index++;
-                    continue;
-                }
-
-                wordData = data;
-                acceptedAnswers = answers;
-            }
-
-            // Plus aucun mot valable → fin du quiz
-            if (!wordData) {
-                quizLoader.style.display = "none";
-                quizCard.style.display = "none";
-                quizResult.style.display = "block";
-                quizScore.textContent = `Score : ${score} / ${words.length}`;
-                return;
-            }
-
-            const word = words[index];
-
-            // Affichage de la carte question
-            quizLoader.style.display = "none";
-            quizCard.style.display = "block";
-            quizOptions.innerHTML = "";
-            quizQuestion.textContent = `Comment dit-on « ${word} » en français ?`;
-
-            // --- UI "chat" ---
-            const form = document.createElement("form");
-            form.className = "quiz-chat-form";
-
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "quiz-input";
-            input.placeholder = "Ta réponse en français";
-
-            const button = document.createElement("button");
-            button.type = "submit";
-            button.className = "quiz-submit";
-            button.textContent = "Valider";
-
-            const feedback = document.createElement("div");
-            feedback.className = "quiz-feedback";
-            feedback.textContent =
-                "Tape ta réponse puis clique sur « Valider ».";
-
-            const nextButton = document.createElement("button");
-            nextButton.type = "button";
-            nextButton.className = "quiz-next";
-            nextButton.textContent = "Question suivante";
-            nextButton.style.display = "none";
-
-            form.appendChild(input);
-            form.appendChild(button);
-            quizOptions.appendChild(form);
-            quizOptions.appendChild(feedback);
-            quizOptions.appendChild(nextButton);
-
-            input.focus();
-
-            // Validation de la réponse
-            form.addEventListener("submit", (evt) => {
-                evt.preventDefault();
-
-                const userRaw = input.value;
-                const user = normalizeAnswer(userRaw);
-                if (!user) return;
-
-                const normalizedAccepted = acceptedAnswers.map(normalizeAnswer);
-
-                const isCorrect = normalizedAccepted.some((ans) => {
-                    if (!ans) return false;
-                    return (
-                        user === ans ||
-                        user.includes(ans) ||
-                        ans.includes(user)
-                    );
-                });
-
-                if (isCorrect) {
-                    score++;
-                    feedback.innerHTML = `✅ Correct !<br>Réponse attendue : <strong>${acceptedAnswers[0]}</strong>`;
-                    feedback.classList.remove("wrong");
-                    feedback.classList.add("correct");
-                } else {
-                    feedback.innerHTML = `❌ Pas tout à fait.<br>Réponses possibles : <strong>${acceptedAnswers.join(
-                        ", "
-                    )}</strong>`;
-                    feedback.classList.remove("correct");
-                    feedback.classList.add("wrong");
-                }
-
-                // Mise à jour SRS en arrière-plan
-                fetch(
-                    `/api/review-update?word=${encodeURIComponent(
-                        word
-                    )}&correct=${isCorrect ? "true" : "false"}`
-                ).catch(() => {});
-
-                // Bloquer la saisie et afficher "Question suivante"
-                input.disabled = true;
-                button.disabled = true;
-                nextButton.style.display = "inline-block";
-            });
-
-            // Passer manuellement à la question suivante
-            nextButton.addEventListener("click", () => {
-                index++;
-                askNextQuestion();
-            });
+        if (!answers || !answers.length) {
+            // Pas de traduction exploitable → on saute ce mot
+            chatQuizIndex++;
+            await askChatQuizQuestion();
+            return;
         }
 
-        // ➜ Lancer la première question
-        askNextQuestion();
-    } catch (err) {
-        console.error("startQuiz error", err);
-        quizLoader.style.display = "block";
-        quizCard.style.display = "none";
-        quizResult.style.display = "none";
-        quizLoader.textContent = "Erreur lors du chargement du quiz.";
+        chatQuizCurrentWord = word;
+        chatQuizCurrentAnswers = answers;
+        chatQuizExpectingAnswer = true;
+
+        addProfChatMessage(
+            `Question ${chatQuizIndex + 1} / ${chatQuizWords.length} :\n` +
+            `Comment dit-on « ${word} » en français ?`
+        );
+        chatStatus.textContent =
+            "Tape ta réponse en français puis appuie sur Entrée ou sur Envoyer.";
+    } catch (e) {
+        console.error("askChatQuizQuestion error", e);
+        chatQuizIndex++;
+        await askChatQuizQuestion();
     }
+}
+
+// Vérifier la réponse de l’utilisateur
+async function handleChatQuizAnswer(rawAnswer) {
+    const user = normalizeAnswer(rawAnswer);
+    const acceptedNorm = chatQuizCurrentAnswers.map(normalizeAnswer);
+
+    const isCorrect = acceptedNorm.some((ans) => {
+        if (!ans) return false;
+        return user === ans || user.includes(ans) || ans.includes(user);
+    });
+
+    if (isCorrect) {
+        chatQuizScore++;
+        addProfChatMessage(
+            `✅ Exact ! On peut dire « ${chatQuizCurrentAnswers[0]} ».`
+        );
+    } else {
+        addProfChatMessage(
+            `❌ Pas tout à fait.\n` +
+            `On peut dire : ${chatQuizCurrentAnswers
+                .slice(0, 3)
+                .join(", ")}`
+        );
+    }
+
+    // Mise à jour SRS en arrière-plan
+    fetch(
+        `/api/review-update?word=${encodeURIComponent(
+            chatQuizCurrentWord
+        )}&correct=${isCorrect ? "true" : "false"}`
+    ).catch(() => {});
+
+    chatQuizExpectingAnswer = false;
+    chatQuizIndex++;
+
+    setTimeout(() => {
+        askChatQuizQuestion();
+    }, 900);
+}
+
+// Fin du quiz
+function endChatQuiz() {
+    addProfChatMessage(
+        `✨ C’est fini pour ce tour !\n` +
+        `Tu as obtenu ${chatQuizScore} / ${chatQuizWords.length} 🌟`
+    );
+    chatStatus.textContent =
+        "Tu peux écrire « OK » si tu veux refaire un quiz avec de nouveaux mots.";
+
+    // On vide la liste pour que le prochain "OK" relance un nouveau tour
+    chatQuizWords = [];
+    chatQuizExpectingAnswer = false;
 }
 
 /**************************************************************
