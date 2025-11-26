@@ -1,71 +1,97 @@
 // /api/dict-import.js
-// ---------------------------------------------
-// Import massifs pour dictionnaire Premium
-// Input: POST JSON: [{ word, definition, translations... }]
-// ---------------------------------------------
+import premiumWords from "../../premium100.json";
 
 export default async function handler(req, res) {
-    if (req.method !== "POST") {
-        return res.status(405).json({ error: "POST only" });
-    }
-
-    const KV_URL = process.env.KV_REST_API_URL;
-    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
-
-    if (!KV_URL || !KV_TOKEN) {
-        return res.status(500).json({ error: "Missing Upstash KV config" });
-    }
-
-    let batch = [];
-
     try {
-        batch = req.body;
-        if (!Array.isArray(batch)) {
-            return res.status(400).json({ error: "Body must be an array" });
+        const KV_URL = process.env.KV_REST_API_URL;
+        const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+
+        if (!KV_URL || !KV_TOKEN) {
+            return res.status(500).json({ error: "Missing KV config" });
         }
-    } catch {
-        return res.status(400).json({ error: "Invalid JSON" });
-    }
 
-    // 1 — Ajout dans dict:WORD
-    let imported = 0;
-    let words = [];
+        const wordlist = [];
 
-    for (const entry of batch) {
-        if (!entry.word) continue;
+        for (const item of premiumWords) {
+            const word = item.word;
+            if (!word) continue;
 
-        const key = `dict:${entry.word.toLowerCase()}`;
-        words.push(entry.word.toLowerCase());
+            // Sécuriser les champs
+            const translations = Array.isArray(item.translations)
+                ? item.translations
+                : item.main_translation
+                ? [item.main_translation]
+                : [];
 
-        await fetch(`${KV_URL}/set/${key}`, {
+            const examples = Array.isArray(item.examples)
+                ? item.examples
+                : [];
+
+            const synonyms = Array.isArray(item.synonyms)
+                ? item.synonyms
+                : [];
+
+            const distractors = Array.isArray(item.distractors)
+                ? item.distractors
+                : [];
+
+            // On crée UNE entrée "générique" dans entries[]
+            const entry = {
+                label: "", // tu pourras plus tard mettre "verb", "noun", etc.
+                definition: item.definition || "",
+                translations,
+                examples,
+                synonyms
+            };
+
+            const dictEntry = {
+                word,
+                lang: "en",
+
+                // Nouveau format complet
+                entries: [entry],
+
+                // Champs plats pour compatibilité (quiz, anciens appels)
+                definition: entry.definition,
+                translations,
+                main_translation: item.main_translation || translations[0] || "",
+                examples,
+                synonyms,
+                distractors
+            };
+
+            const key = `dict:${word.toLowerCase()}`;
+
+            await fetch(`${KV_URL}/set/${key}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${KV_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dictEntry)
+            });
+
+            if (!wordlist.includes(word)) {
+                wordlist.push(word);
+            }
+        }
+
+        // Tri alphabétique pour le Dico
+        wordlist.sort((a, b) => a.localeCompare(b));
+
+        // On enregistre la liste des mots
+        await fetch(`${KV_URL}/set/wordlist:en`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${KV_TOKEN}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                value: JSON.stringify(entry)
-            })
+            body: JSON.stringify({ value: JSON.stringify(wordlist) })
         });
 
-        imported++;
+        return res.status(200).json({ status: "ok", count: wordlist.length });
+    } catch (err) {
+        console.error("DICT IMPORT error:", err);
+        return res.status(500).json({ error: "Server error" });
     }
-
-    // 2 — Mettre à jour wordlist:en
-    const uniq = [...new Set(words)].sort();
-
-    await fetch(`${KV_URL}/set/wordlist:en`, {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${KV_TOKEN}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ value: JSON.stringify(uniq) })
-    });
-
-    return res.status(200).json({
-        status: "ok",
-        imported,
-        updatedWordlist: uniq.length
-    });
 }
