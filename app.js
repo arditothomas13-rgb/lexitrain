@@ -229,12 +229,11 @@ async function fetchWord(word, cacheOnly = false) {
         }
     } catch {}
 
-         if (!cacheOnly) {
-        // On passe par /api/translate pour récupérer la vraie structure "entries"
+    if (!cacheOnly) {
+        // ✅ Utiliser l’API de traduction complète
         const res = await fetch(
             `/api/translate?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
         );
-
         const apiData = await res.json();
         setLocalCache(cacheKey, apiData);
         return apiData;
