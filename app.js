@@ -805,6 +805,8 @@ inputField.addEventListener("keydown", e => {
     if (e.key === "Enter") translateWord();
 });
 
+import "./quiz/chatQuiz.js";
+
 /**************************************************************
  * END
  **************************************************************/
