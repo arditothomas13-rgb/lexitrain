@@ -587,6 +587,10 @@ async function startQuiz() {
 
         const data = await res.json();
         let words = Array.isArray(data.words) ? data.words : [];
+       if (!words.length) {
+            quizLoader.innerHTML = "Aucun mot à réviser 🎉";
+            return;
+        }
 
         // On mélange et on limite le nombre de questions
         shuffle(words);
