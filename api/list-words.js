@@ -25,49 +25,25 @@ export default async function handler(req, res) {
         let list = [];
 
         if (data && data.result) {
-            const raw = data.result;
-
             try {
-                // On essaye de parser le JSON stocké
-                const parsed = JSON.parse(raw);
-
+                // On s'attend à ce que ce soit un tableau JSON
+                const parsed = JSON.parse(data.result);
                 if (Array.isArray(parsed)) {
-                    // Cas simple : ["accept","achieve",...]
                     list = parsed;
-                } else if (parsed && typeof parsed === "object") {
-                    // Cas où on a stocké { value: "[\"accept\",...]" }
-                    if (Array.isArray(parsed.value)) {
-                        list = parsed.value;
-                    } else if (typeof parsed.value === "string") {
-                        try {
-                            const inner = JSON.parse(parsed.value);
-                            if (Array.isArray(inner)) {
-                                list = inner;
-                            }
-                        } catch {
-                            // ignore
-                        }
-                    }
                 }
             } catch {
-                // Si ce n'est pas du JSON, fallback simple : split par virgule
-                list = raw
-                    .split(",")
-                    .map(w => w.trim())
-                    .filter(Boolean);
+                // Si ce n'est pas du JSON valide, on laisse list = []
+                list = [];
             }
         }
 
-        // Nettoyage
         list = (list || []).filter(Boolean);
 
-        // Filtre de recherche
         const query = (q || "").toLowerCase();
         if (query) {
             list = list.filter(w => w.toLowerCase().includes(query));
         }
 
-        // Tri alphabétique
         list.sort((a, b) => a.localeCompare(b));
 
         return res.status(200).json({ words: list });
