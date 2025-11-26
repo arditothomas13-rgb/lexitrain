@@ -106,14 +106,33 @@ export default async function handler(req, res) {
                 }
             }
 
-            // On ajoute le mot s'il n'y est pas déjà
-            if (!list.includes(word)) {
+                        // Fonction de normalisation identique à /api/list-words.js
+            const normalize = (w) => {
+                if (!w) return "";
+                let lw = w.toLowerCase().trim();
+
+                if (dictLang === "en") {
+                    if (lw.length > 3 && lw.endsWith("s") && !lw.endsWith("ss")) {
+                        lw = lw.slice(0, -1);
+                    }
+                }
+
+                return lw;
+            };
+
+            const newKey = normalize(word);
+
+            // On vérifie s'il existe déjà un mot "équivalent"
+            const exists = list.some(w => normalize(w) === newKey);
+
+            if (!exists) {
                 list.push(word);
             }
 
             list = list
                 .filter(w => typeof w === "string" && w.trim().length > 0)
                 .sort((a, b) => a.localeCompare(b));
+
 
             // On sauvegarde la nouvelle liste
             await fetch(`${KV_URL}/set/${wordlistKey}`, {
