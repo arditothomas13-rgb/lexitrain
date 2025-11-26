@@ -334,6 +334,26 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     const word = inputField.value.trim();
     if (!word) return;
 
+    // 🔍 Détection automatique de langue (seulement en mode normal)
+    if (!cacheOnly) {
+        const detected = detectLanguage(word);
+
+        if (detected && detected !== fromLang) {
+            const oldFromLabel = fromLang === "en" ? "Anglais" : "Français";
+            const newFromLabel = detected === "en" ? "Anglais" : "Français";
+
+            // On bascule le sens de traduction
+            fromLang = detected;
+            toLang = detected === "en" ? "fr" : "en";
+            updateLanguageUI();
+
+            showLanguageWarning(oldFromLabel, newFromLabel);
+        } else {
+            // Rien de suspect → on masque le message
+            hideLanguageWarning();
+        }
+    }
+
     clearResult();
     showLoader();
 
@@ -345,7 +365,7 @@ async function translateWord(isSwap = false, cacheOnly = false) {
         return;
     }
 
-     resultTitle.textContent = word;
+    resultTitle.textContent = word;
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
 
@@ -353,7 +373,7 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     if (!cacheOnly) {
         addToHistory(word);
 
-        // 🧠 Auto-ajout au dictionnaire (EN ou FR selon fromLang)
+        // 🧠 Auto-ajout au dictionnaire (EN ou FR selon fromLang après éventuel switch)
         try {
             await fetch("/api/dict-auto-add", {
                 method: "POST",
@@ -371,7 +391,6 @@ async function translateWord(isSwap = false, cacheOnly = false) {
         }
     }
 }
-
 
 /**************************************************************
  * HISTORY
