@@ -352,6 +352,25 @@ function addToHistory(word) {
 }
 
 /**************************************************************
+ * DICTIONARY LANGUAGE TOGGLE
+ **************************************************************/
+if (btnDicEn && btnDicFr) {
+    btnDicEn.addEventListener("click", () => {
+        dictionaryLang = "en";
+        btnDicEn.classList.add("active");
+        btnDicFr.classList.remove("active");
+        loadDictionary(dictionarySearch.value.toLowerCase());
+    });
+
+    btnDicFr.addEventListener("click", () => {
+        dictionaryLang = "fr";
+        btnDicFr.classList.add("active");
+        btnDicEn.classList.remove("active");
+        loadDictionary(dictionarySearch.value.toLowerCase());
+    });
+}
+
+/**************************************************************
  * DICTIONARY
  **************************************************************/
 async function loadDictionary(q = "") {
