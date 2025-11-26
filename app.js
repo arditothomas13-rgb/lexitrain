@@ -229,7 +229,7 @@ async function fetchWord(word, cacheOnly = false) {
         }
     } catch {}
 
-    if (!cacheOnly) {
+      if (!cacheOnly) {
         const res = await fetch(
             `/api/get-word?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
         );
