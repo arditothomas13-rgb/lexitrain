@@ -693,9 +693,6 @@ function attachSwipeToDicItem(item) {
     });
 }
 
-// Petit cache pour les index par lettre (A-Z à droite)
-let dicLetterIndexMap = {};
-
 async function loadDictionary(q = "") {
     dictionaryList.innerHTML = "Chargement...";
     if (alphabetScroller) alphabetScroller.innerHTML = "";
