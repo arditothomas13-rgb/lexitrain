@@ -57,7 +57,7 @@ export default async function handler(req, res) {
 
         const dictKey = `dict:${word.toLowerCase()}`;
 
-        // 1) On sauve la fiche complète du mot
+        // 1) Sauvegarde de la fiche complète
         const resp = await fetch(`${KV_URL}/set/${dictKey}`, {
             method: "POST",
             headers: {
@@ -73,7 +73,7 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: "KV set error" });
         }
 
-        // 2) On met à jour la wordlist:<lang> au format ["mot1","mot2",...]
+        // 2) Mise à jour de wordlist:<lang> = ["mot1","mot2",...]
         const wordlistKey = `wordlist:${dictLang}`;
         let list = [];
 
