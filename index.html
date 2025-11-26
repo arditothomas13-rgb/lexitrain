@@ -99,39 +99,37 @@
 
     </section>
 
-    <!-- ===================================================== -->
-<!-- PAGE QUIZ (nouveau) -->
+<!-- ===================================================== -->
+<!-- PAGE QUIZ (CHAT PROF) -->
 <!-- ===================================================== -->
 <section id="page-quiz" class="page" style="display:none;">
 
-    <h2 class="dictionary-title">Quiz</h2>
+  <h2 class="dictionary-title">Quiz</h2>
 
-    <div id="quizContainer">
-
-        <!-- Loader initial -->
-        <div id="quizLoader" class="glass quiz-card" style="text-align:center; padding:40px;">
-            Chargement des mots...
-        </div>
-
-        <!-- Carte de question -->
-        <div id="quizCard" class="glass quiz-card" style="display:none;">
-            <div id="quizQuestion" class="quiz-question"></div>
-
-            <div id="quizOptions" class="quiz-options"></div>
-        </div>
-
-        <!-- Résultat final -->
-        <div id="quizResult" class="glass quiz-card" style="display:none;">
-            <h3>Quiz terminé 🎉</h3>
-            <p id="quizScore"></p>
-            <button class="btn-green" id="quizRestart">Recommencer</button>
-        </div>
-
+  <div class="glass quiz-card chat-wrapper">
+    <!-- Messages du professeur et de l'élève -->
+    <div id="chatMessages" class="chat-messages">
+      <!-- On met un 1er message du prof par défaut -->
+      <div class="chat-message prof">
+        👋 Salut ! Je suis ton prof de vocabulaire.  
+        Je vais te poser 5 questions sur les mots que tu as déjà traduits.
+        Prêt(e) ? Écris "OK" pour commencer.
+      </div>
     </div>
 
-</section>
+    <!-- Zone de saisie -->
+    <div class="chat-input-row">
+      <input id="chatAnswer" type="text" placeholder="Ta réponse..." />
+      <button id="chatSend">Envoyer</button>
+    </div>
 
-</main>
+    <!-- Petit statut en bas -->
+    <div id="chatStatus" class="chat-status">
+      Le professeur attend ta réponse…
+    </div>
+  </div>
+
+</section>
 
 
 <!-- ===================================================== -->
