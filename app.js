@@ -682,22 +682,27 @@ async function onChatSend() {
         const norm = normalizeAnswer(raw);
         const startWords = ["ok", "continue", "continuer", "encore"];
 
-            if (startWords.includes(norm)) {
-        addProfChatMessage(
-            "Super ! Allons-y 🚀\nJe prépare quelques questions pour toi…"
-        );
-        chatStatus.textContent = "Je prépare tes questions…";
-        await prepareChatQuizWords();
-        if (!chatQuizWords.length) {
-            return;
+        if (startWords.includes(norm)) {
+            addProfChatMessage(
+                "Super ! Allons-y 🚀\nJe prépare quelques questions pour toi…"
+            );
+            chatStatus.textContent = "Je prépare tes questions…";
+            await prepareChatQuizWords();
+            if (!chatQuizWords.length) {
+                return;
+            }
+            chatQuizIndex = 0;
+            chatQuizScore = 0;
+            await askChatQuizQuestion();
+        } else {
+            addProfChatMessage(
+                "Pour démarrer, écris simplement « OK », « continuer » ou « encore » 😄"
+            );
         }
-        chatQuizIndex = 0;
-        chatQuizScore = 0;
-        await askChatQuizQuestion();
-    } else {
-        addProfChatMessage(
-            "Pour démarrer, écris simplement « OK », « continuer » ou « encore » 😄"
-        );
+
+        // 👉 Très important : on s’arrête ici,
+        // on ne passe PAS à la partie "en plein quiz"
+        return;
     }
 
     // En plein quiz → on traite la réponse
@@ -717,7 +722,6 @@ async function onChatSend() {
         }
     }
 }
-
 
 // Préparer la liste des mots à interroger
 async function prepareChatQuizWords() {
