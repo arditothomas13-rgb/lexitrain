@@ -564,7 +564,6 @@ dictionarySearch.addEventListener("input", e => {
  *  - Tu écris ta réponse
  *  - L'app corrige + explique
  **************************************************************/
-
 async function startQuiz() {
     // État initial : on affiche le loader
     quizLoader.style.display = "block";
@@ -581,7 +580,8 @@ async function startQuiz() {
 
         const data = await res.json();
         let words = Array.isArray(data.words) ? data.words : [];
-       if (!words.length) {
+
+        if (!words.length) {
             quizLoader.innerHTML = "Aucun mot à réviser 🎉";
             return;
         }
@@ -595,133 +595,147 @@ async function startQuiz() {
         let score = 0;
 
         // 2) Fonction qui affiche une question, une par une
-            async function askNextQuestion() {
-        // 1) Chercher le prochain mot qui a une traduction exploitable
-        let wordData = null;
-        let acceptedAnswers = [];
+        async function askNextQuestion() {
+            // Chercher le prochain mot qui a une traduction exploitable
+            let wordData = null;
+            let acceptedAnswers = [];
 
-        while (index < words.length && !wordData) {
-            const candidate = words[index];
+            while (index < words.length && !wordData) {
+                const candidate = words[index];
 
-            // On va lire les infos de ce mot (via /api/get-dict-word)
-            const data = await fetchWordForQuiz(candidate);
+                // On va lire les infos de ce mot (via /api/get-dict-word)
+                const data = await fetchWordForQuiz(candidate);
 
-            if (!data) {
-                // Rien trouvé pour ce mot → on passe silencieusement au suivant
-                index++;
-                continue;
+                if (!data) {
+                    // Rien trouvé pour ce mot → on passe au suivant
+                    index++;
+                    continue;
+                }
+
+                const answers = extractTranslationsForQuiz(data);
+
+                if (!answers || !answers.length) {
+                    // Aucune traduction exploitable → suivant
+                    index++;
+                    continue;
+                }
+
+                wordData = data;
+                acceptedAnswers = answers;
             }
 
-            const answers = extractTranslationsForQuiz(data);
-
-            if (!answers || !answers.length) {
-                // On a un mot mais aucune traduction vraiment exploitable → suivant
-                index++;
-                continue;
+            // Plus aucun mot valable → fin du quiz
+            if (!wordData) {
+                quizLoader.style.display = "none";
+                quizCard.style.display = "none";
+                quizResult.style.display = "block";
+                quizScore.textContent = `Score : ${score} / ${words.length}`;
+                return;
             }
 
-            // OK : on a enfin un mot avec des traductions
-            wordData = data;
-            acceptedAnswers = answers;
-        }
+            const word = words[index];
 
-        // 2) Si on n’a trouvé aucun mot valable → fin du quiz
-        if (!wordData) {
+            // Affichage de la carte question
             quizLoader.style.display = "none";
-            quizCard.style.display = "none";
-            quizResult.style.display = "block";
-            quizScore.textContent = `Score : ${score} / ${words.length}`;
-            return;
-        }
+            quizCard.style.display = "block";
+            quizOptions.innerHTML = "";
+            quizQuestion.textContent = `Comment dit-on « ${word} » en français ?`;
 
-        const word = words[index];
+            // --- UI "chat" ---
+            const form = document.createElement("form");
+            form.className = "quiz-chat-form";
 
-        // 3) Afficher la carte de question (chat prof)
-        quizLoader.style.display = "none";
-        quizCard.style.display = "block";
-        quizOptions.innerHTML = "";
-        quizQuestion.textContent = `Comment dit-on « ${word} » en français ?`;
+            const input = document.createElement("input");
+            input.type = "text";
+            input.className = "quiz-input";
+            input.placeholder = "Ta réponse en français";
 
-        // --- UI "chat" ---
-        const form = document.createElement("form");
-        form.className = "quiz-chat-form";
+            const button = document.createElement("button");
+            button.type = "submit";
+            button.className = "quiz-submit";
+            button.textContent = "Valider";
 
-        const input = document.createElement("input");
-        input.type = "text";
-        input.className = "quiz-input";
-        input.placeholder = "Ta réponse en français";
+            const feedback = document.createElement("div");
+            feedback.className = "quiz-feedback";
+            feedback.textContent =
+                "Tape ta réponse puis clique sur « Valider ».";
 
-        const button = document.createElement("button");
-        button.type = "submit";
-        button.className = "quiz-submit";
-        button.textContent = "Valider";
+            const nextButton = document.createElement("button");
+            nextButton.type = "button";
+            nextButton.className = "quiz-next";
+            nextButton.textContent = "Question suivante";
+            nextButton.style.display = "none";
 
-        const feedback = document.createElement("div");
-        feedback.className = "quiz-feedback";
-        feedback.textContent = "Tape ta réponse puis clique sur « Valider ».";
+            form.appendChild(input);
+            form.appendChild(button);
+            quizOptions.appendChild(form);
+            quizOptions.appendChild(feedback);
+            quizOptions.appendChild(nextButton);
 
-        const nextButton = document.createElement("button");
-        nextButton.type = "button";
-        nextButton.className = "quiz-next";
-        nextButton.textContent = "Question suivante";
-        nextButton.style.display = "none";
+            input.focus();
 
-        form.appendChild(input);
-        form.appendChild(button);
-        quizOptions.appendChild(form);
-        quizOptions.appendChild(feedback);
-        quizOptions.appendChild(nextButton);
+            // Validation de la réponse
+            form.addEventListener("submit", (evt) => {
+                evt.preventDefault();
 
-        input.focus();
+                const userRaw = input.value;
+                const user = normalizeAnswer(userRaw);
+                if (!user) return;
 
-        // 4) Quand tu envoies ta réponse
-        form.addEventListener("submit", (evt) => {
-            evt.preventDefault();
+                const normalizedAccepted = acceptedAnswers.map(normalizeAnswer);
 
-            const userRaw = input.value;
-            const user = normalizeAnswer(userRaw);
-            if (!user) return;
+                const isCorrect = normalizedAccepted.some((ans) => {
+                    if (!ans) return false;
+                    return (
+                        user === ans ||
+                        user.includes(ans) ||
+                        ans.includes(user)
+                    );
+                });
 
-            const normalizedAccepted = acceptedAnswers.map(normalizeAnswer);
+                if (isCorrect) {
+                    score++;
+                    feedback.innerHTML = `✅ Correct !<br>Réponse attendue : <strong>${acceptedAnswers[0]}</strong>`;
+                    feedback.classList.remove("wrong");
+                    feedback.classList.add("correct");
+                } else {
+                    feedback.innerHTML = `❌ Pas tout à fait.<br>Réponses possibles : <strong>${acceptedAnswers.join(
+                        ", "
+                    )}</strong>`;
+                    feedback.classList.remove("correct");
+                    feedback.classList.add("wrong");
+                }
 
-            const isCorrect = normalizedAccepted.some((ans) => {
-                if (!ans) return false;
-                return user === ans || user.includes(ans) || ans.includes(user);
+                // Mise à jour SRS en arrière-plan
+                fetch(
+                    `/api/review-update?word=${encodeURIComponent(
+                        word
+                    )}&correct=${isCorrect ? "true" : "false"}`
+                ).catch(() => {});
+
+                // Bloquer la saisie et afficher "Question suivante"
+                input.disabled = true;
+                button.disabled = true;
+                nextButton.style.display = "inline-block";
             });
 
-            if (isCorrect) {
-                score++;
-                feedback.innerHTML = `✅ Correct !<br>Réponse attendue : <strong>${acceptedAnswers[0]}</strong>`;
-                feedback.classList.remove("wrong");
-                feedback.classList.add("correct");
-            } else {
-                feedback.innerHTML = `❌ Pas tout à fait.<br>Réponses possibles : <strong>${acceptedAnswers.join(
-                    ", "
-                )}</strong>`;
-                feedback.classList.remove("correct");
-                feedback.classList.add("wrong");
-            }
+            // Passer manuellement à la question suivante
+            nextButton.addEventListener("click", () => {
+                index++;
+                askNextQuestion();
+            });
+        }
 
-            // Mise à jour SRS en arrière-plan
-            fetch(
-                `/api/review-update?word=${encodeURIComponent(
-                    word
-                )}&correct=${isCorrect ? "true" : "false"}`
-            ).catch(() => {});
-
-            // On bloque la réponse, et on laisse l’utilisateur passer à la suite
-            input.disabled = true;
-            button.disabled = true;
-            nextButton.style.display = "inline-block";
-        });
-
-        // 5) Passer manuellement à la question suivante
-        nextButton.addEventListener("click", () => {
-            index++;
-            askNextQuestion();
-        });
+        // ➜ Lancer la première question
+        askNextQuestion();
+    } catch (err) {
+        console.error("startQuiz error", err);
+        quizLoader.style.display = "block";
+        quizCard.style.display = "none";
+        quizResult.style.display = "none";
+        quizLoader.textContent = "Erreur lors du chargement du quiz.";
     }
-
+}
 
 /**************************************************************
  * UTILITAIRES QUIZ
