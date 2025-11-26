@@ -176,58 +176,67 @@ function clearResult() {
     senseContent.innerHTML = "";
 }
 
-function renderSenseTabs(entries) {
-    senseTabs.innerHTML = "";
-    entries.forEach((e, i) => {
-        const pill = document.createElement("div");
-        pill.className = "sense-pill";
-        if (i === 0) pill.classList.add("active");
-        pill.textContent = e.label;
-        pill.addEventListener("click", () => {
-            document.querySelectorAll(".sense-pill").forEach(p => p.classList.remove("active"));
-            pill.classList.add("active");
-            renderSenseContent(e);
-        });
-        senseTabs.appendChild(pill);
-    });
-}
+function renderSenseContent(entry) {
+    senseContent.innerHTML = "";
 
-const examplesHtml =
-    entry.examples && entry.examples.length
-        ? entry.examples
-              .map(ex => {
-                  // Cas ancien : juste une chaîne de texte
-                  if (typeof ex === "string") {
-                      return `<div>• ${ex}</div>`;
-                  }
+    // Bloc définition
+    if (entry.definition) {
+        senseContent.innerHTML += `
+            <div class="glass translation-list">
+                <div class="sense-block-title">Definition</div>
+                <div>${entry.definition}</div>
+            </div>
+        `;
+    }
 
-                  const src = ex.src || "";
-                  const dest = ex.dest || "";
+    // Bloc traductions
+    senseContent.innerHTML += `
+        <div class="glass translation-list">
+            <div class="sense-block-title">Traductions</div>
+            ${entry.translations
+                .map(t => `<div class="translation-item">${t}</div>`)
+                .join("")}
+        </div>
+    `;
 
-                  // Cas complet : phrase source + traduction
-                  if (src && dest) {
-                      return `
-                        <div class="example-item">
-                            <div>• ${src}</div>
-                            <div class="example-dest">${dest}</div>
-                        </div>
-                      `;
-                  }
+    // Bloc exemples EN + FR
+    const examplesHtml =
+        entry.examples && entry.examples.length
+            ? entry.examples
+                  .map(ex => {
+                      // Cas ancien : juste une chaîne de texte
+                      if (typeof ex === "string") {
+                          return `<div>• ${ex}</div>`;
+                      }
 
-                  // Si jamais il manque un des deux, on affiche ce qu'on peut
-                  return `<div>• ${src || dest}</div>`;
-              })
-              .join("")
-        : `<div>Aucun exemple disponible</div>`;
+                      const src = ex.src || "";
+                      const dest = ex.dest || "";
 
-senseContent.innerHTML += `
-    <div class="glass examples-list">
-        <div class="sense-block-title">Exemples</div>
-        ${examplesHtml}
-    </div>
-`;
+                      // Cas complet : phrase source + traduction
+                      if (src && dest) {
+                          return `
+                              <div class="example-item">
+                                  <div>• ${src}</div>
+                                  <div class="example-dest">${dest}</div>
+                              </div>
+                          `;
+                      }
 
-    if (entry.synonyms?.length) {
+                      // Si jamais il manque un des deux, on affiche ce qu'on peut
+                      return `<div>• ${src || dest}</div>`;
+                  })
+                  .join("")
+            : `<div>Aucun exemple disponible</div>`;
+
+    senseContent.innerHTML += `
+        <div class="glass examples-list">
+            <div class="sense-block-title">Exemples</div>
+            ${examplesHtml}
+        </div>
+    `;
+
+    // Bloc synonymes
+    if (entry.synonyms && entry.synonyms.length) {
         senseContent.innerHTML += `
             <div class="sense-block-title">Synonymes</div>
             <div class="glass synonyms-wrapper">
@@ -245,7 +254,6 @@ senseContent.innerHTML += `
         });
     }
 }
-
 /**************************************************************
  * TRANSLATE ACTION
  **************************************************************/
