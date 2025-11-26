@@ -263,6 +263,39 @@ text-align: left;
   padding: 4px 0;
 }
 
+/* Champ de traduction avec bouton "effacer" */
+.input-with-clear {
+  position: relative;
+}
+
+.input-with-clear input {
+  padding-right: 44px; /* pour ne pas écrire sous la croix */
+}
+
+.input-clear-btn {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: none;
+  display: none; /* caché par défaut */
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.06);
+  color: #555;
+  backdrop-filter: blur(6px);
+}
+
+.input-clear-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
 /* =======================================================
    EXAMPLES
 ======================================================= */
