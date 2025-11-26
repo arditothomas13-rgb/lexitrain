@@ -14,6 +14,8 @@ let dictionaryLang = "en";
 ----------------------------- */
 const inputField = document.getElementById("input");
 const translateBtn = document.getElementById("translateBtn");
+const clearInputBtn = document.getElementById("clearInput");
+
 
 const resultCard = document.getElementById("resultCard");
 const resultTitle = document.getElementById("result-title");
