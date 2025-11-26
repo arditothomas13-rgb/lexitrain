@@ -607,6 +607,7 @@ let chatQuizScore = 0;
 let chatQuizExpectingAnswer = false;
 let chatQuizCurrentWord = "";
 let chatQuizCurrentAnswers = [];
+let chatQuizExpectedLang = "fr";
 
 // Appelé quand on ouvre l’onglet Quiz
 async function startQuiz() {
