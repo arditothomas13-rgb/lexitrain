@@ -41,17 +41,51 @@ export default async function handler(req, res) {
             console.error("LIST WORDS KV error:", e);
         }
 
-        if (!Array.isArray(list)) {
+              if (!Array.isArray(list)) {
             list = [];
         }
 
-        // Nettoyage de base
+        // Nettoyage de base : on garde seulement les chaînes non vides
         list = list.filter(w => typeof w === "string" && w.trim().length > 0);
 
+        // 🔎 Normalisation pour supprimer les doublons :
+        //  - on ignore les majuscules/minuscules
+        //  - on simplifie les pluriels très basiques en anglais (boat / boats)
+        const normalize = (w) => {
+            if (!w) return "";
+            let lw = w.toLowerCase().trim();
+
+            // Pour l'anglais uniquement : si ça finit par "s" on enlève le "s"
+            // (ex : "boats" → "boat"). On évite les mots très courts et les "ss".
+            if (dictLang === "en") {
+                if (lw.length > 3 && lw.endsWith("s") && !lw.endsWith("ss")) {
+                    lw = lw.slice(0, -1);
+                }
+            }
+
+            return lw;
+        };
+
+        // On garde seulement un mot par forme normalisée
+        const seen = new Set();
+        list = list.filter(w => {
+            const key = normalize(w);
+            if (seen.has(key)) return false; // doublon → on l'enlève
+            seen.add(key);
+            return true;
+        });
+
+        // Filtre par recherche (champ du haut)
         const query = (q || "").toLowerCase();
         if (query) {
             list = list.filter(w => w.toLowerCase().includes(query));
         }
+
+        // Tri alphabétique
+        list.sort((a, b) => a.localeCompare(b));
+
+        return res.status(200).json({ words: list });
+
 
         // Tri alphabétique
         list.sort((a, b) => a.localeCompare(b));
