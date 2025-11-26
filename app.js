@@ -248,22 +248,38 @@ async function fetchWord(word, cacheOnly = false) {
 }
 
 /**************************************************************
- * FETCH POUR LE QUIZ (EN ➜ FR) — réutilise /api/get-dict-word
+ * FETCH POUR LE QUIZ (EN ➜ FR)
+ *  ➜ Utilise UNIQUEMENT le cache de traduction du dico
+ *  ➜ Ignore complètement premium100.json et /api/get-dict-word
  **************************************************************/
 async function fetchWordForQuiz(word) {
+    const normalized = (word || "").toLowerCase().trim();
+    if (!normalized) return null;
+
+    // Même clé que dans /api/translate : `${word}_${from}_${to}`
+    const cacheKey = `${normalized}_en_fr`;
+
     try {
         const res = await fetch(
-            `/api/get-dict-word?word=${encodeURIComponent(word)}`
+            `/api/kv-get?key=${encodeURIComponent(cacheKey)}`
         );
 
         if (!res.ok) return null;
 
         const data = await res.json();
-        if (!data || data.error) return null;
+        if (!data || !data.result) return null;
 
-        return data;
+        // On retrouve le JSON que le dico a stocké
+        try {
+            const parsed = JSON.parse(data.result);
+            if (!parsed || parsed.error) return null;
+            return parsed;
+        } catch (e) {
+            console.error("QUIZ kv-get parse error", e);
+            return null;
+        }
     } catch (err) {
-        console.error("QUIZ fetchWordForQuiz error", err);
+        console.error("QUIZ fetchWordForQuiz KV error", err);
         return null;
     }
 }
