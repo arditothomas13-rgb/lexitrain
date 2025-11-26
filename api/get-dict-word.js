@@ -1,99 +1,69 @@
 // /api/get-dict-word.js
 // ------------------------------------------------------
-// Retourne un mot PREMIUM depuis Upstash KV
-// dict:word → { main_translation, translations, examples, distractors }
+// Retourne un mot du dictionnaire depuis Upstash KV
+// dict:<word> → { main_translation, translations, examples, distractors, entries… }
 // ------------------------------------------------------
 
 export default async function handler(req, res) {
-    const word = req.query.word;
-    if (!word) {
-        return res.status(400).json({ error: "Missing 'word' parameter" });
-    }
-
-    const key = `dict:${word.toLowerCase()}`;
-
-    const KV_URL = process.env.KV_REST_API_URL;
-    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
-
-    if (!KV_URL || !KV_TOKEN) {
-        return res.status(500).json({ error: "Missing KV config" });
-    }
-
     try {
-        const cloud = await fetch(`${KV_URL}/get/${key}`, {
-            headers: { Authorization: `Bearer ${KV_TOKEN}` }
+        const word = req.query.word;
+
+        if (!word) {
+            return res.status(400).json({ error: "Missing 'word' parameter" });
+        }
+
+        const KV_URL = process.env.KV_REST_API_URL;
+        const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+
+        if (!KV_URL || !KV_TOKEN) {
+            return res.status(500).json({ error: "Missing KV config" });
+        }
+
+        const key = `dict:${word.toLowerCase()}`;
+
+        const resp = await fetch(`${KV_URL}/get/${key}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${KV_TOKEN}`
+            }
         });
 
-        const json = await cloud.json();
+        const data = await resp.json();
 
-        // Rien trouvé → format propre
-        if (!json || !json.result) {
-            return res.status(200).json({
-                word,
-                main_translation: "",
-                translations: [],
-                examples: [],
-                distractors: [],
-                error: "Not found"
-            });
+        if (!data || !data.result) {
+            return res.status(404).json({ error: "Word not found" });
         }
 
         let parsed = {};
         try {
-            parsed = JSON.parse(json.result);
-        } catch {
-            return res.status(200).json({
-                word,
-                main_translation: "",
-                translations: [],
-                examples: [],
-                distractors: [],
-                error: "Invalid JSON"
-            });
+            parsed = JSON.parse(data.result);
+        } catch (e) {
+            console.error("GET DICT WORD parse error:", e);
         }
 
-        // Normalisation stricte — TOUT est garanti
-              // Normalisation stricte — TOUT est garanti
-
-        // 1) Construire un tableau d'entries homogène
-        let entries = [];
-
-        if (Array.isArray(parsed.entries) && parsed.entries.length) {
-            // Cas "moderne" : on a déjà entries en base
-            entries = parsed.entries.map(e => ({
-                label: e.label || "",
-                definition: e.definition || "",
-                translations: Array.isArray(e.translations) ? e.translations : [],
-                examples: Array.isArray(e.examples) ? e.examples : [],
-                synonyms: Array.isArray(e.synonyms) ? e.synonyms : []
-            }));
-        } else {
-            // Cas "ancien" : on reconstruit une seule entrée à partir des champs plats
-            entries = [{
-                label: "",
+        const entries = Array.isArray(parsed.entries) && parsed.entries.length
+            ? parsed.entries
+            : [{
+                label: parsed.label || "",
                 definition: parsed.definition || "",
-                translations: Array.isArray(parsed.translations) ? parsed.translations : [],
+                translations: Array.isArray(parsed.translations)
+                    ? parsed.translations
+                    : (parsed.main_translation ? [parsed.main_translation] : []),
                 examples: Array.isArray(parsed.examples) ? parsed.examples : [],
                 synonyms: Array.isArray(parsed.synonyms) ? parsed.synonyms : []
             }];
-        }
 
         return res.status(200).json({
             word: parsed.word || word,
-            main_translation: parsed.main_translation || "",
-            translations: Array.isArray(parsed.translations)
-                ? parsed.translations
-                : [],
-            examples: Array.isArray(parsed.examples)
-                ? parsed.examples
-                : [],
-            distractors: Array.isArray(parsed.distractors)
-                ? parsed.distractors
-                : [],
-            entries   // 👈 très important pour réutiliser l'UI
+            lang: parsed.lang || "en",
+            definition: parsed.definition || "",
+            translations: Array.isArray(parsed.translations) ? parsed.translations : [],
+            main_translation: parsed.main_translation || (parsed.translations && parsed.translations[0]) || "",
+            examples: Array.isArray(parsed.examples) ? parsed.examples : [],
+            synonyms: Array.isArray(parsed.synonyms) ? parsed.synonyms : [],
+            distractors: Array.isArray(parsed.distractors) ? parsed.distractors : [],
+            entries
         });
-
-
     } catch (err) {
         console.error("DICT FETCH ERROR", err);
         return res.status(500).json({ error: "Server error" });
