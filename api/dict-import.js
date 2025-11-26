@@ -16,15 +16,16 @@ export default async function handler(req, res) {
             const word = item.word;
             if (!word) continue;
 
-            // Sécuriser les champs
             const translations = Array.isArray(item.translations)
                 ? item.translations
-                : item.main_translation
-                ? [item.main_translation]
                 : [];
 
-            const examples = Array.isArray(item.examples)
+            const examplesEn = Array.isArray(item.examples)
                 ? item.examples
+                : [];
+
+            const examplesFr = Array.isArray(item.examples_fr)
+                ? item.examples_fr
                 : [];
 
             const synonyms = Array.isArray(item.synonyms)
@@ -35,10 +36,16 @@ export default async function handler(req, res) {
                 ? item.distractors
                 : [];
 
-            // On crée UNE entrée "générique" dans entries[]
+            const examples = examplesEn.map((src, idx) => ({
+                src,
+                dest: examplesFr[idx] || ""
+            }));
+
+            const definition = item.definition || "";
+
             const entry = {
-                label: "", // tu pourras plus tard mettre "verb", "noun", etc.
-                definition: item.definition || "",
+                label: item.label || "",       // optionnel
+                definition,
                 translations,
                 examples,
                 synonyms
@@ -46,13 +53,11 @@ export default async function handler(req, res) {
 
             const dictEntry = {
                 word,
-                lang: "en",
+                lang: "en",       // pack premium anglais
 
-                // Nouveau format complet
                 entries: [entry],
 
-                // Champs plats pour compatibilité (quiz, anciens appels)
-                definition: entry.definition,
+                definition,
                 translations,
                 main_translation: item.main_translation || translations[0] || "",
                 examples,
@@ -60,9 +65,9 @@ export default async function handler(req, res) {
                 distractors
             };
 
-            const key = `dict:${word.toLowerCase()}`;
+            const dictKey = `dict:${word.toLowerCase()}`;
 
-            await fetch(`${KV_URL}/set/${key}`, {
+            await fetch(`${KV_URL}/set/${dictKey}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${KV_TOKEN}`,
@@ -76,17 +81,16 @@ export default async function handler(req, res) {
             }
         }
 
-        // Tri alphabétique pour le Dico
+        // On stocke une wordlist EN propre : ["accept","achieve",...]
         wordlist.sort((a, b) => a.localeCompare(b));
 
-        // On enregistre la liste des mots
         await fetch(`${KV_URL}/set/wordlist:en`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${KV_TOKEN}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ value: JSON.stringify(wordlist) })
+            body: JSON.stringify(wordlist)
         });
 
         return res.status(200).json({ status: "ok", count: wordlist.length });
