@@ -242,31 +242,24 @@ async function fetchWord(word, cacheOnly = false) {
 }
 
 /**************************************************************
- * FETCH POUR LE QUIZ (EN ➜ FR, CACHE UNIQUEMENT)
+ * FETCH POUR LE QUIZ (EN ➜ FR) — réutilise /api/get-dict-word
  **************************************************************/
 async function fetchWordForQuiz(word) {
-    // on force la clé "mot_en_fr" (minuscules)
-    const cacheKey = `${word}_en_fr`.toLowerCase();
-
-    // 1) cache local (localStorage)
-    const local = getLocalCache(cacheKey);
-    if (local) return local;
-
-    // 2) cache cloud (KV simple, SANS GPT)
     try {
-        const res = await fetch(`/api/kv-get?key=${encodeURIComponent(cacheKey)}`);
-        const data = await res.json();
-        if (data.result) {
-            const parsed = JSON.parse(data.result);
-            setLocalCache(cacheKey, parsed);
-            return parsed;
-        }
-    } catch (e) {
-        console.error("QUIZ fetchWordForQuiz error:", e);
-    }
+        const res = await fetch(
+            `/api/get-dict-word?word=${encodeURIComponent(word)}`
+        );
 
-    // 3) Rien trouvé : on renvoie null, et le quiz passera au mot suivant
-    return null;
+        if (!res.ok) return null;
+
+        const data = await res.json();
+        if (!data || data.error) return null;
+
+        return data;
+    } catch (err) {
+        console.error("QUIZ fetchWordForQuiz error", err);
+        return null;
+    }
 }
 
 /**************************************************************
