@@ -248,40 +248,43 @@ async function fetchWord(word, cacheOnly = false) {
 }
 
 /**************************************************************
- * FETCH POUR LE QUIZ (EN ➜ FR)
- *  ➜ Utilise UNIQUEMENT le cache de traduction du dico
- *  ➜ Ignore complètement premium100.json et /api/get-dict-word
+ * FETCH POUR LE QUIZ (EN ⇄ FR, uniquement depuis le cache)
  **************************************************************/
 async function fetchWordForQuiz(word) {
     const normalized = (word || "").toLowerCase().trim();
     if (!normalized) return null;
 
-    // Même clé que dans /api/translate : `${word}_${from}_${to}`
-    const cacheKey = `${normalized}_en_fr`;
+    // On essaie les deux sens : EN→FR puis FR→EN
+    const cacheKeys = [
+        `${normalized}_en_fr`,
+        `${normalized}_fr_en`
+    ];
 
-    try {
-        const res = await fetch(
-            `/api/kv-get?key=${encodeURIComponent(cacheKey)}`
-        );
-
-        if (!res.ok) return null;
-
-        const data = await res.json();
-        if (!data || !data.result) return null;
-
-        // On retrouve le JSON que le dico a stocké
+    for (const cacheKey of cacheKeys) {
         try {
-            const parsed = JSON.parse(data.result);
-            if (!parsed || parsed.error) return null;
-            return parsed;
-        } catch (e) {
-            console.error("QUIZ kv-get parse error", e);
-            return null;
+            const res = await fetch(
+                `/api/kv-get?key=${encodeURIComponent(cacheKey)}`
+            );
+            if (!res.ok) continue;
+
+            const data = await res.json();
+            if (!data || !data.result) continue;
+
+            try {
+                const parsed = JSON.parse(data.result);
+                if (!parsed || parsed.error) continue;
+                return parsed; // On renvoie le premier résultat valide
+            } catch (e) {
+                console.error("QUIZ kv-get parse error", e);
+                continue;
+            }
+        } catch (err) {
+            console.error("QUIZ fetchWordForQuiz KV error", err);
         }
-    } catch (err) {
-        console.error("QUIZ fetchWordForQuiz KV error", err);
-        return null;
     }
+
+    // Aucun sens trouvé dans le cache
+    return null;
 }
 
 /**************************************************************
