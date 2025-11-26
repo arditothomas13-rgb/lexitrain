@@ -111,9 +111,7 @@ function updateLanguageUI() {
 /**************************************************************
  * AUTO DETECTION LANGUE (EN / FR)
  **************************************************************/
-/**************************************************************
- * AUTO DETECTION LANGUE (EN / FR)
- **************************************************************/
+
 function detectLanguage(text) {
     const lower = text.toLowerCase().trim();
     if (!lower) return null;
@@ -147,12 +145,20 @@ function detectLanguage(text) {
     }
 
     // Terminaisons / patterns typiques
-    const frenchPatterns = /(ou|oi|ai|eau|eur|euse|ment|tion|age|ance|ence|eux|eaux|ette|arde|arde)$/;
+    const frenchPatterns = /(ou|oi|ai|eau|eur|euse|ment|tion|age|ance|ence|eux|eaux|ette|arde)$/;
     const englishPatterns = /(ing|ed|ly|ness|ous|able|ible|ment|tion)$/;
 
     for (const t of tokens) {
         if (frenchPatterns.test(t)) frScore++;
         if (englishPatterns.test(t)) enScore++;
+    }
+
+    // 💡 Heuristique spéciale pour les verbes français simples : -er, -ir, -re
+    if (tokens.length === 1) {
+        const t = tokens[0];
+        if (/(er|ir|re)$/.test(t) && t.length > 3) {
+            frScore += 2;
+        }
     }
 
     // Rien de probant → on ne touche à rien
