@@ -673,37 +673,44 @@ async function onChatSend() {
     addUserChatMessage(raw);
     chatAnswer.value = "";
 
-    // Si le quiz n’a pas encore démarré, on attend "OK"
-    if (!chatQuizWords.length) {
-        const norm = normalizeAnswer(raw);
-        if (norm === "ok") {
-            chatStatus.textContent = "Je prépare tes questions…";
-            await prepareChatQuizWords();
-            if (!chatQuizWords.length) {
-                return;
-            }
-            chatQuizIndex = 0;
-            chatQuizScore = 0;
-            await askChatQuizQuestion();
-        } else {
-            addProfChatMessage(
-                "Pour démarrer, écris simplement « OK » 😄"
-            );
-        }
-        return;
-    }
+  // Si le quiz n’a pas encore démarré, on attend "OK" / "continuer" / "encore"
+if (!chatQuizWords.length) {
+    const norm = normalizeAnswer(raw);
+    const startWords = ["ok", "continue", "continuer", "encore"];
 
-    // En plein quiz → on traite la réponse
-    if (chatQuizExpectingAnswer) {
-        await handleChatQuizAnswer(raw);
-    } else {
-        // Quiz terminé : si l’utilisateur retape OK, on relance un tour
-        const norm = normalizeAnswer(raw);
-        if (norm === "ok") {
-            startQuiz();
+    if (startWords.includes(norm)) {
+        chatStatus.textContent = "Je prépare tes questions…";
+        await prepareChatQuizWords();
+        if (!chatQuizWords.length) {
+            return;
         }
+        chatQuizIndex = 0;
+        chatQuizScore = 0;
+        await askChatQuizQuestion();
+    } else {
+        addProfChatMessage(
+            "Pour démarrer, écris simplement « OK », « continuer » ou « encore » 😄"
+        );
+    }
+    return;
+}
+    // En plein quiz → on traite la réponse
+if (chatQuizExpectingAnswer) {
+    await handleChatQuizAnswer(raw);
+} else {
+    // Quiz terminé : si l’utilisateur écrit OK / continuer / encore → nouveau tour
+    const norm = normalizeAnswer(raw);
+    const restartWords = ["ok", "continue", "continuer", "encore"];
+
+    if (restartWords.includes(norm)) {
+        startQuiz();
+    } else {
+        addProfChatMessage(
+            "Si tu veux refaire un tour, écris « OK », « continuer » ou « encore » 🤓"
+        );
     }
 }
+
 
 // Préparer la liste des mots à interroger
 async function prepareChatQuizWords() {
@@ -849,12 +856,12 @@ function endChatQuiz() {
         `Tu as obtenu ${chatQuizScore} / ${chatQuizWords.length} 🌟`
     );
     chatStatus.textContent =
-        "Tu peux écrire « OK » si tu veux refaire un quiz avec de nouveaux mots.";
+        "Écris « OK », « continuer » ou « encore » pour refaire un quiz avec de nouveaux mots.";
 
-    // On vide la liste pour que le prochain "OK" relance un nouveau tour
     chatQuizWords = [];
     chatQuizExpectingAnswer = false;
 }
+
 
 /**************************************************************
  * UTILITAIRES QUIZ
