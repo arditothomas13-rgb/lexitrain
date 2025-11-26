@@ -728,11 +728,27 @@ async function onChatSend() {
 // Préparer la liste des mots à interroger
 async function prepareChatQuizWords() {
     try {
-        const res = await fetch(`/api/list-words?lang=en`);
-        if (!res.ok) throw new Error("HTTP " + res.status);
+        // On récupère les mots que tu as traduits en anglais ET en français
+        const [resEn, resFr] = await Promise.all([
+            fetch(`/api/list-words?lang=en`),
+            fetch(`/api/list-words?lang=fr`)
+        ]);
 
-        const data = await res.json();
-        let words = Array.isArray(data.words) ? data.words : [];
+        let words = [];
+
+        if (resEn.ok) {
+            const dataEn = await resEn.json();
+            if (Array.isArray(dataEn.words)) {
+                words.push(...dataEn.words);
+            }
+        }
+
+        if (resFr.ok) {
+            const dataFr = await resFr.json();
+            if (Array.isArray(dataFr.words)) {
+                words.push(...dataFr.words);
+            }
+        }
 
         if (!words.length) {
             addProfChatMessage(
@@ -746,11 +762,10 @@ async function prepareChatQuizWords() {
         // On mélange la liste pour varier
         shuffle(words);
 
-        const MAX_CANDIDATES = 40;     // on ne scanne pas toute la planète
-        const TARGET_QUESTIONS = 5;
+        const MAX_CANDIDATES = 40;      // on ne scanne pas absolument tout
+        const TARGET_QUESTIONS = 5;     // 5 questions max
         const eligible = [];
 
-        // On ne garde que les mots qui ont une vraie traduction en cache
         for (const w of words.slice(0, MAX_CANDIDATES)) {
             const dataForWord = await fetchWordForQuiz(w);
             const answers = extractTranslationsForQuiz(dataForWord);
