@@ -1,7 +1,6 @@
 // /api/dict-auto-add.js
 export default async function handler(req, res) {
     try {
-        // 🔒 Récupérer proprement le body (string ou objet)
         let body = req.body || {};
         if (typeof body === "string") {
             try {
@@ -24,7 +23,6 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: "Missing KV config" });
         }
 
-        // 🏳️ Langue du dictionnaire : "en" ou "fr"
         const dictLang = lang === "fr" ? "fr" : "en";
 
         const entry = entries[0];
@@ -41,19 +39,14 @@ export default async function handler(req, res) {
             ? entry.synonyms
             : [];
 
-        // Distracteurs pour le quiz
         const distractors = translations.slice(1, 4);
         while (distractors.length < 3) distractors.push("option incorrecte");
 
-        // 🔹 Objet complet enregistré dans le dico
         const dictEntry = {
             word,
-            lang: dictLang,   // dico anglais OU français
-
-            // On garde TOUTES les entrées (tous les sens, déf, ex, synonymes)
+            lang: dictLang,
             entries,
 
-            // Champs "plats" pour compatibilité (quiz, anciennes routes…)
             definition: entry.definition || "",
             translations,
             main_translation: translations[0] || "",
@@ -64,7 +57,7 @@ export default async function handler(req, res) {
 
         const dictKey = `dict:${word.toLowerCase()}`;
 
-        // 1) Enregistrer dans dict:word
+        // 1) On sauve la fiche complète du mot
         const resp = await fetch(`${KV_URL}/set/${dictKey}`, {
             method: "POST",
             headers: {
@@ -80,7 +73,7 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: "KV set error" });
         }
 
-        // 2) Mettre à jour la wordlist:<lang> utilisée par le Dico + Quiz
+        // 2) On met à jour la wordlist:<lang> au format ["mot1","mot2",...]
         const wordlistKey = `wordlist:${dictLang}`;
         let list = [];
 
@@ -95,7 +88,10 @@ export default async function handler(req, res) {
             const wlData = await wlResp.json();
             if (wlData && wlData.result) {
                 try {
-                    list = JSON.parse(wlData.result);
+                    const parsed = JSON.parse(wlData.result);
+                    if (Array.isArray(parsed)) {
+                        list = parsed;
+                    }
                 } catch {
                     list = [];
                 }
@@ -105,12 +101,8 @@ export default async function handler(req, res) {
         }
 
         if (!Array.isArray(list)) list = [];
+        if (!list.includes(word)) list.push(word);
 
-        if (!list.includes(word)) {
-            list.push(word);
-        }
-
-        // Tri alphabétique
         list.sort((a, b) => a.localeCompare(b));
 
         try {
@@ -120,7 +112,7 @@ export default async function handler(req, res) {
                     Authorization: `Bearer ${KV_TOKEN}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ value: JSON.stringify(list) })
+                body: JSON.stringify(list)
             });
         } catch (e) {
             console.error("WORDLIST SET ERROR:", e);
