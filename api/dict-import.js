@@ -1,4 +1,8 @@
 // /api/dict-import.js
+// Importe tous les mots du fichier premium100.json
+// dans Upstash KV :
+//   • dict:<word>
+//   • wordlist:en
 import fs from "fs";
 import path from "path";
 
@@ -11,58 +15,102 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: "Missing KV config" });
         }
 
-        // 1) On lit le fichier premium100.json situé dans le dossier /api
+        // Lecture du fichier JSON local
         const filePath = path.join(process.cwd(), "api", "premium100.json");
         const fileData = fs.readFileSync(filePath, "utf-8");
-        const json = JSON.parse(fileData);
+        const words = JSON.parse(fileData);
 
-        // 2) On en déduit une liste de mots
-        let words = [];
-
-        if (Array.isArray(json)) {
-            // Cas 1 : ["accept","achieve",...]
-            if (typeof json[0] === "string") {
-                words = json;
-            } else {
-                // Cas 2 : [{ word: "accept", ...}, ...]
-                words = json
-                    .map(item => item && item.word)
-                    .filter(Boolean);
-            }
-        } else if (Array.isArray(json.words)) {
-            // Cas 3 : { "words": ["accept","achieve",...] }
-            const arr = json.words;
-            if (typeof arr[0] === "string") {
-                words = arr;
-            } else {
-                words = arr
-                    .map(item => item && item.word)
-                    .filter(Boolean);
-            }
+        if (!Array.isArray(words)) {
+            return res.status(400).json({ error: "Invalid premium100.json format" });
         }
 
-        // Nettoyage + tri
-        words = Array.from(new Set(words))  // enlève les doublons
-            .filter(Boolean)
-            .sort((a, b) => a.localeCompare(b));
+        const importedWords = [];
 
-        // 3) On stocke ça dans la wordlist EN de Redis
-        const resp = await fetch(`${KV_URL}/set/wordlist:en`, {
+        for (const item of words) {
+            if (!item || !item.word) continue;
+
+            const word = item.word;
+            const baseTranslations = Array.isArray(item.translations)
+                ? item.translations
+                : [];
+            const baseExamples = Array.isArray(item.examples)
+                ? item.examples
+                : [];
+            const baseSynonyms = Array.isArray(item.synonyms)
+                ? item.synonyms
+                : [];
+
+            const entry = {
+                label: item.label || "",
+                definition: item.definition || "",
+                translations: baseTranslations.length
+                    ? baseTranslations
+                    : (item.main_translation ? [item.main_translation] : []),
+                examples: baseExamples,
+                synonyms: baseSynonyms
+            };
+
+            const translations = entry.translations;
+            const examples = entry.examples;
+            const synonyms = entry.synonyms;
+
+            const distractors = Array.isArray(item.distractors) && item.distractors.length
+                ? item.distractors
+                : translations.slice(1, 4);
+
+            while (distractors.length < 3) {
+                distractors.push("option incorrecte");
+            }
+
+            const dictEntry = {
+                word,
+                lang: "en",
+                entries: [entry],
+                definition: entry.definition || "",
+                translations,
+                main_translation: item.main_translation || translations[0] || "",
+                examples,
+                synonyms,
+                distractors
+            };
+
+            const key = `dict:${word.toLowerCase()}`;
+
+            const resp = await fetch(`${KV_URL}/set/${key}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${KV_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dictEntry)
+            });
+
+            if (!resp.ok) {
+                const txt = await resp.text();
+                console.error("DICT IMPORT KV ERROR for", word, ":", txt);
+                return res.status(500).json({ error: "KV set error on word " + word });
+            }
+
+            importedWords.push(word);
+        }
+
+        // Mise à jour de la wordlist EN avec tous les mots importés
+        const wordlistKey = "wordlist:en";
+        importedWords.sort((a, b) => a.localeCompare(b));
+
+        await fetch(`${KV_URL}/set/${wordlistKey}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${KV_TOKEN}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(words)
+            body: JSON.stringify(importedWords)
         });
 
-        if (!resp.ok) {
-            const txt = await resp.text();
-            console.error("DICT IMPORT KV ERROR:", txt);
-            return res.status(500).json({ error: "KV set error" });
-        }
-
-        return res.status(200).json({ status: "ok", count: words.length });
+        return res.status(200).json({
+            status: "ok",
+            count: importedWords.length
+        });
     } catch (err) {
         console.error("DICT IMPORT error:", err);
         return res.status(500).json({ error: "Server error" });
