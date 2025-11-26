@@ -538,16 +538,16 @@ dictionarySearch.addEventListener("input", e => {
 });
 
 /**************************************************************
- * QUIZ
+ * QUIZ (version rapide + propositions réalistes)
  **************************************************************/
 async function startQuiz() {
-    // Affiche le loader
     quizLoader.style.display = "block";
-    quizLoader.textContent = "Chargement des mots…";
     quizCard.style.display = "none";
     quizResult.style.display = "none";
+    quizLoader.textContent = "Préparation du quiz…";
 
     try {
+        // 1) Récupérer la liste de mots à réviser
         const res = await fetch(`/api/quiz-get-words`);
         const data = await res.json();
         let words = Array.isArray(data.toReview) ? data.toReview : [];
@@ -557,83 +557,95 @@ async function startQuiz() {
             return;
         }
 
-        // On mélange les mots et on limite le nombre de questions
-        const MAX_QUESTIONS = 15;
+        // Mélanger et limiter le nombre de questions
         shuffle(words);
+        const MAX_QUESTIONS = 15;
         words = words.slice(0, MAX_QUESTIONS);
 
-        // Pool global de traductions pour fabriquer de "vraies" mauvaises réponses
-        const translationPool = [];
+        // 2) Précharger le dictionnaire pour TOUS ces mots en parallèle
+        const itemsRaw = await Promise.all(
+            words.map(async (w) => {
+                try {
+                    const resp = await fetch(
+                        `/api/get-dict-word?word=${encodeURIComponent(w)}`
+                    );
+                    const dic = await resp.json();
+
+                    if (!dic) return null;
+
+                    const main =
+                        dic.main_translation ||
+                        (Array.isArray(dic.translations) && dic.translations[0]) ||
+                        "";
+
+                    if (!main) {
+                        return null;
+                    }
+
+                    return {
+                        word: w,
+                        translation: main   // TRADUCTION FR du mot anglais
+                    };
+                } catch (e) {
+                    console.error("DICT ERROR", e);
+                    return null;
+                }
+            })
+        );
+
+        // Garder uniquement les mots qui ont une traduction exploitable
+        const quizItems = itemsRaw.filter((x) => x && x.translation);
+
+        if (quizItems.length === 0) {
+            quizLoader.textContent =
+                "Impossible de préparer le quiz (aucune traduction trouvée).";
+            return;
+        }
+
+        // Pool global de traductions pour générer de vraies mauvaises réponses
+        const translationPool = quizItems.map((it) => it.translation);
+
         let index = 0;
         let score = 0;
 
-        async function showQuestion() {
-            if (index >= words.length) {
+        function showQuestion() {
+            if (index >= quizItems.length) {
                 return endQuiz();
             }
 
-            const word = words[index];
+            const item = quizItems[index];
+            const correct = item.translation;
 
             quizLoader.style.display = "none";
             quizCard.style.display = "block";
             quizOptions.innerHTML = "";
 
-            // Récupère les infos du dictionnaire pour CE mot uniquement
-            const cloud = await fetch(
-                `/api/get-dict-word?word=${encodeURIComponent(word)}`
-            );
-            const dic = await cloud.json();
+            quizQuestion.textContent = `Que veut dire : « ${item.word} » ?`;
 
-            if (!dic) {
-                index++;
-                return showQuestion();
-            }
+            // 1 bonne réponse (correct) + 3 mauvaises (prises dans d'autres mots)
+            const options = buildQuizOptionsFromPool(correct, translationPool);
 
-            const main =
-                dic.main_translation ||
-                (Array.isArray(dic.translations) && dic.translations[0]) ||
-                "";
-
-            if (!main) {
-                // Si pas de traduction exploitable on saute ce mot
-                index++;
-                return showQuestion();
-            }
-
-            // Alimente le pool global (traductions des autres mots)
-            if (!translationPool.includes(main)) {
-                translationPool.push(main);
-            }
-
-            quizQuestion.textContent = `Que veut dire : « ${word} » ?`;
-
-            const options = buildQuizOptions(main, {
-                translationPool,
-                synonyms: Array.isArray(dic.translations) ? dic.translations : [],
-                fallbackDistractors: Array.isArray(dic.distractors)
-                    ? dic.distractors
-                    : [],
-            });
-
-            options.forEach((opt) => {
+            options.forEach((label) => {
                 const div = document.createElement("div");
                 div.className = "quiz-option";
-                div.textContent = opt.label;
+                div.textContent = label;
 
                 div.addEventListener("click", () => {
-                    if (opt.correct) {
+                    const isCorrect = label === correct;
+
+                    if (isCorrect) {
                         div.classList.add("correct");
                         score++;
                     } else {
                         div.classList.add("wrong");
                     }
 
-                    // On met à jour le SRS en arrière-plan
+                    // Mise à jour SRS en arrière-plan (non bloquant)
                     fetch(
                         `/api/review-update?word=${encodeURIComponent(
-                            word
-                        )}&correct=${opt.correct}`
-                    );
+                            item.word
+                        )}&correct=${isCorrect ? "true" : "false"}`
+                    ).catch(() => {});
 
                     setTimeout(() => {
                         index++;
@@ -648,7 +660,7 @@ async function startQuiz() {
         function endQuiz() {
             quizCard.style.display = "none";
             quizResult.style.display = "block";
-            quizScore.textContent = `Score : ${score} / ${words.length}`;
+            quizScore.textContent = `Score : ${score} / ${quizItems.length}`;
         }
 
         // Bouton "Recommencer"
@@ -662,55 +674,35 @@ async function startQuiz() {
     }
 }
 
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
+// Mélange générique
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+        [array[i], array[j]] = [array[j], array[i]];
     }
-    return a;
+    return array;
 }
 
-// Construit 4 propositions : 1 bonne + 3 mauvaises
-// Les mauvaises sont prises en priorité dans les traductions d'autres mots
-function buildQuizOptions(correct, pools = {}) {
-    const { translationPool = [], synonyms = [], fallbackDistractors = [] } =
-        pools;
+// Construit les 4 propositions : 1 bonne + 3 mauvaises
+function buildQuizOptionsFromPool(correct, pool) {
+    // Candidats = toutes les traductions différentes de la bonne
+    let candidates = pool.filter((t) => t && t !== correct);
 
-    let candidates = [];
-
-    // 1) Traductions d'autres mots du quiz
-    candidates.push(...translationPool.filter((t) => t && t !== correct));
-
-    // 2) Autres traductions/synonymes du même mot
-    if (Array.isArray(synonyms)) {
-        candidates.push(...synonyms.filter((t) => t && t !== correct));
-    }
-
-    // 3) En dernier recours, les vieux distracteurs "non XXX"
-    if (Array.isArray(fallbackDistractors)) {
-        candidates.push(
-            ...fallbackDistractors.filter((t) => t && t !== correct)
-        );
-    }
-
-    // Nettoyage : unique + shuffle
+    // On supprime les doublons et on mélange
     candidates = [...new Set(candidates)];
     shuffle(candidates);
 
     // On garde 3 mauvaises réponses max
     const wrong = candidates.slice(0, 3);
 
-    // Si on n'en a pas assez, on complète avec "Je ne sais pas"
+    // Si on n'a pas assez de mauvaises réponses, on complète
     while (wrong.length < 3) {
         wrong.push("Je ne sais pas");
     }
 
-    const allOptions = shuffle([correct, ...wrong]);
-
-    return allOptions.map((label) => ({
-        label,
-        correct: label === correct,
-    }));
+    const all = [correct, ...wrong];
+    shuffle(all);
+    return all;
 }
 
 /**************************************************************
