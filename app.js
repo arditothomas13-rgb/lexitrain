@@ -537,13 +537,13 @@ dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
 });
 
-// ------------------------------------------------------
-// QUIZ — Version optimisée
-// ------------------------------------------------------
+/**************************************************************
+ * QUIZ
+ **************************************************************/
 async function startQuiz() {
-    // Affiche un loader propre pendant le chargement des mots
+    // Affiche le loader
     quizLoader.style.display = "block";
-    quizLoader.textContent = "Chargement des mots...";
+    quizLoader.textContent = "Chargement des mots…";
     quizCard.style.display = "none";
     quizResult.style.display = "none";
 
@@ -557,18 +557,15 @@ async function startQuiz() {
             return;
         }
 
-        // 1) On mélange les mots
+        // On mélange les mots et on limite le nombre de questions
+        const MAX_QUESTIONS = 15;
         shuffle(words);
-
-        // 2) On limite le nombre de questions par session
-        const MAX_QUESTIONS = 15; // 👉 Tu peux changer 15 pour 10, 20…
         words = words.slice(0, MAX_QUESTIONS);
 
+        // Pool global de traductions pour fabriquer de "vraies" mauvaises réponses
+        const translationPool = [];
         let index = 0;
         let score = 0;
-
-        // Pool de traductions pour créer de vraies mauvaises options (d'autres mots)
-        const translationPool = new Set();
 
         async function showQuestion() {
             if (index >= words.length) {
@@ -581,73 +578,71 @@ async function startQuiz() {
             quizCard.style.display = "block";
             quizOptions.innerHTML = "";
 
-            quizQuestion.textContent = `Que veut dire : « ${word} » ?`;
+            // Récupère les infos du dictionnaire pour CE mot uniquement
+            const cloud = await fetch(
+                `/api/get-dict-word?word=${encodeURIComponent(word)}`
+            );
+            const dic = await cloud.json();
 
-            try {
-                const cloud = await fetch(
-                    `/api/get-dict-word?word=${encodeURIComponent(word)}`
-                );
-                const dic = await cloud.json();
-
-                // Si pas de donnée exploitable → on passe au mot suivant
-                if (!dic || !dic.main_translation) {
-                    index++;
-                    return showQuestion();
-                }
-
-                const correct = dic.main_translation;
-                const fallbackDistractors = Array.isArray(dic.distractors)
-                    ? dic.distractors
-                    : [];
-
-                // On construit les 4 options (1 bonne + 3 mauvaises)
-                const options = buildOptions(
-                    correct,
-                    translationPool,
-                    fallbackDistractors
-                );
-
-                // On ajoute la bonne traduction dans le pool
-                // (elle pourra servir de mauvaise réponse pour les questions suivantes)
-                if (correct) {
-                    translationPool.add(correct);
-                }
-
-                options.forEach(opt => {
-                    const div = document.createElement("div");
-                    div.className = "quiz-option";
-                    div.textContent = opt.label;
-
-                    div.addEventListener("click", () => {
-                        if (opt.correct) {
-                            div.classList.add("correct");
-                            score++;
-                        } else {
-                            div.classList.add("wrong");
-                        }
-
-                        // On met à jour le SRS côté backend
-                        fetch(
-                            `/api/review-update?word=${encodeURIComponent(
-                                word
-                            )}&correct=${opt.correct}`
-                        );
-
-                        // Petit délai avant la question suivante
-                        setTimeout(() => {
-                            index++;
-                            showQuestion();
-                        }, 600);
-                    });
-
-                    quizOptions.appendChild(div);
-                });
-            } catch (err) {
-                console.error("QUIZ QUESTION ERROR:", err);
-                // En cas de souci sur ce mot, on passe au suivant
+            if (!dic) {
                 index++;
                 return showQuestion();
             }
+
+            const main =
+                dic.main_translation ||
+                (Array.isArray(dic.translations) && dic.translations[0]) ||
+                "";
+
+            if (!main) {
+                // Si pas de traduction exploitable on saute ce mot
+                index++;
+                return showQuestion();
+            }
+
+            // Alimente le pool global (traductions des autres mots)
+            if (!translationPool.includes(main)) {
+                translationPool.push(main);
+            }
+
+            quizQuestion.textContent = `Que veut dire : « ${word} » ?`;
+
+            const options = buildQuizOptions(main, {
+                translationPool,
+                synonyms: Array.isArray(dic.translations) ? dic.translations : [],
+                fallbackDistractors: Array.isArray(dic.distractors)
+                    ? dic.distractors
+                    : [],
+            });
+
+            options.forEach((opt) => {
+                const div = document.createElement("div");
+                div.className = "quiz-option";
+                div.textContent = opt.label;
+
+                div.addEventListener("click", () => {
+                    if (opt.correct) {
+                        div.classList.add("correct");
+                        score++;
+                    } else {
+                        div.classList.add("wrong");
+                    }
+
+                    // On met à jour le SRS en arrière-plan
+                    fetch(
+                        `/api/review-update?word=${encodeURIComponent(
+                            word
+                        )}&correct=${opt.correct}`
+                    );
+
+                    setTimeout(() => {
+                        index++;
+                        showQuestion();
+                    }, 600);
+                });
+
+                quizOptions.appendChild(div);
+            });
         }
 
         function endQuiz() {
@@ -659,15 +654,14 @@ async function startQuiz() {
         // Bouton "Recommencer"
         quizRestart.onclick = startQuiz;
 
-        // On affiche la 1re question
+        // Première question
         showQuestion();
     } catch (err) {
-        console.error("QUIZ LOAD ERROR:", err);
+        console.error("QUIZ ERROR", err);
         quizLoader.textContent = "Erreur lors du chargement du quiz.";
     }
 }
 
-// Mélange d'un tableau (Fisher–Yates)
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -676,55 +670,48 @@ function shuffle(a) {
     return a;
 }
 
-/**
- * Construit les 4 options du QCM :
- * - 1 bonne réponse (correctLabel)
- * - 3 mauvaises réponses :
- *    → en priorité dans translationPool (traductions d'autres mots)
- *    → sinon dans fallbackDistractors (distractors générés côté dictionnaire)
- */
-function buildOptions(correctLabel, translationPool, fallbackDistractors = []) {
-    const pool = Array.from(translationPool);
+// Construit 4 propositions : 1 bonne + 3 mauvaises
+// Les mauvaises sont prises en priorité dans les traductions d'autres mots
+function buildQuizOptions(correct, pools = {}) {
+    const { translationPool = [], synonyms = [], fallbackDistractors = [] } =
+        pools;
 
-    // Candidats = traductions d'autres mots
-    let candidates = pool.filter(
-        t => t && t !== correctLabel
-    );
+    let candidates = [];
 
-    // On ajoute les distracteurs de secours si on manque d'options
-    if (candidates.length < 3 && Array.isArray(fallbackDistractors)) {
-        fallbackDistractors.forEach(d => {
-            if (d && d !== correctLabel) {
-                candidates.push(d);
-            }
-        });
+    // 1) Traductions d'autres mots du quiz
+    candidates.push(...translationPool.filter((t) => t && t !== correct));
+
+    // 2) Autres traductions/synonymes du même mot
+    if (Array.isArray(synonyms)) {
+        candidates.push(...synonyms.filter((t) => t && t !== correct));
     }
 
-    // Nettoyage doublons
-    candidates = [...new Set(candidates)];
+    // 3) En dernier recours, les vieux distracteurs "non XXX"
+    if (Array.isArray(fallbackDistractors)) {
+        candidates.push(
+            ...fallbackDistractors.filter((t) => t && t !== correct)
+        );
+    }
 
-    // On mélange les mauvaises réponses
+    // Nettoyage : unique + shuffle
+    candidates = [...new Set(candidates)];
     shuffle(candidates);
 
-    // On garde max 3 mauvaises réponses
-    const distractors = candidates.slice(0, 3);
+    // On garde 3 mauvaises réponses max
+    const wrong = candidates.slice(0, 3);
 
-    // Si on n'a toujours pas 3, on complète avec une option générique
-    while (distractors.length < 3) {
-        distractors.push("Je ne sais pas");
+    // Si on n'en a pas assez, on complète avec "Je ne sais pas"
+    while (wrong.length < 3) {
+        wrong.push("Je ne sais pas");
     }
 
-    const choices = [correctLabel, ...distractors];
+    const allOptions = shuffle([correct, ...wrong]);
 
-    // On mélange le tout (pour que la bonne réponse ne soit pas toujours en 1er)
-    return shuffle(
-        choices.map(label => ({
-            label,
-            correct: label === correctLabel
-        }))
-    );
+    return allOptions.map((label) => ({
+        label,
+        correct: label === correct,
+    }));
 }
-
 
 /**************************************************************
  * EVENTS
