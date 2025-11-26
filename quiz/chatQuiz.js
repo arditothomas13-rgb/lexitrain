@@ -60,3 +60,89 @@ function addMessage(author, text) {
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
 }
+
+// Initialisation du chat
+document.addEventListener("DOMContentLoaded", () => {
+  const sendBtn = document.getElementById("chatSend");
+  const input = document.getElementById("chatAnswer");
+  const chat = document.getElementById("chatMessages");
+
+  sendBtn.addEventListener("click", () => {
+    const val = input.value.trim();
+    if (!val) return;
+    addMessage("user", val);
+    handleChatMessage(val);
+    input.value = "";
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendBtn.click();
+  });
+
+  addMessage("prof", "👋 Salut ! Je suis ton prof de vocabulaire. Je vais te poser 5 questions sur les mots que tu as déjà traduits. Prêt(e) ? Écris 'OK' pour commencer.");
+});
+
+let step = 0;
+let score = 0;
+let quizWords = [];
+let currentWord = null;
+
+async function handleChatMessage(message) {
+  if (step === 0 && message.toLowerCase() === "ok") {
+    quizWords = await fetch("/api/words").then(r => r.json());
+    quizWords = quizWords.words.sort(() => 0.5 - Math.random()).slice(0, 5);
+    step = 1;
+    askNextQuestion();
+    return;
+  }
+
+  if (step > 0 && step <= 5) {
+    checkAnswer(message);
+  }
+}
+
+function askNextQuestion() {
+  if (step > 5) return endQuiz();
+
+  currentWord = quizWords[step - 1];
+  const askFr = Math.random() > 0.5;
+  currentWord.askFr = askFr;
+
+  const q = askFr
+    ? `Comment dit-on « ${currentWord.en} » en français ?`
+    : `Traduis en anglais le mot « ${currentWord.fr} »`;
+
+  addMessage("prof", q);
+}
+
+function checkAnswer(answer) {
+  const correct = currentWord.askFr ? currentWord.fr : currentWord.en;
+  const ok = answer.trim().toLowerCase() === correct.toLowerCase();
+
+  if (ok) {
+    score++;
+    addMessage("prof", "✅ Exact ! Super travail !");
+  } else {
+    addMessage("prof", `❌ Pas tout à fait. La bonne réponse était « ${correct} ».`);
+  }
+
+  step++;
+  if (step <= 5) {
+    setTimeout(askNextQuestion, 1200);
+  } else {
+    setTimeout(endQuiz, 1500);
+  }
+}
+
+function endQuiz() {
+  addMessage("prof", `🎯 C'est fini ! Tu as obtenu ${score}/5 🌟`);
+}
+
+function addMessage(author, text) {
+  const chat = document.getElementById("chatMessages");
+  const div = document.createElement("div");
+  div.className = `chat-message ${author}`;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
