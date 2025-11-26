@@ -631,7 +631,7 @@ async function startQuiz() {
 
             const feedback = document.createElement("div");
             feedback.className = "quiz-feedback";
-            feedback.textContent = "Chargement de la correction…";
+           feedback.textContent = ""; // on mettra le bon message après avoir chargé les traductions
 
             form.appendChild(input);
             form.appendChild(button);
@@ -640,26 +640,37 @@ async function startQuiz() {
 
             input.focus();
 
-            // 3) On récupère la/les traductions attendues pour ce mot
+                       // 3) On récupère la/les traductions attendues pour ce mot
             let acceptedAnswers = [];
+
             try {
-                const resp = await fetch(
-                    `/api/get-word?word=${encodeURIComponent(word)}&from=en&to=fr`
-                );
-                const wordData = await resp.json();
+                // ➜ On lit UNIQUEMENT dans le cache/kv, pas d'appel GPT
+                const wordData = await fetchWordForQuiz(word);
+
+                if (!wordData) {
+                    feedback.textContent =
+                        "Je n'ai pas encore de traduction enregistrée pour ce mot, on passe au suivant.";
+                    setTimeout(() => {
+                        index++;
+                        askNextQuestion();
+                    }, 800);
+                    return;
+                }
+
                 acceptedAnswers = extractTranslationsForQuiz(wordData);
 
                 if (!acceptedAnswers.length) {
                     feedback.textContent =
-                        "Impossible de récupérer la traduction de ce mot, on passe au suivant.";
+                        "Je n'ai pas de traduction exploitable pour ce mot, on passe au suivant.";
                     setTimeout(() => {
                         index++;
                         askNextQuestion();
-                    }, 1200);
+                    }, 800);
                     return;
                 }
 
-                feedback.textContent = "Tape ta réponse puis clique sur Valider.";
+                // Tout est OK, on peut laisser l'utilisateur répondre
+                feedback.textContent = "Tape ta réponse puis clique sur « Valider ».";
             } catch (e) {
                 console.error("QUIZ WORD ERROR", e);
                 feedback.textContent =
@@ -667,7 +678,7 @@ async function startQuiz() {
                 setTimeout(() => {
                     index++;
                     askNextQuestion();
-                }, 1200);
+                }, 800);
                 return;
             }
 
