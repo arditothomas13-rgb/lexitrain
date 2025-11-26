@@ -31,9 +31,22 @@
         </p>
 
         <!-- Input principale -->
-        <div class="input-card">
-            <input id="input" type="text" placeholder="Ex : stretched, although..." />
-        </div>
+      <div class="input-card input-with-clear">
+    <input
+        id="input"
+        type="text"
+        placeholder="Ex : stretched, although..."
+        autocomplete="off"
+    />
+    <button
+        id="clearInput"
+        type="button"
+        class="input-clear-btn"
+        aria-label="Effacer le texte"
+    >
+        ×
+    </button>
+</div>
 
         <button class="btn-green" id="translateBtn">Traduire</button>
 
