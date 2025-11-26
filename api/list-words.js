@@ -14,39 +14,46 @@ export default async function handler(req, res) {
         const dictLang = lang === "fr" ? "fr" : "en";
         const wordlistKey = `wordlist:${dictLang}`;
 
-        // On tente de lire la wordlist dans KV
-        const resp = await fetch(`${KV_URL}/get/${wordlistKey}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${KV_TOKEN}`
-            }
-        });
-
-        const data = await resp.json();
         let list = [];
 
-        if (data && data.result) {
-            try {
-                const parsed = JSON.parse(data.result);
-                if (Array.isArray(parsed)) {
-                    list = parsed;
+        try {
+            // Lecture de la wordlist dans KV
+            const resp = await fetch(`${KV_URL}/get/${wordlistKey}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${KV_TOKEN}`
                 }
-            } catch (e) {
-                console.error("LIST WORDS parse error:", e);
-                list = [];
+            });
+
+            const data = await resp.json();
+
+            if (data && data.result) {
+                try {
+                    const parsed = JSON.parse(data.result);
+                    if (Array.isArray(parsed)) {
+                        list = parsed;
+                    }
+                } catch (e) {
+                    console.error("LIST WORDS parse error:", e);
+                }
             }
+        } catch (e) {
+            console.error("LIST WORDS KV error:", e);
         }
 
-        // Sécurité
-        list = (list || []).filter(Boolean);
+        if (!Array.isArray(list)) {
+            list = [];
+        }
 
-        // Filtre de recherche
+        // Nettoyage de base
+        list = list.filter(w => typeof w === "string" && w.trim().length > 0);
+
         const query = (q || "").toLowerCase();
         if (query) {
             list = list.filter(w => w.toLowerCase().includes(query));
         }
 
-        // Tri
+        // Tri alphabétique
         list.sort((a, b) => a.localeCompare(b));
 
         return res.status(200).json({ words: list });
