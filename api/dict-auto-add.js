@@ -1,6 +1,18 @@
+// /api/dict-auto-add.js
 export default async function handler(req, res) {
     try {
-        const { word, entries } = req.body || {};
+        // 🔒 On sécurise la récupération du body (string, undefined, etc.)
+        let body = req.body || {};
+
+        if (typeof body === "string") {
+            try {
+                body = JSON.parse(body);
+            } catch {
+                return res.status(400).json({ error: "Invalid JSON body" });
+            }
+        }
+
+        const { word, entries } = body;
 
         if (!word || !entries || !entries[0]) {
             return res.status(400).json({ error: "Missing word or entries" });
@@ -15,35 +27,27 @@ export default async function handler(req, res) {
 
         const entry = entries[0];
 
+        // DISTRACTEURS pour le quiz
         const translations = Array.isArray(entry.translations)
             ? entry.translations
             : [];
 
-        const examples = Array.isArray(entry.examples)
-            ? entry.examples
-            : [];
-
-        const synonyms = Array.isArray(entry.synonyms)
-            ? entry.synonyms
-            : [];
-
-        // Distracteurs pour le quiz
         const distractors = translations.slice(1, 4);
         while (distractors.length < 3) distractors.push("option incorrecte");
 
         const dictEntry = {
             word,
-            lang: "en",   // dico anglais
+            lang: "en",          // dico anglais
 
-            // On garde TOUTES les entrées (tous les sens, déf, ex, synonymes)
+            // 👉 On garde TOUTES les entrées (sens, déf, exemples, synonymes…)
             entries,
 
             // Champs "plats" pour compatibilité (quiz, anciennes routes…)
             definition: entry.definition || "",
             translations,
             main_translation: translations[0] || "",
-            examples,
-            synonyms,
+            examples: Array.isArray(entry.examples) ? entry.examples : [],
+            synonyms: Array.isArray(entry.synonyms) ? entry.synonyms : [],
             distractors
         };
 
