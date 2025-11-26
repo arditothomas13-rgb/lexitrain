@@ -673,41 +673,43 @@ async function onChatSend() {
     addUserChatMessage(raw);
     chatAnswer.value = "";
 
-  // Si le quiz n’a pas encore démarré, on attend "OK" / "continuer" / "encore"
-if (!chatQuizWords.length) {
-    const norm = normalizeAnswer(raw);
-    const startWords = ["ok", "continue", "continuer", "encore"];
+    // Si le quiz n’a pas encore démarré, on attend "OK" / "continuer" / "encore"
+    if (!chatQuizWords.length) {
+        const norm = normalizeAnswer(raw);
+        const startWords = ["ok", "continue", "continuer", "encore"];
 
-    if (startWords.includes(norm)) {
-        chatStatus.textContent = "Je prépare tes questions…";
-        await prepareChatQuizWords();
-        if (!chatQuizWords.length) {
-            return;
+        if (startWords.includes(norm)) {
+            chatStatus.textContent = "Je prépare tes questions…";
+            await prepareChatQuizWords();
+            if (!chatQuizWords.length) {
+                return;
+            }
+            chatQuizIndex = 0;
+            chatQuizScore = 0;
+            await askChatQuizQuestion();
+        } else {
+            addProfChatMessage(
+                "Pour démarrer, écris simplement « OK », « continuer » ou « encore » 😄"
+            );
         }
-        chatQuizIndex = 0;
-        chatQuizScore = 0;
-        await askChatQuizQuestion();
-    } else {
-        addProfChatMessage(
-            "Pour démarrer, écris simplement « OK », « continuer » ou « encore » 😄"
-        );
+        return;
     }
-    return;
-}
-    // En plein quiz → on traite la réponse
-if (chatQuizExpectingAnswer) {
-    await handleChatQuizAnswer(raw);
-} else {
-    // Quiz terminé : si l’utilisateur écrit OK / continuer / encore → nouveau tour
-    const norm = normalizeAnswer(raw);
-    const restartWords = ["ok", "continue", "continuer", "encore"];
 
-    if (restartWords.includes(norm)) {
-        startQuiz();
+    // En plein quiz → on traite la réponse
+    if (chatQuizExpectingAnswer) {
+        await handleChatQuizAnswer(raw);
     } else {
-        addProfChatMessage(
-            "Si tu veux refaire un tour, écris « OK », « continuer » ou « encore » 🤓"
-        );
+        // Quiz terminé : si l’utilisateur écrit OK / continuer / encore → nouveau tour
+        const norm = normalizeAnswer(raw);
+        const restartWords = ["ok", "continue", "continuer", "encore"];
+
+        if (restartWords.includes(norm)) {
+            startQuiz();
+        } else {
+            addProfChatMessage(
+                "Si tu veux refaire un tour, écris « OK », « continuer » ou « encore » 🤓"
+            );
+        }
     }
 }
 
