@@ -267,6 +267,12 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     resultTitle.textContent = word;
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
+       // Ajouter à l'historique seulement si on n'est pas en mode "cacheOnly"
+    if (!cacheOnly) {
+        addToHistory(word);
+    }
+}
+
 }
 
 /**************************************************************
