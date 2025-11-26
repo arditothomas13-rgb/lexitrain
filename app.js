@@ -538,171 +538,279 @@ dictionarySearch.addEventListener("input", e => {
 });
 
 /**************************************************************
- * QUIZ (version rapide + propositions réalistes)
+ * QUIZ — mode "chat professeur"
+ *  1) L'app pose une question
+ *  2) Tu écris la réponse
+ *  3) Elle valide + explique
  **************************************************************/
+
+const quizState = {
+    questions: [],
+    index: 0,
+    score: 0,
+    inputEl: null,
+    submitEl: null,
+    feedbackEl: null,
+};
+
 async function startQuiz() {
     quizLoader.style.display = "block";
     quizCard.style.display = "none";
     quizResult.style.display = "none";
     quizLoader.textContent = "Préparation du quiz…";
 
-    try {
-        // 1) Récupérer la liste de mots à réviser
-        const res = await fetch(`/api/quiz-get-words`);
-        const data = await res.json();
-        let words = Array.isArray(data.toReview) ? data.toReview : [];
+    quizState.questions = [];
+    quizState.index = 0;
+    quizState.score = 0;
 
-        if (words.length === 0) {
-            quizLoader.innerHTML = "Aucun mot à réviser 🎉";
+    try {
+        // 1) Récupérer des mots EN et FR
+        const [enRes, frRes] = await Promise.all([
+            fetch("/api/quiz-get-words?lang=en"),
+            fetch("/api/quiz-get-words?lang=fr"),
+        ]);
+
+        const enData = await enRes.json();
+        const frData = await frRes.json();
+
+        let enWords = Array.isArray(enData.toReview) ? enData.toReview : [];
+        let frWords = Array.isArray(frData.toReview) ? frData.toReview : [];
+
+        // On limite le nombre par langue
+        const MAX_PER_LANG = 10;
+        enWords = enWords.slice(0, MAX_PER_LANG);
+        frWords = frWords.slice(0, MAX_PER_LANG);
+
+        const specs = [
+            ...enWords.map((w) => ({ word: w, direction: "en_fr" })), // EN → FR
+            ...frWords.map((w) => ({ word: w, direction: "fr_en" })), // FR → EN
+        ];
+
+        if (!specs.length) {
+            quizLoader.textContent = "Aucun mot disponible pour le quiz.";
             return;
         }
 
-        // Mélanger et limiter le nombre de questions
-        shuffle(words);
-        const MAX_QUESTIONS = 15;
-        words = words.slice(0, MAX_QUESTIONS);
+        // 2) Précharger les traductions pour ces mots (via /api/get-word)
+        const questionsRaw = await Promise.all(
+            specs.map(async (spec) => {
+                const from = spec.direction === "en_fr" ? "en" : "fr";
+                const to = spec.direction === "en_fr" ? "fr" : "en";
 
-        // 2) Précharger le dictionnaire pour TOUS ces mots en parallèle
-        const itemsRaw = await Promise.all(
-            words.map(async (w) => {
                 try {
-                    const resp = await fetch(
-                        `/api/get-dict-word?word=${encodeURIComponent(w)}`
+                    const res = await fetch(
+                        `/api/get-word?word=${encodeURIComponent(
+                            spec.word
+                        )}&from=${from}&to=${to}`
                     );
-                    const dic = await resp.json();
+                    const data = await res.json();
 
-                    if (!dic) return null;
-
-                    const main =
-                        dic.main_translation ||
-                        (Array.isArray(dic.translations) && dic.translations[0]) ||
-                        "";
-
-                    if (!main) {
+                    if (!data || !Array.isArray(data.entries) || !data.entries.length) {
                         return null;
                     }
 
+                    // On agrège toutes les traductions possibles
+                    const translationsSet = new Set();
+                    data.entries.forEach((entry) => {
+                        if (Array.isArray(entry.translations)) {
+                            entry.translations.forEach((t) => {
+                                if (typeof t === "string" && t.trim()) {
+                                    translationsSet.add(t.trim());
+                                }
+                            });
+                        }
+                    });
+
+                    const translations = [...translationsSet];
+                    if (!translations.length) return null;
+
+                    const definition =
+                        (data.entries[0] && data.entries[0].definition) || "";
+                    const examples = Array.isArray(data.entries[0].examples)
+                        ? data.entries[0].examples
+                        : [];
+
                     return {
-                        word: w,
-                        translation: main   // TRADUCTION FR du mot anglais
+                        word: spec.word,
+                        direction: spec.direction,
+                        translations,
+                        definition,
+                        examples,
                     };
                 } catch (e) {
-                    console.error("DICT ERROR", e);
+                    console.error("QUIZ get-word error", e);
                     return null;
                 }
             })
         );
 
-        // Garder uniquement les mots qui ont une traduction exploitable
-        const quizItems = itemsRaw.filter((x) => x && x.translation);
+        quizState.questions = questionsRaw.filter(Boolean);
 
-        if (quizItems.length === 0) {
+        if (!quizState.questions.length) {
             quizLoader.textContent =
                 "Impossible de préparer le quiz (aucune traduction trouvée).";
             return;
         }
 
-        // Pool global de traductions pour générer de vraies mauvaises réponses
-        const translationPool = quizItems.map((it) => it.translation);
+        // Mélange et limite le nombre de questions
+        shuffle(quizState.questions);
+        const MAX_QUESTIONS = 15;
+        quizState.questions = quizState.questions.slice(0, MAX_QUESTIONS);
 
-        let index = 0;
-        let score = 0;
+        // Prépare l'UI (zone de saisie + bouton + feedback)
+        setupQuizInputUI();
 
-        function showQuestion() {
-            if (index >= quizItems.length) {
-                return endQuiz();
-            }
-
-            const item = quizItems[index];
-            const correct = item.translation;
-
-            quizLoader.style.display = "none";
-            quizCard.style.display = "block";
-            quizOptions.innerHTML = "";
-
-            quizQuestion.textContent = `Que veut dire : « ${item.word} » ?`;
-
-            // 1 bonne réponse (correct) + 3 mauvaises (prises dans d'autres mots)
-            const options = buildQuizOptionsFromPool(correct, translationPool);
-
-            options.forEach((label) => {
-                const div = document.createElement("div");
-                div.className = "quiz-option";
-                div.textContent = label;
-
-                div.addEventListener("click", () => {
-                    const isCorrect = label === correct;
-
-                    if (isCorrect) {
-                        div.classList.add("correct");
-                        score++;
-                    } else {
-                        div.classList.add("wrong");
-                    }
-
-                    // Mise à jour SRS en arrière-plan (non bloquant)
-                    fetch(
-                        `/api/review-update?word=${encodeURIComponent(
-                            item.word
-                        )}&correct=${isCorrect ? "true" : "false"}`
-                    ).catch(() => {});
-
-                    setTimeout(() => {
-                        index++;
-                        showQuestion();
-                    }, 600);
-                });
-
-                quizOptions.appendChild(div);
-            });
-        }
-
-        function endQuiz() {
-            quizCard.style.display = "none";
-            quizResult.style.display = "block";
-            quizScore.textContent = `Score : ${score} / ${quizItems.length}`;
-        }
+        quizLoader.style.display = "none";
+        quizCard.style.display = "block";
+        showNextQuizQuestion();
 
         // Bouton "Recommencer"
-        quizRestart.onclick = startQuiz;
-
-        // Première question
-        showQuestion();
+        if (quizRestart) {
+            quizRestart.onclick = startQuiz;
+        }
     } catch (err) {
         console.error("QUIZ ERROR", err);
         quizLoader.textContent = "Erreur lors du chargement du quiz.";
     }
 }
 
-// Mélange générique
+/**
+ * Crée l'input, le bouton "Valider" et la zone de feedback
+ */
+function setupQuizInputUI() {
+    quizOptions.innerHTML = "";
+
+    // Conteneur input + bouton
+    const wrapper = document.createElement("div");
+    wrapper.className = "quiz-input-wrapper";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Écris ta réponse ici…";
+    input.className = "quiz-answer-input";
+
+    const button = document.createElement("button");
+    button.textContent = "Valider";
+    button.className = "quiz-submit-btn";
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(button);
+
+    const feedback = document.createElement("div");
+    feedback.className = "quiz-feedback";
+
+    quizOptions.appendChild(wrapper);
+    quizOptions.appendChild(feedback);
+
+    quizState.inputEl = input;
+    quizState.submitEl = button;
+    quizState.feedbackEl = feedback;
+
+    const submitHandler = () => handleQuizSubmit();
+
+    button.addEventListener("click", submitHandler);
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") submitHandler();
+    });
+}
+
+/**
+ * Affiche la question suivante ou le score final
+ */
+function showNextQuizQuestion() {
+    if (quizState.index >= quizState.questions.length) {
+        quizCard.style.display = "none";
+        quizResult.style.display = "block";
+        quizScore.textContent = `Score : ${quizState.score} / ${quizState.questions.length}`;
+        return;
+    }
+
+    const q = quizState.questions[quizState.index];
+
+    if (q.direction === "en_fr") {
+        quizQuestion.textContent = `Comment dit-on « ${q.word} » en français ?`;
+    } else {
+        quizQuestion.textContent = `Comment dit-on « ${q.word} » en anglais ?`;
+    }
+
+    quizState.inputEl.value = "";
+    quizState.feedbackEl.innerHTML = "";
+    quizState.inputEl.focus();
+}
+
+/**
+ * Valide la réponse de l'utilisateur et affiche l'explication
+ */
+function handleQuizSubmit() {
+    const q = quizState.questions[quizState.index];
+    if (!q) return;
+
+    const userAnswer = (quizState.inputEl.value || "").trim();
+    if (!userAnswer) return;
+
+    const isCorrect = isAnswerCorrect(userAnswer, q.translations);
+
+    const allTranslations = q.translations.slice(0, 3).join(", ");
+    let explanation = "";
+
+    if (isCorrect) {
+        quizState.score++;
+        explanation = `✅ Correct !<br>« ${q.word} » se traduit par : <strong>${allTranslations}</strong>.`;
+    } else {
+        explanation = `❌ Pas tout à fait.<br>« ${q.word} » se traduit par : <strong>${allTranslations}</strong>.<br><small>Ta réponse : « ${userAnswer} »</small>`;
+    }
+
+    quizState.feedbackEl.innerHTML = explanation;
+
+    // Mise à jour SRS en arrière-plan
+    fetch(
+        `/api/review-update?word=${encodeURIComponent(
+            q.word
+        )}&correct=${isCorrect ? "true" : "false"}`
+    ).catch(() => {});
+
+    // Question suivante après une petite pause
+    setTimeout(() => {
+        quizState.index++;
+        showNextQuizQuestion();
+    }, 1300);
+}
+
+/**
+ * Normalise les textes pour comparer sans accents / majuscules
+ */
+function normalizeText(str) {
+    return str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") // enlève les accents
+        .replace(/[^a-z]/g, ""); // garde seulement les lettres
+}
+
+/**
+ * Renvoie true si la réponse correspond à une des traductions
+ */
+function isAnswerCorrect(answer, translations) {
+    const normAnswer = normalizeText(answer);
+    if (!normAnswer) return false;
+
+    for (const t of translations) {
+        if (typeof t !== "string") continue;
+        const normT = normalizeText(t);
+        if (normT && normT === normAnswer) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Mélange générique (réutilisé un peu partout)
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-}
-
-// Construit les 4 propositions : 1 bonne + 3 mauvaises
-function buildQuizOptionsFromPool(correct, pool) {
-    // Candidats = toutes les traductions différentes de la bonne
-    let candidates = pool.filter((t) => t && t !== correct);
-
-    // On supprime les doublons et on mélange
-    candidates = [...new Set(candidates)];
-    shuffle(candidates);
-
-    // On garde 3 mauvaises réponses max
-    const wrong = candidates.slice(0, 3);
-
-    // Si on n'a pas assez de mauvaises réponses, on complète
-    while (wrong.length < 3) {
-        wrong.push("Je ne sais pas");
-    }
-
-    const all = [correct, ...wrong];
-    shuffle(all);
-    return all;
 }
 
 /**************************************************************
