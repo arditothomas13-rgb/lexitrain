@@ -1,9 +1,8 @@
 // /api/dict-auto-add.js
 export default async function handler(req, res) {
     try {
-        // 🔒 On sécurise la récupération du body (string, undefined, etc.)
+        // 🔒 Récupérer proprement le body (string ou objet)
         let body = req.body || {};
-
         if (typeof body === "string") {
             try {
                 body = JSON.parse(body);
@@ -27,33 +26,43 @@ export default async function handler(req, res) {
 
         const entry = entries[0];
 
-        // DISTRACTEURS pour le quiz
         const translations = Array.isArray(entry.translations)
             ? entry.translations
             : [];
 
+        const examples = Array.isArray(entry.examples)
+            ? entry.examples
+            : [];
+
+        const synonyms = Array.isArray(entry.synonyms)
+            ? entry.synonyms
+            : [];
+
+        // Distracteurs pour le quiz
         const distractors = translations.slice(1, 4);
         while (distractors.length < 3) distractors.push("option incorrecte");
 
+        // 🔹 Objet complet enregistré dans le dico
         const dictEntry = {
             word,
-            lang: "en",          // dico anglais
+            lang: "en",   // dico anglais
 
-            // 👉 On garde TOUTES les entrées (sens, déf, exemples, synonymes…)
+            // On garde TOUTES les entrées (tous les sens, déf, ex, synonymes)
             entries,
 
             // Champs "plats" pour compatibilité (quiz, anciennes routes…)
             definition: entry.definition || "",
             translations,
             main_translation: translations[0] || "",
-            examples: Array.isArray(entry.examples) ? entry.examples : [],
-            synonyms: Array.isArray(entry.synonyms) ? entry.synonyms : [],
+            examples,
+            synonyms,
             distractors
         };
 
-        const key = `dict:${word.toLowerCase()}`;
+        const dictKey = `dict:${word.toLowerCase()}`;
 
-        const resp = await fetch(`${KV_URL}/set/${key}`, {
+        // 1) Enregistrer dans dict:word
+        const resp = await fetch(`${KV_URL}/set/${dictKey}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${KV_TOKEN}`,
@@ -66,6 +75,52 @@ export default async function handler(req, res) {
             const txt = await resp.text();
             console.error("DICT AUTO ADD KV ERROR:", txt);
             return res.status(500).json({ error: "KV set error" });
+        }
+
+        // 2) Mettre à jour la wordlist:en utilisée par le Dico + Quiz
+        const wordlistKey = "wordlist:en";
+        let list = [];
+
+        try {
+            const wlResp = await fetch(`${KV_URL}/get/${wordlistKey}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${KV_TOKEN}`
+                }
+            });
+
+            const wlData = await wlResp.json();
+            if (wlData && wlData.result) {
+                try {
+                    list = JSON.parse(wlData.result);
+                } catch {
+                    list = [];
+                }
+            }
+        } catch (e) {
+            console.error("WORDLIST GET ERROR:", e);
+        }
+
+        if (!Array.isArray(list)) list = [];
+
+        if (!list.includes(word)) {
+            list.push(word);
+        }
+
+        // Tri alphabétique (optionnel mais plus propre)
+        list.sort((a, b) => a.localeCompare(b));
+
+        try {
+            await fetch(`${KV_URL}/set/${wordlistKey}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${KV_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ value: JSON.stringify(list) })
+            });
+        } catch (e) {
+            console.error("WORDLIST SET ERROR:", e);
         }
 
         return res.status(200).json({ status: "added", dictEntry });
