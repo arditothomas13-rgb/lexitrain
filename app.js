@@ -293,15 +293,33 @@ async function translateWord(isSwap = false, cacheOnly = false) {
         return;
     }
 
-    resultTitle.textContent = word;
+     resultTitle.textContent = word;
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
 
-    // Ajouter à l'historique seulement si on n'est pas en mode "cacheOnly"
+    // Ajouter à l'historique et au dico seulement si on n'est pas en mode "cacheOnly"
     if (!cacheOnly) {
         addToHistory(word);
+
+        // 🧠 Auto-ajout au dictionnaire (EN ou FR selon fromLang)
+        try {
+            await fetch("/api/dict-auto-add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    word,
+                    entries: data.entries,
+                    lang: fromLang // "en" ou "fr"
+                })
+            });
+        } catch (e) {
+            console.error("DICT AUTO ADD client error:", e);
+        }
     }
 }
+
 
 /**************************************************************
  * HISTORY
