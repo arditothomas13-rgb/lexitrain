@@ -51,6 +51,8 @@ const quizOptions = document.getElementById("quizOptions");
 const quizResult = document.getElementById("quizResult");
 const quizScore = document.getElementById("quizScore");
 const quizRestart = document.getElementById("quizRestart");
+const autoSwitchMessageContainer = document.getElementById("autoSwitchMessageContainer");
+
 
 /**************************************************************
  * OFFLINE CACHE
@@ -104,6 +106,56 @@ function updateLanguageUI() {
         toFlag.textContent = "🇬🇧";
         toLabel.textContent = "Anglais";
     }
+}
+
+/**************************************************************
+ * AUTO DETECTION LANGUE (EN / FR)
+ **************************************************************/
+function detectLanguage(text) {
+    const lower = text.toLowerCase();
+
+    // Accents français typiques
+    const hasAccent = /[àâäçéèêëîïôöùûüÿœç]/i.test(text);
+
+    const frenchWords = [
+        "le","la","les","des","un","une","du","au","aux",
+        "je","tu","il","elle","on","nous","vous","ils","elles",
+        "ne","pas","mais","ou","et","donc","or","ni","car",
+        "être","avoir","faire"
+    ];
+    const englishWords = [
+        "the","and","of","to","in","is","you","that","it",
+        "for","on","with","as","this","but","his","her","by","from"
+    ];
+
+    let frScore = 0;
+    let enScore = 0;
+
+    if (hasAccent) frScore += 2;
+
+    const tokens = lower.split(/\s+/).filter(Boolean);
+    for (const t of tokens) {
+        if (frenchWords.includes(t)) frScore++;
+        if (englishWords.includes(t)) enScore++;
+    }
+
+    if (frScore === 0 && enScore === 0) return null;
+    if (frScore > enScore) return "fr";
+    if (enScore > frScore) return "en";
+    return null;
+}
+
+function showLanguageWarning(fromLabel, toLabel) {
+    if (!autoSwitchMessageContainer) return;
+    autoSwitchMessageContainer.textContent =
+        `Mauvaise langue détectée, je bascule de ${fromLabel} vers ${toLabel}.`;
+    autoSwitchMessageContainer.style.display = "block";
+}
+
+function hideLanguageWarning() {
+    if (!autoSwitchMessageContainer) return;
+    autoSwitchMessageContainer.style.display = "none";
+    autoSwitchMessageContainer.textContent = "";
 }
 
 /**************************************************************
