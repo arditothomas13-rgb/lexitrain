@@ -115,10 +115,11 @@ function updateLanguageUI() {
  * AUTO DETECTION LANGUE (EN / FR)
  **************************************************************/
 function detectLanguage(text) {
-    const lower = text.toLowerCase();
+    const lower = text.toLowerCase().trim();
+    if (!lower) return null;
 
     // Accents français typiques
-    const hasAccent = /[àâäçéèêëîïôöùûüÿœç]/i.test(text);
+    const hasAccent = /[àâäçéèêëîïôöùûüÿœç]/i.test(lower);
 
     const frenchWords = [
         "le","la","les","des","un","une","du","au","aux",
@@ -134,17 +135,33 @@ function detectLanguage(text) {
     let frScore = 0;
     let enScore = 0;
 
-    if (hasAccent) frScore += 2;
+    // Un accent = très fort indice français
+    if (hasAccent) frScore += 3;
 
     const tokens = lower.split(/\s+/).filter(Boolean);
+
+    // Mots outils FR / EN
     for (const t of tokens) {
-        if (frenchWords.includes(t)) frScore++;
-        if (englishWords.includes(t)) enScore++;
+        if (frenchWords.includes(t)) frScore += 2;
+        if (englishWords.includes(t)) enScore += 2;
     }
 
+    // Terminaisons / patterns typiques
+    const frenchPatterns = /(ou|oi|ai|eau|eur|euse|ment|tion|age|ance|ence|eux|eaux|ette|arde|arde)$/;
+    const englishPatterns = /(ing|ed|ly|ness|ous|able|ible|ment|tion)$/;
+
+    for (const t of tokens) {
+        if (frenchPatterns.test(t)) frScore++;
+        if (englishPatterns.test(t)) enScore++;
+    }
+
+    // Rien de probant → on ne touche à rien
     if (frScore === 0 && enScore === 0) return null;
-    if (frScore > enScore) return "fr";
-    if (enScore > frScore) return "en";
+
+    if (frScore >= enScore + 1) return "fr";
+    if (enScore >= frScore + 1) return "en";
+
+    // Trop serré → on ne change pas non plus
     return null;
 }
 
