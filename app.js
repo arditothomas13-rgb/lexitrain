@@ -945,7 +945,25 @@ translateBtn.addEventListener("click", () => translateWord());
 inputField.addEventListener("keydown", e => {
     if (e.key === "Enter") translateWord();
 });
+/**************************************************************
+ * BOUTON "EFFACER" DANS LE CHAMP DE TRADUCTION
+ **************************************************************/
+if (clearInputBtn && inputField) {
+    // Au chargement
+    clearInputBtn.style.display = inputField.value.trim() ? "flex" : "none";
 
+    // Afficher / cacher la croix selon le texte
+    inputField.addEventListener("input", () => {
+        clearInputBtn.style.display = inputField.value.trim() ? "flex" : "none";
+    });
+
+    // Effacer en un tap
+    clearInputBtn.addEventListener("click", () => {
+        inputField.value = "";
+        clearInputBtn.style.display = "none";
+        inputField.focus();
+    });
+}
 /**************************************************************
  * END
  **************************************************************/
