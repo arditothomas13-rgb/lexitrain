@@ -571,6 +571,7 @@ dictionarySearch.addEventListener("input", e => {
  *  - Tu écris ta réponse
  *  - L'app corrige + explique
  **************************************************************/
+
 async function startQuiz() {
     // État initial : on affiche le loader
     quizLoader.style.display = "block";
@@ -601,143 +602,133 @@ async function startQuiz() {
         let score = 0;
 
         // 2) Fonction qui affiche une question, une par une
-        async function askNextQuestion() {
-            // Fin du quiz
-            if (index >= words.length) {
-                quizCard.style.display = "none";
-                quizResult.style.display = "block";
-                quizScore.textContent = `Score : ${score} / ${words.length}`;
-                return;
+            async function askNextQuestion() {
+        // 1) Chercher le prochain mot qui a une traduction exploitable
+        let wordData = null;
+        let acceptedAnswers = [];
+
+        while (index < words.length && !wordData) {
+            const candidate = words[index];
+
+            // On va lire les infos de ce mot (via /api/get-dict-word)
+            const data = await fetchWordForQuiz(candidate);
+
+            if (!data) {
+                // Rien trouvé pour ce mot → on passe silencieusement au suivant
+                index++;
+                continue;
             }
 
-            const word = words[index];
+            const answers = extractTranslationsForQuiz(data);
 
-            // Préparation de la carte
-            quizLoader.style.display = "none";
-            quizCard.style.display = "block";
-            quizOptions.innerHTML = "";
-            quizQuestion.textContent = `Comment dit-on « ${word} » en français ?`;
-
-            // Petit "chat" : input + bouton + zone de feedback
-            const form = document.createElement("form");
-            form.className = "quiz-chat-form";
-
-            const input = document.createElement("input");
-            input.type = "text";
-            input.className = "quiz-input";
-            input.placeholder = "Ta réponse en français";
-
-            const button = document.createElement("button");
-            button.type = "submit";
-            button.className = "quiz-submit";
-            button.textContent = "Valider";
-
-            const feedback = document.createElement("div");
-            feedback.className = "quiz-feedback";
-           feedback.textContent = ""; // on mettra le bon message après avoir chargé les traductions
-
-            form.appendChild(input);
-            form.appendChild(button);
-            quizOptions.appendChild(form);
-            quizOptions.appendChild(feedback);
-
-            input.focus();
-
-                       // 3) On récupère la/les traductions attendues pour ce mot
-            let acceptedAnswers = [];
-
-            try {
-                // ➜ On lit UNIQUEMENT dans le cache/kv, pas d'appel GPT
-                const wordData = await fetchWordForQuiz(word);
-
-                if (!wordData) {
-                    feedback.textContent =
-                        "Je n'ai pas encore de traduction enregistrée pour ce mot, on passe au suivant.";
-                    setTimeout(() => {
-                        index++;
-                        askNextQuestion();
-                    }, 800);
-                    return;
-                }
-
-                acceptedAnswers = extractTranslationsForQuiz(wordData);
-
-                if (!acceptedAnswers.length) {
-                    feedback.textContent =
-                        "Je n'ai pas de traduction exploitable pour ce mot, on passe au suivant.";
-                    setTimeout(() => {
-                        index++;
-                        askNextQuestion();
-                    }, 800);
-                    return;
-                }
-
-                // Tout est OK, on peut laisser l'utilisateur répondre
-                feedback.textContent = "Tape ta réponse puis clique sur « Valider ».";
-            } catch (e) {
-                console.error("QUIZ WORD ERROR", e);
-                feedback.textContent =
-                    "Erreur lors de la récupération de la traduction (on passe au mot suivant).";
-                setTimeout(() => {
-                    index++;
-                    askNextQuestion();
-                }, 800);
-                return;
+            if (!answers || !answers.length) {
+                // On a un mot mais aucune traduction vraiment exploitable → suivant
+                index++;
+                continue;
             }
 
-            // 4) Quand tu envoies ta réponse
-            form.addEventListener("submit", (evt) => {
-                evt.preventDefault();
-
-                const userRaw = input.value;
-                const user = normalizeAnswer(userRaw);
-                if (!user) return;
-
-                const normalizedAccepted = acceptedAnswers.map(normalizeAnswer);
-
-                const isCorrect = normalizedAccepted.some((ans) => {
-                    if (!ans) return false;
-                    return user === ans || user.includes(ans) || ans.includes(user);
-                });
-
-                if (isCorrect) {
-                    score++;
-                    feedback.innerHTML = `✅ Correct !<br>Réponse attendue : <strong>${acceptedAnswers[0]}</strong>`;
-                    feedback.classList.remove("wrong");
-                    feedback.classList.add("correct");
-                } else {
-                    feedback.innerHTML = `❌ Pas tout à fait.<br>Réponses possibles : <strong>${acceptedAnswers.join(
-                        ", "
-                    )}</strong>`;
-                    feedback.classList.remove("correct");
-                    feedback.classList.add("wrong");
-                }
-
-                // On met à jour le SRS en arrière-plan
-                fetch(
-                    `/api/review-update?word=${encodeURIComponent(
-                        word
-                    )}&correct=${isCorrect ? "true" : "false"}`
-                ).catch(() => {});
-
-                // Question suivante
-                setTimeout(() => {
-                    index++;
-                    askNextQuestion();
-                }, 1500);
-            });
+            // OK : on a enfin un mot avec des traductions
+            wordData = data;
+            acceptedAnswers = answers;
         }
 
-        // Bouton "Recommencer"
-        quizRestart.onclick = startQuiz;
+        // 2) Si on n’a trouvé aucun mot valable → fin du quiz
+        if (!wordData) {
+            quizLoader.style.display = "none";
+            quizCard.style.display = "none";
+            quizResult.style.display = "block";
+            quizScore.textContent = `Score : ${score} / ${words.length}`;
+            return;
+        }
 
-        // On lance la première question
-        askNextQuestion();
-    } catch (err) {
-        console.error("QUIZ ERROR", err);
-        quizLoader.textContent = "Erreur lors du chargement du quiz.";
+        const word = words[index];
+
+        // 3) Afficher la carte de question (chat prof)
+        quizLoader.style.display = "none";
+        quizCard.style.display = "block";
+        quizOptions.innerHTML = "";
+        quizQuestion.textContent = `Comment dit-on « ${word} » en français ?`;
+
+        // --- UI "chat" ---
+        const form = document.createElement("form");
+        form.className = "quiz-chat-form";
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "quiz-input";
+        input.placeholder = "Ta réponse en français";
+
+        const button = document.createElement("button");
+        button.type = "submit";
+        button.className = "quiz-submit";
+        button.textContent = "Valider";
+
+        const feedback = document.createElement("div");
+        feedback.className = "quiz-feedback";
+        feedback.textContent = "Tape ta réponse puis clique sur « Valider ».";
+
+        const nextButton = document.createElement("button");
+        nextButton.type = "button";
+        nextButton.className = "quiz-next";
+        nextButton.textContent = "Question suivante";
+        nextButton.style.display = "none";
+
+        form.appendChild(input);
+        form.appendChild(button);
+        quizOptions.appendChild(form);
+        quizOptions.appendChild(feedback);
+        quizOptions.appendChild(nextButton);
+
+        input.focus();
+
+        // 4) Quand tu envoies ta réponse
+        form.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+
+            const userRaw = input.value;
+            const user = normalizeAnswer(userRaw);
+            if (!user) return;
+
+            const normalizedAccepted = acceptedAnswers.map(normalizeAnswer);
+
+            const isCorrect = normalizedAccepted.some((ans) => {
+                if (!ans) return false;
+                return user === ans || user.includes(ans) || ans.includes(user);
+            });
+
+            if (isCorrect) {
+                score++;
+                feedback.innerHTML = `✅ Correct !<br>Réponse attendue : <strong>${acceptedAnswers[0]}</strong>`;
+                feedback.classList.remove("wrong");
+                feedback.classList.add("correct");
+            } else {
+                feedback.innerHTML = `❌ Pas tout à fait.<br>Réponses possibles : <strong>${acceptedAnswers.join(
+                    ", "
+                )}</strong>`;
+                feedback.classList.remove("correct");
+                feedback.classList.add("wrong");
+            }
+
+            // Mise à jour SRS en arrière-plan
+            fetch(
+                `/api/review-update?word=${encodeURIComponent(
+                    word
+                )}&correct=${isCorrect ? "true" : "false"}`
+            ).catch(() => {});
+
+            // On bloque la réponse, et on laisse l’utilisateur passer à la suite
+            input.disabled = true;
+            button.disabled = true;
+            nextButton.style.display = "inline-block";
+        });
+
+        // 5) Passer manuellement à la question suivante
+        nextButton.addEventListener("click", () => {
+            index++;
+            askNextQuestion();
+        });
     }
-}
+
 
 /**************************************************************
  * UTILITAIRES QUIZ
