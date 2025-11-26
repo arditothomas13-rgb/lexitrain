@@ -67,6 +67,7 @@ function setLocalCache(key, value) {
         localStorage.setItem("lexitrain_cache:" + key, JSON.stringify(value));
     } catch {}
 }
+
 /* -----------------------------
    LANGUAGE SWAP
 ----------------------------- */
@@ -80,7 +81,7 @@ function swapLanguages() {
     fromLang = toLang;
     toLang = temp;
 
-    updateLanguageUI();   // met à jour drapeaux + labels
+    updateLanguageUI(); // met à jour drapeaux + labels
 }
 
 // Listener sur le bouton
@@ -149,14 +150,15 @@ async function fetchWord(word, cacheOnly = false) {
             return parsed;
         }
     } catch {}
-if (!cacheOnly) {
-    const res = await fetch(
-        `/api/get-word?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
-    );
-    const apiData = await res.json();
-    setLocalCache(cacheKey, apiData);
-    return apiData;
-}
+
+    if (!cacheOnly) {
+        const res = await fetch(
+            `/api/get-word?word=${encodeURIComponent(word)}&from=${fromLang}&to=${toLang}`
+        );
+        const apiData = await res.json();
+        setLocalCache(cacheKey, apiData);
+        return apiData;
+    }
 
     return { error: "Donnée indisponible hors-ligne" };
 }
@@ -174,6 +176,24 @@ function clearResult() {
     resultTitle.textContent = "";
     senseTabs.innerHTML = "";
     senseContent.innerHTML = "";
+}
+
+function renderSenseTabs(entries) {
+    senseTabs.innerHTML = "";
+    entries.forEach((e, i) => {
+        const pill = document.createElement("div");
+        pill.className = "sense-pill";
+        if (i === 0) pill.classList.add("active");
+        pill.textContent = e.label;
+        pill.addEventListener("click", () => {
+            document
+                .querySelectorAll(".sense-pill")
+                .forEach(p => p.classList.remove("active"));
+            pill.classList.add("active");
+            renderSenseContent(e);
+        });
+        senseTabs.appendChild(pill);
+    });
 }
 
 function renderSenseContent(entry) {
@@ -254,6 +274,7 @@ function renderSenseContent(entry) {
         });
     }
 }
+
 /**************************************************************
  * TRANSLATE ACTION
  **************************************************************/
@@ -275,7 +296,8 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     resultTitle.textContent = word;
     renderSenseTabs(data.entries);
     renderSenseContent(data.entries[0]);
-       // Ajouter à l'historique seulement si on n'est pas en mode "cacheOnly"
+
+    // Ajouter à l'historique seulement si on n'est pas en mode "cacheOnly"
     if (!cacheOnly) {
         addToHistory(word);
     }
@@ -327,7 +349,7 @@ async function loadDictionary(q = "") {
         item.className = "dic-item";
         item.textContent = w;
 
-               item.addEventListener("click", async () => {
+        item.addEventListener("click", async () => {
             pageTranslate.style.display = "block";
             pageDictionary.style.display = "none";
 
@@ -358,8 +380,6 @@ async function loadDictionary(q = "") {
             renderSenseTabs(entries);
             renderSenseContent(entries[0]);
         });
-
-
 
         dictionaryList.appendChild(item);
     });
