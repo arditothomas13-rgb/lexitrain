@@ -41,6 +41,104 @@ const dictionarySearch = document.getElementById("dictionarySearch");
 const alphabetScroller = document.getElementById("alphabetScroller");
 const letterPopup = document.getElementById("letterPopup");
 
+/**************************************************************
+ * DICO — Scroll vers une lettre (utilisé par tap + glissé)
+ **************************************************************/
+function scrollDictionaryToLetter(letter) {
+    if (!dictionaryList) return;
+    const upperLetter = (letter || "").toUpperCase();
+    if (!upperLetter) return;
+
+    const items = dictionaryList.children;
+    for (let i = 0; i < items.length; i++) {
+        const w = (items[i].textContent || "").trim().toUpperCase();
+        if (w.startsWith(upperLetter)) {
+            items[i].scrollIntoView({ behavior: "auto", block: "start" });
+            showLetterPopup(upperLetter);
+            break;
+        }
+    }
+}
+
+/**************************************************************
+ * DICO — Popup de lettre façon iOS
+ **************************************************************/
+function showLetterPopup(letter) {
+    if (!letterPopup) return;
+    letterPopup.textContent = letter;
+    letterPopup.style.display = "block";
+
+    clearTimeout(showLetterPopup._timeout);
+    showLetterPopup._timeout = setTimeout(() => {
+        letterPopup.style.display = "none";
+    }, 500);
+}
+/**************************************************************
+ * DICO — Geste de glissé sur la barre A-Z (iOS-like)
+ **************************************************************/
+function setupAlphabetTouchScroll() {
+    if (!alphabetScroller) return;
+
+    const handlePoint = (clientX, clientY) => {
+        // On regarde quel élément se trouve sous le doigt
+        const el = document.elementFromPoint(clientX, clientY);
+        if (!el || !el.classList.contains("alpha-letter")) return;
+
+        const letter = (el.textContent || "").trim().toUpperCase();
+        if (!letter) return;
+
+        scrollDictionaryToLetter(letter);
+    };
+
+    let touching = false;
+
+    // Touch (mobile)
+    alphabetScroller.addEventListener(
+        "touchstart",
+        (e) => {
+            touching = true;
+            const t = e.touches[0];
+            handlePoint(t.clientX, t.clientY);
+            e.preventDefault();
+        },
+        { passive: false }
+    );
+
+    alphabetScroller.addEventListener(
+        "touchmove",
+        (e) => {
+            if (!touching) return;
+            const t = e.touches[0];
+            handlePoint(t.clientX, t.clientY);
+            e.preventDefault();
+        },
+        { passive: false }
+    );
+
+    alphabetScroller.addEventListener("touchend", () => {
+        touching = false;
+        // la popup se referme toute seule via showLetterPopup
+    });
+
+    // Optionnel : support souris (drag à la souris sur desktop)
+    let mouseDown = false;
+    alphabetScroller.addEventListener("mousedown", (e) => {
+        mouseDown = true;
+        handlePoint(e.clientX, e.clientY);
+    });
+    window.addEventListener("mousemove", (e) => {
+        if (!mouseDown) return;
+        handlePoint(e.clientX, e.clientY);
+    });
+    window.addEventListener("mouseup", () => {
+        mouseDown = false;
+    });
+}
+
+// On active le geste dès maintenant
+setupAlphabetTouchScroll();
+
+
 const historyList = document.getElementById("historyList");
 
 const btnDicEn = document.getElementById("dicLangEn");
