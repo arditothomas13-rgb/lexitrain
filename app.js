@@ -803,12 +803,28 @@ async function askChatQuizQuestion() {
         chatQuizCurrentAnswers = answers;
         chatQuizExpectingAnswer = true;
 
-        addProfChatMessage(
-            `Question ${chatQuizIndex + 1} / ${chatQuizWords.length} :\n` +
-            `Comment dit-on « ${word} » en français ?`
-        );
-        chatStatus.textContent =
-            "Tape ta réponse en français puis appuie sur Entrée ou sur Envoyer.";
+        const detected = (data && data.detected_lang || "").toLowerCase();
+        let questionText = "";
+
+        if (detected === "fr") {
+            // Mot français → on attend une réponse en anglais
+            chatQuizExpectedLang = "en";
+            questionText =
+                `Question ${chatQuizIndex + 1} / ${chatQuizWords.length} :\n` +
+                `Comment dit-on « ${word} » en anglais ?`;
+            chatStatus.textContent =
+                "Tape ta réponse en anglais puis appuie sur Entrée ou sur Envoyer.";
+        } else {
+            // Par défaut : mot anglais → réponse en français
+            chatQuizExpectedLang = "fr";
+            questionText =
+                `Question ${chatQuizIndex + 1} / ${chatQuizWords.length} :\n` +
+                `Comment dit-on « ${word} » en français ?`;
+            chatStatus.textContent =
+                "Tape ta réponse en français puis appuie sur Entrée ou sur Envoyer.";
+        }
+
+        addProfChatMessage(questionText);
     } catch (e) {
         console.error("askChatQuizQuestion error", e);
         chatQuizIndex++;
