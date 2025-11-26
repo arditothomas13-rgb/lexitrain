@@ -11,7 +11,7 @@ export default async function handler(req, res) {
             }
         }
 
-        const { word, entries } = body;
+        const { word, entries, lang } = body;
 
         if (!word || !entries || !entries[0]) {
             return res.status(400).json({ error: "Missing word or entries" });
@@ -23,6 +23,9 @@ export default async function handler(req, res) {
         if (!KV_URL || !KV_TOKEN) {
             return res.status(500).json({ error: "Missing KV config" });
         }
+
+        // 🏳️ Langue du dictionnaire : "en" ou "fr"
+        const dictLang = lang === "fr" ? "fr" : "en";
 
         const entry = entries[0];
 
@@ -45,7 +48,7 @@ export default async function handler(req, res) {
         // 🔹 Objet complet enregistré dans le dico
         const dictEntry = {
             word,
-            lang: "en",   // dico anglais
+            lang: dictLang,   // dico anglais OU français
 
             // On garde TOUTES les entrées (tous les sens, déf, ex, synonymes)
             entries,
@@ -77,8 +80,8 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: "KV set error" });
         }
 
-        // 2) Mettre à jour la wordlist:en utilisée par le Dico + Quiz
-        const wordlistKey = "wordlist:en";
+        // 2) Mettre à jour la wordlist:<lang> utilisée par le Dico + Quiz
+        const wordlistKey = `wordlist:${dictLang}`;
         let list = [];
 
         try {
@@ -107,7 +110,7 @@ export default async function handler(req, res) {
             list.push(word);
         }
 
-        // Tri alphabétique (optionnel mais plus propre)
+        // Tri alphabétique
         list.sort((a, b) => a.localeCompare(b));
 
         try {
