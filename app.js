@@ -60,6 +60,8 @@ function scrollDictionaryToLetter(letter) {
     }
 }
 
+let currentOpenDicItem = null;
+
 /**************************************************************
  * DICO — Popup de lettre façon iOS
  **************************************************************/
