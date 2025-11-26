@@ -2,6 +2,8 @@
 export default async function handler(req, res) {
     try {
         let body = req.body || {};
+
+        // Vercel peut envoyer le body en string
         if (typeof body === "string") {
             try {
                 body = JSON.parse(body);
@@ -25,29 +27,31 @@ export default async function handler(req, res) {
 
         const dictLang = lang === "fr" ? "fr" : "en";
 
-        const entry = entries[0];
+        const first = entries[0];
 
-        const translations = Array.isArray(entry.translations)
-            ? entry.translations
+        const translations = Array.isArray(first.translations)
+            ? first.translations
             : [];
 
-        const examples = Array.isArray(entry.examples)
-            ? entry.examples
+        const examples = Array.isArray(first.examples)
+            ? first.examples
             : [];
 
-        const synonyms = Array.isArray(entry.synonyms)
-            ? entry.synonyms
+        const synonyms = Array.isArray(first.synonyms)
+            ? first.synonyms
             : [];
 
+        // Distracteurs pour le quiz
         const distractors = translations.slice(1, 4);
-        while (distractors.length < 3) distractors.push("option incorrecte");
+        while (distractors.length < 3) {
+            distractors.push("option incorrecte");
+        }
 
         const dictEntry = {
             word,
             lang: dictLang,
             entries,
-
-            definition: entry.definition || "",
+            definition: first.definition || "",
             translations,
             main_translation: translations[0] || "",
             examples,
@@ -55,10 +59,10 @@ export default async function handler(req, res) {
             distractors
         };
 
-        const dictKey = `dict:${word.toLowerCase()}`;
+        const key = `dict:${word.toLowerCase()}`;
 
-        // 1) Sauvegarde de la fiche complète
-        const resp = await fetch(`${KV_URL}/set/${dictKey}`, {
+        // Sauvegarde de l'entrée complète
+        const resp = await fetch(`${KV_URL}/set/${key}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${KV_TOKEN}`,
@@ -73,39 +77,38 @@ export default async function handler(req, res) {
             return res.status(500).json({ error: "KV set error" });
         }
 
-        // 2) Mise à jour de wordlist:<lang> = ["mot1","mot2",...]
+        // Mise à jour de la wordlist correspondante
         const wordlistKey = `wordlist:${dictLang}`;
-        let list = [];
 
         try {
-            const wlResp = await fetch(`${KV_URL}/get/${wordlistKey}`, {
+            const listResp = await fetch(`${KV_URL}/get/${wordlistKey}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${KV_TOKEN}`
                 }
             });
 
-            const wlData = await wlResp.json();
-            if (wlData && wlData.result) {
+            let listData = await listResp.json();
+            let list = [];
+
+            if (listData && listData.result) {
                 try {
-                    const parsed = JSON.parse(wlData.result);
+                    const parsed = JSON.parse(listData.result);
                     if (Array.isArray(parsed)) {
                         list = parsed;
                     }
-                } catch {
-                    list = [];
+                } catch (e) {
+                    console.error("WORDLIST PARSE ERROR:", e);
                 }
             }
-        } catch (e) {
-            console.error("WORDLIST GET ERROR:", e);
-        }
 
-        if (!Array.isArray(list)) list = [];
-        if (!list.includes(word)) list.push(word);
+            if (!list.includes(word)) {
+                list.push(word);
+            }
 
-        list.sort((a, b) => a.localeCompare(b));
+            list = list.filter(w => typeof w === "string" && w.trim().length > 0);
+            list.sort((a, b) => a.localeCompare(b));
 
-        try {
             await fetch(`${KV_URL}/set/${wordlistKey}`, {
                 method: "POST",
                 headers: {
