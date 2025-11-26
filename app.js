@@ -245,11 +245,25 @@ async function fetchWord(word, cacheOnly = false) {
  * TRANSLATION RENDER
  **************************************************************/
 function showLoader() {
+    // Affiche la carte de résultat
     resultCard.style.display = "block";
-    resultTitle.textContent = "Traduction en cours...";
+
+    // Titre central avec effet dégradé façon Apple
+    resultTitle.innerHTML = `
+        <div class="status-title">
+            Traduction en cours…
+        </div>
+    `;
+
+    // On vide les onglets et le contenu précédent
     senseTabs.innerHTML = "";
-    senseContent.innerHTML = `<div class="loader">⏳</div>`;
+    senseContent.innerHTML = `
+        <div class="status-loader">
+            <div class="status-loader-icon">⏳</div>
+        </div>
+    `;
 }
+
 function clearResult() {
     resultTitle.textContent = "";
     senseTabs.innerHTML = "";
