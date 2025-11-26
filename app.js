@@ -723,8 +723,36 @@ async function prepareChatQuizWords() {
             return;
         }
 
+        // On mélange la liste pour varier
         shuffle(words);
-        chatQuizWords = words.slice(0, 5); // 5 questions
+
+        const MAX_CANDIDATES = 40;     // on ne scanne pas toute la planète
+        const TARGET_QUESTIONS = 5;
+        const eligible = [];
+
+        // On ne garde que les mots qui ont une vraie traduction en cache
+        for (const w of words.slice(0, MAX_CANDIDATES)) {
+            const dataForWord = await fetchWordForQuiz(w);
+            const answers = extractTranslationsForQuiz(dataForWord);
+
+            if (answers && answers.length) {
+                eligible.push(w);
+            }
+
+            if (eligible.length >= TARGET_QUESTIONS) break;
+        }
+
+        if (!eligible.length) {
+            addProfChatMessage(
+                "Je ne trouve aucun mot avec une traduction complète en base.\n" +
+                "Essaie d’abord de traduire quelques mots avec le dictionnaire, puis relance le quiz 😊"
+            );
+            chatStatus.textContent = "";
+            return;
+        }
+
+        chatQuizWords = eligible;
+
     } catch (e) {
         console.error("prepareChatQuizWords error", e);
         addProfChatMessage(
