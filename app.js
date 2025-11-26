@@ -192,35 +192,40 @@ function renderSenseTabs(entries) {
     });
 }
 
-function renderSenseContent(entry) {
-    senseContent.innerHTML = "";
+const examplesHtml =
+    entry.examples && entry.examples.length
+        ? entry.examples
+              .map(ex => {
+                  // Cas ancien : juste une chaîne de texte
+                  if (typeof ex === "string") {
+                      return `<div>• ${ex}</div>`;
+                  }
 
-    if (entry.definition) {
-        senseContent.innerHTML += `
-            <div class="glass translation-list">
-                <div class="sense-block-title">Definition</div>
-                <div>${entry.definition}</div>
-            </div>
-        `;
-    }
+                  const src = ex.src || "";
+                  const dest = ex.dest || "";
 
-    senseContent.innerHTML += `
-        <div class="glass translation-list">
-            <div class="sense-block-title">Traductions</div>
-            ${entry.translations.map(t => `<div class="translation-item">${t}</div>`).join("")}
-        </div>
-    `;
+                  // Cas complet : phrase source + traduction
+                  if (src && dest) {
+                      return `
+                        <div class="example-item">
+                            <div>• ${src}</div>
+                            <div class="example-dest">${dest}</div>
+                        </div>
+                      `;
+                  }
 
-    senseContent.innerHTML += `
-        <div class="glass examples-list">
-            <div class="sense-block-title">Exemples</div>
-            ${
-                entry.examples && entry.examples.length
-                    ? entry.examples.map(ex => `<div>• ${ex.src || ex}</div>`).join("")
-                    : `<div>Aucun exemple disponible</div>`
-            }
-        </div>
-    `;
+                  // Si jamais il manque un des deux, on affiche ce qu'on peut
+                  return `<div>• ${src || dest}</div>`;
+              })
+              .join("")
+        : `<div>Aucun exemple disponible</div>`;
+
+senseContent.innerHTML += `
+    <div class="glass examples-list">
+        <div class="sense-block-title">Exemples</div>
+        ${examplesHtml}
+    </div>
+`;
 
     if (entry.synonyms?.length) {
         senseContent.innerHTML += `
