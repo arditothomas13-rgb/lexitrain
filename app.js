@@ -424,16 +424,16 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     clearResult();
     showLoader();
 
-    const data = await fetchWord(word, cacheOnly);
-   
+const data = await fetchWord(word, cacheOnly);
+
 if (!data || data.error || !Array.isArray(data.entries) || data.entries.length === 0) {
-    hideLoader();
     resultTitle.textContent = word;
-    resultBody.textContent = data && data.error
-        ? data.error
-        : "Aucune traduction trouvée pour ce mot.";
     senseTabs.innerHTML = "";
-    senseContent.innerHTML = "";
+    senseContent.innerHTML = `<div>${
+        data && data.error
+            ? data.error
+            : "Aucune traduction trouvée pour ce mot."
+    }</div>`;
     return;
 }
 
