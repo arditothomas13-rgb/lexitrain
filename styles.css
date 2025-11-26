@@ -370,7 +370,15 @@ text-align: left;
   padding-bottom: 60px;
 }
 
+/* ITEM DU DICTIONNAIRE — VERSION SWIPEABLE */
 .dic-item {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+/* Contenu principal (le mot) */
+.dic-item-inner {
   padding: 14px 18px;
   background: rgba(255,255,255,0.70);
   backdrop-filter: blur(16px);
@@ -378,7 +386,42 @@ text-align: left;
   font-size: 17px;
   font-weight: 500;
   cursor: pointer;
+  transition: transform 0.2s ease-out;
 }
+
+/* Bouton corbeille façon iOS */
+.dic-delete-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: none;
+  background: #ff3b30; /* rouge iOS */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(255, 59, 48, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+  font-size: 18px;
+}
+
+/* Quand on a swipé vers la gauche : on révèle la corbeille */
+.dic-item.show-delete .dic-item-inner {
+  transform: translateX(-70px);
+}
+
+.dic-item.show-delete .dic-delete-btn {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1);
+}
+
 
 /* =======================================================
    A-Z SCROLLER
