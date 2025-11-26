@@ -682,21 +682,22 @@ async function onChatSend() {
         const norm = normalizeAnswer(raw);
         const startWords = ["ok", "continue", "continuer", "encore"];
 
-        if (startWords.includes(norm)) {
-            chatStatus.textContent = "Je prépare tes questions…";
-            await prepareChatQuizWords();
-            if (!chatQuizWords.length) {
-                return;
-            }
-            chatQuizIndex = 0;
-            chatQuizScore = 0;
-            await askChatQuizQuestion();
-        } else {
-            addProfChatMessage(
-                "Pour démarrer, écris simplement « OK », « continuer » ou « encore » 😄"
-            );
+            if (startWords.includes(norm)) {
+        addProfChatMessage(
+            "Super ! Allons-y 🚀\nJe prépare quelques questions pour toi…"
+        );
+        chatStatus.textContent = "Je prépare tes questions…";
+        await prepareChatQuizWords();
+        if (!chatQuizWords.length) {
+            return;
         }
-        return;
+        chatQuizIndex = 0;
+        chatQuizScore = 0;
+        await askChatQuizQuestion();
+    } else {
+        addProfChatMessage(
+            "Pour démarrer, écris simplement « OK », « continuer » ou « encore » 😄"
+        );
     }
 
     // En plein quiz → on traite la réponse
