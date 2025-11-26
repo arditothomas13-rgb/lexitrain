@@ -1,5 +1,5 @@
 // /api/dict-import.js
-import premiumWords from "../../premium100.json";
+import premiumWords from "./premium100.json";
 
 export default async function handler(req, res) {
     try {
@@ -20,12 +20,8 @@ export default async function handler(req, res) {
                 ? item.translations
                 : [];
 
-            const examplesEn = Array.isArray(item.examples)
-                ? item.examples
-                : [];
-
-            const examplesFr = Array.isArray(item.examples_fr)
-                ? item.examples_fr
+            const examples = Array.isArray(item.examples)
+                ? item.examples.map(src => ({ src, dest: "" })) // EN uniquement
                 : [];
 
             const synonyms = Array.isArray(item.synonyms)
@@ -36,15 +32,10 @@ export default async function handler(req, res) {
                 ? item.distractors
                 : [];
 
-            const examples = examplesEn.map((src, idx) => ({
-                src,
-                dest: examplesFr[idx] || ""
-            }));
-
             const definition = item.definition || "";
 
             const entry = {
-                label: item.label || "",       // optionnel
+                label: item.label || "",
                 definition,
                 translations,
                 examples,
@@ -53,7 +44,7 @@ export default async function handler(req, res) {
 
             const dictEntry = {
                 word,
-                lang: "en",       // pack premium anglais
+                lang: "en",
 
                 entries: [entry],
 
@@ -81,7 +72,7 @@ export default async function handler(req, res) {
             }
         }
 
-        // On stocke une wordlist EN propre : ["accept","achieve",...]
+        // Wordlist EN propre : ["accept","achieve",...]
         wordlist.sort((a, b) => a.localeCompare(b));
 
         await fetch(`${KV_URL}/set/wordlist:en`, {
