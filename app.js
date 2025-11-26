@@ -646,9 +646,59 @@ if (btnDicEn && btnDicFr) {
 // petit cache pour les index par lettre
 let dicLetterIndexMap = {};
 
+/**************************************************************
+ * DICO — Swipe gauche pour révéler la corbeille
+ **************************************************************/
+function attachSwipeToDicItem(item) {
+    let startX = 0;
+    let startY = 0;
+    let isMoving = false;
+
+    item.addEventListener("touchstart", (e) => {
+        const t = e.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+        isMoving = true;
+    });
+
+    item.addEventListener("touchmove", (e) => {
+        if (!isMoving) return;
+        const t = e.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+
+        // On ignore les mouvements quasi verticaux
+        if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy)) {
+            return;
+        }
+
+        if (dx < -30) {
+            // Swipe vers la gauche → on ouvre la corbeille
+            if (currentOpenDicItem && currentOpenDicItem !== item) {
+                currentOpenDicItem.classList.remove("show-delete");
+            }
+            item.classList.add("show-delete");
+            currentOpenDicItem = item;
+        } else if (dx > 30) {
+            // Swipe vers la droite → on referme
+            item.classList.remove("show-delete");
+            if (currentOpenDicItem === item) {
+                currentOpenDicItem = null;
+            }
+        }
+    });
+
+    item.addEventListener("touchend", () => {
+        isMoving = false;
+    });
+}
+
+// Petit cache pour les index par lettre (A-Z à droite)
+let dicLetterIndexMap = {};
+
 async function loadDictionary(q = "") {
     dictionaryList.innerHTML = "Chargement...";
-    alphabetScroller.innerHTML = "";
+    if (alphabetScroller) alphabetScroller.innerHTML = "";
     dicLetterIndexMap = {};
 
     const res = await fetch(`/api/list-words?lang=${dictionaryLang}&q=${q}`);
@@ -658,19 +708,30 @@ async function loadDictionary(q = "") {
 
     const words = Array.isArray(data.words) ? data.words : [];
 
-    // 1) Remplir la liste des mots
     words.forEach((w, idx) => {
         const item = document.createElement("div");
         item.className = "dic-item";
-        item.textContent = w;
 
-        // On garde la première occurrence par lettre pour l’A-Z
+        const inner = document.createElement("div");
+        inner.className = "dic-item-inner";
+        inner.textContent = w;
+
+        const delBtn = document.createElement("button");
+        delBtn.className = "dic-delete-btn";
+        delBtn.innerHTML = "🗑";
+
+        item.appendChild(inner);
+        item.appendChild(delBtn);
+        dictionaryList.appendChild(item);
+
+        // Index pour la barre A-Z
         const first = (w[0] || "").toUpperCase();
         if (first >= "A" && first <= "Z" && dicLetterIndexMap[first] === undefined) {
             dicLetterIndexMap[first] = idx;
         }
 
-        item.addEventListener("click", async () => {
+        // Clic sur le mot → ouvrir la fiche détaillée
+        inner.addEventListener("click", async () => {
             pageTranslate.style.display = "block";
             pageDictionary.style.display = "none";
 
@@ -701,49 +762,75 @@ async function loadDictionary(q = "") {
             renderSenseContent(entries[0]);
         });
 
-        dictionaryList.appendChild(item);
-    });
+        // Swipe gauche sur l'item pour révéler la corbeille
+        attachSwipeToDicItem(item);
 
-    // 2) Construire la barre A-Z à droite
-    const letters = Object.keys(dicLetterIndexMap).sort();
-    if (!letters.length) {
-        // aucun mot → pas de scroller
-        return;
-    }
+        // Clic sur la corbeille → suppression dans la base
+        delBtn.addEventListener("click", async (e) => {
+            e.stopPropagation();
 
-    letters.forEach(letter => {
-        const span = document.createElement("div");
-        span.className = "alpha-letter";
-        span.textContent = letter;
-
-        span.addEventListener("click", () => {
-            const idx = dicLetterIndexMap[letter];
-            const target = dictionaryList.children[idx];
-            if (target) {
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            const ok = confirm(`Supprimer « ${w} » de ton dictionnaire ?`);
+            if (!ok) {
+                item.classList.remove("show-delete");
+                return;
             }
-            showLetterPopup(letter);
-        });
 
-        alphabetScroller.appendChild(span);
+            try {
+                delBtn.disabled = true;
+
+                const resp = await fetch(
+                    `/api/delete-word?lang=${dictionaryLang}&word=${encodeURIComponent(w)}`,
+                    { method: "POST" }
+                );
+                const result = await resp.json();
+
+                if (!resp.ok || result.error) {
+                    throw new Error(result.error || "Erreur serveur");
+                }
+
+                // On recharge le dico pour mettre à jour la liste + A-Z
+                await loadDictionary(dictionarySearch.value.toLowerCase());
+            } catch (err) {
+                console.error("Erreur suppression mot:", err);
+                alert("Impossible de supprimer ce mot pour le moment.");
+                delBtn.disabled = false;
+            }
+        });
     });
+
+    // Construire la barre A-Z (si tu l'utilises)
+    if (alphabetScroller) {
+        const letters = Object.keys(dicLetterIndexMap).sort();
+        letters.forEach(letter => {
+            const span = document.createElement("div");
+            span.className = "alpha-letter";
+            span.textContent = letter;
+
+            span.addEventListener("click", () => {
+                const idx = dicLetterIndexMap[letter];
+                const target = dictionaryList.children[idx];
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+                if (letterPopup) {
+                    letterPopup.textContent = letter;
+                    letterPopup.style.display = "block";
+                    clearTimeout(showLetterPopup._timeout);
+                    showLetterPopup._timeout = setTimeout(() => {
+                        letterPopup.style.display = "none";
+                    }, 600);
+                }
+            });
+
+            alphabetScroller.appendChild(span);
+        });
+    }
 }
 
-
+// (Garde ton listener existant)
 dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
 });
-
-function showLetterPopup(letter) {
-    if (!letterPopup) return;
-    letterPopup.textContent = letter;
-    letterPopup.style.display = "block";
-
-    clearTimeout(showLetterPopup._timeout);
-    showLetterPopup._timeout = setTimeout(() => {
-        letterPopup.style.display = "none";
-    }, 600);
-}
 
 /**************************************************************
  * QUIZ — MODE PROFESSEUR (CHAT)
