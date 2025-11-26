@@ -420,6 +420,17 @@ async function translateWord(isSwap = false, cacheOnly = false) {
     showLoader();
 
     const data = await fetchWord(word, cacheOnly);
+   
+if (!data || data.error || !Array.isArray(data.entries) || data.entries.length === 0) {
+    hideLoader();
+    resultTitle.textContent = word;
+    resultBody.textContent = data && data.error
+        ? data.error
+        : "Aucune traduction trouvée pour ce mot.";
+    senseTabs.innerHTML = "";
+    senseContent.innerHTML = "";
+    return;
+}
 
     if (data.error) {
         resultTitle.textContent = "❌ Erreur";
