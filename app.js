@@ -543,18 +543,32 @@ if (btnDicEn && btnDicFr) {
 /**************************************************************
  * DICTIONARY
  **************************************************************/
+// petit cache pour les index par lettre
+let dicLetterIndexMap = {};
+
 async function loadDictionary(q = "") {
     dictionaryList.innerHTML = "Chargement...";
+    alphabetScroller.innerHTML = "";
+    dicLetterIndexMap = {};
 
     const res = await fetch(`/api/list-words?lang=${dictionaryLang}&q=${q}`);
     const data = await res.json();
 
     dictionaryList.innerHTML = "";
 
-    (data.words || []).forEach(w => {
+    const words = Array.isArray(data.words) ? data.words : [];
+
+    // 1) Remplir la liste des mots
+    words.forEach((w, idx) => {
         const item = document.createElement("div");
         item.className = "dic-item";
         item.textContent = w;
+
+        // On garde la première occurrence par lettre pour l’A-Z
+        const first = (w[0] || "").toUpperCase();
+        if (first >= "A" && first <= "Z" && dicLetterIndexMap[first] === undefined) {
+            dicLetterIndexMap[first] = idx;
+        }
 
         item.addEventListener("click", async () => {
             pageTranslate.style.display = "block";
@@ -573,7 +587,6 @@ async function loadDictionary(q = "") {
                 return;
             }
 
-            // On reconstruit des entries au bon format pour réutiliser l'UI existante
             const entries = Array.isArray(dic.entries) && dic.entries.length
                 ? dic.entries
                 : [{
@@ -590,11 +603,47 @@ async function loadDictionary(q = "") {
 
         dictionaryList.appendChild(item);
     });
+
+    // 2) Construire la barre A-Z à droite
+    const letters = Object.keys(dicLetterIndexMap).sort();
+    if (!letters.length) {
+        // aucun mot → pas de scroller
+        return;
+    }
+
+    letters.forEach(letter => {
+        const span = document.createElement("div");
+        span.className = "alpha-letter";
+        span.textContent = letter;
+
+        span.addEventListener("click", () => {
+            const idx = dicLetterIndexMap[letter];
+            const target = dictionaryList.children[idx];
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+            showLetterPopup(letter);
+        });
+
+        alphabetScroller.appendChild(span);
+    });
 }
+
 
 dictionarySearch.addEventListener("input", e => {
     loadDictionary(e.target.value.toLowerCase());
 });
+
+function showLetterPopup(letter) {
+    if (!letterPopup) return;
+    letterPopup.textContent = letter;
+    letterPopup.style.display = "block";
+
+    clearTimeout(showLetterPopup._timeout);
+    showLetterPopup._timeout = setTimeout(() => {
+        letterPopup.style.display = "none";
+    }, 600);
+}
 
 /**************************************************************
  * QUIZ — MODE PROFESSEUR (CHAT)
