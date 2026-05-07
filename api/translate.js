@@ -95,7 +95,7 @@ Return ONLY clean JSON. No comments. No extra text. No markdown backticks.`;
     // ------------------------------------------------------
     // CALL GEMINI
     // ------------------------------------------------------
-  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
     
     const response = await fetch(geminiUrl, {
       method: "POST",
