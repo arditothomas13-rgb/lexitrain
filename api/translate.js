@@ -1,5 +1,5 @@
 // ------------------------------------------------------
-//  LexiTrain — API translate.js (PRO VERSION FINAL)
+//  LexiTrain — API translate.js (GEMINI VERSION)
 //  • EN ⇄ FR
 //  • AI-powered dictionary (clean senses)
 //  • Auto-switch
@@ -16,11 +16,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing 'word' parameter" });
     }
 
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     const KV_URL   = process.env.KV_REST_API_URL;
     const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 
-    if (!OPENAI_API_KEY || !KV_URL || !KV_TOKEN) {
+    if (!GEMINI_API_KEY || !KV_URL || !KV_TOKEN) {
       return res.status(500).json({
         error: "Missing required environment variables."
       });
@@ -35,10 +35,9 @@ export default async function handler(req, res) {
       .trim();
 
     // ------------------------------------------------------
-    // PROMPT PREMIUM
+    // PROMPT
     // ------------------------------------------------------
-    const prompt = `
-You are a bilingual EN-FR dictionary engine (Oxford/Cambridge level).
+    const prompt = `You are a bilingual EN-FR dictionary engine (Oxford/Cambridge level).
 
 Input word: "${rawWord}"
 Normalized: "${word}"
@@ -51,19 +50,18 @@ Rules to follow strictly:
    - If unsure: choose the most natural/common usage.
 
 2) AUTO-SWITCH:
-   If detected_lang ≠ requested "from", set:
+   If detected_lang ≠ requested "${from}", set:
    "auto_switch": true
 
 3) SENSES:
    - Return ONLY senses belonging to the DETECTED language.
    - Do NOT mix languages.
-   - If English verb begins with “to ” → KEEP EXACT input.
+   - If English verb begins with "to " → KEEP EXACT input.
    - NEVER add "to" automatically.
 
 4) NO INVENTIONS:
    - No fake phrasal verbs
    - No rare/made-up meanings
-   - No transformations like "to to X"
 
 5) FORMAT STRICT JSON:
 {
@@ -92,42 +90,44 @@ Rules to follow strictly:
    "src" in detected_lang
    "dest" in the target language
 
-Return ONLY clean JSON. No comments. No extra text.
-`;
+Return ONLY clean JSON. No comments. No extra text. No markdown backticks.`;
 
     // ------------------------------------------------------
-    // CALL OPENAI
+    // CALL GEMINI
     // ------------------------------------------------------
-    const response = await fetch(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${OPENAI_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+    const response = await fetch(geminiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [{ text: prompt }]
+          }
+        ],
+        generationConfig: {
           temperature: 0.15,
-          max_tokens: 1000,
-          messages: [
-            { role: "system", content: "You output ONLY valid JSON. No explanations." },
-            { role: "user",   content: prompt }
-          ]
-        })
-      }
-    );
+          maxOutputTokens: 1000
+        }
+      })
+    });
 
     const rawJson = await response.json();
-    const raw = rawJson?.choices?.[0]?.message?.content || "{}";
+    const raw = rawJson?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+
+    // Nettoyer les backticks markdown si présents
+    const cleaned = raw.replace(/```json|```/g, "").trim();
 
     let parsed;
     try {
-      parsed = JSON.parse(raw);
+      parsed = JSON.parse(cleaned);
     } catch (err) {
       return res.status(500).json({
-        error: "Invalid JSON returned by GPT",
-        raw: raw
+        error: "Invalid JSON returned by Gemini",
+        raw: cleaned
       });
     }
 
@@ -138,7 +138,6 @@ Return ONLY clean JSON. No comments. No extra text.
       parsed.entries = [];
     }
 
-    // Clean entries (supprime vide, force array, etc.)
     parsed.entries = parsed.entries.map(e => ({
       label: e.label || "",
       definition: e.definition || "",
@@ -152,7 +151,6 @@ Return ONLY clean JSON. No comments. No extra text.
     // ------------------------------------------------------
     try {
       const cacheKey = `${word}_${from}_${to}`;
-
       await fetch(`${KV_URL}/set/${cacheKey}`, {
         method: "POST",
         headers: {
@@ -178,17 +176,12 @@ Return ONLY clean JSON. No comments. No extra text.
 
       let list = [];
       if (existing?.result) {
-        try {
-          list = JSON.parse(existing.result);
-        } catch {}
+        try { list = JSON.parse(existing.result); } catch {}
       }
 
-      // Ajoutez mot normalisé
       const normalized = word.toLowerCase();
-
       if (!list.includes(normalized)) {
         list.push(normalized);
-
         await fetch(`${KV_URL}/set/${listKey}`, {
           method: "POST",
           headers: {
@@ -198,7 +191,6 @@ Return ONLY clean JSON. No comments. No extra text.
           body: JSON.stringify(list)
         });
       }
-
     } catch (err) {
       console.error("KV WORDLIST SAVE ERROR:", err);
     }
