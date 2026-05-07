@@ -116,7 +116,8 @@ Return ONLY clean JSON. No comments. No extra text. No markdown backticks.`;
     });
 
     const rawJson = await response.json();
-    const raw = rawJson?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
+   console.error("GEMINI RESPONSE:", JSON.stringify(rawJson));
+const raw = rawJson?.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
     // Nettoyer les backticks markdown si présents
     const cleaned = raw.replace(/```json|```/g, "").trim();
